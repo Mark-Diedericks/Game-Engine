@@ -440,6 +440,23 @@
     <ClInclude Include="src\Utils\ImageUtil.h" />
     <ClInclude Include="src\Utils\TimeUtil.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Community2\VC\Tools\MSVC\14.10.25017\include\iosfwd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dependencies\Box2D\Box2D.vcxproj">
+      <Project>{bce9869c-cde3-4935-99ab-4522493ce0b3}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Dependencies\FreeImage\FreeImage.vcxproj">
+      <Project>{6f2ff135-e343-4138-a6fb-2d1f2540a3f8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Dependencies\FreeType\FreeType.vcxproj">
+      <Project>{1b0bc2c5-1a09-4017-bdf5-9f9c1718bfe7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Dependencies\gorilla-audio\gorilla-audio.vcxproj">
+      <Project>{e9a0f826-3688-4461-8e49-7ccc543f9e40}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
