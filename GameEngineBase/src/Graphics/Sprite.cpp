@@ -28,7 +28,7 @@ namespace gebase { namespace graphics {
 		setColor(color);
 	}
 
-	Sprite::Sprite(float x, float y, float width, float height, Texture2D* texture) : Renderable2D(math::Vector3f(x, y, 0.0f), math::Vector2f(width, height), 0xffffffff)
+	Sprite::Sprite(float x, float y, float width, float height, Texture* texture) : Renderable2D(math::Vector3f(x, y, 0.0f), math::Vector2f(width, height), 0xffffffff)
 	{
 		m_Texture = texture;
 	}

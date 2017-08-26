@@ -47,10 +47,10 @@ namespace gebase {
 	}
 
 	void SystemMemoryInfo::Log() {
-		std::cout << "Avaliable Physical Memory: " << MemoryManager::BytesToString(apm) << std::endl;
-		std::cout << "Total Physical Memory: " << MemoryManager::BytesToString(tpm) << std::endl;
+		std::cout << "Avaliable Physical Memory: " << MemoryManager::BytesToString(apm).c_str() << std::endl;
+		std::cout << "Total Physical Memory: " << MemoryManager::BytesToString(tpm).c_str() << std::endl;
 
-		std::cout << "Avaliable Virtual Memory: " << MemoryManager::BytesToString(avm) << std::endl;
-		std::cout << "Total Virtual Memory: " << MemoryManager::BytesToString(tvm) << std::endl;
+		std::cout << "Avaliable Virtual Memory: " << MemoryManager::BytesToString(avm).c_str() << std::endl;
+		std::cout << "Total Virtual Memory: " << MemoryManager::BytesToString(tvm).c_str() << std::endl;
 	}
 }

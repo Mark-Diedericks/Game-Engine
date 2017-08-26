@@ -14,7 +14,7 @@ namespace gebase { namespace graphics {
 		Sprite(float x, float y, Texture2D* texture);
 		Sprite(float x, float y, float width, float height, uint color);
 		Sprite(float x, float y, float width, float height, const math::Vector4f& color);
-		Sprite(float x, float y, float width, float height, Texture2D* texture);
+		Sprite(float x, float y, float width, float height, Texture* texture);
 
 		void setUV(const std::vector<math::Vector2f>& UVs);
 		

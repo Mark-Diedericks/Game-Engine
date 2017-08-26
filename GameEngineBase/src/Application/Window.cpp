@@ -3,8 +3,10 @@
 #include "Graphics/Context.h"
 #include "Embedded/Embedded.h"
 #include "Audio/SoundManager.h"
+
 #include "Graphics/Renderer/Renderer.h"
 #include "Graphics/Texture/TextureManager.h"
+#include "Graphics/Font/FontManager.h"
 
 #include <FreeImage.h>
 
@@ -22,7 +24,7 @@ namespace gebase {
 			return;
 		}
 
-		FontManager::SetScale(math::Vector2f(m_Properties.width / 32.0f, m_Properties.height / 18.0f));
+		FontManager::setScale(math::Vector2f(m_Properties.width / 32.0f, m_Properties.height / 18.0f));
 		FontManager::Add(new Font("SourceSansPro", DEFAULT_FONT, DEFAULT_FONT_SIZE, 32));
 
 		FreeImage_Initialise();
@@ -33,7 +35,7 @@ namespace gebase {
 
 	Window::~Window()
 	{
-		FontManager::Destroy();
+		FontManager::Clean();
 		TextureManager::Clean();
 		SoundManager::Destroy();
 	}

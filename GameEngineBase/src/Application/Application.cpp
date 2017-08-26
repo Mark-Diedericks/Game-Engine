@@ -19,15 +19,15 @@ namespace gebase {
 		System::Create();
 		PlatformInit();
 
-		DebugMenu::Create();
+		DebugMenu::Init();
 		m_DebugLayer = genew DebugLayer();
-		m_DebugLayer->Create();
+		m_DebugLayer->Init();
 	}
 
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.push_back(layer);
-		layer->Create();
+		layer->Init();
 	}
 
 	Layer* Application::PopLayer()
@@ -54,7 +54,7 @@ namespace gebase {
 	void Application::PushOverlay(Layer* layer)
 	{
 		m_OverlayStack.push_back(layer);
-		layer->Create();
+		layer->Init();
 	}
 
 	Layer* Application::PopOverlay()
@@ -104,13 +104,13 @@ namespace gebase {
 
 	void Application::OnTick()
 	{
-		m_DebugLayer->OnTick();
-
-		for (uint i = 0; i < m_OverlayStack.size(); i++)
-			m_OverlayStack[i]->OnTick();
-
-		for (uint i = 0; i < m_LayerStack.size(); i++)
-			m_LayerStack[i]->OnTick();
+		//m_DebugLayer->OnTick();
+		//
+		//for (uint i = 0; i < m_OverlayStack.size(); i++)
+		//	m_OverlayStack[i]->OnTick();
+		//
+		//for (uint i = 0; i < m_LayerStack.size(); i++)
+		//	m_LayerStack[i]->OnTick();
 	}
 
 	void Application::OnUpdate(const float& delta)
@@ -144,6 +144,7 @@ namespace gebase {
 			debugLayer->OnRender();
 	}
 
+	
 	String Application::getBuildConfig()
 	{
 #if defined(GE_DEBUG)

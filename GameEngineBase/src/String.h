@@ -7,8 +7,9 @@
 
 #define STRING_FORMAT_BUFFER_SIZE 10240
 
+typedef std::string String;
+
 namespace gebase {
-	typedef std::string String;
 
 	class GE_API StringFormat {
 	private:

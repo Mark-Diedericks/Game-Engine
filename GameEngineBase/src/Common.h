@@ -19,3 +19,9 @@
 
 #define METHOD_1(x) std::bind(x, this, std::placeholders::_1)
 #define METHOD(x) METHOD_1(x)
+
+#ifdef GE_DEBUG
+	#define GE_DEBUG_METHOD_V(x) x;
+#else
+	#define GE_DEBUG_METHOD_V(x) x {}
+#endif

@@ -11,7 +11,7 @@ namespace gebase {
 		void CALLBACK FileIOCompletionRoutine(DWORD dwErrCode, DWORD dwNumBytesTransfered, LPOVERLAPPED lpOverlapped) { }
 
 		static HANDLE OpenFileForReading(const String& path) {
-			return CreateFile(path.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, NULL);
+			return CreateFile((LPCWSTR)path.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, NULL);
 		}
 
 		static int64 GetFileSizeInternal(HANDLE file) {
@@ -29,7 +29,7 @@ namespace gebase {
 	using namespace Win32;
 
 	bool FileSystem::FileExists(const String& path) {
-		DWORD res = GetFileAttributes(path.c_str());
+		DWORD res = GetFileAttributes((LPCWSTR)path.c_str());
 		return !(res == INVALID_FILE_ATTRIBUTES && GetLastError() == ERROR_FILE_NOT_FOUND);
 	}
 
@@ -97,7 +97,7 @@ namespace gebase {
 	}
 
 	bool FileSystem::WriteFileBytes(const String& path, byte* buffer) {
-		HANDLE file = CreateFile(path.c_str(), GENERIC_WRITE, NULL, NULL, CREATE_NEW | OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+		HANDLE file = CreateFile((LPCWSTR)path.c_str(), GENERIC_WRITE, NULL, NULL, CREATE_NEW | OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
 		if (file == INVALID_HANDLE_VALUE)
 			return false;

@@ -4,6 +4,7 @@
 #include "Input/InputManager.h"
 #include "Events/WindowEvent.h"
 #include "Graphics/Renderer/Renderer.h"
+#include "Graphics/Font/FontManager.h"
 
 #define NOMINMAX
 #undef NOGDI
@@ -47,11 +48,11 @@ namespace gebase {
 	{
 		hInstance = (HINSTANCE)&__ImageBase;
 
-		WNDCLASS wndClass = {};
+		WNDCLASSA wndClass = {};
 		wndClass.hInstance = hInstance;
 		wndClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 		wndClass.lpfnWndProc = (WNDPROC)WndProc;
-		wndClass.lpszClassName = "Game Engine Base Window - Win32";
+		wndClass.lpszClassName = (LPCSTR)"Game Engine Base Window - Win32";
 		wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 		wndClass.hIcon = LoadIcon(NULL, IDI_WINLOGO);
 
@@ -128,14 +129,14 @@ namespace gebase {
 		m_Title = title;
 #endif
 
-		SetWindowText(hWnd, m_Title.c_str());
+		SetWindowText(hWnd, (LPCWSTR)m_Title.c_str());
 	}
 
 	void ResizeCallback(gebase::Window* window, int32 width, int32 height)
 	{
 		window->m_Properties.width = width;
 		window->m_Properties.height = height;
-		FontManager::SetScale(math::Vector2f((float)width / 32.0f, (float)height / 18.0f));
+		FontManager::setScale(math::Vector2f((float)width / 32.0f, (float)height / 18.0f));
 
 		if (window->m_EventCallback)
 			window->m_EventCallback(events::WindowResizeEvent((uint)width, (uint)height));
