@@ -21,6 +21,6 @@ namespace gebase { namespace graphics {
 		math::Matrix4f transform;
 		Shader* shader;
 		std::vector<RendererUniform> uniforms;
-	}
+	};
 
 } }

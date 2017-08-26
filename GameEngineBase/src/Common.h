@@ -1,15 +1,11 @@
 #pragma once
 #pragma warning (disable:4251)
 
-#define GE_DEBUG
-#define GE_NO_CURSOR NULL
-
-//Determine whether or not to create DLL
 #ifdef GE_PLATFORM_WINDOWS
 	#ifdef GE_CORE_DLL
 		#define GE_API _declspec(dllexport)
 	#else
-		#define GE_API _declspec(dllexport)
+		#define GE_API _declspec(dllimport)
 	#endif
 #else
 	#define GE_API
