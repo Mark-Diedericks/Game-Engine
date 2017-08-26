@@ -457,6 +457,13 @@
       <Project>{e9a0f826-3688-4461-8e49-7ccc543f9e40}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Graphics\Shader\default\BasicLight.shader" />
+    <None Include="src\Graphics\Shader\default\Debug.shader" />
+    <None Include="src\Graphics\Shader\default\gles\Default.shader" />
+    <None Include="src\Graphics\Shader\default\gles\Simple.shader" />
+    <None Include="src\Graphics\Shader\default\Simple.shader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
