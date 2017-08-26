@@ -17,8 +17,8 @@ namespace gebase { namespace graphics {
 	public:
 		Camera(const math::Matrix4f& projectionMatrix);
 
-		virtual void Focus();
-		virtual void Update(float delta);
+		virtual void Focus() { }
+		virtual void Update(float delta) { }
 
 		inline const math::Vector3f& getPosition() const { return m_Position; }
 		inline void setPosition(const math::Vector3f& position) { m_Position = position; }

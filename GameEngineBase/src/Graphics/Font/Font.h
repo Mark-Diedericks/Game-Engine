@@ -39,7 +39,7 @@ namespace gebase { namespace graphics {
 		inline const String& getName() const { return m_Name; }
 		inline const String& getFilepath() const { return m_Filepath; }
 
-		inline ftgl::texture_font_t* getTFFont() const { return m_FTFont; }
+		inline ftgl::texture_font_t* getFTFont() const { return m_FTFont; }
 		inline float getFontSize() const { return m_Size; }
 
 		float getWidth(const String& text) const;

@@ -22,5 +22,4 @@ namespace gebase { namespace graphics {
 		return thisS;
 	}
 
-
 } }

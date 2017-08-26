@@ -5,21 +5,37 @@
 #include "FileSystem.h"
 
 namespace gebase {
-	VirtualFileSystem* VirtualFileSystem::m_Instance = nullptr;
+	VirtualFileSystem* VirtualFileSystem::s_Instance = nullptr;
 
 	void VirtualFileSystem::Create() {
-		m_Instance = genew VirtualFileSystem();
+		s_Instance = genew VirtualFileSystem();
 	}
 
 	void VirtualFileSystem::Destroy() {
-		gedel m_Instance;
+		gedel s_Instance;
 	}
 
 	void VirtualFileSystem::Mount(const String& virtualPath, const String& actualPath) {
+		if (!s_Instance)
+		{
+			std::cout << "[VirtualFileSystem] Mount() - Instance is null." << std::endl;
+#ifdef GE_DEBUG
+			__debugbreak();
+#endif
+		}
+
 		m_MountPoints[virtualPath].push_back(actualPath);
 	}
 
 	void VirtualFileSystem::Unmount(const String& path) {
+		if (!s_Instance)
+		{
+			std::cout << "[VirtualFileSystem] Unount() - Instance is null." << std::endl;
+#ifdef GE_DEBUG
+			__debugbreak();
+#endif
+		}
+		
 		m_MountPoints[path].clear();
 	}
 

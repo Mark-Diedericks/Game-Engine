@@ -1,5 +1,6 @@
 #include "Pch.h"
 #include "Group.h"
+#include "Graphics/Renderer/Renderer2D.h"
 
 namespace gebase { namespace graphics {
 

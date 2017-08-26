@@ -1,8 +1,10 @@
 #pragma once
 
-#include "Common.h"
 #include <string>
-#include <Types.h>
+#include <xstring>
+#include "Common.h"
+#include "Types.h"
+#include "String.h"
 
 #ifdef LoadImage
 #undef LoadImage

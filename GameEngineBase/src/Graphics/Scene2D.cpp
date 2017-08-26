@@ -2,6 +2,7 @@
 #include "Scene2D.h"
 
 #include "Application/Application.h"
+#include "Debug/DebugRenderer.h"
 
 namespace gebase
 {

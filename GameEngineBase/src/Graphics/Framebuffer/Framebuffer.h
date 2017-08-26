@@ -2,6 +2,7 @@
 
 #include "Common.h"
 #include "Graphics/Texture/Texture.h"
+#include "Backend/API/APIFramebuffer.h"
 
 namespace gebase { namespace graphics {
 

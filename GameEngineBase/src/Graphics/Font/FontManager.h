@@ -15,7 +15,7 @@ namespace gebase { namespace graphics {
 		FontManager() { }
 	public:
 		static void setScale(const math::Vector2f& scale);
-		static inline const math::Vector2f& getScale() { return m_Scale; }
+		static inline const math::Vector2f& getScale() { return s_Scale; }
 
 		static void Clean();
 		static void Add(Font* font);

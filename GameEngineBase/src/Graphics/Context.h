@@ -30,7 +30,7 @@ namespace gebase { namespace graphics {
 
 		static RenderAPI getRenderAPI() { return s_RenderAPI; }
 		static void setRenderAPI(RenderAPI api) { s_PreviousRenderAPI = s_RenderAPI;  s_RenderAPI = api; }
-		static void revertRenderAPI() { s_RenderAPI = s_PreviousRenderAPI != RenderAPI::NONE ?s_PreviousRenderAPI : s_DefaultRenderAPI; }
+		static void revertRenderAPI() { s_RenderAPI = s_PreviousRenderAPI != RenderAPI::NONE ? s_PreviousRenderAPI : s_DefaultRenderAPI; }
 	};
 
 } }

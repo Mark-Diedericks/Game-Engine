@@ -241,7 +241,6 @@
     <ClCompile Include="src\Graphics\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Graphics\Mesh\MeshFactory.cpp" />
     <ClCompile Include="src\Graphics\Mesh\Model.cpp" />
-    <ClCompile Include="src\Graphics\Mesh\ObjModel.cpp" />
     <ClCompile Include="src\Graphics\PostEffect\PostEffects.cpp" />
     <ClCompile Include="src\Graphics\PostEffect\PostEffectsPass.cpp" />
     <ClCompile Include="src\Graphics\Renderable2D.cpp" />
@@ -327,7 +326,6 @@
     <ClInclude Include="src\Backend\D3D\11\DX11TextureHandle.h" />
     <ClInclude Include="src\Backend\D3D\11\DX11VertexArray.h" />
     <ClInclude Include="src\Backend\D3D\11\DX11VertexBuffer.h" />
-    <ClInclude Include="src\Backend\D3D\12\DX12Common.h" />
     <ClInclude Include="src\Backend\D3D\D3DTypes.h" />
     <ClInclude Include="src\Backend\GL\GLCommon.h" />
     <ClInclude Include="src\Backend\GL\GLContext.h" />

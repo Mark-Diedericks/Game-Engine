@@ -18,7 +18,7 @@ namespace gebase { namespace graphics { namespace ui {
 
 	void Button::OnRender(Renderer2D& renderer)
 	{
-		float hp = debug::DebugMenu::GetSettings().horizontalPadding * 0.5f;
+		float hp = debug::DebugMenu::getSettings().horizontalPadding * 0.5f;
 
 		renderer.DrawRect(m_Bounds);
 		renderer.FillRect(m_Bounds, m_State == ButtonState::PRESSED ? 0xCFBBBBBB : 0xCF5F5F5F );

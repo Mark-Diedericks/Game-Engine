@@ -6,7 +6,8 @@
 namespace gebase {
 	class GE_API VirtualFileSystem {
 	private:
-		static VirtualFileSystem* m_Instance;
+		static VirtualFileSystem* s_Instance;
+
 		std::unordered_map<String, std::vector<String>> m_MountPoints;
 	public:
 		void Mount(const String& virtualPath, const String& actualPath);
@@ -23,6 +24,6 @@ namespace gebase {
 		static void Create();
 		static void Destroy();
 
-		inline static VirtualFileSystem* Get() { return m_Instance; }
+		inline static VirtualFileSystem* Get() { return s_Instance; }
 	};
 }

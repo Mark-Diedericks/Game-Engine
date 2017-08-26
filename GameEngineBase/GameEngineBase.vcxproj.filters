@@ -258,9 +258,6 @@
     <ClCompile Include="src\Graphics\Mesh\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\Mesh\ObjModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Graphics\PostEffect\PostEffects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -531,9 +528,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Backend\D3D\11\DX11VertexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\D3D\12\DX12Common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Backend\D3D\D3DTypes.h">

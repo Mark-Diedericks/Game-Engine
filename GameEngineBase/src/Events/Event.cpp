@@ -7,7 +7,7 @@ namespace gebase { namespace events {
 
 	String Event::ToString() const
 	{
-		return String("Event: ").append(TypeToString(m_Type));
+		return "Event: " + TypeToString(m_Type);
 	}
 
 	String Event::TypeToString(EventType type)
