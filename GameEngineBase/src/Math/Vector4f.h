@@ -1,0 +1,149 @@
+#pragma once
+
+#include <cmath>
+#include "Common.h"
+
+namespace gebase { namespace math {
+	class GE_API Vector4f {
+	public:
+		float x, y, z, w;
+	public:
+		inline Vector4f() : x(0), y(0), z(0), w(0) {}
+		Vector4f(const float& ix, const float& iy, const float& iz, const float& iw);
+		float getLength() const;
+		float dot(const Vector4f& vec4f) const;
+		Vector4f normalize();
+		Vector4f lerp(const Vector4f& vec4f, const float& factor) const;
+		Vector4f refelect(const Vector4f& normal) const;
+
+		inline void operator =(const float& f) {
+			this->x = f;
+			this->y = f;
+			this->z = f;
+			this->w = f;
+		}
+
+		inline void operator =(const Vector4f& vec4f) {
+			this->x = vec4f.x;
+			this->y = vec4f.y;
+			this->z = vec4f.z;
+			this->w = vec4f.w;
+		}
+
+		inline bool operator ==(const Vector4f& vec4f) const {
+			return this->x == vec4f.x && this->y == vec4f.y && this->z == vec4f.z && this->w == vec4f.w;
+		}
+
+		inline Vector4f& operator +=(const float& f) {
+			this->x += f;
+			this->y += f;
+			this->z += f;
+			this->w += f;
+			return *this;
+		}
+
+		inline Vector4f& operator +=(const Vector4f& vec4f) {
+			this->x += vec4f.x;
+			this->y += vec4f.y;
+			this->z += vec4f.z;
+			this->w += vec4f.w;
+			return *this;
+		}
+
+		inline Vector4f& operator -=(const float& f) {
+			this->x -= f;
+			this->y -= f;
+			this->z -= f;
+			this->w -= f;
+			return *this;
+		}
+
+		inline Vector4f& operator -=(const Vector4f& vec4f) {
+			this->x -= vec4f.x;
+			this->y -= vec4f.y;
+			this->z -= vec4f.z;
+			this->w -= vec4f.w;
+			return *this;
+		}
+
+		inline Vector4f& operator *=(const float& f) {
+			this->x *= f;
+			this->y *= f;
+			this->z *= f;
+			this->w *= f;
+			return *this;
+		}
+
+		inline Vector4f& operator *=(const Vector4f& vec4f) {
+			this->x *= vec4f.x;
+			this->y *= vec4f.y;
+			this->z *= vec4f.z;
+			this->w *= vec4f.w;
+			return *this;
+		}
+
+		inline Vector4f& operator /=(const float& f) {
+			this->x /= f;
+			this->y /= f;
+			this->z /= f;
+			this->w /= f;
+			return *this;
+		}
+
+		inline Vector4f& operator /=(const Vector4f& vec4f) {
+			this->x /= vec4f.x;
+			this->y /= vec4f.y;
+			this->z /= vec4f.z;
+			this->w /= vec4f.w;
+			return *this;
+		}
+
+		inline Vector4f& operator +(const float& f) const {
+			Vector4f res(x + f, y + f, z + f, w + f);
+			return res;
+		}
+
+		inline Vector4f& operator +(const Vector4f& vec4f) const {
+			Vector4f res(x + vec4f.x, y + vec4f.y, z + vec4f.z, w + vec4f.w);
+			return res;
+		}
+
+		inline Vector4f& operator -(const float& f) const {
+			Vector4f res(x - f, y - f, z - f, w - f);
+			return res;
+		}
+
+		inline Vector4f& operator -(const Vector4f& vec4f) const {
+			Vector4f res(x - vec4f.x, y - vec4f.y, z - vec4f.z, w - vec4f.w);
+			return res;
+		}
+
+		inline Vector4f& operator *(const float& f) const {
+			Vector4f res(x * f, y * f, z * f, w * f);
+			return res;
+		}
+
+		inline Vector4f& operator *(const Vector4f& vec4f) const {
+			Vector4f res(x * vec4f.x, y * vec4f.y, z * vec4f.z, w * vec4f.w);
+			return res;
+		}
+
+		inline Vector4f& operator /(const float& f) const {
+			Vector4f res(x / f, y / f, z / f, w / f);
+			return res;
+		}
+
+		inline Vector4f& operator /(const Vector4f& vec4f) const {
+			Vector4f res(x / vec4f.x, y / vec4f.y, z / vec4f.z, w / vec4f.w);
+			return res;
+		}
+
+		inline Vector4f& operator *(const Matrix4f& mat4f) const {
+			return Vector4f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w * w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w * w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w * w, mat4f.rows[3].x * x + mat4f.rows[3].y * y + mat4f.rows[3].z * z + mat4f.rows[3].w * w);
+		}
+
+		inline Vector4f& Mul(const Matrix4f& mat4f) const {
+			return Vector4f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w * w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w * w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w * w, mat4f.rows[3].x * x + mat4f.rows[3].y * y + mat4f.rows[3].z * z + mat4f.rows[3].w * w);
+		}
+	};
+} }
