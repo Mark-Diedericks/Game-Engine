@@ -20,7 +20,7 @@ namespace gebase {
 	{
 		if (!Create())
 		{
-			std::cout << "Failed to initialize window base." << std::endl;
+			std::cout << "[Window] Window() - Failed to initialize window base." << std::endl;
 			return;
 		}
 
@@ -44,7 +44,7 @@ namespace gebase {
 	{
 		if (!PlatformInit())
 		{
-			std::cout << "Failed the platform initializatoin." << std::endl;
+			std::cout << "[Window] Create() - Failed the platform initialization." << std::endl;
 			return false;
 		}
 

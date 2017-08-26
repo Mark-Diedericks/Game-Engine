@@ -7,13 +7,9 @@ namespace gebase { namespace entity { namespace component {
 	
 	class GE_API MeshComponent : public Component
 	{
-	private:
-		//gebase::graphics::Mesh* m_Mesh;
 	public:
-		//MeshComponent(gebase::graphics::Mesh* mesh);
-
-		//inline void setMesh(gebase::graphics::Mesh* mesh) { m_Mesh = mesh; }
-		//inline gebase::graphics::Mesh* getMesh() { return m_Mesh; }
+		gebase::graphics::Mesh* mesh;
+		MeshComponent(gebase::graphics::Mesh* mesh);
 
 		static ComponentType* getStaticType()
 		{

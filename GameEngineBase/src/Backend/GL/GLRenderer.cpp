@@ -20,9 +20,9 @@ namespace gebase { namespace graphics { namespace API {
 
 		std::cout << "-----------------------------------" << std::endl;
 		std::cout << "               OPENGL              " << std::endl;
-		std::cout << "		" << glGetString(GL_VERSION) << std::endl;
-		std::cout << "		" << glGetString(GL_VENDOR) << std::endl;
-		std::cout << "		" << glGetString(GL_RENDERER) << std::endl;
+		std::cout << "		" << (const char*)glGetString(GL_VERSION) << std::endl;
+		std::cout << "		" << (const char*)glGetString(GL_VENDOR) << std::endl;
+		std::cout << "		" << (const char*)glGetString(GL_RENDERER) << std::endl;
 		std::cout << "-----------------------------------" << std::endl;
 
 		//TODO - API INDEPENDENT
@@ -66,7 +66,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	void GLRenderer::setBlendEquationInternal(RendererBlendEquation blendEquation)
 	{
-		std::cout << "[GLRenderer] BLEND EQUATION NOT IMPLEMENTED" << std::endl;
+		std::cout << "[GLRenderer] setBlendEquationInternal() - Blend equation setting not implemented." << std::endl;
 #ifdef GE_DEBUG
 		__debugbreak();
 #endif

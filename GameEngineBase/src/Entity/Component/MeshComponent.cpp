@@ -4,6 +4,9 @@
 
 namespace gebase { namespace entity { namespace component {
 
-	//MeshComponent::MeshComponent(gebase::graphics::Mesh* mesh) : m_Mesh(mesh) {}
+	MeshComponent::MeshComponent(gebase::graphics::Mesh* m) : mesh(m) 
+	{
+		
+	}
 
 } } }

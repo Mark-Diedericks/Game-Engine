@@ -3,6 +3,9 @@
 
 namespace gebase { namespace entity { namespace component {
 
-	TransformComponent::TransformComponent(const math::Matrix4f& transform) : transform(transform) {}
+	TransformComponent::TransformComponent(const math::Matrix4f& t) : transform(t) 
+	{
+		
+	}
 
 } } }

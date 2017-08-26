@@ -38,7 +38,7 @@ namespace gebase { namespace graphics {
 
 				if (!API::APIShader::TryCompileFromFile({ name, path, path, path, path }, error))
 				{
-					std::cout << "[ShaderManager] Reload(String) - TryCompileFromFile has failed." << std::endl;
+					std::cout << "[ShaderManager] Reload() - TryCompileFromFile has failed." << std::endl;
 				}
 				else
 				{
@@ -50,7 +50,7 @@ namespace gebase { namespace graphics {
 			}
 		}
 
-		std::cout << "[ShaderManager] Reload(String) - Could not find the shader." << std::endl;
+		std::cout << "[ShaderManager] Reload() - Could not find the shader." << std::endl;
 	}
 
 	void ShaderManager::Reload(const Shader* shader)
@@ -69,7 +69,7 @@ namespace gebase { namespace graphics {
 			}
 		}
 
-		std::cout << "[ShaderManager] Reload(Shader) - Could not find the shader." << std::endl;
+		std::cout << "[ShaderManager] Reload() - Could not find the shader." << std::endl;
 	}
 
 } }

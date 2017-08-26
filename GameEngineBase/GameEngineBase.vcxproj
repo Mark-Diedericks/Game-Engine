@@ -286,6 +286,7 @@
     <ClCompile Include="src\System\MemoryManager.cpp" />
     <ClCompile Include="src\System\System.cpp" />
     <ClCompile Include="src\System\VirtualFileSystem.cpp" />
+    <ClCompile Include="src\Utils\FileUtil.cpp" />
     <ClCompile Include="src\Utils\ImageUtil.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -58,7 +58,7 @@ namespace gebase {
 
 		if (!RegisterClassA(&wndClass))
 		{
-			std::cout << "Could not register the Win32 Window Class." << std::endl;
+			std::cout << "[Win32Window] PlatformInit() - Could not register the Win32 Window Class." << std::endl;
 			return false;
 		}
 
@@ -69,7 +69,7 @@ namespace gebase {
 
 		if (!hWnd)
 		{
-			std::cout << "Failed to create the window handle." << std::endl;
+			std::cout << "[Win32Window] PlatformInit() - Failed to create the window handle." << std::endl;
 			return false;
 		}
 
@@ -83,13 +83,13 @@ namespace gebase {
 		{
 			if (!SetPixelFormat(hDc, pf, &pfd))
 			{
-				std::cout << "Failed to set the pixel format." << std::endl;
+				std::cout << "[Win32Window] PlatformInit() - Failed to set the pixel format." << std::endl;
 				return false;
 			}
 		}
 		else
 		{
-			std::cout << "Failed to choose the pixel format." << std::endl;
+			std::cout << "[Win32Window] PlatformInit() - Failed to choose the pixel format." << std::endl;
 			return false;
 		}
 

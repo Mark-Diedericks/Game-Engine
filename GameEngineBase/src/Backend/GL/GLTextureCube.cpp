@@ -54,7 +54,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	uint GLTextureCube::LoadFromSingleFile(const byte* pixels, uint mbits)
 	{
-		std::cout << "[GLTextureCube] Load from single file is not implemented" << std::endl;
+		std::cout << "[GLTextureCube] LoadFromSingleFile() - Load from single file is not implemented" << std::endl;
 
 #ifdef GE_DEBUG
 		__debugbreak();

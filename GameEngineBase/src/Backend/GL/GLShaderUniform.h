@@ -50,7 +50,7 @@ namespace gebase { namespace graphics { namespace API {
 		inline const ShaderStruct& getShaderUniformStruct() const { 
 			if (m_Struct == nullptr) 
 			{ 
-				std::cout << "ShaderStruct is null" << std::endl; 
+				std::cout << "[GLShaderUniform] getShaderUniformStruct() - ShaderStruct is null." << std::endl; 
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif

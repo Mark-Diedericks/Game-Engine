@@ -13,14 +13,14 @@ namespace gebase { namespace audio {
 		
 		if (split.size() < 2)
 		{
-			std::cout << "Invalid sound file name '" << m_FileName << "'." << std::endl;
+			std::cout << "Invalid sound file name '" << m_FileName.c_str() << "'." << std::endl;
 			return;
 		}
 
 		m_Sound = gau_load_sound_file(m_FileName.c_str(), split.back().c_str());
 
 		if (m_Sound == nullptr)
-			std::cout << "Could not load sound file '" << m_FileName << "'." << std::endl;
+			std::cout << "Could not load sound file '" << m_FileName.c_str() << "'." << std::endl;
 	}
 
 	Sound::~Sound()

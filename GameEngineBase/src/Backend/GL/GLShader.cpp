@@ -254,7 +254,7 @@ namespace gebase { namespace graphics { namespace API {
 
 				if (!s)
 				{
-					std::cout << "[GLShader] Error: Shader Struct (Parse Uniform)" << std::endl;
+					std::cout << "[GLShader] ParseUniform() - Shader Struct parsing is not implemented" << std::endl;
 #ifdef GE_DEBUG
 					__debugbreak();
 #endif
@@ -491,7 +491,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	void GLShader::ValidateUniforms()
 	{
-		std::cout << "[GLShader] ValidateUniforms - Not implemented" << std::endl;
+		std::cout << "[GLShader] ValidateUniforms() - Not implemented" << std::endl;
 	}
 
 	GLint GLShader::getUniformLocation(const String& name)

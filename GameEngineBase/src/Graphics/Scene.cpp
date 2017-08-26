@@ -5,7 +5,7 @@
 #include "Renderer/Renderer3D.h"
 #include "Camera/FPSCamera.h"
 #include "Camera/MayaCamera.h"
-
+#include "Debug/DebugRenderer.h"
 #include "System/Memory.h"
 
 namespace gebase {
@@ -74,7 +74,7 @@ namespace gebase {
 		renderer.BeginScene(camera);
 
 		for (uint i = 0; i < m_LightSetupStack.size(); i++)
-			renderer.SubmitLightSetup(m_LightSetupStack[i]);
+			renderer.SubmitLightSetup(*m_LightSetupStack[i]);
 
 		for (entity::Entity* entity : m_Entities)
 		{
@@ -91,7 +91,7 @@ namespace gebase {
 #endif
 				}
 
-				renderer.Submit(mesh->mesh, transform->transform);
+				renderer.SubmitMesh(mesh->mesh, transform->transform);
 			}
 		}
 

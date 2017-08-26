@@ -32,7 +32,7 @@ namespace gebase {
 
 		if (!fib)
 		{
-			std::cout << "Could not load image: " << filename << std::endl;
+			std::cout << "[ImageUtil] LoadImage() - Could not load image: " << filename << std::endl;
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif

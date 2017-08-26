@@ -89,7 +89,7 @@ namespace gebase { namespace graphics {
 
 		if (!declaration)
 		{
-			std::cout << "[PBRMaterial] getMap() - Declaration is null, " << name << std::endl;
+			std::cout << "[PBRMaterial] getMap() - Declaration is null, " << name.c_str() << std::endl;
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif

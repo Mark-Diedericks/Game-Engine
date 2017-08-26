@@ -116,9 +116,9 @@ namespace gebase { namespace graphics { namespace API {
 
 		std::cout << "-----------------------------------" << std::endl;
 		std::cout << "              DIRECT3D             " << std::endl;
-		std::cout << "		Direct3D " << DX11Context::getDXVersionString() << std::endl;
-		std::cout << "		" << desc.Description << std::endl;
-		std::cout << "		VRAM: " << MemoryManager::BytesToString(desc.DedicatedVideoMemory) << std::endl;
+		std::cout << "		Direct3D " << DX11Context::getDXVersionString().c_str() << std::endl;
+		//std::cout << "		" << (const char*)(desc.Description) << std::endl;
+		std::cout << "		VRAM: " << MemoryManager::BytesToString(desc.DedicatedVideoMemory).c_str() << std::endl;
 		std::cout << "-----------------------------------" << std::endl;
 
 		m_RendererTitle = "Direct3D " + DX11Context::getDXVersionString();

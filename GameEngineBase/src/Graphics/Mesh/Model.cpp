@@ -66,7 +66,7 @@ namespace gebase { namespace graphics {
 
 		if (!f)
 		{
-			std::cout << "[Model] Load() - File is null, " << path << "    " << actualPath << std::endl;
+			std::cout << "[Model] Load() - File is null, " << path.c_str() << "    " << actualPath.c_str() << std::endl;
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -78,7 +78,7 @@ namespace gebase { namespace graphics {
 			ReadBytes(f, header, 8);
 			if (memcmp(header, format.header, 4) != 0)
 			{
-				std::cout << "[Model] Load() - Headers do not compare, " << header << "    " << format.header << std::endl;
+				std::cout << "[Model] Load() - Headers do not compare, " << (const char*)header << "    " << (const char*)format.header << std::endl;
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
@@ -138,7 +138,7 @@ namespace gebase { namespace graphics {
 			ReadBytes(f, footer, 8);
 			if (memcmp(footer, format.footer, 4) != 0)
 			{
-				std::cout << "[Model] Load() - Footers do not compare, " << footer << "    " << format.footer << std::endl;
+				std::cout << "[Model] Load() - Footers do not compare, " << (const char*)footer << "    " << (const char*)format.footer << std::endl;
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif

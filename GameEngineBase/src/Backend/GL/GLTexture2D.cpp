@@ -74,8 +74,10 @@ namespace gebase { namespace graphics { namespace API {
 		setData(data);
 		gedel[] data;
 #else
-		std::cout << "setData to color is broken!" << std::endl;
+		std::cout << "[GLTexture2D] setData() - setData to color is broken!" << std::endl;
+#ifdef GE_DEBUG
 		__debugbreak();
+#endif
 #endif // 0
 
 	}
