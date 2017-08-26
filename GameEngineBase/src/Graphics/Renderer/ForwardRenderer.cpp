@@ -108,7 +108,7 @@ namespace gebase { namespace graphics {
 #endif
 		}
 
-		for (uint i = i; i < lights.size(); i++)
+		for (uint i = 0; i < lights.size(); i++)
 			memcpy(m_FSSystemUniformBuffer + m_FSSystemUniformBufferOffsets[FSSystemUniformIndex_Lights], lights[i], sizeof(Light));
 	}
 
