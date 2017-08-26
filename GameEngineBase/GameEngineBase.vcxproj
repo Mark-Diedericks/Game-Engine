@@ -365,6 +365,7 @@
     <ClInclude Include="src\Events\KeyEvent.h" />
     <ClInclude Include="src\Events\MouseEvent.h" />
     <ClInclude Include="src\Events\WindowEvent.h" />
+    <ClInclude Include="src\GameEngineBase.h" />
     <ClInclude Include="src\Graphics\Buffer\IndexBuffer.h" />
     <ClInclude Include="src\Graphics\Buffer\VertexArray.h" />
     <ClInclude Include="src\Graphics\Buffer\VertexBuffer.h" />
@@ -439,9 +440,6 @@
     <ClInclude Include="src\Utils\FileUtil.h" />
     <ClInclude Include="src\Utils\ImageUtil.h" />
     <ClInclude Include="src\Utils\TimeUtil.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Community2\VC\Tools\MSVC\14.10.25017\include\iosfwd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dependencies\Box2D\Box2D.vcxproj">
