@@ -74,8 +74,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\$(ProjectName)\</IntDir>
-    <IncludePath>$(SolutionDir)Dependencies\Box2D\src;$(SolutionDir)Dependencies\gorilla-audio\src;$(SolutionDir)Dependencies\FreeType;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\GLEW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\libogg\bin;$(SolutionDir)Dependencies\OpenAL\libs\Win32;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\libvorbis\bin;$(LibraryPath)$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\Box2D\src;$(SolutionDir)Dependencies\gorilla-audio\src;$(SolutionDir)Dependencies\FreeType;$(SolutionDir)Dependencies\FreeType\include;$(SolutionDir)Dependencies\FreeImage\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\libogg\bin;$(SolutionDir)Dependencies\OpenAL\libs\Win32;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\GLFW\lib-vc2013;$(SolutionDir)Dependencies\libvorbis\bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -91,7 +91,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>GE_PLATFORM_WINDOWS;GE_PLATFORM_WIN32;NOGDI;GE_RENDERAPI_OPENGL;GE_CORE_DLL;FREEIMAGE_LIB;OPJ_STATIC;GE_DEBUG;GLEW_STATIC;_WIN32;WIN32;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GE_PLATFORM_WINDOWS;GE_PLATFORM_WIN32;NOGDI;GE_RENDERAPI_OPENGL;GE_CORE_DLL;FREEIMAGE_LIB;OPJ_STATIC;GE_DEBUG;GLEW_STATIC;_WIN32;WIN32;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_BLOCK;_DEBUG_RANGE;_USE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
