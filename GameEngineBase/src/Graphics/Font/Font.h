@@ -30,7 +30,7 @@ namespace gebase { namespace graphics {
 		void UpdateAtlas() const;
 	public:
 		Font(const String& name, const String& filepath, float size);
-		Font(const String& name, const byte* data, uint datasize, float size, const String& coming);
+		Font(const String& name, const byte* data, uint datasize, float size);
 
 		inline void setScale(float x, float y) { m_Scale = math::Vector2f(x, y); }
 		inline void setScale(const math::Vector2f& scale) { m_Scale = scale; }

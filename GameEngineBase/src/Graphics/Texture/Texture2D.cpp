@@ -52,10 +52,9 @@ namespace gebase { namespace graphics {
 		return CreateFromFile(name, filepath, API::TextureParameters(), loadOptions);
 	}
 
-	void Texture2D::setData(const void* pixels, const String& coming)
+	void Texture2D::setData(const void* pixels)
 	{
-		std::cout << coming.c_str() << std::endl;
-		m_Color = NULL;
+		m_Color = 0x00000000;
 		m_Pixels = pixels;
 		m_Instance->setData(pixels);
 	}

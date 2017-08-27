@@ -12,8 +12,10 @@ namespace gebase { namespace graphics {
 		const void* m_Pixels;
 		uint m_Color;
 		uint m_BitsPerPixel;
+
+		Texture2D() { }
 	public:
-		void setData(const void* pixels, const String& coming);
+		void setData(const void* pixels);
 		void setData(uint color);
 
 		inline uint getWidth() const { return m_Instance->getWidth(); }

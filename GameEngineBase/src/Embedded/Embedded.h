@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Common.h"
+#include <Types.h>
 
-namespace gebase {
+namespace gebase { namespace embedded {
 
 	extern byte* DEFAULT_FONT;
 	extern uint DEFAULT_FONT_SIZE;
 
-}
+} }
