@@ -109,7 +109,7 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		using namespace math;
 
 		Vector3f vec = normal * 90.0f;
-		Matrix4f rotation = (*(Quaternion(Vector3f(1, 0, 0), vec.z).toRotationMatrix())) * (*(Quaternion(Vector3f(0, 1, 0), vec.y).toRotationMatrix())) * (*(Quaternion(Vector3f(0, 0, 1), vec.x).toRotationMatrix()));
+		Matrix4f rotation = ((Quaternion(Vector3f(1, 0, 0), vec.z).toRotationMatrix())) * ((Quaternion(Vector3f(0, 1, 0), vec.y).toRotationMatrix())) * ((Quaternion(Vector3f(0, 0, 1), vec.x).toRotationMatrix()));
 
 		Vertex vertices[4];
 		memset(vertices, 0, sizeof(Vertex) * 4);
@@ -117,26 +117,26 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		vertices[0].position = rotation * Vector3f(-width / 2.0f, 0.0f, -height / 2.0f);
 		vertices[0].normal = normal;
 		vertices[0].uv = Vector2f(0.0f, 0.0f);
-		vertices[0].binormal = (*Quaternion(Vector3f(0, 1, 0), 90.0f).toRotationMatrix()) * normal;
-		vertices[0].tangent = (*Quaternion(Vector3f(0, 0, 1), 90.0f).toRotationMatrix()) * normal;
+		vertices[0].binormal = (Quaternion(Vector3f(0, 1, 0), 90.0f).toRotationMatrix()) * normal;
+		vertices[0].tangent = (Quaternion(Vector3f(0, 0, 1), 90.0f).toRotationMatrix()) * normal;
 
 		vertices[1].position = rotation * Vector3f(-width / 2.0f, 0.0f, height / 2.0f);
 		vertices[1].normal = normal;
 		vertices[1].uv = Vector2f(0.0f, 1.0f);
-		vertices[1].binormal = (*Quaternion(Vector3f(0, 1, 0), 90.0f).toRotationMatrix()) * normal;
-		vertices[1].tangent = (*Quaternion(Vector3f(0, 0, 1), 90.0f).toRotationMatrix()) * normal;
+		vertices[1].binormal = (Quaternion(Vector3f(0, 1, 0), 90.0f).toRotationMatrix()) * normal;
+		vertices[1].tangent = (Quaternion(Vector3f(0, 0, 1), 90.0f).toRotationMatrix()) * normal;
 
 		vertices[2].position = rotation * Vector3f(width / 2.0f, 0.0f, height / 2.0f);
 		vertices[2].normal = normal;
 		vertices[2].uv = Vector2f(1.0f, 1.0f);
-		vertices[2].binormal = (*Quaternion(Vector3f(0, 1, 0), 90.0f).toRotationMatrix()) * normal;
-		vertices[2].tangent = (*Quaternion(Vector3f(0, 0, 1), 90.0f).toRotationMatrix()) * normal;
+		vertices[2].binormal = (Quaternion(Vector3f(0, 1, 0), 90.0f).toRotationMatrix()) * normal;
+		vertices[2].tangent = (Quaternion(Vector3f(0, 0, 1), 90.0f).toRotationMatrix()) * normal;
 
 		vertices[3].position = rotation * Vector3f(width / 2.0f, 0.0f, -height / 2.0f);
 		vertices[3].normal = normal;
 		vertices[3].uv = Vector2f(1.0f, 0.0f);
-		vertices[3].binormal = (*Quaternion(Vector3f(0, 1, 0), 90.0f).toRotationMatrix()) * normal;
-		vertices[3].tangent = (*Quaternion(Vector3f(0, 0, 1), 90.0f).toRotationMatrix()) * normal;
+		vertices[3].binormal = (Quaternion(Vector3f(0, 1, 0), 90.0f).toRotationMatrix()) * normal;
+		vertices[3].tangent = (Quaternion(Vector3f(0, 0, 1), 90.0f).toRotationMatrix()) * normal;
 
 		VertexBuffer* vb = VertexBuffer::Create(API::BufferUsage::STATIC);
 		vb->setData(sizeof(Vertex) * 4, vertices);

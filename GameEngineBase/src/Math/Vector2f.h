@@ -100,35 +100,35 @@ namespace gebase { namespace math {
 			return *this;
 		}
 
-		inline Vector2f& operator +(const float& f) const {
+		inline Vector2f operator +(const float& f) const {
 			return Vector2f(x + f, y + f);
 		}
 
-		inline Vector2f& operator +(const Vector2f& vec2f) const {
+		inline Vector2f operator +(const Vector2f& vec2f) const {
 			return Vector2f(x + vec2f.x, y + vec2f.y);
 		}
 
-		inline Vector2f& operator -(const float& f) const {
+		inline Vector2f operator -(const float& f) const {
 			return Vector2f(x - f, y - f);
 		}
 
-		inline Vector2f& operator -(const Vector2f& vec2f) const {
+		inline Vector2f operator -(const Vector2f& vec2f) const {
 			return Vector2f(x - vec2f.x, y - vec2f.y);
 		}
 
-		inline Vector2f& operator *(const float& f) const {
+		inline Vector2f operator *(const float& f) const {
 			return Vector2f(x * f, y * f);
 		}
 
-		inline Vector2f& operator *(const Vector2f& vec2f) const {
+		inline Vector2f operator *(const Vector2f& vec2f) const {
 			return Vector2f(x * vec2f.x, y * vec2f.y);
 		}
 
-		inline Vector2f& operator /(const float& f) const {
+		inline Vector2f operator /(const float& f) const {
 			return Vector2f(x / f, y / f);
 		}
 
-		inline Vector2f& operator /(const Vector2f& vec2f) const {
+		inline Vector2f operator /(const Vector2f& vec2f) const {
 			return Vector2f(x / vec2f.x, y / vec2f.y);
 		}
 	};

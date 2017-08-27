@@ -139,9 +139,8 @@ namespace gebase { namespace math {
 		return (*this * srcFactor) + (correctedDest * destFactor);
 	}
 
-	Matrix4f* Quaternion::toRotationMatrix() {
-		Matrix4f* res = Matrix4f::initRotation(getRotateForward(), getRotateUp(), getRotateRight());
-		return res;
+	Matrix4f& Quaternion::toRotationMatrix() {
+		return Matrix4f::initRotation(getRotateForward(), getRotateUp(), getRotateRight());
 	}
 
 	Vector3f& Quaternion::getRotateForward() const {

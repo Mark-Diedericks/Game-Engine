@@ -102,39 +102,39 @@ namespace gebase { namespace math {
 			return *this;
 		}
 
-		inline Vector4f& operator +(const float& f) const {
+		inline Vector4f operator +(const float& f) const {
 			return Vector4f(x + f, y + f, z + f, w + f);
 		}
 
-		inline Vector4f& operator +(const Vector4f& vec4f) const {
+		inline Vector4f operator +(const Vector4f& vec4f) const {
 			return Vector4f(x + vec4f.x, y + vec4f.y, z + vec4f.z, w + vec4f.w);
 		}
 
-		inline Vector4f& operator -(const float& f) const {
+		inline Vector4f operator -(const float& f) const {
 			return Vector4f(x - f, y - f, z - f, w - f);
 		}
 
-		inline Vector4f& operator -(const Vector4f& vec4f) const {
+		inline Vector4f operator -(const Vector4f& vec4f) const {
 			return Vector4f(x - vec4f.x, y - vec4f.y, z - vec4f.z, w - vec4f.w);
 		}
 
-		inline Vector4f& operator *(const float& f) const {
+		inline Vector4f operator *(const float& f) const {
 			return Vector4f(x * f, y * f, z * f, w * f);
 		}
 
-		inline Vector4f& operator *(const Vector4f& vec4f) const {
+		inline Vector4f operator *(const Vector4f& vec4f) const {
 			return Vector4f(x * vec4f.x, y * vec4f.y, z * vec4f.z, w * vec4f.w);
 		}
 
-		inline Vector4f& operator /(const float& f) const {
+		inline Vector4f operator /(const float& f) const {
 			return Vector4f(x / f, y / f, z / f, w / f);
 		}
 
-		inline Vector4f& operator /(const Vector4f& vec4f) const {
+		inline Vector4f operator /(const Vector4f& vec4f) const {
 			return Vector4f(x / vec4f.x, y / vec4f.y, z / vec4f.z, w / vec4f.w);
 		}
 
-		Vector4f& operator *(const Matrix4f& mat4f) const;
-		Vector4f& Mul(const Matrix4f& mat4f) const;
+		Vector4f operator *(const Matrix4f& mat4f) const;
+		Vector4f Mul(const Matrix4f& mat4f) const;
 	};
 } }

@@ -22,7 +22,7 @@ namespace gebase { namespace math {
 		Quaternion nlerp(const Quaternion& dest, const float& lerpFactor, const bool& shortest) const;
 		Quaternion slerp(const Quaternion& dest, const float& lerpFactor, const bool& shortest) const;
 		Vector3f rotate(const Vector3f& vec3f);
-		Matrix4f* toRotationMatrix();
+		Matrix4f& toRotationMatrix();
 		Vector3f& getRotateForward() const;
 		Vector3f& getRotateUp() const;
 		Vector3f& getRotateRight() const;
@@ -120,23 +120,23 @@ namespace gebase { namespace math {
 			return *this;
 		}
 
-		inline Quaternion& operator +(const float& f) const {
+		inline Quaternion operator +(const float& f) const {
 			return Quaternion(x + f, y + f, z + f, w + f);
 		}
 
-		inline Quaternion& operator +(const Quaternion& quat) const {
+		inline Quaternion operator +(const Quaternion& quat) const {
 			return Quaternion(x + quat.x, y + quat.y, z + quat.z, w + quat.w);
 		}
 
-		inline Quaternion& operator -(const float& f) const {
+		inline Quaternion operator -(const float& f) const {
 			return Quaternion(x - f, y - f, z - f, w - f);
 		}
 
-		inline Quaternion& operator -(const Quaternion& quat) const {
+		inline Quaternion operator -(const Quaternion& quat) const {
 			return Quaternion(x - quat.x, y - quat.y, z - quat.z, w - quat.w);
 		}
 
-		inline Quaternion& operator *(const Vector3f& vec3f) const {
+		inline Quaternion operator *(const Vector3f& vec3f) const {
 			float w_ = -x * vec3f.x - y * vec3f.y - z * vec3f.z;
 			float x_ = w * vec3f.x + y * vec3f.z - z * vec3f.y;
 			float y_ = w * vec3f.y + z * vec3f.x - x * vec3f.z;
@@ -145,7 +145,7 @@ namespace gebase { namespace math {
 			return Quaternion(x_, y_, z_, w_);
 		}
 
-		inline Quaternion& operator *(const Quaternion& r) const {
+		inline Quaternion operator *(const Quaternion& r) const {
 			float w_ = w * r.w - x * r.x - y * r.y - z * r.z;
 			float x_ = x * r.w + w * r.x + y * r.z - z * r.y;
 			float y_ = y * r.w + w * r.y + z * r.x - x * r.z;
@@ -154,15 +154,15 @@ namespace gebase { namespace math {
 			return Quaternion(x_, y_, z_, w_);
 		}
 
-		inline Quaternion& operator *(const float& f) const {
+		inline Quaternion operator *(const float& f) const {
 			return ((*this) * Vector3f(f, f, f));
 		}
 
-		inline Quaternion& operator /(const float& f) const {
+		inline Quaternion operator /(const float& f) const {
 			return Quaternion(x / f, y / f, z / f, w / f);
 		}
 
-		inline Quaternion& operator /(const Quaternion& quat) const {
+		inline Quaternion operator /(const Quaternion& quat) const {
 			return Quaternion(x / quat.x, y / quat.y, z / quat.z, w / quat.w);
 		}
 	};

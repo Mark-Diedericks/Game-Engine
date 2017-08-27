@@ -69,23 +69,23 @@ namespace gebase { namespace math {
 			return *this;
 		}
 
-		inline Matrix4f& operator +(const Matrix4f& mat4f) const {
+		inline Matrix4f operator +(const Matrix4f& mat4f) const {
 			return Matrix4f(m) += mat4f;
 		}
 
-		inline Matrix4f& operator -(const Matrix4f& mat4f) const {
+		inline Matrix4f operator -(const Matrix4f& mat4f) const {
 			return Matrix4f(m) -= mat4f;
 		}
 
-		inline Matrix4f& operator *(const Matrix4f& mat4f) const {
+		inline Matrix4f operator *(const Matrix4f& mat4f) const {
 			return Matrix4f(m) *= mat4f;
 		}
 
-		inline Vector3f& operator *(const Vector3f& vec3f) const {
+		inline Vector3f operator *(const Vector3f& vec3f) const {
 			return vec3f.Mul(*this);
 		}
 
-		inline Vector4f& operator *(const Vector4f& vec4f) const {
+		inline Vector4f operator *(const Vector4f& vec4f) const {
 			return vec4f.Mul(*this);
 		}
 	};
