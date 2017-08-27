@@ -80,7 +80,7 @@ namespace gebase { namespace graphics {
 
 			for (API::ShaderUniformDeclaration* decl : ub->getUniformDeclarations())
 			{
-				for (uint j = 0; i < g_RequiredSystemUniformsCount; j++)
+				for (uint j = 0; j < g_RequiredSystemUniformsCount; j++)
 				{
 					if (decl->getName() == g_RequiredSystemUniforms[j])
 						m_SystemUniforms[j] = BR2DSystemUniform(buffer, decl->getOffset());

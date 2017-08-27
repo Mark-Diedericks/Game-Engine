@@ -14,7 +14,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	GLTexture2D::GLTexture2D(uint width, uint height, TextureParameters parameters) : m_Filepath("NULL"), m_Width(width), m_Height(height), m_Parameters(parameters)
 	{
-		m_Handle = Load(NULL, NULL);
+		m_Handle = Load(nullptr, NULL);
 	}
 
 	GLTexture2D::GLTexture2D(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters) : m_Filepath(name), m_Width(width), m_Height(height), m_Parameters(parameters)
@@ -29,7 +29,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	uint GLTexture2D::Load(const byte* pixels, uint bits)
 	{
-		m_Parameters.format = bits == 24 ? TextureFormat::RGB : TextureFormat::RGBA;
+		if(bits) m_Parameters.format = bits == 24 ? TextureFormat::RGB : TextureFormat::RGBA;
 
 		uint handle;
 
@@ -44,7 +44,7 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
 		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
 
-		if (pixels != nullptr)
+		if (pixels)
 			gedel[] pixels;
 
 		return handle;

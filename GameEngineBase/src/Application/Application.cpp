@@ -26,8 +26,8 @@ namespace gebase {
 
 	void Application::PushLayer(Layer* layer)
 	{
-		m_LayerStack.push_back(layer);
 		layer->Init();
+		m_LayerStack.push_back(layer);
 	}
 
 	Layer* Application::PopLayer()

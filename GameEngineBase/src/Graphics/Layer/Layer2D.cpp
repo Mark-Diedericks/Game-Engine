@@ -7,7 +7,7 @@
 
 namespace gebase { namespace graphics {
 
-	Layer2D::Layer2D(const math::Matrix4f& projectionMatrix)
+	Layer2D::Layer2D(const math::Matrix4f& projectionMatrix) : Layer()
 	{
 		uint width = Application::getApplication().getWindowWidth();
 		uint height = Application::getApplication().getWindowHeight();
@@ -17,7 +17,7 @@ namespace gebase { namespace graphics {
 		m_Renderer->setCamera(m_Scene->getCamera());
 	}
 
-	Layer2D::Layer2D(Scene2D* scene) : m_Scene(scene)
+	Layer2D::Layer2D(Scene2D* scene) : Layer(), m_Scene(scene)
 	{
 		uint width = Application::getApplication().getWindowWidth();
 		uint height = Application::getApplication().getWindowHeight();
