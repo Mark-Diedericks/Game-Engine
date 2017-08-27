@@ -19,7 +19,6 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 namespace gebase {
 	using namespace events;
 	using namespace graphics;
-	using namespace input;
 
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	extern void MouseButtonCallback(InputManager* inputManager, int32 button, int32 x, int32 y);
@@ -150,4 +149,71 @@ namespace gebase {
 			window->m_InputManager->clearMouseButtons();
 		}
 	}
+
+	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+	{
+		LRESULT result = NULL;
+		gebase::Window* window = gebase::Window::getWindowClass(hWnd);
+		if (window == nullptr)
+			return DefWindowProc(hWnd, message, wParam, lParam);
+
+		InputManager* inputManager = window->getInputManager();
+		switch (message)
+		{
+		case WM_ACTIVATE:
+		{
+			if (!HIWORD(wParam)) // Is minimized
+			{
+				// active
+			}
+			else
+			{
+				// inactive
+			}
+
+			return 0;
+		}
+		case WM_SYSCOMMAND:
+		{
+			switch (wParam)
+			{
+			case SC_SCREENSAVE:
+			case SC_MONITORPOWER:
+				return 0;
+			}
+			result = DefWindowProc(hWnd, message, wParam, lParam);
+		} break;
+		case WM_SETFOCUS:
+			FocusCallback(window, true);
+			break;
+		case WM_KILLFOCUS:
+			FocusCallback(window, false);
+			break;
+		case WM_CLOSE:
+		case WM_DESTROY:
+			PostQuitMessage(0);
+			break;
+		case WM_KEYDOWN:
+		case WM_KEYUP:
+		case WM_SYSKEYDOWN:
+		case WM_SYSKEYUP:
+			KeyCallback(inputManager, lParam, wParam, message);
+			break;
+		case WM_LBUTTONDOWN:
+		case WM_LBUTTONUP:
+		case WM_RBUTTONDOWN:
+		case WM_RBUTTONUP:
+		case WM_MBUTTONDOWN:
+		case WM_MBUTTONUP:
+			MouseButtonCallback(inputManager, message, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+			break;
+		case WM_SIZE:
+			ResizeCallback(window, LOWORD(lParam), HIWORD(lParam));
+			break;
+		default:
+			result = DefWindowProc(hWnd, message, wParam, lParam);
+		}
+		return result;
+	}
+
 }

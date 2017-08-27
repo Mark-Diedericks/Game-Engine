@@ -1,7 +1,7 @@
 #include "ge.h"
 #include "InputManager.h"
 
-namespace gebase { namespace input {
+namespace gebase {
 	InputManager* Input::s_InputManager = nullptr;
 
 	InputManager::InputManager()
@@ -81,4 +81,4 @@ namespace gebase { namespace input {
 	{
 		m_MouseGrabbed = grabbed;
 	}
-} }
+}

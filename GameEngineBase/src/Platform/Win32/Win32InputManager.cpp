@@ -9,7 +9,7 @@
 #include <Windows.h>
 #include <Windowsx.h>
 
-namespace gebase { namespace input {
+namespace gebase {
 	using namespace events;
 
 	extern HWND hWnd;
@@ -129,4 +129,4 @@ namespace gebase { namespace input {
 		else
 			inputManager->m_EventCallback(MouseReleasedEvent(button, (float)x, (float)y));
 	}
-} }
+} 

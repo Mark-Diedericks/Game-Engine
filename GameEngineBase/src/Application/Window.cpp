@@ -30,7 +30,7 @@ namespace gebase {
 		FreeImage_Initialise();
 
 		SoundManager::Create();
-		m_InputManager = new input::InputManager();
+		m_InputManager = new InputManager();
 	}
 
 	Window::~Window()

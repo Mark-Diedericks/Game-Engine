@@ -1,9 +1,7 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include "ge.h"
 #include "Common.h"
-#include "Types.h"
 
 typedef std::string String;
 

@@ -26,7 +26,7 @@ namespace gebase { namespace graphics { namespace ui {
 
 	void Slider::OnUpdate(float delta)
 	{
-		if (!input::Input::isMouseButtonPressed(GE_MOUSE_LEFT))
+		if (!Input::isMouseButtonPressed(GE_MOUSE_LEFT))
 			m_State = SliderState::UNPRESSED;
 	
 		m_Vertical ? m_HeadBounds.y = m_Bounds.getMinimumBound().y + m_HeadBounds.height + m_Value * (m_Bounds.height * 2.0f - m_HeadBounds.height * 2.0f) : m_HeadBounds.x = m_Bounds.getMinimumBound().x + m_HeadBounds.width + m_Value * (m_Bounds.width * 2.0f - m_HeadBounds.width * 2.0f);

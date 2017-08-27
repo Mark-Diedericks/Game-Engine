@@ -734,9 +734,6 @@
     <ClInclude Include="src\Graphics\Framebuffer\FramebufferDepth.h">
       <Filter>src\ge\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngineBase.h">
-      <Filter>src\ge</Filter>
-    </ClInclude>
     <ClInclude Include="src\Graphics\GBuffer.h">
       <Filter>src\ge\graphics</Filter>
     </ClInclude>
@@ -940,6 +937,9 @@
     </ClInclude>
     <ClInclude Include="src\String.h">
       <Filter>src\ge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngineBase.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

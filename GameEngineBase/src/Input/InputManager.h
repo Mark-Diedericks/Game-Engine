@@ -5,7 +5,7 @@
 #include "Math/Maths.h"
 #include "Events/Event.h"
 
-namespace gebase { namespace input {
+namespace gebase {
 
 #define MAX_KEYS 1024
 #define MAX_BUTTONS 32
@@ -68,7 +68,7 @@ namespace gebase { namespace input {
 		inline static const math::Vector2f getMousePosition() { return s_InputManager->getMousePosition(); }
 		inline static InputManager* getInputManager() { return s_InputManager; }
 	};
-} }
+}
 
 //KEY DEFINES - TheChernoProject
 #define GE_MOUSE_LEFT	  0x00

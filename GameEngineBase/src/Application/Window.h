@@ -30,7 +30,7 @@ namespace gebase {
 
 		bool m_VSync;
 		WindowEventCallback m_EventCallback;
-		input::InputManager* m_InputManager;
+		InputManager* m_InputManager;
 	private:
 		bool Create();
 		bool PlatformInit();
@@ -52,7 +52,7 @@ namespace gebase {
 		void setVSync(bool vsync);
 		inline bool isVSync() { return m_VSync; }
 
-		inline input::InputManager* getInputManager() const { return m_InputManager; }
+		inline InputManager* getInputManager() const { return m_InputManager; }
 		void setEventCallback(const WindowEventCallback& eventCallback);
 
 		static void RegisterWindowClass(void* handle, Window* window);

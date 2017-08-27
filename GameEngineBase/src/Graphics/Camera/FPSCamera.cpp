@@ -18,8 +18,8 @@ namespace gebase { namespace graphics {
 
 	void FPSCamera::Focus()
 	{
-		input::Input::getInputManager()->setMouseCursor(GE_NO_CURSOR);
-		input::Input::getInputManager()->setMouseGrabbed(true);
+		Input::getInputManager()->setMouseCursor(GE_NO_CURSOR);
+		Input::getInputManager()->setMouseGrabbed(true);
 	}
 
 	void FPSCamera::Update(float delta)
@@ -27,20 +27,20 @@ namespace gebase { namespace graphics {
 		math::Vector2f windowSize = Application::getApplication().getWindowSize();
 		math::Vector2f windowCent = math::Vector2f((float)((int32)(windowSize.x / 2.0f)), (float)((int32)(windowSize.y / 2.0f)));
 
-		if (input::Input::isMouseButtonPressed(GE_MOUSE_RIGHT))
+		if (Input::isMouseButtonPressed(GE_MOUSE_RIGHT))
 		{
-			if (!input::Input::getInputManager()->isMouseGrabbed())
+			if (!Input::getInputManager()->isMouseGrabbed())
 			{
-				input::Input::getInputManager()->setMouseGrabbed(true);
-				input::Input::getInputManager()->setMouseCursor(GE_NO_CURSOR);
+				Input::getInputManager()->setMouseGrabbed(true);
+				Input::getInputManager()->setMouseCursor(GE_NO_CURSOR);
 			}
 		}
 
-		if (input::Input::getInputManager()->isMouseGrabbed())
+		if (Input::getInputManager()->isMouseGrabbed())
 		{
 			
 
-			math::Vector2f mPos = input::Input::getInputManager()->getMousePosition();
+			math::Vector2f mPos = Input::getInputManager()->getMousePosition();
 			mPos.x -= windowCent.x;
 			mPos.y -= windowCent.y;
 
@@ -51,34 +51,34 @@ namespace gebase { namespace graphics {
 			}
 
 			m_MouseWasGrabbed = true;
-			input::Input::getInputManager()->setMousePosition(windowCent);
+			Input::getInputManager()->setMousePosition(windowCent);
 
 			math::Vector3f forward = getForwardDirection(m_Rotation);
 			math::Vector3f right = getRightDirection(m_Rotation);
 			math::Vector3f up = math::Vector3f(0.0f, 1.0f, 0.0f);
 
-			float speed = input::Input::isKeyPressed(GE_KEY_SHIFT) ? m_SprintSpeed : m_Speed;
+			float speed = Input::isKeyPressed(GE_KEY_SHIFT) ? m_SprintSpeed : m_Speed;
 
-			if (input::Input::isKeyPressed(GE_KEY_W))
+			if (Input::isKeyPressed(GE_KEY_W))
 				Translate(forward, speed * delta);
-			else if (input::Input::isKeyPressed(GE_KEY_S))
+			else if (Input::isKeyPressed(GE_KEY_S))
 				Translate(forward, -speed * delta);
 
-			if (input::Input::isKeyPressed(GE_KEY_A))
+			if (Input::isKeyPressed(GE_KEY_A))
 				Translate(right, -speed * delta);
-			else if (input::Input::isKeyPressed(GE_KEY_D))
+			else if (Input::isKeyPressed(GE_KEY_D))
 				Translate(right, speed * delta);
 
-			if (input::Input::isKeyPressed(GE_KEY_SPACE))
+			if (Input::isKeyPressed(GE_KEY_SPACE))
 				Translate(up, speed * delta);
-			else if (input::Input::isKeyPressed(GE_KEY_CONTROL))
+			else if (Input::isKeyPressed(GE_KEY_CONTROL))
 				Translate(up, -speed * delta);
 		}
 
-		if (input::Input::isKeyPressed(GE_KEY_ESCAPE))
+		if (Input::isKeyPressed(GE_KEY_ESCAPE))
 		{
-			input::Input::getInputManager()->setMouseGrabbed(false);
-			input::Input::getInputManager()->setMouseCursor(1);
+			Input::getInputManager()->setMouseGrabbed(false);
+			Input::getInputManager()->setMouseCursor(1);
 			m_MouseWasGrabbed = false;
 		}
 	}

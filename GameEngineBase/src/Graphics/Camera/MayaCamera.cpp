@@ -21,21 +21,21 @@ namespace gebase { namespace graphics {
 
 	void MayaCamera::Focus()
 	{
-		input::Input::getInputManager()->setMouseCursor(1);
+		Input::getInputManager()->setMouseCursor(1);
 	}
 
 	void MayaCamera::Update(float delta)
 	{
-		if (input::Input::isKeyPressed(GE_KEY_ALT))
+		if (Input::isKeyPressed(GE_KEY_ALT))
 		{
-			const math::Vector2f& mouse = input::Input::getMousePosition();
+			const math::Vector2f& mouse = Input::getMousePosition();
 			math::Vector2f& mDelta = mouse - m_InitialMousePosition;
 
-			if (input::Input::isMouseButtonPressed(GE_MOUSE_MIDDLE))
+			if (Input::isMouseButtonPressed(GE_MOUSE_MIDDLE))
 				MousePan(mDelta, delta);
-			if (input::Input::isMouseButtonPressed(GE_MOUSE_LEFT))
+			if (Input::isMouseButtonPressed(GE_MOUSE_LEFT))
 				MouseRotate(mDelta, delta);
-			if (input::Input::isMouseButtonPressed(GE_MOUSE_RIGHT))
+			if (Input::isMouseButtonPressed(GE_MOUSE_RIGHT))
 				MouseZoom(mDelta.y, delta);
 		}
 
