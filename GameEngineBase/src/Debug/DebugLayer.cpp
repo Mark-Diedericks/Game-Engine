@@ -31,9 +31,9 @@ namespace gebase { namespace debug {
 	{
 		renderer.setRenderTarget(RenderTarget::SCREEN);
 
-		m_FPSLabel = genew Label("", 31.5f, 17.5f, FontManager::Get(DebugMenu::getSettings().fontSize), 0xffffffff, Label::Alignment::RIGHT);
-		m_FrametimeLabel = genew Label("", 31.5f, 16.5f, FontManager::Get(DebugMenu::getSettings().fontSize), 0xffffffff, Label::Alignment::RIGHT);
-		m_MemoryUsageLabel = genew Label("", 31.5f, 15.5f, FontManager::Get(DebugMenu::getSettings().fontSize), 0xffffffff, Label::Alignment::RIGHT);
+		m_FPSLabel = genew Label("", 31.5f, 17.5f, FontManager::Get((uint)DebugMenu::getSettings().fontSize), 0xffffffff, Label::Alignment::RIGHT);
+		m_FrametimeLabel = genew Label("", 31.5f, 16.5f, FontManager::Get((uint)DebugMenu::getSettings().fontSize), 0xffffffff, Label::Alignment::RIGHT);
+		m_MemoryUsageLabel = genew Label("", 31.5f, 15.5f, FontManager::Get((uint)DebugMenu::getSettings().fontSize), 0xffffffff, Label::Alignment::RIGHT);
 
 		Add(m_FPSLabel);
 		Add(m_FrametimeLabel);

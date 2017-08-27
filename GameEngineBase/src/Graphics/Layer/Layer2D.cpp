@@ -9,8 +9,8 @@ namespace gebase { namespace graphics {
 
 	Layer2D::Layer2D(const math::Matrix4f& projectionMatrix)
 	{
-		float width = Application::getApplication().getWindowWidth();
-		float height = Application::getApplication().getWindowHeight();
+		uint width = Application::getApplication().getWindowWidth();
+		uint height = Application::getApplication().getWindowHeight();
 
 		m_Renderer = genew Renderer2D(width, height);
 		m_Scene = genew Scene2D(projectionMatrix);
@@ -19,8 +19,8 @@ namespace gebase { namespace graphics {
 
 	Layer2D::Layer2D(Scene2D* scene) : m_Scene(scene)
 	{
-		float width = Application::getApplication().getWindowWidth();
-		float height = Application::getApplication().getWindowHeight();
+		uint width = Application::getApplication().getWindowWidth();
+		uint height = Application::getApplication().getWindowHeight();
 
 		m_Renderer = genew Renderer2D(width, height);
 		m_Renderer->setCamera(m_Scene->getCamera());
@@ -56,8 +56,8 @@ namespace gebase { namespace graphics {
 
 	bool Layer2D::OnResize(uint width, uint height)
 	{
-		m_Renderer->setScreenSize(math::Vector2f(width, height));
-		m_Scene->getRenderer()->setScreenSize(math::Vector2f(width, height));
+		m_Renderer->setScreenSize(math::Vector2f((float)width, (float)height));
+		m_Scene->getRenderer()->setScreenSize(math::Vector2f((float)width, (float)height));
 		return false;
 	}
 

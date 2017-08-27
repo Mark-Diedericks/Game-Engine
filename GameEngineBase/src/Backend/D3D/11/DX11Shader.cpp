@@ -240,7 +240,7 @@ namespace gebase { namespace graphics { namespace API {
 
 			if (buffer == nullptr)
 			{
-				buffer == new DX11ShaderUniformBufferDeclaration(bufferName, reg, shaderType);
+				buffer = new DX11ShaderUniformBufferDeclaration(bufferName, reg, shaderType);
 
 				if (StartsWith(name, "sys_"))
 				{

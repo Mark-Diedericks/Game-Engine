@@ -23,7 +23,7 @@ namespace gebase { namespace graphics { namespace API {
 			{
 				std::cout << "Failed setting OpenGL context." << std::endl;
 #ifdef GE_DEBUG
-				__debugbreak;
+				__debugbreak();
 #endif
 			}
 		}
@@ -31,7 +31,7 @@ namespace gebase { namespace graphics { namespace API {
 		{
 			std::cout << "Failed creating OpenGL context." << std::endl;
 #ifdef GE_DEBUG
-			__debugbreak;
+			__debugbreak();
 #endif
 		}
 
@@ -39,7 +39,7 @@ namespace gebase { namespace graphics { namespace API {
 		{
 			std::cout << "Could not initialize GLEW." << std::endl;
 #ifdef GE_DEBUG
-			__debugbreak;
+			__debugbreak();
 #endif
 		}
 	}

@@ -8,9 +8,9 @@ namespace gebase
 {
 	Scene2D::Scene2D()
 	{
-		float width = Application::getApplication().getWindowWidth();
-		float height = Application::getApplication().getWindowHeight();
-		float aspect = width / height;
+		uint width = Application::getApplication().getWindowWidth();
+		uint height = Application::getApplication().getWindowHeight();
+		float aspect = (float)width / (float)height;
 
 		m_Camera = genew graphics::OrthographicCamera(math::Matrix4f::initOrthographic(-10.0f * aspect, 10.0f * aspect, 10.0f, -10.0f, -1.0f, 1.0f));
 		m_Renderer = genew graphics::Renderer2D(width, height);
@@ -19,8 +19,8 @@ namespace gebase
 
 	Scene2D::Scene2D(const math::Matrix4f& projectionMatrix) : m_Camera(genew graphics::OrthographicCamera(projectionMatrix))
 	{
-		float width = Application::getApplication().getWindowWidth();
-		float height = Application::getApplication().getWindowHeight();
+		uint width = Application::getApplication().getWindowWidth();
+		uint height = Application::getApplication().getWindowHeight();
 
 		m_Renderer = genew graphics::Renderer2D(width, height);
 		m_Renderer->setCamera(m_Camera);

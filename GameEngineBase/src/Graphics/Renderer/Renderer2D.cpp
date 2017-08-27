@@ -34,7 +34,7 @@ namespace gebase { namespace graphics {
 	const uint sys_ProjectionMatrixIndex = 0;
 	const uint sys_ViewMatrixIndex = 0;
 
-	Renderer2D::Renderer2D(uint width, uint height) : m_ScreenSize(math::Vector2f(width, height)), m_ViewportSize(math::Vector2f(width, height)), m_IndexCount(0), m_Mask(nullptr), m_PostEffectsEnabled(false)
+	Renderer2D::Renderer2D(uint width, uint height) : m_ScreenSize(math::Vector2f((float)width, (float)height)), m_ViewportSize(math::Vector2f((float)width, (float)height)), m_IndexCount(0), m_Mask(nullptr), m_PostEffectsEnabled(false)
 	{
 		Init();
 	}
@@ -196,7 +196,7 @@ namespace gebase { namespace graphics {
 		}
 		else
 		{
-			Renderer::setViewport(0, 0, m_ScreenSize.x, m_ScreenSize.y);
+			Renderer::setViewport(0, 0, (uint)m_ScreenSize.x, (uint)m_ScreenSize.y);
 		}
 
 		m_VertexArray->Bind();

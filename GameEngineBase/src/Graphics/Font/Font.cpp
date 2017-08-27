@@ -76,7 +76,7 @@ namespace gebase { namespace graphics {
 		float yo = 0.0f;
 		const math::Vector2f& scale = m_Scale;
 
-		for (int i = 0; i < text.size(); i++)
+		for (uint i = 0; i < text.size(); i++)
 		{
 			texture_glyph_t* g = texture_font_get_glyph(m_FTFont, text[i]);
 
@@ -105,7 +105,7 @@ namespace gebase { namespace graphics {
 		float width = 0.0f;
 		const math::Vector2f& scale = m_Scale;
 
-		for (int i = 0; i < text.size(); i++)
+		for (uint i = 0; i < text.size(); i++)
 		{
 			texture_glyph_t* g = texture_font_get_glyph(m_FTFont, text[i]);
 
@@ -137,7 +137,7 @@ namespace gebase { namespace graphics {
 		float max = 0.0f;
 		const math::Vector2f& scale = m_Scale;
 
-		for (int i = 0; i < text.size(); i++)
+		for (uint i = 0; i < text.size(); i++)
 		{
 			texture_glyph_t* g = texture_font_get_glyph(m_FTFont, text[i]);
 

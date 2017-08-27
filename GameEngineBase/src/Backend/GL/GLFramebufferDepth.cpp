@@ -29,7 +29,7 @@ namespace gebase { namespace graphics { namespace API {
 		{
 			std::cout << "Framebuffer (Depth) is incomplete" << std::endl;
 #ifdef GE_DEBUG
-			__debugbreak;
+			__debugbreak();
 #endif
 		}
 

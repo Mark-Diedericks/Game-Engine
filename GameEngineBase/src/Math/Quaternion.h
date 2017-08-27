@@ -23,15 +23,15 @@ namespace gebase { namespace math {
 		Quaternion slerp(const Quaternion& dest, const float& lerpFactor, const bool& shortest) const;
 		Vector3f rotate(const Vector3f& vec3f);
 		Matrix4f& toRotationMatrix();
-		Vector3f& getRotateForward() const;
-		Vector3f& getRotateUp() const;
-		Vector3f& getRotateRight() const;
-		Vector3f& getForward();
-		Vector3f& getBack();
-		Vector3f& getUp();
-		Vector3f& getDown();
-		Vector3f& getRight();
-		Vector3f& getLeft();
+		Vector3f getRotateForward() const;
+		Vector3f getRotateUp() const;
+		Vector3f getRotateRight() const;
+		Vector3f getForward();
+		Vector3f getBack();
+		Vector3f getUp();
+		Vector3f getDown();
+		Vector3f getRight();
+		Vector3f getLeft();
 
 		inline void operator =(const float& f) {
 			this->x = f;

@@ -61,7 +61,7 @@ namespace gebase { namespace graphics {
 		uint height;
 		uint bits;
 
-		for (uint i = 0; i < mips; i++)
+		for (uint i = 0; i < (uint)mips; i++)
 		{
 			pixels[i] = LoadImage(files[i], &width, &height, &bits, true);
 		}

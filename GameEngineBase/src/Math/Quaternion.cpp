@@ -143,52 +143,52 @@ namespace gebase { namespace math {
 		return Matrix4f::initRotation(getRotateForward(), getRotateUp(), getRotateRight());
 	}
 
-	Vector3f& Quaternion::getRotateForward() const {
+	Vector3f Quaternion::getRotateForward() const {
 		Vector3f res(2.0f * (x*z - w*y), 2.0f * (y*z + w*x), 1.0f - 2.0f * (x*x + y*y));
 		return res;
 	}
 
-	Vector3f& Quaternion::getRotateUp() const {
+	Vector3f Quaternion::getRotateUp() const {
 		Vector3f res(2.0f * (x*y + w*z), 1.0f - 2.0f * (x*x + z*z), 2.0f * (y*z - w*x));
 		return res;
 	}
 
-	Vector3f& Quaternion::getRotateRight() const {
+	Vector3f Quaternion::getRotateRight() const {
 		Vector3f res(1.0f - 2.0f * (y*y + z*z), 2.0f * (x*y - w*z), 2.0f * (x*z + w*y));
 		return res;
 	}
 
-	Vector3f& Quaternion::getForward() {
+	Vector3f Quaternion::getForward() {
 		Vector3f res(0, 0, 1);
 		this->rotate(res);
 		return res;
 	}
 
-	Vector3f& Quaternion::getBack() {
+	Vector3f Quaternion::getBack() {
 		Vector3f res(0, 0, -1);
 		this->rotate(res);
 		return res;
 	}
 
-	Vector3f& Quaternion::getUp() {
+	Vector3f Quaternion::getUp() {
 		Vector3f res(0, 1, 0);
 		this->rotate(res);
 		return res;
 	}
 
-	Vector3f& Quaternion::getDown() {
+	Vector3f Quaternion::getDown() {
 		Vector3f res(0, -1, 0);
 		this->rotate(res);
 		return res;
 	}
 
-	Vector3f& Quaternion::getRight() {
+	Vector3f Quaternion::getRight() {
 		Vector3f res(1, 0, 0);
 		this->rotate(res);
 		return res;
 	}
 
-	Vector3f& Quaternion::getLeft() {
+	Vector3f Quaternion::getLeft() {
 		Vector3f res(-1, 0, 0);
 		this->rotate(res);
 		return res;

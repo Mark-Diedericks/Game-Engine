@@ -70,7 +70,7 @@ namespace gebase { namespace debug {
 			{
 				m_Slider[i]->setCallback(callbacks[i]);
 				m_Slider[i]->setActive(m_LastEditedName != name);
-				m_Slider[i]->setValue(values[i]);
+				m_Slider[i]->setValue((float)values[i]);
 			}
 		}
 

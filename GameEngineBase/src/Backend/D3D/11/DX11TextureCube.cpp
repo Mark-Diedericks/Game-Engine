@@ -137,7 +137,7 @@ namespace gebase { namespace graphics { namespace API {
 		for (int32 f = 0; f < 6; f++)
 		{
 			uint fi = faceOrder[f];
-			for (int32 m = 0; m < mips; m++)
+			for (int32 m = 0; m < (int32)mips; m++)
 			{
 				pData[index].pSysMem = cubeTextureData[m][fi];
 				pData[index].SysMemPitch = fWidths[m] * 4;
@@ -153,7 +153,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		gedel[] pData;
 
-		for (int32 m = 0; m < mips; m++)
+		for (int32 m = 0; m < (int32)mips; m++)
 		{
 			for (int32 f = 0; f < 6; f++)
 				gedel[] cubeTextureData[m][f];
