@@ -13,8 +13,6 @@ namespace gebase { namespace math {
 		Quaternion(void);
 		Quaternion(const float& ix, const float& iy, const float& iz, const float& iw);
 		Quaternion(const Vector3f& axis, const float& angle);
-		Quaternion(const Matrix4f& rot);
-		Quaternion(const Vector3f& direction, const Vector3f& up) : Quaternion(Matrix4f::initRotation(direction, up)) {}
 		float getLength() const;
 		float dot(const Quaternion& quat) const;
 		Quaternion normalize();

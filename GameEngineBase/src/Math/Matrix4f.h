@@ -8,6 +8,9 @@
 #include "Utils.h"
 
 namespace gebase { namespace math {
+
+	class Quaternion;
+
 	class GE_API Matrix4f {
 	public:
 		union 
@@ -26,6 +29,7 @@ namespace gebase { namespace math {
 		static Matrix4f& initOrthographic(const float& left, const float& right, const float& top, const float& bottom, const float& near, const float& far);
 		static Matrix4f& initTranslation(const float& m_x, const float& y, const float& z);
 		static inline Matrix4f& initTranslation(const Vector3f& position) { return Matrix4f::initTranslation(position.x, position.y, position.z); }
+		static Matrix4f& initRotation(const Quaternion& quat);
 		static Matrix4f& initScale(const float& m_x, const float& y, const float& z);
 		Matrix4f inverse() const;
 

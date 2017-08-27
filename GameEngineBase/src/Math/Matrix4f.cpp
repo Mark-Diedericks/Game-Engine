@@ -1,5 +1,6 @@
 #include "ge.h"
 #include "Matrix4f.h"
+#include "Quaternion.h"
 
 namespace gebase { namespace math {
 
@@ -8,14 +9,14 @@ namespace gebase { namespace math {
 		memset(m, 0, 4 * 4 * sizeof(float));
 	}
 
-	Matrix4f::Matrix4f(float* m) 
+	Matrix4f::Matrix4f(float* elements) 
 	{
-		memcpy(this->m, m, 4 * 4 * sizeof(float));
+		memcpy(this->m, elements, 4 * 4 * sizeof(float));
 	}
 
-	Matrix4f::Matrix4f(const float m[])
+	Matrix4f::Matrix4f(const float elements[])
 	{
-		memcpy(this->m, m, 4 * 4 * sizeof(float));
+		memcpy(this->m, elements, 4 * 4 * sizeof(float));
 	}
 
 	Matrix4f::Matrix4f(float diagonal)
@@ -44,11 +45,11 @@ namespace gebase { namespace math {
 		float b = (near + far) / (near - far);
 		float c = (2.0f * near * far) / (near - far);
 
-		result.m[0 + 0 * 4] = a;
-		result.m[1 + 1 * 4] = q;
-		result.m[2 + 2 * 4] = b;
-		result.m[2 + 3 * 4] = -1.0f;
-		result.m[3 + 2 * 4] = c;
+		result.elements[0 + 0 * 4] = a;
+		result.elements[1 + 1 * 4] = q;
+		result.elements[2 + 2 * 4] = b;
+		result.elements[2 + 3 * 4] = -1.0f;
+		result.elements[3 + 2 * 4] = c;
 
 		return result;
 	}
@@ -56,15 +57,15 @@ namespace gebase { namespace math {
 	Matrix4f& Matrix4f::initOrthographic(const float& left, const float& right, const float& top, const float& bottom, const float& near, const float& far) {
 		Matrix4f result(1.0f);
 
-		result.m[0 + 0 * 4] = 2.0f / (right - left);
+		result.elements[0 + 0 * 4] = 2.0f / (right - left);
 
-		result.m[1 + 1 * 4] = 2.0f / (top - bottom);
+		result.elements[1 + 1 * 4] = 2.0f / (top - bottom);
 
-		result.m[2 + 2 * 4] = 2.0f / (near - far);
+		result.elements[2 + 2 * 4] = 2.0f / (near - far);
 
-		result.m[3 + 0 * 4] = (left + right) / (left - right);
-		result.m[3 + 1 * 4] = (bottom + top) / (bottom - top);
-		result.m[3 + 2 * 4] = (far + near) / (far - near);
+		result.elements[3 + 0 * 4] = (left + right) / (left - right);
+		result.elements[3 + 1 * 4] = (bottom + top) / (bottom - top);
+		result.elements[3 + 2 * 4] = (far + near) / (far - near);
 
 		return result;
 	}
@@ -72,19 +73,47 @@ namespace gebase { namespace math {
 	Matrix4f& Matrix4f::initTranslation(const float& x, const float& y, const float& z) {
 		Matrix4f result(1.0f);
 
-		result.m[3 + 0 * 4] = x;
-		result.m[3 + 1 * 4] = y;
-		result.m[3 + 2 * 4] = z;
+		result.elements[3 + 0 * 4] = x;
+		result.elements[3 + 1 * 4] = y;
+		result.elements[3 + 2 * 4] = z;
 
+		return result;
+	}
+
+	Matrix4f& Matrix4f::initRotation(const Quaternion& quat) 
+	{
+		Matrix4f result = initIdentity();
+
+		float qx, qy, qz, qw, qx2, qy2, qz2, qxqx2, qyqy2, qzqz2, qxqy2, qyqz2, qzqw2, qxqz2, qyqw2, qxqw2;
+		qx = quat.x;
+		qy = quat.y;
+		qz = quat.z;
+		qw = quat.w;
+		qx2 = (qx + qx);
+		qy2 = (qy + qy);
+		qz2 = (qz + qz);
+		qxqx2 = (qx * qx2);
+		qxqy2 = (qx * qy2);
+		qxqz2 = (qx * qz2);
+		qxqw2 = (qw * qx2);
+		qyqy2 = (qy * qy2);
+		qyqz2 = (qy * qz2);
+		qyqw2 = (qw * qy2);
+		qzqz2 = (qz * qz2);
+		qzqw2 = (qw * qz2);
+
+		result.rows[0] = Vector4f(((1.0f - qyqy2) - qzqz2), (qxqy2 - qzqw2), (qxqz2 + qyqw2), 0.0f);
+		result.rows[1] = Vector4f((qxqy2 + qzqw2), ((1.0f - qxqx2) - qzqz2), (qyqz2 - qxqw2), 0.0f);
+		result.rows[2] = Vector4f((qxqz2 - qyqw2), (qyqz2 + qxqw2), ((1.0f - qxqx2) - qyqy2), 0.0f);
 		return result;
 	}
 
 	Matrix4f& Matrix4f::initScale(const float& x, const float& y, const float& z) {
 		Matrix4f result(1.0f);
 
-		result.m[0 + 0 * 4] = x;
-		result.m[1 + 1 * 4] = y;
-		result.m[2 + 2 * 4] = z;
+		result.elements[0 + 0 * 4] = x;
+		result.elements[1 + 1 * 4] = y;
+		result.elements[2 + 2 * 4] = z;
 
 		return result;
 	}

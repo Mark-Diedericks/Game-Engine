@@ -27,52 +27,6 @@ namespace gebase { namespace math {
 		this->w = cosHalfAngle;
 	}
 
-	Quaternion::Quaternion(const Matrix4f& rot) {
-		float trace = rot.get(0, 0) + rot.get(1, 1) + rot.get(2, 2);
-
-		if (trace > 0)
-		{
-			float s = 0.5f / (float)::sqrt(trace + 1.0f);
-			w = 0.25f / s;
-			x = (rot.get(1, 2) - rot.get(2, 1)) * s;
-			y = (rot.get(2, 0) - rot.get(0, 2)) * s;
-			z = (rot.get(0, 1) - rot.get(1, 0)) * s;
-		}
-		else
-		{
-			if (rot.get(0, 0) > rot.get(1, 1) && rot.get(0, 0) > rot.get(2, 2))
-			{
-				float s = 2.0f * (float)::sqrt(1.0f + rot.get(0, 0) - rot.get(1, 1) - rot.get(2, 2));
-				w = (rot.get(1, 2) - rot.get(2, 1)) / s;
-				x = 0.25f * s;
-				y = (rot.get(1, 0) + rot.get(0, 1)) / s;
-				z = (rot.get(2, 0) + rot.get(0, 2)) / s;
-			}
-			else if (rot.get(1, 1) > rot.get(2, 2))
-			{
-				float s = 2.0f * (float)::sqrt(1.0f + rot.get(1, 1) - rot.get(0, 0) - rot.get(2, 2));
-				w = (rot.get(2, 0) - rot.get(0, 2)) / s;
-				x = (rot.get(1, 0) + rot.get(0, 1)) / s;
-				y = 0.25f * s;
-				z = (rot.get(2, 1) + rot.get(1, 2)) / s;
-			}
-			else
-			{
-				float s = 2.0f * (float)::sqrt(1.0f + rot.get(2, 2) - rot.get(0, 0) - rot.get(1, 1));
-				w = (rot.get(0, 1) - rot.get(1, 0)) / s;
-				x = (rot.get(2, 0) + rot.get(0, 2)) / s;
-				y = (rot.get(1, 2) + rot.get(2, 1)) / s;
-				z = 0.25f * s;
-			}
-		}
-
-		float length = (float)::sqrt(x*x + y*y + z*z + w*w);
-		x /= length;
-		y /= length;
-		z /= length;
-		w /= length;
-	}
-
 	Vector3f Quaternion::rotate(const Vector3f& vec3f) {
 		Quaternion conjugate = this->conjugate();
 
@@ -140,7 +94,7 @@ namespace gebase { namespace math {
 	}
 
 	Matrix4f& Quaternion::toRotationMatrix() {
-		return Matrix4f::initRotation(getRotateForward(), getRotateUp(), getRotateRight());
+		return Matrix4f::initRotation(*this);
 	}
 
 	Vector3f Quaternion::getRotateForward() const {
