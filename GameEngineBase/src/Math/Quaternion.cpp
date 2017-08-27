@@ -18,8 +18,8 @@ namespace gebase { namespace math {
 	}
 
 	Quaternion::Quaternion(const Vector3f& am_xis, const float& angle) {
-		float sinHalfAngle = (float)std::sin(angle / 2.0f);
-		float cosHalfAngle = (float)std::cos(angle / 2.0f);
+		float sinHalfAngle = (float)::sin(angle / 2.0f);
+		float cosHalfAngle = (float)::cos(angle / 2.0f);
 
 		this->x = am_xis.x * sinHalfAngle;
 		this->y = am_xis.y * sinHalfAngle;
@@ -32,7 +32,7 @@ namespace gebase { namespace math {
 
 		if (trace > 0)
 		{
-			float s = 0.5f / (float)std::sqrt(trace + 1.0f);
+			float s = 0.5f / (float)::sqrt(trace + 1.0f);
 			w = 0.25f / s;
 			x = (rot.get(1, 2) - rot.get(2, 1)) * s;
 			y = (rot.get(2, 0) - rot.get(0, 2)) * s;
@@ -42,7 +42,7 @@ namespace gebase { namespace math {
 		{
 			if (rot.get(0, 0) > rot.get(1, 1) && rot.get(0, 0) > rot.get(2, 2))
 			{
-				float s = 2.0f * (float)std::sqrt(1.0f + rot.get(0, 0) - rot.get(1, 1) - rot.get(2, 2));
+				float s = 2.0f * (float)::sqrt(1.0f + rot.get(0, 0) - rot.get(1, 1) - rot.get(2, 2));
 				w = (rot.get(1, 2) - rot.get(2, 1)) / s;
 				x = 0.25f * s;
 				y = (rot.get(1, 0) + rot.get(0, 1)) / s;
@@ -50,7 +50,7 @@ namespace gebase { namespace math {
 			}
 			else if (rot.get(1, 1) > rot.get(2, 2))
 			{
-				float s = 2.0f * (float)std::sqrt(1.0f + rot.get(1, 1) - rot.get(0, 0) - rot.get(2, 2));
+				float s = 2.0f * (float)::sqrt(1.0f + rot.get(1, 1) - rot.get(0, 0) - rot.get(2, 2));
 				w = (rot.get(2, 0) - rot.get(0, 2)) / s;
 				x = (rot.get(1, 0) + rot.get(0, 1)) / s;
 				y = 0.25f * s;
@@ -58,7 +58,7 @@ namespace gebase { namespace math {
 			}
 			else
 			{
-				float s = 2.0f * (float)std::sqrt(1.0f + rot.get(2, 2) - rot.get(0, 0) - rot.get(1, 1));
+				float s = 2.0f * (float)::sqrt(1.0f + rot.get(2, 2) - rot.get(0, 0) - rot.get(1, 1));
 				w = (rot.get(0, 1) - rot.get(1, 0)) / s;
 				x = (rot.get(2, 0) + rot.get(0, 2)) / s;
 				y = (rot.get(1, 2) + rot.get(2, 1)) / s;
@@ -66,7 +66,7 @@ namespace gebase { namespace math {
 			}
 		}
 
-		float length = (float)std::sqrt(x*x + y*y + z*z + w*w);
+		float length = (float)::sqrt(x*x + y*y + z*z + w*w);
 		x /= length;
 		y /= length;
 		z /= length;
@@ -84,7 +84,7 @@ namespace gebase { namespace math {
 	}
 
 	float Quaternion::getLength() const {
-		return (float)std::sqrt(x * x + y * y + z * z + w * w);
+		return (float)::sqrt(x * x + y * y + z * z + w * w);
 	}
 
 	float Quaternion::dot(const Quaternion& quat) const {
@@ -126,15 +126,15 @@ namespace gebase { namespace math {
 			correctedDest = Quaternion(-dest.x, -dest.y, -dest.z, -dest.w);
 		}
 
-		if (std::abs(cos) >= 1 - EPSILON)
+		if (::abs(cos) >= 1 - EPSILON)
 			return nlerp(correctedDest, lerpFactor, false);
 
-		float sin = (float)std::sqrt(1.0f - cos * cos);
-		float angle = (float)std::atan2(sin, cos);
+		float sin = (float)::sqrt(1.0f - cos * cos);
+		float angle = (float)::atan2(sin, cos);
 		float invSin = 1.0f / sin;
 
-		float srcFactor = (float)std::sin((1.0f - lerpFactor) * angle) * invSin;
-		float destFactor = (float)std::sin((lerpFactor)* angle) * invSin;
+		float srcFactor = (float)::sin((1.0f - lerpFactor) * angle) * invSin;
+		float destFactor = (float)::sin((lerpFactor)* angle) * invSin;
 
 		return (*this * srcFactor) + (correctedDest * destFactor);
 	}

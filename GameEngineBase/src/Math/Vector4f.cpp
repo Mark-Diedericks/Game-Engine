@@ -11,7 +11,7 @@ namespace gebase { namespace math {
 	}
 
 	float Vector4f::getLength() const {
-		return (float)std::sqrt(x * x + y * y + z * z + w * w);
+		return (float)::sqrt(x * x + y * y + z * z + w * w);
 	}
 
 	float Vector4f::dot(const Vector4f& vec4f) const {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cmath>
+#include <math.h>
 
 #include "Common.h"
 #include "Vector3f.h"

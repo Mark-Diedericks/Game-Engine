@@ -15,7 +15,7 @@ namespace gebase { namespace math {
 	}
 
 	float Vector2f::getLength() const {
-		return (float)std::sqrt(x * x + y * y);
+		return (float)::sqrt(x * x + y * y);
 	}
 
 	float Vector2f::dot(const Vector2f& vec2f) const {

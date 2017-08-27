@@ -1,8 +1,9 @@
 #pragma once
 
+#include <math.h>
+
 #include "Common.h"
 #include "Matrix4f.h"
-#include <cmath>
 
 namespace gebase { namespace math {
 	class GE_API Quaternion {

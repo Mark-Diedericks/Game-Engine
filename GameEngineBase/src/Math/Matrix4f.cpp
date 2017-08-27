@@ -39,7 +39,7 @@ namespace gebase { namespace math {
 		Matrix4f* mat = new Matrix4f();
 		float* m = mat->m;
 
-		float tanHalfFOV = (float)std::tan(fov / 2.0f);
+		float tanHalfFOV = (float)::tan(fov / 2.0f);
 		float zRange = zNear - zFar;
 
 		m[0] = 1.0f / (tanHalfFOV * aspectRatio); m[4] = 0;					m[8] = 0;							m[12] = 0;
@@ -89,20 +89,20 @@ namespace gebase { namespace math {
 		float y_ = Utils::toRadians(y);
 		float z_ = Utils::toRadians(z);
 
-		rz.m[0] = (float)std::cos(z); rz.m[4] = -(float)std::sin(z); rz.m[8] = 0;					rz.m[12] = 0;
-		rz.m[1] = (float)std::sin(z); rz.m[5] = (float)std::cos(z);  rz.m[9] = 0;					rz.m[13] = 0;
-		rz.m[2] = 0;		     	  rz.m[6] = 0;					 rz.m[10] = 1;					rz.m[14] = 0;
-		rz.m[3] = 0;				  rz.m[7] = 0;					 rz.m[11] = 0;					rz.m[15] = 1;
+		rz.m[0] = (float)::cos(z);		rz.m[4] = -(float)::sin(z);			rz.m[8] = 0;					rz.m[12] = 0;
+		rz.m[1] = (float)::sin(z);		rz.m[5] = (float)::cos(z);			rz.m[9] = 0;					rz.m[13] = 0;
+		rz.m[2] = 0;		     		rz.m[6] = 0;						rz.m[10] = 1;					rz.m[14] = 0;
+		rz.m[3] = 0;					rz.m[7] = 0;						rz.m[11] = 0;					rz.m[15] = 1;
 
-		rm_x.m[0] = 1;				  rm_x.m[4] = 0;					 rm_x.m[8] = 0;					rm_x.m[12] = 0;
-		rm_x.m[1] = 0;				  rm_x.m[5] = (float)std::cos(m_x);  rm_x.m[9] = -(float)std::sin(m_x); rm_x.m[13] = 0;
-		rm_x.m[2] = 0;				  rm_x.m[6] = (float)std::sin(m_x);  rm_x.m[10] = (float)std::cos(m_x); rm_x.m[14] = 0;
-		rm_x.m[3] = 0;				  rm_x.m[7] = 0;					 rm_x.m[11] = 0;					rm_x.m[15] = 1;
+		rm_x.m[0] = 1;					rm_x.m[4] = 0;						rm_x.m[8] = 0;					rm_x.m[12] = 0;
+		rm_x.m[1] = 0;					rm_x.m[5] = (float)::cos(m_x);		rm_x.m[9] = -(float)::sin(m_x); rm_x.m[13] = 0;
+		rm_x.m[2] = 0;					rm_x.m[6] = (float)::sin(m_x);		rm_x.m[10] = (float)::cos(m_x); rm_x.m[14] = 0;
+		rm_x.m[3] = 0;					rm_x.m[7] = 0;						rm_x.m[11] = 0;					rm_x.m[15] = 1;
 
-		ry.m[0] = (float)std::cos(y); ry.m[4] = 0;					 ry.m[8] = -(float)std::sin(y); ry.m[12] = 0;
-		ry.m[1] = 0;				  ry.m[5] = 1;					 ry.m[9] = 0;					ry.m[13] = 0;
-		ry.m[2] = (float)std::sin(y); ry.m[6] = 0;					 ry.m[10] = (float)std::cos(y); ry.m[14] = 0;
-		ry.m[3] = 0;				  ry.m[7] = 0;					 ry.m[11] = 0;					ry.m[15] = 1;
+		ry.m[0] = (float)::cos(y);		ry.m[4] = 0;						ry.m[8] = -(float)::sin(y);		ry.m[12] = 0;
+		ry.m[1] = 0;					ry.m[5] = 1;						ry.m[9] = 0;					ry.m[13] = 0;
+		ry.m[2] = (float)::sin(y);		ry.m[6] = 0;						ry.m[10] = (float)::cos(y);		ry.m[14] = 0;
+		ry.m[3] = 0;					ry.m[7] = 0;						ry.m[11] = 0;					ry.m[15] = 1;
 
 		Matrix4f res = rz * (ry * rm_x);
 		for (int i = 0; i < 16; i++)

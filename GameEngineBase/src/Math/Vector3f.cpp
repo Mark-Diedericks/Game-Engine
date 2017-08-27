@@ -17,7 +17,7 @@ namespace gebase { namespace math {
 	}
 
 	float Vector3f::getLength() const {
-		return (float)std::sqrt(x * x + y * y + z * z);
+		return (float)::sqrt(x * x + y * y + z * z);
 	}
 
 	float Vector3f::dot(const Vector3f& vec3f) const {
@@ -36,8 +36,8 @@ namespace gebase { namespace math {
 	}
 
 	Vector3f Vector3f::rotate(const Vector3f& axis, const float& angle) {
-		const float sinAngle = (float)std::sin(-angle);
-		const float cosAngle = (float)std::cos(-angle);
+		const float sinAngle = (float)::sin(-angle);
+		const float cosAngle = (float)::cos(-angle);
 		return this->cross(axis * sinAngle) + (*this * cosAngle) + axis * this->dot(axis * (1 - cosAngle));
 	}
 
