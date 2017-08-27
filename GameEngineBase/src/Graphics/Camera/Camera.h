@@ -42,7 +42,7 @@ namespace gebase { namespace graphics {
 		inline void Rotate(float x, float y, float z) { m_Rotation.rotate(math::Vector3f(x, y, z)); }
 
 		inline void AimAt(const math::Vector3f& point, const math::Vector3f& up) { m_Rotation = getRotationToPoint(point, up); }
-		inline math::Quaternion& getRotationToPoint(const math::Vector3f& point, const math::Vector3f& up) { return math::Quaternion(*math::Matrix4f::initRotation((point - m_Position).normalize(), up)); }
+		inline math::Quaternion& getRotationToPoint(const math::Vector3f& point, const math::Vector3f& up) { return math::Quaternion(math::Matrix4f::initRotation((point - m_Position).normalize(), up)); }
 	};
 
 } }

@@ -40,7 +40,7 @@ namespace gebase { namespace graphics {
 		}
 
 		m_Position = calculatePosition();
-		m_ViewMatrix = (*math::Matrix4f::initTranslation(math::Vector3f(0.0f, 0.0f, 1.0f))) * (*m_Rotation.conjugate().toRotationMatrix()) * (*math::Matrix4f::initTranslation(m_Position * -1));
+		m_ViewMatrix = (math::Matrix4f::initTranslation(math::Vector3f(0.0f, 0.0f, 1.0f))) * (*m_Rotation.conjugate().toRotationMatrix()) * (math::Matrix4f::initTranslation(m_Position * -1));
 	}
 
 

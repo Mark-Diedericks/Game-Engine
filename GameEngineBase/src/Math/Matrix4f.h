@@ -18,16 +18,16 @@ namespace gebase { namespace math {
 	public:
 		Matrix4f(void);
 		Matrix4f(const float data[]);
-		static Matrix4f* initIdentity();
-		static Matrix4f* initDiagonal(const float& diagonal);
-		static Matrix4f* initPerspective(const float& fov, const float& aspectRatio, const float& zNear, const float& zFar);
-		static Matrix4f* initOrthographic(const float& left, const float& right, const float& top, const float& bottom, const float& near, const float& far);
-		static Matrix4f* initTranslation(const float& m_x, const float& y, const float& z);
-		static inline Matrix4f* initTranslation(const Vector3f& position) { return Matrix4f::initTranslation(position.x, position.y, position.z); }
-		static Matrix4f* initRotation(const float& m_x, const float& y, const float& z);
-		static Matrix4f* initRotation(const Vector3f& forward, const Vector3f& up);
-		static Matrix4f* initRotation(const Vector3f& forward, const Vector3f& up, const Vector3f& right);
-		static Matrix4f* initScale(const float& m_x, const float& y, const float& z);
+		static Matrix4f& initIdentity();
+		static Matrix4f& initDiagonal(const float& diagonal);
+		static Matrix4f& initPerspective(const float& fov, const float& aspectRatio, const float& zNear, const float& zFar);
+		static Matrix4f& initOrthographic(const float& left, const float& right, const float& top, const float& bottom, const float& near, const float& far);
+		static Matrix4f& initTranslation(const float& m_x, const float& y, const float& z);
+		static inline Matrix4f& initTranslation(const Vector3f& position) { return Matrix4f::initTranslation(position.x, position.y, position.z); }
+		static Matrix4f& initRotation(const float& m_x, const float& y, const float& z);
+		static Matrix4f& initRotation(const Vector3f& forward, const Vector3f& up);
+		static Matrix4f& initRotation(const Vector3f& forward, const Vector3f& up, const Vector3f& right);
+		static Matrix4f& initScale(const float& m_x, const float& y, const float& z);
 		float get(const int& row, const int& column) const;
 		void set(const int& row, const int& column, const float& value);
 		Vector3f transform(const Vector3f& vec3f);
@@ -70,21 +70,15 @@ namespace gebase { namespace math {
 		}
 
 		inline Matrix4f& operator +(const Matrix4f& mat4f) const {
-			Matrix4f* res = new Matrix4f(m);
-			*res += mat4f;
-			return *res;
+			return Matrix4f(m) += mat4f;
 		}
 
 		inline Matrix4f& operator -(const Matrix4f& mat4f) const {
-			Matrix4f* res = new Matrix4f(m);
-			*res -= mat4f;
-			return *res;
+			return Matrix4f(m) -= mat4f;
 		}
 
 		inline Matrix4f& operator *(const Matrix4f& mat4f) const {
-			Matrix4f* res = new Matrix4f(m);
-			*res *= mat4f;
-			return *res;
+			return Matrix4f(m) *= mat4f;
 		}
 
 		inline Vector3f& operator *(const Vector3f& vec3f) const {

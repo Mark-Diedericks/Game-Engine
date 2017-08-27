@@ -25,8 +25,8 @@ namespace gebase { namespace entity {
 		}
 	public:
 		Entity();
-		Entity(graphics::Sprite* sprite, const math::Matrix4f& transform = *math::Matrix4f::initIdentity());
-		Entity(graphics::Mesh* mesh, const math::Matrix4f& transform = *math::Matrix4f::initIdentity());
+		Entity(graphics::Sprite* sprite, const math::Matrix4f& transform = math::Matrix4f::initIdentity());
+		Entity(graphics::Mesh* mesh, const math::Matrix4f& transform = math::Matrix4f::initIdentity());
 
 		void AddComponent(component::Component* component);
 

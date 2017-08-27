@@ -10,7 +10,7 @@ namespace gebase { namespace graphics { namespace ui {
 	using namespace math;
 	using namespace events;
 
-	Panel::Panel() : Layer2D(*Matrix4f::initOrthographic(0.0f, 32.0f, 18.0f, 0.0f, -1.0f, 1.0f))
+	Panel::Panel() : Layer2D(Matrix4f::initOrthographic(0.0f, 32.0f, 18.0f, 0.0f, -1.0f, 1.0f))
 	{
 		Application::getApplication().PushOverlay(this);
 	}

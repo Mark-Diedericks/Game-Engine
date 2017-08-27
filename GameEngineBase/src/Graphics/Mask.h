@@ -11,9 +11,9 @@ namespace gebase { namespace graphics {
 		Texture2D* texture;
 		math::Matrix4f transform;
 
-		Mask(Texture2D* texture, const math::Matrix4f& transform = *math::Matrix4f::initIdentity()) : texture(texture), transform(transform)
+		Mask(Texture2D* texture, const math::Matrix4f& transform = math::Matrix4f::initIdentity()) : texture(texture), transform(transform)
 		{
-			this->transform = *math::Matrix4f::initScale((float)texture->getWidth() / (float)texture->getHeight(), 1.0f, 1.0f);
+			this->transform = math::Matrix4f::initScale((float)texture->getWidth() / (float)texture->getHeight(), 1.0f, 1.0f);
 		}
 	};
 

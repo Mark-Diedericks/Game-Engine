@@ -17,7 +17,7 @@ namespace gebase { namespace debug {
 	
 	DebugLayer* DebugLayer::s_Instance = nullptr;
 
-	DebugLayer::DebugLayer() : Layer2D(*Matrix4f::initOrthographic(0.0f, 32.0f, 18.0f, 0.0f, -1.0f, 1.0f)), m_Application(Application::getApplication())
+	DebugLayer::DebugLayer() : Layer2D(Matrix4f::initOrthographic(0.0f, 32.0f, 18.0f, 0.0f, -1.0f, 1.0f)), m_Application(Application::getApplication())
 	{
 		s_Instance = this;
 	}

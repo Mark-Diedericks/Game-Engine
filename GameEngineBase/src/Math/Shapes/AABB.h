@@ -23,7 +23,7 @@ namespace gebase { namespace math
 
 		bool Intersects(const AABB& other);
 		bool Contains(const Vector2f& point);
-		bool Continas(const Vector3f& point);
+		bool Contains(const Vector3f& point);
 
 		inline Vector3f Center() const { return (max + min) * 0.5f; }
 		inline Vector3f getSize() const { return Vector3f(abs(max.x - min.x), abs(max.y - min.y), abs(max.z - min.z)); }

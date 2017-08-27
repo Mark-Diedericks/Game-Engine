@@ -13,7 +13,7 @@ namespace gebase { namespace math {
 			m[i] = data[i];
 	}
 
-	Matrix4f* Matrix4f::initIdentity() {
+	Matrix4f& Matrix4f::initIdentity() {
 		Matrix4f* mat = new Matrix4f();
 		float* m = mat->m;
 
@@ -21,10 +21,10 @@ namespace gebase { namespace math {
 		m[1] = 0; m[5] = 1;	m[9] = 0;   m[13] = 0;
 		m[2] = 0; m[6] = 0;	m[10] = 1;  m[14] = 0;
 		m[3] = 0; m[7] = 0;	m[11] = 0;  m[15] = 1;
-		return mat;
+		return *mat;
 	}
 
-	Matrix4f* Matrix4f::initDiagonal(const float& diagonal) {
+	Matrix4f& Matrix4f::initDiagonal(const float& diagonal) {
 		Matrix4f* mat = new Matrix4f();
 		float* m = mat->m;
 
@@ -32,10 +32,10 @@ namespace gebase { namespace math {
 		m[1] = 0;		 m[5] = diagonal;	m[9] = 0;		   m[13] = 0;
 		m[2] = 0;		 m[6] = 0;			m[10] = diagonal;  m[14] = 0;
 		m[3] = 0;		 m[7] = 0;			m[11] = 0;		   m[15] = diagonal;
-		return mat;
+		return *mat;
 	}
 
-	Matrix4f* Matrix4f::initPerspective(const float& fov, const float& aspectRatio, const float& zNear, const float& zFar) {
+	Matrix4f& Matrix4f::initPerspective(const float& fov, const float& aspectRatio, const float& zNear, const float& zFar) {
 		Matrix4f* mat = new Matrix4f();
 		float* m = mat->m;
 
@@ -47,10 +47,10 @@ namespace gebase { namespace math {
 		m[2] = 0;								  m[6] = 0;					m[10] = (-zNear - zFar) / zRange;	m[14] = 2 * zFar * zNear / zRange;
 		m[3] = 0;								  m[7] = 0;					m[11] = 1;							m[15] = 0;
 
-		return mat;
+		return *mat;
 	}
 
-	Matrix4f* Matrix4f::initOrthographic(const float& left, const float& right, const float& top, const float& bottom, const float& near, const float& far) {
+	Matrix4f& Matrix4f::initOrthographic(const float& left, const float& right, const float& top, const float& bottom, const float& near, const float& far) {
 		Matrix4f* mat = new Matrix4f();
 		float* m = mat->m;
 
@@ -63,10 +63,10 @@ namespace gebase { namespace math {
 		m[2] = 0;		  m[6] = 0;		 	 m[10] = -2 / depth; m[14] = -(far + near) / depth;
 		m[3] = 0;		  m[7] = 0;			 m[11] = 0;			 m[15] = 1;
 
-		return mat;
+		return *mat;
 	}
 
-	Matrix4f* Matrix4f::initTranslation(const float& m_x, const float& y, const float& z) {
+	Matrix4f& Matrix4f::initTranslation(const float& m_x, const float& y, const float& z) {
 		Matrix4f* mat = new Matrix4f();
 		float* m = mat->m;
 
@@ -74,10 +74,10 @@ namespace gebase { namespace math {
 		m[1] = 0; m[5] = 1;	m[9] = 0;   m[13] = y;
 		m[2] = 0; m[6] = 0;	m[10] = 1;  m[14] = z;
 		m[3] = 0; m[7] = 0;	m[11] = 0;  m[15] = 1;
-		return mat;
+		return *mat;
 	}
 
-	Matrix4f* Matrix4f::initRotation(const float& m_x, const float& y, const float& z) {
+	Matrix4f& Matrix4f::initRotation(const float& m_x, const float& y, const float& z) {
 		Matrix4f* mat = new Matrix4f();
 		float* m = mat->m;
 
@@ -108,10 +108,10 @@ namespace gebase { namespace math {
 		for (int i = 0; i < 16; i++)
 			m[i] = res.m[i];
 
-		return mat;
+		return *mat;
 	}
 
-	Matrix4f* Matrix4f::initRotation(const Vector3f& forward, const Vector3f& up) {
+	Matrix4f& Matrix4f::initRotation(const Vector3f& forward, const Vector3f& up) {
 		Vector3f f = forward;
 		f.normalize();
 
@@ -124,7 +124,7 @@ namespace gebase { namespace math {
 		return Matrix4f::initRotation(f, u, r);
 	}
 
-	Matrix4f* Matrix4f::initRotation(const Vector3f& forward, const Vector3f& up, const Vector3f& right) {
+	Matrix4f& Matrix4f::initRotation(const Vector3f& forward, const Vector3f& up, const Vector3f& right) {
 		Matrix4f* mat = new Matrix4f();
 		float* m = mat->m;
 
@@ -137,10 +137,10 @@ namespace gebase { namespace math {
 		m[2] = f.x;	m[6] = f.y;	m[10] = f.z;	m[14] = 0;
 		m[3] = 0;	    	m[7] = 0;			m[11] = 0;			m[15] = 1;
 
-		return mat;
+		return *mat;
 	}
 
-	Matrix4f* Matrix4f::initScale(const float& m_x, const float& y, const float& z) {
+	Matrix4f& Matrix4f::initScale(const float& m_x, const float& y, const float& z) {
 		Matrix4f* mat = new Matrix4f();
 		float* m = mat->m;
 
@@ -148,7 +148,7 @@ namespace gebase { namespace math {
 		m[1] = 0; m[5] = y;	m[9] = 0;   m[13] = 0;
 		m[2] = 0; m[6] = 0;	m[10] = z;  m[14] = 0;
 		m[3] = 0; m[7] = 0;	m[11] = 0;  m[15] = 1;
-		return mat;
+		return *mat;
 	}
 
 	float Matrix4f::get(const int& row, const int& column) const {

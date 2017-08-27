@@ -14,7 +14,7 @@ namespace gebase { namespace math {
 		Quaternion(const float& ix, const float& iy, const float& iz, const float& iw);
 		Quaternion(const Vector3f& axis, const float& angle);
 		Quaternion(const Matrix4f& rot);
-		Quaternion(const Vector3f& direction, const Vector3f& up) : Quaternion(*Matrix4f::initRotation(direction, up)) {}
+		Quaternion(const Vector3f& direction, const Vector3f& up) : Quaternion(Matrix4f::initRotation(direction, up)) {}
 		float getLength() const;
 		float dot(const Quaternion& quat) const;
 		Quaternion normalize();
@@ -100,8 +100,7 @@ namespace gebase { namespace math {
 		}
 
 		inline Quaternion& operator *=(const float& f) {
-			Vector3f vec3f(f, f, f);
-			*this *= vec3f;
+			*this *= Vector3f(f, f, f);
 			return *this;
 		}
 
@@ -122,23 +121,19 @@ namespace gebase { namespace math {
 		}
 
 		inline Quaternion& operator +(const float& f) const {
-			Quaternion res(x + f, y + f, z + f, w + f);
-			return res;
+			return Quaternion(x + f, y + f, z + f, w + f);
 		}
 
 		inline Quaternion& operator +(const Quaternion& quat) const {
-			Quaternion res(x + quat.x, y + quat.y, z + quat.z, w + quat.w);
-			return res;
+			return Quaternion(x + quat.x, y + quat.y, z + quat.z, w + quat.w);
 		}
 
 		inline Quaternion& operator -(const float& f) const {
-			Quaternion res(x - f, y - f, z - f, w - f);
-			return res;
+			return Quaternion(x - f, y - f, z - f, w - f);
 		}
 
 		inline Quaternion& operator -(const Quaternion& quat) const {
-			Quaternion res(x - quat.x, y - quat.y, z - quat.z, w - quat.w);
-			return res;
+			return Quaternion(x - quat.x, y - quat.y, z - quat.z, w - quat.w);
 		}
 
 		inline Quaternion& operator *(const Vector3f& vec3f) const {
@@ -147,8 +142,7 @@ namespace gebase { namespace math {
 			float y_ = w * vec3f.y + z * vec3f.x - x * vec3f.z;
 			float z_ = w * vec3f.z + x * vec3f.y - y * vec3f.x;
 			
-			Quaternion res(x_, y_, z_, w_);
-			return res;
+			return Quaternion(x_, y_, z_, w_);
 		}
 
 		inline Quaternion& operator *(const Quaternion& r) const {
@@ -157,23 +151,19 @@ namespace gebase { namespace math {
 			float y_ = y * r.w + w * r.y + z * r.x - x * r.z;
 			float z_ = z * r.w + w * r.z + x * r.y - y * r.x;
 
-			Quaternion res(x_, y_, z_, w_);
-			return res;
+			return Quaternion(x_, y_, z_, w_);
 		}
 
 		inline Quaternion& operator *(const float& f) const {
-			Vector3f vec3f(f, f, f);
-			return ((*this) * vec3f);
+			return ((*this) * Vector3f(f, f, f));
 		}
 
 		inline Quaternion& operator /(const float& f) const {
-			Quaternion res(x / f, y / f, z / f, w / f);
-			return res;
+			return Quaternion(x / f, y / f, z / f, w / f);
 		}
 
 		inline Quaternion& operator /(const Quaternion& quat) const {
-			Quaternion res(x / quat.x, y / quat.y, z / quat.z, w / quat.w);
-			return res;
+			return Quaternion(x / quat.x, y / quat.y, z / quat.z, w / quat.w);
 		}
 	};
 } }

@@ -44,7 +44,7 @@ namespace gebase { namespace math {
 		return Contains(Vector3f(point));
 	}
 
-	bool AABB::Continas(const Vector3f& point)
+	bool AABB::Contains(const Vector3f& point)
 	{
 		return point > min && point < max;
 	}
