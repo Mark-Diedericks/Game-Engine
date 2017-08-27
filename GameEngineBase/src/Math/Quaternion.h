@@ -7,7 +7,7 @@
 
 namespace gebase { namespace math {
 	class GE_API Quaternion {
-	private:
+	public:
 		float x, y, z, w;
 	public:
 		Quaternion(void);
@@ -20,7 +20,7 @@ namespace gebase { namespace math {
 		Quaternion nlerp(const Quaternion& dest, const float& lerpFactor, const bool& shortest) const;
 		Quaternion slerp(const Quaternion& dest, const float& lerpFactor, const bool& shortest) const;
 		Vector3f rotate(const Vector3f& vec3f);
-		Matrix4f& toRotationMatrix();
+		Matrix4f toRotationMatrix();
 		Vector3f getRotateForward() const;
 		Vector3f getRotateUp() const;
 		Vector3f getRotateRight() const;

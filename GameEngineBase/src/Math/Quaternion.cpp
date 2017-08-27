@@ -93,7 +93,7 @@ namespace gebase { namespace math {
 		return (*this * srcFactor) + (correctedDest * destFactor);
 	}
 
-	Matrix4f& Quaternion::toRotationMatrix() {
+	Matrix4f Quaternion::toRotationMatrix() {
 		return Matrix4f::initRotation(*this);
 	}
 

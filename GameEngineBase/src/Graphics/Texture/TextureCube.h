@@ -5,7 +5,7 @@
 
 namespace gebase { namespace graphics {
 
-	class TextureCube : public Texture
+	class GE_API TextureCube : public Texture
 	{
 	private:
 		API::APITextureCube* m_Instance;

@@ -5,7 +5,7 @@
 
 namespace gebase { namespace graphics {
 
-	class TextureDepth : public Texture
+	class GE_API TextureDepth : public Texture
 	{
 	private:
 		API::APITextureDepth* m_Instance;

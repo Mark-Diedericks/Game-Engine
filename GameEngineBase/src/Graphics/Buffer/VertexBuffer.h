@@ -8,7 +8,7 @@
 
 namespace gebase { namespace graphics {
 	
-	class VertexBuffer
+	class GE_API VertexBuffer
 	{
 	private:
 		const void* m_Data;

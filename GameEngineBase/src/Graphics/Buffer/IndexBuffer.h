@@ -5,7 +5,7 @@
 
 namespace gebase { namespace graphics {
 
-	class IndexBuffer
+	class GE_API IndexBuffer
 	{
 	private:
 		uint16* m_Data16;

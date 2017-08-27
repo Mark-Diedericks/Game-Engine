@@ -6,7 +6,7 @@
 
 namespace gebase { namespace graphics {
 
-	class Framebuffer
+	class GE_API Framebuffer
 	{
 	public:
 		virtual void Bind() const = 0;

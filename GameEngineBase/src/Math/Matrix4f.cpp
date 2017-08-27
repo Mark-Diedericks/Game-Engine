@@ -9,14 +9,14 @@ namespace gebase { namespace math {
 		memset(m, 0, 4 * 4 * sizeof(float));
 	}
 
-	Matrix4f::Matrix4f(float* elements) 
+	Matrix4f::Matrix4f(float* m) 
 	{
-		memcpy(this->m, elements, 4 * 4 * sizeof(float));
+		memcpy(this->m, m, 4 * 4 * sizeof(float));
 	}
 
-	Matrix4f::Matrix4f(const float elements[])
+	Matrix4f::Matrix4f(const float m[])
 	{
-		memcpy(this->m, elements, 4 * 4 * sizeof(float));
+		memcpy(this->m, m, 4 * 4 * sizeof(float));
 	}
 
 	Matrix4f::Matrix4f(float diagonal)
@@ -28,15 +28,15 @@ namespace gebase { namespace math {
 		m[3 + 3 * 4] = diagonal;
 	}
 
-	Matrix4f& Matrix4f::initIdentity() {
+	Matrix4f Matrix4f::initIdentity() {
 		return Matrix4f(1);
 	}
-
-	Matrix4f& Matrix4f::initDiagonal(const float& diagonal) {
+		
+	Matrix4f Matrix4f::initDiagonal(const float& diagonal) {
 		return Matrix4f(diagonal);
 	}
 
-	Matrix4f& Matrix4f::initPerspective(const float& fov, const float& aspectRatio, const float& near, const float& far) {
+	Matrix4f Matrix4f::initPerspective(const float& fov, const float& aspectRatio, const float& near, const float& far) {
 		Matrix4f result(1.0f);
 
 		float q = 1.0f / tan(Utils::toRadians(0.5f * fov));
@@ -45,42 +45,42 @@ namespace gebase { namespace math {
 		float b = (near + far) / (near - far);
 		float c = (2.0f * near * far) / (near - far);
 
-		result.elements[0 + 0 * 4] = a;
-		result.elements[1 + 1 * 4] = q;
-		result.elements[2 + 2 * 4] = b;
-		result.elements[2 + 3 * 4] = -1.0f;
-		result.elements[3 + 2 * 4] = c;
+		result.m[0 + 0 * 4] = a;
+		result.m[1 + 1 * 4] = q;
+		result.m[2 + 2 * 4] = b;
+		result.m[2 + 3 * 4] = -1.0f;
+		result.m[3 + 2 * 4] = c;
 
 		return result;
 	}
 
-	Matrix4f& Matrix4f::initOrthographic(const float& left, const float& right, const float& top, const float& bottom, const float& near, const float& far) {
+	Matrix4f Matrix4f::initOrthographic(const float& left, const float& right, const float& top, const float& bottom, const float& near, const float& far) {
 		Matrix4f result(1.0f);
 
-		result.elements[0 + 0 * 4] = 2.0f / (right - left);
+		result.m[0 + 0 * 4] = 2.0f / (right - left);
 
-		result.elements[1 + 1 * 4] = 2.0f / (top - bottom);
+		result.m[1 + 1 * 4] = 2.0f / (top - bottom);
 
-		result.elements[2 + 2 * 4] = 2.0f / (near - far);
+		result.m[2 + 2 * 4] = 2.0f / (near - far);
 
-		result.elements[3 + 0 * 4] = (left + right) / (left - right);
-		result.elements[3 + 1 * 4] = (bottom + top) / (bottom - top);
-		result.elements[3 + 2 * 4] = (far + near) / (far - near);
+		result.m[3 + 0 * 4] = (left + right) / (left - right);
+		result.m[3 + 1 * 4] = (bottom + top) / (bottom - top);
+		result.m[3 + 2 * 4] = (far + near) / (far - near);
 
 		return result;
 	}
 
-	Matrix4f& Matrix4f::initTranslation(const float& x, const float& y, const float& z) {
+	Matrix4f Matrix4f::initTranslation(const float& x, const float& y, const float& z) {
 		Matrix4f result(1.0f);
 
-		result.elements[3 + 0 * 4] = x;
-		result.elements[3 + 1 * 4] = y;
-		result.elements[3 + 2 * 4] = z;
+		result.m[3 + 0 * 4] = x;
+		result.m[3 + 1 * 4] = y;
+		result.m[3 + 2 * 4] = z;
 
 		return result;
 	}
 
-	Matrix4f& Matrix4f::initRotation(const Quaternion& quat) 
+	Matrix4f Matrix4f::initRotation(const Quaternion& quat) 
 	{
 		Matrix4f result = initIdentity();
 
@@ -108,12 +108,12 @@ namespace gebase { namespace math {
 		return result;
 	}
 
-	Matrix4f& Matrix4f::initScale(const float& x, const float& y, const float& z) {
+	Matrix4f Matrix4f::initScale(const float& x, const float& y, const float& z) {
 		Matrix4f result(1.0f);
 
-		result.elements[0 + 0 * 4] = x;
-		result.elements[1 + 1 * 4] = y;
-		result.elements[2 + 2 * 4] = z;
+		result.m[0 + 0 * 4] = x;
+		result.m[1 + 1 * 4] = y;
+		result.m[2 + 2 * 4] = z;
 
 		return result;
 	}

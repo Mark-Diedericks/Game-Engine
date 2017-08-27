@@ -6,14 +6,14 @@
 
 namespace gebase { namespace graphics {
 
-	class VertexArray
+	class GE_API VertexArray
 	{
 	private:
 		API::APIVertexArray* m_Instance;
 		VertexArray() { }
 	public:
 		inline VertexBuffer* getBuffer(uint index = 0) { return m_Instance->getBuffer(index); }
-		inline std::vector<gebase::graphics::VertexBuffer*>& getBuffers() { m_Instance->getBuffers(); }
+		inline std::vector<gebase::graphics::VertexBuffer*>& getBuffers() { return m_Instance->getBuffers(); }
 		inline void PushBuffer(VertexBuffer* buffer) { m_Instance->PushBuffer(buffer); }
 
 		inline void Bind() const { m_Instance->Bind(); }

@@ -13,7 +13,7 @@
 
 namespace gebase { namespace graphics {
 
-	class Shader
+	class GE_API Shader
 	{
 	private:
 		API::APIShader* m_Instance;

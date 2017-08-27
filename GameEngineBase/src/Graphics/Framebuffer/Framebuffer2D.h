@@ -5,7 +5,7 @@
 
 namespace gebase { namespace graphics {
 
-	class Framebuffer2D : public Framebuffer
+	class GE_API Framebuffer2D : public Framebuffer
 	{
 	private:
 		API::APIFramebuffer2D* m_Instance;

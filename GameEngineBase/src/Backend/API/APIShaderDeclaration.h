@@ -4,7 +4,7 @@
 
 namespace gebase { namespace graphics { namespace API {
 
-	struct ShaderDeclaration
+	struct GE_API ShaderDeclaration
 	{
 		String name;
 		String opengl;

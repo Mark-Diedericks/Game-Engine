@@ -7,7 +7,7 @@
 
 namespace gebase { namespace graphics {
 
-	class Texture
+	class GE_API Texture
 	{
 	protected:
 		static API::TextureWrap s_WrapMode;

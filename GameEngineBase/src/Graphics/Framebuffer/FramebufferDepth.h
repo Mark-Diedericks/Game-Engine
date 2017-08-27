@@ -5,7 +5,7 @@
 
 namespace gebase { namespace graphics {
 
-	class FramebufferDepth : public Framebuffer
+	class GE_API FramebufferDepth : public Framebuffer
 	{
 	private:
 		API::APIFramebufferDepth* m_Instance;

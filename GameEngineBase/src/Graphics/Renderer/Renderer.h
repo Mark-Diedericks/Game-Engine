@@ -6,7 +6,7 @@
 
 namespace gebase { namespace graphics {
 
-	class Renderer
+	class GE_API Renderer
 	{
 	private:
 		static Renderer* s_Instance;

@@ -56,8 +56,8 @@ namespace gebase { namespace graphics { namespace API {
 			class APITexture
 			{
 			protected:
-				static TextureWrap s_WrapMode;
-				static TextureFilter s_FilterMode;
+				static GE_API TextureWrap s_WrapMode;
+				static GE_API TextureFilter s_FilterMode;
 			public:
 				virtual ~APITexture() {}
 
