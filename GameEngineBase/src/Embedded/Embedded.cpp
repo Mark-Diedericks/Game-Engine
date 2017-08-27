@@ -4,7 +4,7 @@
 namespace gebase {
 
 	byte DEFAULT_FONT_ARRAY[] = {
-#include "Embedded/Files/SourceSansPro-Light.embed"
+#include "Files/SourceSansPro-Light.embed"
 	};
 
 	byte* DEFAULT_FONT = DEFAULT_FONT_ARRAY;

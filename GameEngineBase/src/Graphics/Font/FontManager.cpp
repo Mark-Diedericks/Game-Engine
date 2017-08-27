@@ -49,7 +49,7 @@ namespace gebase { namespace graphics {
 				return font;
 		}
 
-		Font* res = new Font("SourceSansPro", DEFAULT_FONT, DEFAULT_FONT_SIZE, (float)size);
+		Font* res = new Font("SourceSansPro", DEFAULT_FONT, DEFAULT_FONT_SIZE, (float)size, "[FontManager] Get(size)");
 		res->setScale(s_Scale);
 		Add(res);
 		return res;

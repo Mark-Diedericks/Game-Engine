@@ -12,7 +12,7 @@ namespace gebase { namespace graphics {
 
 		API::TextureParameters params = { API::TextureFormat::LUMINANCE_ALPHA, API::TextureFilter::LINEAR, API::TextureWrap::CLAMP_TO_EDGE };
 		m_Texture = Texture2D::Create(512, 512, params);
-		m_Texture->setData(m_FTAtlas->data);
+		m_Texture->setData(m_FTAtlas->data, "[Font] Font() 1st: " + name);
 
 		if (!m_FTFont)
 		{
@@ -23,14 +23,14 @@ namespace gebase { namespace graphics {
 		}
 	}
 
-	Font::Font(const String& name, const byte* data, uint datasize, float size) : m_Name(name), m_Filepath("NULL"), m_Size(size), m_Scale(math::Vector2f(1.0f, 1.0f)), m_Texture(nullptr)
+	Font::Font(const String& name, const byte* data, uint datasize, float size, const String& coming) : m_Name(name), m_Filepath("NULL"), m_Size(size), m_Scale(math::Vector2f(1.0f, 1.0f)), m_Texture(nullptr)
 	{
 		m_FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
 		m_FTFont = ftgl::texture_font_new_from_memory(m_FTAtlas, size, data, datasize);
 
 		API::TextureParameters params = { API::TextureFormat::LUMINANCE_ALPHA, API::TextureFilter::LINEAR, API::TextureWrap::CLAMP_TO_EDGE };
 		m_Texture = Texture2D::Create(512, 512, params);
-		m_Texture->setData(m_FTAtlas->data);
+		m_Texture->setData(m_FTAtlas->data, "[Font] Font() 2nd: " + name +  " " + coming);
 
 		if (!m_FTFont)
 		{
@@ -51,7 +51,7 @@ namespace gebase { namespace graphics {
 	{
 		if (m_FTAtlas->dirty)
 		{
-			m_Texture->setData(m_FTAtlas->data);
+			m_Texture->setData(m_FTAtlas->data, "[Font] UpdateAtlas()");
 			m_FTAtlas->dirty = (int)false;
 		}
 	}

@@ -25,7 +25,7 @@ namespace gebase {
 		}
 
 		FontManager::setScale(math::Vector2f(m_Properties.width / 32.0f, m_Properties.height / 18.0f));
-		FontManager::Add(new Font("SourceSansPro", DEFAULT_FONT, DEFAULT_FONT_SIZE, 32));
+		FontManager::Add(new Font("SourceSansPro", DEFAULT_FONT, DEFAULT_FONT_SIZE, 32, "[Window] Window()"));
 
 		FreeImage_Initialise();
 
