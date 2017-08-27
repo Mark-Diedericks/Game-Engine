@@ -10,6 +10,8 @@ namespace gebase { namespace graphics {
 	RenderAPI Context::s_RenderAPI = RenderAPI::NONE;
 	RenderAPI Context::s_PreviousRenderAPI = RenderAPI::NONE;
 	RenderAPI Context::s_DefaultRenderAPI = RenderAPI::OPENGL;
+	void* Context::s_DeviceContext = nullptr;
+	WindowProperties Context::s_Properties;
 
 	void Context::Create(WindowProperties properties, void* deviceContext)
 	{

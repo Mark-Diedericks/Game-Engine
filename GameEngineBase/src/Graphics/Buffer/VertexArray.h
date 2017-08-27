@@ -10,7 +10,7 @@ namespace gebase { namespace graphics {
 	{
 	private:
 		API::APIVertexArray* m_Instance;
-		VertexArray();
+		VertexArray() { }
 	public:
 		inline VertexBuffer* getBuffer(uint index = 0) { return m_Instance->getBuffer(index); }
 		inline std::vector<gebase::graphics::VertexBuffer*>& getBuffers() { m_Instance->getBuffers(); }

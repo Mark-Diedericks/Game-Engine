@@ -13,7 +13,7 @@ namespace gebase { namespace graphics {
 	private:
 		const void* m_Data;
 		API::APIVertexBuffer* m_Instance;
-		VertexBuffer();
+		VertexBuffer() { }
 	public:
 		inline void Resize(uint size) { m_Instance->Resize(size); }
 		inline void setLayout(const API::APIBufferLayout& layout) { m_Instance->setLayout(layout); }

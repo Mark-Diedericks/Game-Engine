@@ -10,7 +10,7 @@ namespace gebase { namespace graphics {
 	{
 	private:
 		static Renderer* s_Instance;
-		Renderer();
+		Renderer() { }
 	public:
 		static void Init();
 

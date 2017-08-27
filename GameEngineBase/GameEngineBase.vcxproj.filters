@@ -220,6 +220,7 @@
     <ClCompile Include="src\Utils\FileUtil.cpp" />
     <ClCompile Include="src\Utils\ImageUtil.cpp" />
     <ClCompile Include="src\CustomString.cpp" />
+    <ClCompile Include="src\Utils\TimeUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ge.h">

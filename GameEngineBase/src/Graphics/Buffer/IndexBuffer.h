@@ -12,7 +12,7 @@ namespace gebase { namespace graphics {
 		uint* m_Data;
 
 		API::APIIndexBuffer* m_Instance;
-		IndexBuffer();
+		IndexBuffer() { }
 	public:
 		inline uint getCount() const { return m_Instance->getCount(); }
 

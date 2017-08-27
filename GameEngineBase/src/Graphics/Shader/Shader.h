@@ -18,7 +18,7 @@ namespace gebase { namespace graphics {
 	private:
 		API::APIShader* m_Instance;
 		API::ShaderDeclaration m_Declaration;
-		Shader();
+		Shader() { }
 	public:
 		inline void Bind() const { m_Instance->Bind(); }
 		inline void Unbind() const { m_Instance->Unbind(); }
