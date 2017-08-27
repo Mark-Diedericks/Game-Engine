@@ -1,16 +1,17 @@
 #include "ge.h"
-#include "Application/Application.h"
-#include "Application/Window.h"
-#include "Input/InputManager.h"
-#include "Events/WindowEvent.h"
-#include "Graphics/Renderer/Renderer.h"
-#include "Graphics/Font/FontManager.h"
 
 #define NOMINMAX
 #undef NOGDI
 #include <Windows.h>
 #include <Windowsx.h>
 #define NOGDI
+
+#include "Application/Application.h"
+#include "Application/Window.h"
+#include "Input/InputManager.h"
+#include "Events/WindowEvent.h"
+#include "Graphics/Renderer/Renderer.h"
+#include "Graphics/Font/FontManager.h"
 
 #include <GL/glew.h>
 
