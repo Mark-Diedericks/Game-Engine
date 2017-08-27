@@ -48,7 +48,7 @@ namespace gebase {
 
 	std::vector<String> Tokenize(const String& str);
 	std::vector<String> GetLines(const String& str);
-
+	
 	const char* FindToken(const String& str, const String& token);
 	const char* FindToken(const char* str, const String& token);
 
