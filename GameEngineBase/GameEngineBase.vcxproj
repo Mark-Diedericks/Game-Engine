@@ -102,6 +102,8 @@
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <PrecompiledHeaderFile>ge.h</PrecompiledHeaderFile>
       <SDLCheck>false</SDLCheck>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -138,6 +140,8 @@
       <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PrecompiledHeaderFile>ge.h</PrecompiledHeaderFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -8,10 +8,11 @@
 
 #include "Application/Application.h"
 #include "Application/Window.h"
-#include "Input/InputManager.h"
-#include "Events/WindowEvent.h"
+#include "Graphics/Context.h"
 #include "Graphics/Renderer/Renderer.h"
+
 #include "Graphics/Font/FontManager.h"
+#include "Events/EventHeader.h"
 
 #include <GL/glew.h>
 
@@ -123,7 +124,7 @@ namespace gebase {
 
 	void gebase::Window::setTitle(const String& title)
 	{
-#if defined(GE_DEBUG)
+#ifdef GE_DEBUG
 		m_Title = title + " | " + Application::getApplication().getPlatform();
 #else
 		m_Title = title;
