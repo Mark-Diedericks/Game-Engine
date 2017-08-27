@@ -103,7 +103,7 @@
       <PrecompiledHeaderFile>ge.h</PrecompiledHeaderFile>
       <SDLCheck>false</SDLCheck>
       <PreprocessToFile>false</PreprocessToFile>
-      <ShowIncludes>true</ShowIncludes>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,7 +141,7 @@
       <SDLCheck>false</SDLCheck>
       <PrecompiledHeaderFile>ge.h</PrecompiledHeaderFile>
       <PreprocessToFile>false</PreprocessToFile>
-      <ShowIncludes>true</ShowIncludes>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
