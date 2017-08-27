@@ -1,4 +1,4 @@
-#include "Pch.h"
+#include "ge.h"
 #include "Slider.h"
 
 namespace gebase { namespace graphics { namespace ui {

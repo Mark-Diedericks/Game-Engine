@@ -1,4 +1,4 @@
-#include "Pch.h"
+#include "ge.h"
 #include "Quaternion.h"
 
 namespace gebase { namespace math {

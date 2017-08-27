@@ -1,4 +1,4 @@
-#include "Pch.h"
+#include "ge.h"
 #include "MeshFactory.h"
 
 namespace gebase { namespace graphics { namespace MeshFactory {

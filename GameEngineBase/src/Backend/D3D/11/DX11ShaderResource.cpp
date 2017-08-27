@@ -1,4 +1,4 @@
-#include "Pch.h"
+#include "ge.h"
 #include "DX11ShaderResource.h"
 
 namespace gebase { namespace graphics { namespace API {

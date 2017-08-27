@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Pch.h"
+#include "ge.h"
 #include "String.h"
 
 namespace gebase {

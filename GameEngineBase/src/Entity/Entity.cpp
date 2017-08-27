@@ -1,5 +1,5 @@
 #include "Entity.h"
-#include "Pch.h"
+#include "ge.h"
 #include "Common.h"
 #include "System/Memory.h"
 #include "Component/Components.h"

@@ -1,4 +1,4 @@
-#include "Pch.h"
+#include "ge.h"
 #include "GBuffer.h"
 
 namespace gebase { namespace graphics {
