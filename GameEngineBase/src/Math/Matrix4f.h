@@ -1,15 +1,17 @@
 #pragma once
 
+#include <cmath>
+
 #include "Common.h"
 #include "Vector3f.h"
 #include "Vector4f.h"
 #include "Utils.h"
-#include <cmath>
 
 namespace gebase { namespace math {
 	class GE_API Matrix4f {
 	public:
-		union {
+		union 
+		{
 			float m[4 * 4];
 			Vector4f rows[4];
 		};

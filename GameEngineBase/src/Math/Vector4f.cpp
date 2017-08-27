@@ -1,5 +1,6 @@
 #include "ge.h"
 #include "Vector4f.h"
+#include "Matrix4f.h"
 
 namespace gebase { namespace math {
 	Vector4f::Vector4f(const float& ix, const float& iy, const float& iz, const float& iw) {
@@ -33,5 +34,13 @@ namespace gebase { namespace math {
 		z /= l;
 		w /= l;
 		return (Vector4f)*this;
+	}
+
+	Vector4f& Vector4f::operator *(const Matrix4f& mat4f) const {
+		return Vector4f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w * w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w * w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w * w, mat4f.rows[3].x * x + mat4f.rows[3].y * y + mat4f.rows[3].z * z + mat4f.rows[3].w * w);
+	}
+
+	Vector4f& Vector4f::Mul(const Matrix4f& mat4f) const {
+		return Vector4f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w * w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w * w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w * w, mat4f.rows[3].x * x + mat4f.rows[3].y * y + mat4f.rows[3].z * z + mat4f.rows[3].w * w);
 	}
 } }

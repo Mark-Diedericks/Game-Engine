@@ -29,7 +29,7 @@ namespace gebase { namespace graphics {
 		template <typename T>
 		T* getPointer()
 		{
-			return (T*)m_Instance->getPointer();
+			return (T*)m_Instance->getPointer<T>();
 		}
 
 		static VertexBuffer* Create(API::BufferUsage = API::BufferUsage::STATIC);

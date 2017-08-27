@@ -1,6 +1,7 @@
 #include "ge.h"
 #include "Vector3f.h"
 #include "Vector2f.h"
+#include "Matrix4f.h"
 
 namespace gebase { namespace math {
 	
@@ -50,5 +51,13 @@ namespace gebase { namespace math {
 		y /= l;
 		z /= l;
 		return (Vector3f)*this;
+	}
+
+	Vector3f& Vector3f::operator *(const Matrix4f& mat4f) const {
+		return Vector3f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w);
+	}
+
+	Vector3f& Vector3f::Mul(const Matrix4f& mat4f) const {
+		return Vector3f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w);
 	}
 } }

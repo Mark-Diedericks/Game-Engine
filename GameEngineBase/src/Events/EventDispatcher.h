@@ -15,7 +15,7 @@ namespace gebase { namespace events {
 		template<typename T>
 		void Dispatch(std::function<bool(T&)> f)
 		{
-			if ((int32)m_Event.GetType() & (int32)T::getStaticType())
+			if ((int32)m_Event.getEventType() & (int32)T::getStaticType())
 				m_Event.m_Handled = f(*(T*)&m_Event);
 		}
 	};

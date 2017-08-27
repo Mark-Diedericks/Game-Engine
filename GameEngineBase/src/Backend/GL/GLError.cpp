@@ -1,5 +1,6 @@
 #include "ge.h"
 #include "Common.h"
+#include "String.h"
 
 #include "GLCommon.h"
 

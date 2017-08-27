@@ -30,7 +30,7 @@ namespace gebase { namespace graphics {
 	TextureCube* TextureCube::CreateFromFiles(const String* files)
 	{
 		TextureCube* thisTC = genew TextureCube();
-		const byte** pixels = genew byte*[6];
+		byte** pixels = genew byte*[6];
 
 		uint width;
 		uint height;
@@ -43,19 +43,19 @@ namespace gebase { namespace graphics {
 		pixels[4] = LoadImage(files[4], &width, &height, &bits, true);
 		pixels[5] = LoadImage(files[5], &width, &height, &bits, true);
 
-		thisTC->sides = pixels;
+		thisTC->sides = const_cast<const byte**>(pixels);
 		thisTC->m_BitsPerPixel = bits;
 		thisTC->m_Width = width;
 		thisTC->m_Height = height;
 
-		thisTC->m_Instance = API::APITextureCube::CreateFromFiles(files[0], pixels, width, height, bits);
+		thisTC->m_Instance = API::APITextureCube::CreateFromFiles(files[0], const_cast<const byte**>(pixels), width, height, bits);
 		return thisTC;
 	}
 
 	TextureCube* TextureCube::CreateFromVerticalCross(const String* files, int32 mips)
 	{
 		TextureCube* thisTC = genew TextureCube();
-		const byte** pixels = genew byte*[mips];
+		byte** pixels = genew byte*[mips];
 
 		uint width;
 		uint height;
@@ -66,12 +66,12 @@ namespace gebase { namespace graphics {
 			pixels[i] = LoadImage(files[i], &width, &height, &bits, true);
 		}
 
-		thisTC->sides = pixels;
+		thisTC->sides = const_cast<const byte**>(pixels);
 		thisTC->m_BitsPerPixel = bits;
 		thisTC->m_Width = width;
 		thisTC->m_Height = height;
 
-		thisTC->m_Instance = API::APITextureCube::CreateFromVerticalCross(files[0], pixels, mips, width, height, bits);
+		thisTC->m_Instance = API::APITextureCube::CreateFromVerticalCross(files[0], const_cast<const byte**>(pixels), mips, width, height, bits);
 		return thisTC;
 	}
 

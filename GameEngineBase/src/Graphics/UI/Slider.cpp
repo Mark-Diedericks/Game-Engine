@@ -68,7 +68,7 @@ namespace gebase { namespace graphics { namespace ui {
 		Vector2f mPos(e.getX() * (32.0f / Window::getWindowClass(nullptr)->getWidth()), 18.0f - e.getY() * (18.0f / Window::getWindowClass(nullptr)->getHeight()));
 
 		if (m_State == SliderState::PRESSEDHEAD)
-			m_Vertical ? setValue((mPos.y - m_Bounds.getMinimumBound().y - m_HeadOffset) / m_Bounds.getMaximumBound().y) : setValue((mPos.x - m_Bounds.getMinimumBound().x - m_HeadOffset) / m_Bounds.getMaximumBound.x);
+			m_Vertical ? setValue((mPos.y - m_Bounds.getMinimumBound().y - m_HeadOffset) / m_Bounds.getMaximumBound().y) : setValue((mPos.x - m_Bounds.getMinimumBound().x - m_HeadOffset) / m_Bounds.getMaximumBound().x);
 
 		return true;
 	}

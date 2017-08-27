@@ -5,17 +5,17 @@
 #include "Common.h"
 #include "Types.h"
 
-#define STRING_FORMAT_BUFFER_SIZE 10240
-
 typedef std::string String;
 
 namespace gebase {
 
-	class GE_API StringFormat {
+#define STRING_FORMAT_BUFFER_SIZE 10240
+
+	class GE_API StringFormat 
+	{
 	private:
 		static char* m_Buffer;
 	public:
-
 		template<typename T>
 		static String Hex(const T& input) {
 			memset(m_Buffer, 0, STRING_FORMAT_BUFFER_SIZE);

@@ -4,6 +4,9 @@
 #include "Common.h"
 
 namespace gebase { namespace math {
+
+	class Matrix4f;
+
 	class GE_API Vector4f {
 	public:
 		float x, y, z, w;
@@ -138,12 +141,7 @@ namespace gebase { namespace math {
 			return res;
 		}
 
-		inline Vector4f& operator *(const Matrix4f& mat4f) const {
-			return Vector4f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w * w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w * w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w * w, mat4f.rows[3].x * x + mat4f.rows[3].y * y + mat4f.rows[3].z * z + mat4f.rows[3].w * w);
-		}
-
-		inline Vector4f& Mul(const Matrix4f& mat4f) const {
-			return Vector4f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w * w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w * w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w * w, mat4f.rows[3].x * x + mat4f.rows[3].y * y + mat4f.rows[3].z * z + mat4f.rows[3].w * w);
-		}
+		Vector4f& operator *(const Matrix4f& mat4f) const;
+		Vector4f& Mul(const Matrix4f& mat4f) const;
 	};
 } }

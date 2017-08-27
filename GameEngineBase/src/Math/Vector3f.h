@@ -4,7 +4,9 @@
 #include "Common.h"
 
 namespace gebase { namespace math {
+
 	class Vector2f;
+	class Matrix4f;
 
 	class GE_API Vector3f {
 	public:
@@ -149,12 +151,7 @@ namespace gebase { namespace math {
 			return res;
 		}
 
-		inline Vector3f& operator *(const Matrix4f& mat4f) const {
-			return Vector3f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w);
-		}
-
-		inline Vector3f& Mul(const Matrix4f& mat4f) const {
-			return Vector3f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w);
-		}
+		Vector3f& operator *(const Matrix4f& mat4f) const;
+		Vector3f& Mul(const Matrix4f& mat4f) const;
 	};
 } }

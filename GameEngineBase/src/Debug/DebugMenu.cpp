@@ -347,17 +347,17 @@ namespace gebase { namespace debug {
 		Add(path, genew FloatAction(path, [value]() { return *value; }, [value](float v) { *value = v; }, min, max));
 	}
 
-	void DebugMenu::Add(const String& path, math::Vector2f* value, float min = 0.0f, float max = 100.0f)
+	void DebugMenu::Add(const String& path, math::Vector2f* value, float min, float max)
 	{
 		Add(path, genew Vec2Action(path, [value]() { return *value; }, [value](math::Vector2f v) { *value = v; }, math::Vector2f(min, min), math::Vector2f(max, max)));
 	}
 
-	void DebugMenu::Add(const String& path, math::Vector3f* value, float min = 0.0f, float max = 100.0f)
+	void DebugMenu::Add(const String& path, math::Vector3f* value, float min, float max)
 	{
 		Add(path, genew Vec3Action(path, [value]() { return *value; }, [value](math::Vector3f v) { *value = v; }, math::Vector3f(min, min, min), math::Vector3f(max, max, max)));
 	}
 
-	void DebugMenu::Add(const String& path, math::Vector4f* value, float min = 0.0f, float max = 100.0f)
+	void DebugMenu::Add(const String& path, math::Vector4f* value, float min, float max)
 	{
 		Add(path, genew Vec4Action(path, [value]() { return *value; }, [value](math::Vector4f v) { *value = v; }, math::Vector4f(min, min, min, min), math::Vector4f(max, max, max, max)));
 	}

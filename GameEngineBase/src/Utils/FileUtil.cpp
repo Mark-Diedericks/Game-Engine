@@ -1,9 +1,10 @@
 #include "ge.h"
+#include "String.h"
 #include "FileUtil.h"
 
 namespace gebase { namespace utils {
 
-	static inline String ReadFile(const char* filepath) {
+	String ReadFile(const char* filepath) {
 		FILE* file = fopen(filepath, "rt");
 
 		if (file == nullptr)
