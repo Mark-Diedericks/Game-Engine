@@ -470,7 +470,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Embedded\Files\SourceSansPro-Light.embed" />
+    <None Include="src\Embedded\files\SourceSansPro-Light.embed" />
     <None Include="src\Graphics\Shader\default\BasicLight.shader" />
     <None Include="src\Graphics\Shader\default\Debug.shader" />
     <None Include="src\Graphics\Shader\default\gles\Default.shader" />

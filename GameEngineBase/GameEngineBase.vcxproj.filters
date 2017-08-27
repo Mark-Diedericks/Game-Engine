@@ -949,9 +949,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Embedded\Files\SourceSansPro-Light.embed">
-      <Filter>src\ge\embedded\files</Filter>
-    </None>
     <None Include="src\Graphics\Shader\default\BasicLight.shader">
       <Filter>src\ge\graphics\ShaderFactory\Shaders</Filter>
     </None>
@@ -966,6 +963,9 @@
     </None>
     <None Include="src\Graphics\Shader\default\gles\Simple.shader">
       <Filter>src\ge\graphics\ShaderFactory\Shaders\gles</Filter>
+    </None>
+    <None Include="src\Embedded\files\SourceSansPro-Light.embed">
+      <Filter>src\ge\embedded\files</Filter>
     </None>
   </ItemGroup>
 </Project>
