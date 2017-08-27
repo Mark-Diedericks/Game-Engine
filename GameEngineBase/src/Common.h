@@ -3,14 +3,15 @@
 
 #ifdef GE_PLATFORM_WINDOWS
 	#ifdef GE_CORE_DLL
-		#define GE_API _declspec(dllexport)
+		#define GE_API __declspec(dllexport)
 	#else
-		#define GE_API _declspec(dllimport)
+		#define GE_API __declspec(dllimport)
 	#endif
 #else
 	#define GE_API
 #endif
 
+// Common defines
 #define BIT(x) (1 << x)
 
 #define METHOD_1(x) std::bind(x, this, std::placeholders::_1)

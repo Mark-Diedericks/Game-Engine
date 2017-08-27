@@ -84,6 +84,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ge.cpp">
+      <Filter>src\ge</Filter>
+    </ClCompile>
     <ClCompile Include="src\Application\Application.cpp" />
     <ClCompile Include="src\Application\Window.cpp" />
     <ClCompile Include="src\Audio\Sound.cpp" />
@@ -217,11 +220,13 @@
     <ClCompile Include="src\Utils\FileUtil.cpp" />
     <ClCompile Include="src\Utils\ImageUtil.cpp" />
     <ClCompile Include="src\String.cpp" />
-    <ClCompile Include="src\ge.cpp">
-      <Filter>src\ge</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Common.h" />
+    <ClInclude Include="src\Types.h" />
+    <ClInclude Include="src\ge.h">
+      <Filter>src\ge</Filter>
+    </ClInclude>
     <ClInclude Include="src\Application\Application.h" />
     <ClInclude Include="src\Application\Window.h" />
     <ClInclude Include="src\Audio\Sound.h" />
@@ -368,12 +373,7 @@
     <ClInclude Include="src\Utils\FileUtil.h" />
     <ClInclude Include="src\Utils\ImageUtil.h" />
     <ClInclude Include="src\Utils\TimeUtil.h" />
-    <ClInclude Include="src\Common.h" />
     <ClInclude Include="src\GameEngineBase.h" />
     <ClInclude Include="src\String.h" />
-    <ClInclude Include="src\Types.h" />
-    <ClInclude Include="src\ge.h">
-      <Filter>src\ge</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
