@@ -1,6 +1,6 @@
 #pragma once
 
-#include "String.h"
+#include "CustomString.h"
 
 namespace gebase {
 	struct GE_API SystemMemoryInfo {

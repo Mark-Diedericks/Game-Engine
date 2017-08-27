@@ -1,7 +1,7 @@
 #include "ge.h"
 #include "MemoryManager.h"
 #include "Memory.h"
-#include "String.h"
+#include "CustomString.h"
 
 namespace gebase {
 	MemoryManager* MemoryManager::m_Instance = nullptr;

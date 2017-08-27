@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Common.h"
-#include "String.h"
+#include "CustomString.h"
 #include "Widget.h"
 
 namespace gebase { namespace graphics { namespace ui {

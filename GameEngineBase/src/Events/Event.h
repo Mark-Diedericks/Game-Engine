@@ -2,7 +2,7 @@
 
 #include "ge.h"
 #include "Common.h"
-#include "String.h"
+#include "CustomString.h"
 
 namespace gebase { namespace events {
 

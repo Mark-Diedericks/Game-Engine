@@ -219,7 +219,7 @@
     <ClCompile Include="src\System\VirtualFileSystem.cpp" />
     <ClCompile Include="src\Utils\FileUtil.cpp" />
     <ClCompile Include="src\Utils\ImageUtil.cpp" />
-    <ClCompile Include="src\String.cpp" />
+    <ClCompile Include="src\CustomString.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ge.h">
@@ -378,6 +378,6 @@
     <ClInclude Include="src\Utils\ImageUtil.h" />
     <ClInclude Include="src\Utils\TimeUtil.h" />
     <ClInclude Include="src\GameEngineBase.h" />
-    <ClInclude Include="src\String.h" />
+    <ClInclude Include="src\CustomString.h" />
   </ItemGroup>
 </Project>

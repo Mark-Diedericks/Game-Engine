@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Common.h"
-#include "String.h"
+#include "CustomString.h"
 #include "Backend/API/APIRenderer.h"
 
 namespace gebase { namespace graphics {

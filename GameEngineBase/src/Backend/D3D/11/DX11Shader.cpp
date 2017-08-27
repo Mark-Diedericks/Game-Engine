@@ -1,6 +1,6 @@
 #include "ge.h"
 #include "Common.h"
-#include "String.h"
+#include "CustomString.h"
 
 #include "DX11Shader.h"
 #include "DX11Context.h"

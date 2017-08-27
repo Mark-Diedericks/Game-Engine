@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Common.h"
-#include "String.h"
+#include "CustomString.h"
 #include "Window.h"
 #include "Math/Maths.h"
 #include "Graphics/Context.h"

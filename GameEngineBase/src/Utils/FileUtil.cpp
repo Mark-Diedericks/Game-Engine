@@ -1,5 +1,5 @@
 #include "ge.h"
-#include "String.h"
+#include "CustomString.h"
 #include "FileUtil.h"
 
 namespace gebase { namespace utils {

@@ -95,7 +95,7 @@
 #include "System/MemoryManager.h"
 #include "System/VirtualFileSystem.h"
 
-#include "String.h"
+#include "CustomString.h"
 #include "Types.h"
 
 

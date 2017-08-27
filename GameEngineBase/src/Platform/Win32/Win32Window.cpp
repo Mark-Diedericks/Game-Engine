@@ -6,6 +6,9 @@
 #include <Windowsx.h>
 #define NOGDI
 
+#include "Common.h"
+#include "CustomString.h"
+
 #include "Application/Application.h"
 #include "Application/Window.h"
 #include "Graphics/Context.h"

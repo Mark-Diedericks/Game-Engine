@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ge.h"
-#include "String.h"
+#include "CustomString.h"
 
 namespace gebase {
 	class GE_API VirtualFileSystem {

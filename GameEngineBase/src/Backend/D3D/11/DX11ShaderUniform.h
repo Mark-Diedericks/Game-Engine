@@ -2,7 +2,7 @@
 
 #include "ge.h"
 #include "Common.h"
-#include "String.h"
+#include "CustomString.h"
 
 #include "DX11Common.h"
 #include "Backend/API/APIShaderUniform.h"

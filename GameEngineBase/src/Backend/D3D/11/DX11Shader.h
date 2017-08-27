@@ -1,6 +1,6 @@
 #pragma once
 
-#include "String.h"
+#include "CustomString.h"
 #include "Backend/API/APIShader.h"
 
 #include "DX11Common.h"

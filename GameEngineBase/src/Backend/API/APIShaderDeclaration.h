@@ -1,6 +1,6 @@
 #pragma once
 
-#include "String.h"
+#include "CustomString.h"
 
 namespace gebase { namespace graphics { namespace API {
 

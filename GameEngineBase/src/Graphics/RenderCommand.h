@@ -2,7 +2,7 @@
 
 #include "Common.h"
 #include "Types.h"
-#include "String.h"
+#include "CustomString.h"
 #include "Math/Maths.h"
 #include "Mesh/Mesh.h"
 #include "Shader/Shader.h"

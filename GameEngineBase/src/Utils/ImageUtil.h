@@ -4,7 +4,7 @@
 #include <xstring>
 #include "Common.h"
 #include "Types.h"
-#include "String.h"
+#include "CustomString.h"
 
 #ifdef LoadImage
 #undef LoadImage

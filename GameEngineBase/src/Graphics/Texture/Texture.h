@@ -2,7 +2,7 @@
 
 #include "ge.h"
 #include "Common.h"
-#include "String.h"
+#include "CustomString.h"
 #include "Backend/API/APITexture.h"
 
 namespace gebase { namespace graphics {

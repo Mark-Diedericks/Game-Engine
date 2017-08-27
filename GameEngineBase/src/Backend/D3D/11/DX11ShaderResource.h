@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Common.h"
-#include "String.h"
+#include "CustomString.h"
 
 #include "DX11Common.h"
 #include "Backend/API/APIShaderResource.h"

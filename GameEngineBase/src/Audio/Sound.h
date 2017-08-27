@@ -2,7 +2,7 @@
 
 #include "ge.h"
 #include "Common.h"
-#include "String.h"
+#include "CustomString.h"
 
 struct ga_Sound;
 struct ga_Handle;

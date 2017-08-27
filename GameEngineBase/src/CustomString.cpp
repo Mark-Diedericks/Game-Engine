@@ -1,5 +1,5 @@
 #include "ge.h"
-#include "String.h"
+#include "CustomString.h"
 
 namespace gebase {
 	char* StringFormat::m_Buffer = new char[STRING_FORMAT_BUFFER_SIZE];
