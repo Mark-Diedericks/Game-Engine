@@ -50,7 +50,10 @@ namespace gebase {
 		const String& virtualDir = dirs.front();
 
 		if (m_MountPoints.find(virtualDir) == m_MountPoints.end() || m_MountPoints[virtualDir].empty())
+		{
+			std::cout << "[VirtualFileSystem] ResolveActualPath() - Virtual directory does not exist; " << virtualDir.c_str() << std::endl;
 			return false;
+		}
 
 		String rem = path.substr(virtualDir.size() + 1, path.size() - virtualDir.size());
 
@@ -64,6 +67,7 @@ namespace gebase {
 			}
 		}
 
+		std::cout << "[VirtualFileSystem] ResolveActualPath() - File does not exist; " << path.c_str() << std::endl;
 		return false;
 	}
 

@@ -36,7 +36,7 @@ namespace gebase { namespace graphics {
 		byte* pixels = LoadImage(filepath.c_str(), &width, &height, &bits, !loadOptions.flipY); //FreeImage loads from the bottom up to the top
 
 		if (bits != 24 && bits != 32)
-			std::cout << "[Texture2D] Unsupported image bit-depth: " << StringFormat::Float((float)bits, 0).c_str() << std::endl;
+			std::cout << "[Texture2D] Unsupported image bit-depth: " << (int)bits << " in file: " << filepath.c_str() << std::endl;
 
 		parameters.format = bits == 24 ? API::TextureFormat::RGB : API::TextureFormat::RGBA;
 

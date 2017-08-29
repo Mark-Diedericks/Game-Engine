@@ -14,7 +14,10 @@ namespace gebase {
 		String actualPath;
 
 		if (!VirtualFileSystem::Get()->ResolveActualPath(filename, actualPath))
+		{
+			std::cout << "[ImageUtil] LoadImage() - Could not resolve the actual path for the file; " << filename << std::endl;
 			return nullptr;
+		}
 
 		filename = actualPath.c_str();
 
@@ -24,8 +27,13 @@ namespace gebase {
 		fif = FreeImage_GetFileType(filename, 0);
 
 		if (fif == FIF_UNKNOWN)
-			if ((fif = FreeImage_GetFIFFromFilename(filename)) == FIF_UNKNOWN)
-				return nullptr;
+			fif = FreeImage_GetFIFFromFilename(filename);
+
+		if (fif == FIF_UNKNOWN)
+		{
+			std::cout << "[ImageUtil] LoadImage() - Could not find a compatiable fif in the file: " << filename << std::endl;
+			return nullptr;
+		}
 
 		if (FreeImage_FIFSupportsReading(fif))
 			fib = FreeImage_Load(fif, filename);
@@ -64,6 +72,8 @@ namespace gebase {
 		int32 size = w * h * (b / 8);
 		byte* result = genew byte[size];
 		
+		std::cout << "[INFO - ImageUtil] LoadImage() - the width is; " << w << " the height is; " << h << " the bit depth is; " << b << std::endl;
+
 		memcpy(result, pixels, size);
 		FreeImage_Unload(bitmap);
 		

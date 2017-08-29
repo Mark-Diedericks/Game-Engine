@@ -57,6 +57,7 @@ void Test2D::OnUpdate(float delta)
 
 	Application& app = Application::getApplication();
 	//SP_INFO(app.GetUPS(), " ups, ", app.GetFPS(), " fps");
+	std::cout << "[Test2D] OnUpdate() - FPS: " << app.getFPS() << " UPS: " << app.getUPS() << std::endl;
 
 	m_DebugInfo[2]->setText("Total Allocs: " + StringFormat::ToString(MemoryManager::Get()->GetMemoryInfo().tAllocations));
 	m_DebugInfo[3]->setText("Total Allocated: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tAllocated));

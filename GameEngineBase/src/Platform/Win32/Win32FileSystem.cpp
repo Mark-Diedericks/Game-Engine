@@ -7,30 +7,35 @@
 
 namespace gebase {
 
-	namespace Win32 {
-		void CALLBACK FileIOCompletionRoutine(DWORD dwErrCode, DWORD dwNumBytesTransfered, LPOVERLAPPED lpOverlapped) { }
+	void CALLBACK FileIOCompletionRoutine(DWORD dwErrCode, DWORD dwNumBytesTransfered, LPOVERLAPPED lpOverlapped) { }
 
-		static HANDLE OpenFileForReading(const String& path) {
-			return CreateFile((LPCWSTR)path.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, NULL);
-		}
-
-		static int64 GetFileSizeInternal(HANDLE file) {
-			LARGE_INTEGER size;
-			GetFileSizeEx(file, &size);
-			return size.QuadPart;
-		}
-
-		static bool ReadFileInternal(HANDLE file, void* buffer, int64 size) {
-			OVERLAPPED overlapped = { 0 };
-			return ReadFileEx(file, buffer, (DWORD)size, &overlapped, FileIOCompletionRoutine);
-		}
+	static HANDLE OpenFileForReading(const String& path) {
+		return CreateFile((LPCWSTR)path.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, NULL);
 	}
 
-	using namespace Win32;
+	static int64 GetFileSizeInternal(HANDLE file) {
+		LARGE_INTEGER size;
+		GetFileSizeEx(file, &size);
+		return size.QuadPart;
+	}
+
+	static bool ReadFileInternal(HANDLE file, void* buffer, int64 size) {
+		OVERLAPPED overlapped = { 0 };
+		return ReadFileEx(file, buffer, (DWORD)size, &overlapped, FileIOCompletionRoutine);
+	}
 
 	bool FileSystem::FileExists(const String& path) {
 		DWORD res = GetFileAttributes((LPCWSTR)path.c_str());
-		return !(res == INVALID_FILE_ATTRIBUTES && GetLastError() == ERROR_FILE_NOT_FOUND);
+
+		if (res == INVALID_FILE_ATTRIBUTES)
+			std::cout << "[Win32FileSystem] FileExists() - File has invalid attributes; " << path.c_str() << std::endl;
+
+		DWORD lerror = GetLastError();
+		
+		if (lerror == ERROR_FILE_NOT_FOUND)
+			std::cout << "[Win32FileSystem] FileExists() - File does not exist; " << path.c_str() << std::endl;
+
+		return !(res == INVALID_FILE_ATTRIBUTES && lerror == ERROR_FILE_NOT_FOUND);
 	}
 
 	int64 FileSystem::GetFileSize(const String& path) {
