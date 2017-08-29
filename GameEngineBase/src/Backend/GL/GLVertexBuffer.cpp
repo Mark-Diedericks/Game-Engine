@@ -7,13 +7,22 @@
 
 namespace gebase { namespace graphics { namespace API {
 
-	GLVertexBuffer::GLVertexBuffer(BufferUsage usage) : m_Usage(usage) { GLCall(glGenBuffers(1, &m_Handle)) }
+	GLVertexBuffer::GLVertexBuffer(BufferUsage usage) : m_Usage(usage) 
+	{
+		GLCall(glGenBuffers(1, &m_Handle)) 
+	}
 
-	GLVertexBuffer::~GLVertexBuffer() { GLCall(glDeleteBuffers(1, &m_Handle)); }
+	GLVertexBuffer::~GLVertexBuffer() 
+	{ 
+		GLCall(glDeleteBuffers(1, &m_Handle));
+	}
 
 	void GLVertexBuffer::Resize(uint size)
 	{
+		m_Size = size;
 
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
+		GLCall(glBufferData(GL_ARRAY_BUFFER, size, NULL, GLConvert::BufferUsageToGL(m_Usage)));
 	}
 
 	void GLVertexBuffer::setLayout(const APIBufferLayout& bufferLayout)

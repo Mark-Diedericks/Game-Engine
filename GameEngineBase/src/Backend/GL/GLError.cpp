@@ -17,7 +17,7 @@ namespace gebase {
 
 		if (error != GL_NO_ERROR)
 		{
-			std::cout << "[OpenGL Error]" << (const char*)glGetString(error) << ": " << function << " in file " << file << " at line " << StringFormat::Float(line, 0).c_str() << std::endl;
+			std::cout << "[OpenGL Error]" << (int)(error) << ": " << function << " in file " << file << " at line " << (int)line << std::endl;
 			return false;
 		}
 

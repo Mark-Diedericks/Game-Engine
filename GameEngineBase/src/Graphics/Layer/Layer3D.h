@@ -26,7 +26,6 @@ namespace gebase { namespace graphics {
 		inline Scene* getScene() const { return m_Scene; }
 
 		void OnUpdateInternal(const float delta) override;
-		void OnUpdate(const float delta) override;
 		void OnRender() override;
 	};
 

@@ -27,11 +27,6 @@ namespace gebase { namespace graphics {
 
 	}
 
-	void Layer3D::OnUpdate(float delta)
-	{
-
-	}
-
 	bool Layer3D::OnResize(uint width, uint height)
 	{
 		m_Renderer->setScreenBufferSize(width, height);
