@@ -8,7 +8,7 @@ using namespace component;
 using namespace math;
 
 Test2D::Test2D()
-	: Layer2D(genew Scene2D(Matrix4f::initOrthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f)))
+	: Layer2D(genew Scene2D(Matrix4f::initOrthographic(-16.0f, 16.0f, 9.0f, -9.0f, -1.0f, 1.0f)))
 {
 	m_Renderer = nullptr;
 }
@@ -57,7 +57,7 @@ void Test2D::OnUpdate(float delta)
 
 	Application& app = Application::getApplication();
 	//SP_INFO(app.GetUPS(), " ups, ", app.GetFPS(), " fps");
-	std::cout << "[Test2D] OnUpdate() - FPS: " << app.getFPS() << " UPS: " << app.getUPS() << std::endl;
+	//std::cout << "[Test2D] OnUpdate() - FPS: " << app.getFPS() << " UPS: " << app.getUPS() << std::endl;
 
 	m_DebugInfo[2]->setText("Total Allocs: " + StringFormat::ToString(MemoryManager::Get()->GetMemoryInfo().tAllocations));
 	m_DebugInfo[3]->setText("Total Allocated: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tAllocated));
@@ -102,6 +102,6 @@ void Test2D::OnEvent(gebase::events::Event& event)
 
 void Test2D::OnRender(Renderer2D& renderer)
 {
-	//m_DebugInfo[0]->setText(String("Target: ") + (renderer.getRenderTarget() == RenderTarget::SCREEN ? "Screen" : "Buffer"));
-	//m_DebugInfo[1]->setText(String("PostFX: ") + (renderer.getPostEffects() ? "On" : "Off"));
+	m_DebugInfo[0]->setText(String("Target: ") + (renderer.getRenderTarget() == RenderTarget::SCREEN ? "Screen" : "Buffer"));
+	m_DebugInfo[1]->setText(String("PostFX: ") + (renderer.getPostEffects() ? "On" : "Off"));
 }

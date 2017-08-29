@@ -85,7 +85,7 @@ namespace gebase {
 				fpsCount = 0;
 				counter = 0.0f;
 
-				//std::cout << "Render Time: " << delta << "ms - FPS: " << fps << " MIN: " << minFps << " MAX: " << maxFps << " AVG: " << avgFps << std::endl;
+				std::cout << "Render Stats |||| UPS: " << delta << "ms |||| FPS: " << fps << " MIN: " << minFps << " MAX: " << maxFps << " AVG: " << avgFps << std::endl;
 			}
 
 			window->Clear();

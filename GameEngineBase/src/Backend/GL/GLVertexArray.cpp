@@ -26,9 +26,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	void GLVertexArray::Draw(uint count) const
 	{
-		std::cout << "glDrawElements... Begin... Count: " << count << std::endl;
 		GLCall(glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, NULL));
-		std::cout << "glDrawElements... Ended... Count: " << count << std::endl;
 	}
 
 	void GLVertexArray::PushBuffer(gebase::graphics::VertexBuffer* buffer)

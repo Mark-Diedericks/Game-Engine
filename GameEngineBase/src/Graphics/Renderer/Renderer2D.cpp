@@ -100,7 +100,7 @@ namespace gebase { namespace graphics {
 		layout.Push<math::Vector2f>("MASKUV");
 		layout.Push<float>("ID");
 		layout.Push<float>("MASKID");
-		layout.Push<byte>("COLOR", 3, true);
+		layout.Push<byte>("COLOR", 4, true);
 		vb->setLayout(layout);
 
 		m_VertexArray = VertexArray::Create();
@@ -279,7 +279,8 @@ namespace gebase { namespace graphics {
 
 	void Renderer2D::Present()
 	{
-		std::cout << "Presenting...." << std::endl;
+		FillRect(math::Rectangle(0, 0, 10, 10), 0xff00ff00);
+
 		Renderer::setDepthTesting(false);
 
 		m_Shader->Bind();
@@ -301,8 +302,6 @@ namespace gebase { namespace graphics {
 
 		m_IndexCount = 0;
 		m_Textures.clear();
-
-		std::cout << "Presented...." << std::endl;
 
 		if (m_Target == RenderTarget::BUFFER)
 		{

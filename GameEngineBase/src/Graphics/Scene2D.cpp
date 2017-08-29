@@ -49,7 +49,7 @@ namespace gebase
 	void Scene2D::OnRender()
 	{
 		graphics::Camera* camera = m_Camera;
-		camera->Update(0.0f);
+		camera->Update(Application::getApplication().getFrT());
 
 		debug::DebugRenderer::setCamera(camera);
 
