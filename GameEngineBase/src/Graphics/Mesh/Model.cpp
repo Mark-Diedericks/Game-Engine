@@ -18,7 +18,7 @@ namespace gebase { namespace graphics {
 
 	struct ModelFormat
 	{
-		char* header = "CMF_HEAD";
+		char* header = "SPMF";
 
 		byte nameLength;
 		char* name;
@@ -31,7 +31,7 @@ namespace gebase { namespace graphics {
 		uint indexBufferSize;
 		byte* indexData;
 
-		char* footer = "CMF_FOOT";
+		char* footer = "1234";
 	};
 
 	Model::Model(const String& path, MaterialInstance* materialInstance)
@@ -74,8 +74,8 @@ namespace gebase { namespace graphics {
 		
 		//ONE
 		{
-			byte header[8];
-			ReadBytes(f, header, 8);
+			byte header[4];
+			ReadBytes(f, header, 4);
 			if (memcmp(header, format.header, 4) != 0)
 			{
 				std::cout << "[Model] Load() - Headers do not compare, " << (const char*)header << "    " << (const char*)format.header << std::endl;
@@ -134,8 +134,8 @@ namespace gebase { namespace graphics {
 
 		//NINE
 		{
-			byte footer[8];
-			ReadBytes(f, footer, 8);
+			byte footer[4];
+			ReadBytes(f, footer, 4);
 			if (memcmp(footer, format.footer, 4) != 0)
 			{
 				std::cout << "[Model] Load() - Footers do not compare, " << (const char*)footer << "    " << (const char*)format.footer << std::endl;

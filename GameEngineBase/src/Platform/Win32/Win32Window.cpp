@@ -52,11 +52,11 @@ namespace gebase {
 	{
 		hInstance = (HINSTANCE)&__ImageBase;
 
-		WNDCLASSA wndClass = {};
+		WNDCLASS wndClass = {};
 		wndClass.hInstance = hInstance;
 		wndClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-		wndClass.lpfnWndProc = (WNDPROC)WndProc;
-		wndClass.lpszClassName = (LPCSTR)"Game Engine Base Window - Win32";
+		wndClass.lpfnWndProc = WndProc;
+		wndClass.lpszClassName = "Game Engine Base Window - Win32";
 		wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 		wndClass.hIcon = LoadIcon(NULL, IDI_WINLOGO);
 
@@ -66,7 +66,7 @@ namespace gebase {
 			return false;
 		}
 
-		RECT size = { 0, 0, (LONG)m_Properties.width, (LONG)m_Properties.height };
+		RECT size = { 0, 0, m_Properties.width, m_Properties.height };
 		AdjustWindowRectEx(&size, WS_EX_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, false, WS_EX_APPWINDOW | WS_EX_WINDOWEDGE);
 
 		hWnd = CreateWindowExA(WS_EX_APPWINDOW | WS_EX_WINDOWEDGE, wndClass.lpszClassName, m_Title.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, (int)(GetSystemMetrics(SM_CXSCREEN) / 2.0f - m_Properties.width / 2.0f), (int)(GetSystemMetrics(SM_CYSCREEN) / 2.0f - m_Properties.height / 2.0f), (int)(size.right + (-size.left)), (int)(size.bottom + (-size.top)), NULL, NULL, hInstance, NULL);
@@ -133,7 +133,7 @@ namespace gebase {
 		m_Title = title;
 #endif
 
-		SetWindowText(hWnd, (LPCWSTR)m_Title.c_str());
+		SetWindowText(hWnd, m_Title.c_str());
 	}
 
 	void ResizeCallback(gebase::Window* window, int32 width, int32 height)

@@ -97,7 +97,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>GE_PLATFORM_WINDOWS;GE_PLATFORM_WIN32;NOGDI;GE_RENDERAPI_OPENGL;GE_CORE_DLL;FREEIMAGE_LIB;OPJ_STATIC;GE_DEBUG;GLEW_STATIC;_WIN32;WIN32;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GE_PLATFORM_WINDOWS;GE_PLATFORM_WIN32;NOGDI;GE_RENDERAPI_OPENGL;GE_CORE_DLL;FREEIMAGE_LIB;OPJ_STATIC;GE_DEBUG;GLEW_STATIC;_WIN32;WIN32;_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_WINDLL;_MBCS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <PrecompiledHeaderFile>ge.h</PrecompiledHeaderFile>
