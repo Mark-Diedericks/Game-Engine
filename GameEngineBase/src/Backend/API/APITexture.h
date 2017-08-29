@@ -73,7 +73,7 @@ namespace gebase { namespace graphics { namespace API {
 				inline static void setWrap(TextureWrap wrap) { s_WrapMode = wrap; }
 				inline static void setFilter(TextureFilter filter) { s_FilterMode = filter; }
 
-				static byte getStrideFromFormat(TextureFormat format);
+				static GE_API byte getStrideFromFormat(TextureFormat format);
 			};
 
 } } }

@@ -27,7 +27,10 @@ namespace gebase { namespace graphics {
 		uint size;
 
 		UniformBuffer() {}
-		UniformBuffer(byte* buff, uint s) : buffer(buff), size(s) { memset(buff, 0, s); }
+		UniformBuffer(byte* buff, uint s) : buffer(buff), size(s) 
+		{
+			memset(buff, 0, s);
+		}
 	};
 
 	struct BR2DSystemUniform

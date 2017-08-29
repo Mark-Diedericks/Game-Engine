@@ -126,20 +126,24 @@ namespace gebase {
 
 	void Application::OnRender()
 	{
+		std::cout << "[Application] OnRender() - OverlayStack" << std::endl;
 		for (uint i = 0; i < m_OverlayStack.size(); i++) 
 		{
 			if (m_OverlayStack[i]->isVisible())
 				m_OverlayStack[i]->OnRender();
 		}
 
+		std::cout << "[Application] OnRender() - LayerStack" << std::endl;
 		for (uint i = 0; i < m_LayerStack.size(); i++)
 		{
 			if(m_LayerStack[i]->isVisible())
 				m_LayerStack[i]->OnRender();
 		}
 
+		std::cout << "[Application] OnRender() - DebugLayer Making" << std::endl;
 		Layer2D* debugLayer = (Layer2D*)m_DebugLayer;
-		
+
+		std::cout << "[Application] OnRender() - DebugLayer" << std::endl;
 		if (debugLayer->isVisible())
 			debugLayer->OnRender();
 	}

@@ -78,6 +78,7 @@ namespace gebase
 
 		m_Renderer->End();
 		m_Renderer->Present();
+		return;
 	}
 
 }

@@ -102,6 +102,6 @@ void Test2D::OnEvent(gebase::events::Event& event)
 
 void Test2D::OnRender(Renderer2D& renderer)
 {
-	m_DebugInfo[0]->setText(String("Target: ") + (renderer.getRenderTarget() == RenderTarget::SCREEN ? "Screen" : "Buffer"));
-	m_DebugInfo[1]->setText(String("PostFX: ") + (renderer.getPostEffects() ? "On" : "Off"));
+	//m_DebugInfo[0]->setText(String("Target: ") + (renderer.getRenderTarget() == RenderTarget::SCREEN ? "Screen" : "Buffer"));
+	//m_DebugInfo[1]->setText(String("PostFX: ") + (renderer.getPostEffects() ? "On" : "Off"));
 }

@@ -9,9 +9,6 @@ namespace gebase { namespace graphics {
 
 	class GE_API Texture
 	{
-	protected:
-		static API::TextureWrap s_WrapMode;
-		static API::TextureFilter s_FilterMode;
 	public:
 		virtual ~Texture() {}
 
@@ -21,8 +18,8 @@ namespace gebase { namespace graphics {
 		virtual const String& getName() const = 0;
 		virtual const String& getFilepath() const = 0;
 
-		static void setWrap(API::TextureWrap wrap) { s_WrapMode = wrap; API::APITexture::setWrap(wrap); }
-		static void setFilter(API::TextureFilter filter) { s_FilterMode = filter; API::APITexture::setFilter(filter); }
+		static void setWrap(API::TextureWrap wrap) { API::APITexture::setWrap(wrap); }
+		static void setFilter(API::TextureFilter filter) { API::APITexture::setFilter(filter); }
 
 		virtual API::APITexture* getInstance() = 0;
 	};

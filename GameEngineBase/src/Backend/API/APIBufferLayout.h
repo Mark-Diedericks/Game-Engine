@@ -26,6 +26,7 @@ namespace gebase { namespace graphics { namespace API {
 	private:
 		uint m_Size;
 		std::vector<BufferElement> m_Layout;
+
 		void Push(const String& name, uint type, uint size, uint count, bool normalized);
 	public:
 		APIBufferLayout();
@@ -85,7 +86,7 @@ namespace gebase { namespace graphics { namespace API {
 			switch (gebase::graphics::Context::getRenderAPI())
 			{
 			case RenderAPI::OPENGL:
-				Push(name, GL_BYTE, sizeof(byte), count, normalized);
+				Push(name, GL_UNSIGNED_BYTE, sizeof(byte), count, normalized);
 				break;
 			case RenderAPI::VULKAN:
 				Push(name, 0, sizeof(byte) * 4, 1, normalized);

@@ -256,7 +256,7 @@ namespace gebase { namespace graphics {
 		m_Buffer->color = color;
 		m_Buffer++;
 
-		vertex = *m_TransformationBack * math::Vector3f(min.x, max.y, 0.0f);
+		vertex = *m_TransformationBack * math::Vector3f(max.x, max.y, 0.0f);
 		m_Buffer->vertex = vertex;
 		m_Buffer->tex_uv = uv[2];
 		m_Buffer->mask_uv = maskTransform * vertex;
@@ -265,7 +265,7 @@ namespace gebase { namespace graphics {
 		m_Buffer->color = color;
 		m_Buffer++;
 
-		vertex = *m_TransformationBack * math::Vector3f(max.x, max.y, 0.0f);
+		vertex = *m_TransformationBack * math::Vector3f(min.x, max.y, 0.0f);
 		m_Buffer->vertex = vertex;
 		m_Buffer->tex_uv = uv[3];
 		m_Buffer->mask_uv = maskTransform * vertex;
@@ -279,6 +279,7 @@ namespace gebase { namespace graphics {
 
 	void Renderer2D::Present()
 	{
+		std::cout << "Presenting...." << std::endl;
 		Renderer::setDepthTesting(false);
 
 		m_Shader->Bind();
@@ -287,7 +288,7 @@ namespace gebase { namespace graphics {
 			m_Shader->setVSSystemUniformBuffer(m_SystemUniformBuffers[i].buffer, m_SystemUniformBuffers[i].size, i);
 
 		for (uint i = 0; i < m_Textures.size(); i++)
-			m_Textures[i]->Bind();
+			m_Textures[i]->Bind(i);
 
 		m_VertexArray->Bind();
 		m_IndexBuffer->Bind();
@@ -296,10 +297,12 @@ namespace gebase { namespace graphics {
 		m_VertexArray->Unbind();
 
 		for (uint i = 0; i < m_Textures.size(); i++)
-			m_Textures[i]->Unbind();
+			m_Textures[i]->Unbind(i);
 
 		m_IndexCount = 0;
 		m_Textures.clear();
+
+		std::cout << "Presented...." << std::endl;
 
 		if (m_Target == RenderTarget::BUFFER)
 		{

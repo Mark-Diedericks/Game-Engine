@@ -24,16 +24,15 @@ namespace gebase { namespace debug {
 
 	DebugLayer::~DebugLayer()
 	{
-		s_Instance = nullptr;
 	}
 
 	void DebugLayer::OnInit(Renderer2D& renderer, Material& material)
 	{
 		renderer.setRenderTarget(RenderTarget::SCREEN);
 
-		m_FPSLabel = genew Label("", 31.5f, 17.5f, FontManager::Get((uint)DebugMenu::getSettings().fontSize), 0xffffffff, Label::Alignment::RIGHT);
-		m_FrametimeLabel = genew Label("", 31.5f, 16.5f, FontManager::Get((uint)DebugMenu::getSettings().fontSize), 0xffffffff, Label::Alignment::RIGHT);
-		m_MemoryUsageLabel = genew Label("", 31.5f, 15.5f, FontManager::Get((uint)DebugMenu::getSettings().fontSize), 0xffffffff, Label::Alignment::RIGHT);
+		m_FPSLabel = genew Label("", 31.5f, 17.5f, FontManager::Get(24), 0xffffffff, Label::Alignment::RIGHT);
+		m_FrametimeLabel = genew Label("", 31.5f, 16.8f, FontManager::Get(24), 0xffffffff, Label::Alignment::RIGHT);
+		m_MemoryUsageLabel = genew Label("", 31.5f, 16.1f, FontManager::Get(24), 0xffffffff, Label::Alignment::RIGHT);
 
 		Add(m_FPSLabel);
 		Add(m_FrametimeLabel);
@@ -46,7 +45,7 @@ namespace gebase { namespace debug {
 
 		m_FPSLabel->setText(StringFormat::ToString(m_Application.getFPS()) + " fps");
 		m_FrametimeLabel->setText(StringFormat::ToString(m_Application.getFrT()) + " ms");
-		m_FPSLabel->setText(MemoryManager::BytesToString(MemoryManager().Get()->GetMemoryInfo().cUsed));
+		m_MemoryUsageLabel->setText(MemoryManager::BytesToString(MemoryManager().Get()->GetMemoryInfo().cUsed));
 	}
 
 	void DebugLayer::OnRender(Renderer2D& renderer)
