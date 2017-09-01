@@ -7,15 +7,17 @@
 namespace gebase { namespace math {
 
 	class Vector2f;
+	class Vector4f;
 	class Matrix4f;
 
 	class GE_API Vector3f {
 	public:
 		float x, y, z;
-	public:
+
 		inline Vector3f() : x(0), y(0), z(0) {}
 		Vector3f(const float& ix, const float& iy, const float& iz);
 		Vector3f(const Vector2f& vector);
+		Vector3f(const Vector4f& vector);
 		float getLength() const;
 		float dot(const Vector3f& vec3f) const;
 		Vector3f cross(const Vector3f& vec3f) const;

@@ -8,7 +8,7 @@ using namespace component;
 using namespace math;
 
 Test2D::Test2D()
-	: Layer2D(genew Scene2D(Matrix4f::initOrthographic(-16.0f, 16.0f, 9.0f, -9.0f, -1.0f, 1.0f)))
+	: Layer2D(genew Scene2D(Matrix4f::Orthographic(-16.0f, 16.0f, 9.0f, -9.0f, -1.0f, 1.0f)))
 {
 	m_Renderer = nullptr;
 }
@@ -47,7 +47,7 @@ void Test2D::OnInit(Renderer2D& renderer, Material& material)
 
 	Texture::setWrap(API::TextureWrap::CLAMP_TO_BORDER);
 	Mask* mask = genew Mask(Texture2D::CreateFromFile("Mask", "res/mask.png"));
-	mask->transform = Matrix4f::initTranslation(Vector3f(-16.0f, -9.0f, 0.0f)) * Matrix4f::initScale(32, 18, 1);
+	mask->transform = Matrix4f::Translation(Vector3f(-16.0f, -9.0f, 0.0f)) * Matrix4f::Scale(32, 18, 1);
 	setMask(mask);
 }
 

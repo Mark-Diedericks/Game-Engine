@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "Common.h"
+#include "Vector3f.h"
 
 namespace gebase { namespace math {
 
@@ -11,9 +12,10 @@ namespace gebase { namespace math {
 	class GE_API Vector4f {
 	public:
 		float x, y, z, w;
-	public:
+
 		inline Vector4f() : x(0), y(0), z(0), w(0) {}
 		Vector4f(const float& ix, const float& iy, const float& iz, const float& iw);
+		Vector4f(const Vector3f& vector, const float& iw);
 		float getLength() const;
 		float dot(const Vector4f& vec4f) const;
 		Vector4f normalize();

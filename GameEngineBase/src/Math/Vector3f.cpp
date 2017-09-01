@@ -1,6 +1,7 @@
 #include "ge.h"
 #include "Vector3f.h"
 #include "Vector2f.h"
+#include "Vector4f.h"
 #include "Matrix4f.h"
 
 namespace gebase { namespace math {
@@ -12,6 +13,11 @@ namespace gebase { namespace math {
 	}
 
 	Vector3f::Vector3f(const Vector2f& vector) : x(vector.x), y(vector.y), z(0)
+	{
+
+	}	
+	
+	Vector3f::Vector3f(const Vector4f& vector) : x(vector.x), y(vector.y), z(vector.z)
 	{
 
 	}

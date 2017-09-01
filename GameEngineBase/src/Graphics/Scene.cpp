@@ -10,7 +10,7 @@
 
 namespace gebase {
 
-	Scene::Scene() : m_Camera(genew graphics::FPSCamera(math::Matrix4f::initPerspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)))
+	Scene::Scene() : m_Camera(genew graphics::FPSCamera(math::Matrix4f::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)))
 	{
 
 	}
@@ -36,7 +36,7 @@ namespace gebase {
 		if (!entity->getComponent<entity::component::TransformComponent>())
 		{
 			std::cout << "[Scene] Add() - Entity does not have a transform component" << std::endl;
-			entity->AddComponent(new entity::component::TransformComponent(math::Matrix4f::initIdentity()));
+			entity->AddComponent(new entity::component::TransformComponent(math::Matrix4f::Identity()));
 		}
 	}
 

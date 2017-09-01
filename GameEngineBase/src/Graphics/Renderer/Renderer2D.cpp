@@ -54,7 +54,7 @@ namespace gebase { namespace graphics {
 
 	void Renderer2D::Init()
 	{
-		m_TransformationStack.push_back(math::Matrix4f::initIdentity());
+		m_TransformationStack.push_back(math::Matrix4f::Identity());
 		m_TransformationBack = &m_TransformationStack.back();
 
 		m_Target = RenderTarget::SCREEN;
@@ -88,7 +88,7 @@ namespace gebase { namespace graphics {
 			}
 		}
 
-		setCamera(genew Camera(math::Matrix4f::initOrthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f)));
+		setCamera(genew Camera(math::Matrix4f::Orthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f)));
 		m_Shader->Bind();
 
 		VertexBuffer* vb = VertexBuffer::Create(API::BufferUsage::DYNAMIC);
@@ -226,13 +226,13 @@ namespace gebase { namespace graphics {
 		if (texture)
 			textureSlot = SubmitTexture(renderable->getTexture());
 
-		math::Matrix4f maskTransform = math::Matrix4f::initIdentity();
+		math::Matrix4f maskTransform = math::Matrix4f::Identity();
 		float mid = m_Mask ? SubmitTexture(m_Mask->texture) : 0.0f;
 		float ms = 0.0f;
 
 		if (s_MaskEnabled && m_Mask != nullptr)
 		{
-			maskTransform = m_Mask->transform.inverse();
+			maskTransform = math::Matrix4f::Invert(m_Mask->transform);
 			ms = SubmitTexture(m_Mask->texture);
 		}
 
@@ -391,12 +391,12 @@ namespace gebase { namespace graphics {
 	{
 		const std::vector<math::Vector2f>& uv = Renderable2D::getDefaultUVs();
 		float ts = 0.0f;
-		math::Matrix4f maskTransform = math::Matrix4f::initIdentity();
+		math::Matrix4f maskTransform = math::Matrix4f::Identity();
 
 		float ms = 0.0f;
 		if (s_MaskEnabled && m_Mask != nullptr)
 		{
-			maskTransform = m_Mask->transform.inverse();
+			maskTransform = math::Matrix4f::Invert(m_Mask->transform);
 			ms = SubmitTexture(m_Mask->texture);
 		}
 
@@ -472,12 +472,12 @@ namespace gebase { namespace graphics {
 
 		const std::vector<math::Vector2f>& uv = Renderable2D::getDefaultUVs();
 		float ts = 0.0f;
-		math::Matrix4f& maskTransform = math::Matrix4f::initIdentity();
+		math::Matrix4f& maskTransform = math::Matrix4f::Identity();
 
 		float ms = 0.0f;
 		if (s_MaskEnabled && m_Mask != nullptr)
 		{
-			maskTransform = m_Mask->transform.inverse();
+			maskTransform = math::Matrix4f::Invert(m_Mask->transform);
 			ms = SubmitTexture(m_Mask->texture);
 		}
 

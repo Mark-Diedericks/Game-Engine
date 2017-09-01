@@ -84,7 +84,7 @@ namespace gebase { namespace graphics {
 				Translate(up, -speed * delta);
 
 			math::Matrix4f rot = orientation.conjugate().toRotationMatrix();
-			math::Matrix4f loc = math::Matrix4f::initTranslation(m_Position * -1.0f);
+			math::Matrix4f loc = math::Matrix4f::Translation(m_Position * -1.0f);
 			m_ViewMatrix = rot * loc;
 		}
 

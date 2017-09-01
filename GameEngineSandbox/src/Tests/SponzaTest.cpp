@@ -12,7 +12,7 @@ SponzaTest::SponzaTest()
 	: Layer3D(genew Scene())
 {
 	m_MayaCamera = m_Scene->getCamera();
-	m_FPSCamera = genew FPSCamera(Matrix4f::initPerspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f));
+	m_FPSCamera = genew FPSCamera(Matrix4f::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f));
 }
 
 SponzaTest::~SponzaTest()
@@ -83,7 +83,7 @@ void SponzaTest::OnInit(Renderer3D& renderer, Scene& scene)
 		}
 
 		Model* model = genew Model("res/Sponza/" + models[i] + "/model.spm", genew MaterialInstance(material));
-		Entity* entity = genew Entity(model->getMesh(), Matrix4f::initTranslation(Vector3f(0, 0, 0))* Quaternion(Vector3f(1, 0, 0), -90.0f).toRotationMatrix());
+		Entity* entity = genew Entity(model->getMesh(), Matrix4f::Translation(Vector3f(0, 0, 0))* Quaternion(Vector3f(1, 0, 0), -90.0f).toRotationMatrix());
 		m_Scene->Add(entity);
 	}
 	//Reset it
@@ -102,7 +102,7 @@ void SponzaTest::OnUpdate(float delta)
 {
 	// Still OpenGL maths style (column-major)
 	Matrix4f vp = m_Scene->getCamera()->getProjectionMatrix() * m_Scene->getCamera()->getViewMatrix();
-	m_SkyboxMaterial->setUniform("invViewProjMatrix", vp.inverse());
+	m_SkyboxMaterial->setUniform("invViewProjMatrix", math::Matrix4f::Invert(vp));
 }
 
 void SponzaTest::OnEvent(gebase::events::Event& event)

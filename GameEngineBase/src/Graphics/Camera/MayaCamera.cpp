@@ -47,9 +47,9 @@ namespace gebase { namespace graphics {
 		math::Quaternion orientation = getOrientation();
 		m_Rotation = orientation.ToEulerAngles() * (180.0f / GE_PI);
 
-		math::Matrix4f trans = math::Matrix4f::initTranslation(0.0f, 0.0f, 1.0f);
+		math::Matrix4f trans = math::Matrix4f::Translation(0.0f, 0.0f, 1.0f);
 		math::Matrix4f rot = orientation.conjugate().toRotationMatrix();
-		math::Matrix4f loc = math::Matrix4f::initTranslation(m_Position * -1.0f);
+		math::Matrix4f loc = math::Matrix4f::Translation(m_Position * -1.0f);
 
 		m_ViewMatrix = trans * rot * loc;
 	}

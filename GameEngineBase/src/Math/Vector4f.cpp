@@ -10,6 +10,13 @@ namespace gebase { namespace math {
 		w = iw;
 	}
 
+	Vector4f::Vector4f(const Vector3f& vector, const float& iw) {
+		x = vector.x;
+		y = vector.y;
+		z = vector.z;
+		w = iw;
+	}
+
 	float Vector4f::getLength() const {
 		return (float)::sqrt(x * x + y * y + z * z + w * w);
 	}

@@ -44,7 +44,7 @@ namespace gebase { namespace graphics {
 
 	Sprite* Layer2D::Add(Sprite* sprite)
 	{
-		m_Scene->Add(genew entity::Entity(sprite, math::Matrix4f::initTranslation(sprite->getPosition())));
+		m_Scene->Add(genew entity::Entity(sprite, math::Matrix4f::Translation(sprite->getPosition())));
 		return sprite;
 	}
 

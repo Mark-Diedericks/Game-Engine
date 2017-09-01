@@ -13,13 +13,13 @@ Test3D::Test3D()
 	: Layer3D(genew Scene())
 {
 	m_MayaCamera = m_Scene->getCamera();
-	m_FPSCamera = genew FPSCamera(Matrix4f::initPerspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f));
+	m_FPSCamera = genew FPSCamera(Matrix4f::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f));
 
 	m_Rotation = 0.0f;
 	m_SetUniforms[0] = true;
 	m_SetUniforms[1] = true;
 
-	Matrix4f result = Matrix4f::initIdentity() * Matrix4f::initIdentity();
+	Matrix4f result = Matrix4f::Identity() * Matrix4f::Identity();
 }
 
 Test3D::~Test3D()
@@ -170,13 +170,13 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	}
 
 	Model* daggerModel = genew Model("/models/Dagger.spm", genew MaterialInstance(m_DaggerMaterial));
-	m_Dagger = genew Entity(daggerModel->getMesh(), Matrix4f::initTranslation(g_DaggerTransform));
+	m_Dagger = genew Entity(daggerModel->getMesh(), Matrix4f::Translation(g_DaggerTransform));
 	m_Scene->Add(m_Dagger);
 
 	PBRMaterial* cubeMaterial = genew PBRMaterial(pbrShader);
 	cubeMaterial->setEnvironmentMap(environment);
 	Model* cubeModel = genew Model("/models/RoundedCube.spm", genew MaterialInstance(cubeMaterial));
-	m_Cube = genew Entity(cubeModel->getMesh(), Quaternion(Vector3f(0, 0, 1), 90.0f).toRotationMatrix() * Matrix4f::initTranslation(g_CubeTransform));
+	m_Cube = genew Entity(cubeModel->getMesh(), Quaternion(Vector3f(0, 0, 1), 90.0f).toRotationMatrix() * Matrix4f::Translation(g_CubeTransform));
 	m_Scene->Add(m_Cube);
 
 	Model* sphereModel = genew Model("/models/Sphere.spm");
@@ -200,7 +200,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 		Mesh* mesh = genew Mesh(sphereModel->getMesh());
 		mesh->setMaterial(m);
 
-		Entity* sphere = genew Entity(mesh, Matrix4f::initTranslation(Vector3f(-60 + xx, 2.5f, 90 + zz)) * Matrix4f::initScale(2.0f, 2.0f, 2.0f));
+		Entity* sphere = genew Entity(mesh, Matrix4f::Translation(Vector3f(-60 + xx, 2.5f, 90 + zz)) * Matrix4f::Scale(2.0f, 2.0f, 2.0f));
 		m_Spheres.push_back(sphere);
 		m_Scene->Add(sphere);
 	}
@@ -224,7 +224,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 		Mesh* mesh = genew Mesh(sphereModel->getMesh());
 		mesh->setMaterial(m);
 
-		Entity* sphere = genew Entity(mesh, Matrix4f::initTranslation(Vector3f(-60 + xx, 2.5f, 80 + zz)) * Matrix4f::initScale(2.0f, 2.0f, 2.0f));
+		Entity* sphere = genew Entity(mesh, Matrix4f::Translation(Vector3f(-60 + xx, 2.5f, 80 + zz)) * Matrix4f::Scale(2.0f, 2.0f, 2.0f));
 		m_Spheres.push_back(sphere);
 		m_Scene->Add(sphere);
 	}
@@ -262,11 +262,11 @@ void Test3D::OnUpdate(float delta)
 
  	TransformComponent* cubeTransform = m_Cube->getComponent<TransformComponent>();
  
- 	Matrix4f transform = Matrix4f::initTranslation(Vector3f(0, 2.5f, 0)) * Quaternion(Vector3f(1, 0, 0), m_Rotation).toRotationMatrix() * Quaternion(Vector3f(0, 1, 0), m_Rotation).toRotationMatrix() * Quaternion(Vector3f(0, 0, 1), m_Rotation).toRotationMatrix();
- 	cubeTransform->transform = Matrix4f::initTranslation(g_CubeTransform) * transform * Matrix4f::initScale(1.4f, 1.4f, 1.4f);
+ 	Matrix4f transform = Matrix4f::Translation(Vector3f(0, 2.5f, 0)) * Quaternion(Vector3f(1, 0, 0), m_Rotation).toRotationMatrix() * Quaternion(Vector3f(0, 1, 0), m_Rotation).toRotationMatrix() * Quaternion(Vector3f(0, 0, 1), m_Rotation).toRotationMatrix();
+ 	cubeTransform->transform = Matrix4f::Translation(g_CubeTransform) * transform * Matrix4f::Scale(1.4f, 1.4f, 1.4f);
 
 	TransformComponent* dagger = m_Dagger->getComponent<TransformComponent>();
-	dagger->transform = Matrix4f::initTranslation(g_DaggerTransform);
+	dagger->transform = Matrix4f::Translation(g_DaggerTransform);
 		
  	for (Entity* sphere : m_Spheres)
  	{
@@ -276,7 +276,7 @@ void Test3D::OnUpdate(float delta)
 
 	// Still OpenGL maths style (column-major)
 	Matrix4f vp = m_Scene->getCamera()->getProjectionMatrix() * m_Scene->getCamera()->getViewMatrix();
-	m_SkyboxMaterial->setUniform("invViewProjMatrix", vp.inverse());
+	m_SkyboxMaterial->setUniform("invViewProjMatrix", math::Matrix4f::Invert(vp));
 }
 
 void Test3D::OnRender(Renderer3D& renderer)

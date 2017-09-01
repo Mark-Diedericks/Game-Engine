@@ -52,7 +52,7 @@ namespace gebase { namespace math {
 
 	Matrix4f Quaternion::toRotationMatrix() const
 	{
-		return math::Matrix4f::initRotation(*this);
+		return math::Matrix4f::Rotation(*this);
 	}
 
 	Quaternion Quaternion::FromEulerAngles(const Vector3f& angles)

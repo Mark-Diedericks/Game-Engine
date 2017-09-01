@@ -30,7 +30,7 @@ namespace gebase { namespace debug {
 		GE_DEBUG_METHOD_V(static void Present())
 
 		GE_DEBUG_METHOD_V(static void DrawLine(const math::Vector3f& start, const math::Vector3f& end, uint color = 0xffffffff))
-		GE_DEBUG_METHOD_V(static void DrawMesh(const graphics::Mesh* mesh, DebugRenderMeshFlags flags, const math::Matrix4f& transform = math::Matrix4f::initIdentity()))
+		GE_DEBUG_METHOD_V(static void DrawMesh(const graphics::Mesh* mesh, DebugRenderMeshFlags flags, const math::Matrix4f& transform = math::Matrix4f::Identity()))
 
 		GE_DEBUG_METHOD_V(static void setCamera(graphics::Camera* camera))
 	};

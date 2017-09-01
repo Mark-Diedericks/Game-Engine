@@ -22,7 +22,7 @@ namespace gebase { namespace graphics {
 
 	void PostEffectsPass::RenderPass(Framebuffer* target)
 	{
-		m_Material->setUniform("pr_matrix", math::Matrix4f::initOrthographic(0.0f, (float)target->getWidth(), (float)target->getHeight(), 0.0f, -1.0f, 1.0f));
+		m_Material->setUniform("pr_matrix", math::Matrix4f::Orthographic(0.0f, (float)target->getWidth(), (float)target->getHeight(), 0.0f, -1.0f, 1.0f));
 		m_Material->Bind();
 	}
 
