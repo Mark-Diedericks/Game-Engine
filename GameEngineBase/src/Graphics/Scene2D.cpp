@@ -12,7 +12,7 @@ namespace gebase
 		uint height = Application::getApplication().getWindowHeight();
 		float aspect = (float)width / (float)height;
 
-		m_Camera = genew graphics::OrthographicCamera(math::Matrix4f::initOrthographic(-10.0f * aspect, 10.0f * aspect, 10.0f, -10.0f, -1.0f, 1.0f));
+		m_Camera = genew graphics::OrthographicCamera(math::Matrix4f::initOrthographic(-10.0f * aspect, 10.0f * aspect, -10.0f, 10.0f, -1.0f, 1.0f));
 		m_Renderer = genew graphics::Renderer2D(width, height);
 		m_Renderer->setCamera(m_Camera);
 	}

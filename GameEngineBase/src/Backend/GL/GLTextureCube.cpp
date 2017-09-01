@@ -26,12 +26,12 @@ namespace gebase { namespace graphics { namespace API {
 		m_Handle = LoadFromMultipleFiles(sides, bits);
 	}
 
-	GLTextureCube::GLTextureCube(const String& name, const byte** sides, int32 mips, uint width, uint height, uint bits, InputFormat format) : m_Name(name), m_Width(width), m_Height(height), m_Bits(bits)
+	GLTextureCube::GLTextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : m_Name(name), m_Width(width[0]), m_Height(height[0]), m_Bits(bits)
 	{
 		m_Files[0] = name;
 
 		if (format == InputFormat::VERTICAL_CROSS)
-			m_Handle = LoadFromVerticalCross(sides, bits, mips);
+			m_Handle = LoadFromVerticalCross(sides, width, height, bits, mips);
 	}
 
 	GLTextureCube::~GLTextureCube()
@@ -106,10 +106,10 @@ namespace gebase { namespace graphics { namespace API {
 		return handle;
 	}
 
-	uint GLTextureCube::LoadFromVerticalCross(const byte** sides, uint mbits, uint mips)
+	uint GLTextureCube::LoadFromVerticalCross(const byte** sides, uint* width, uint* height, uint mbits, uint mips)
 	{
-		uint srcWidth = m_Width;
-		uint srcHeight = m_Height;
+		uint srcWidth = width[0];
+		uint srcHeight = height[0];
 		uint bits = mbits;
 
 		byte*** cubeTextureData = genew byte**[mips];
@@ -125,6 +125,9 @@ namespace gebase { namespace graphics { namespace API {
 		for (uint i = 0; i < mips; i++)
 		{
 			const byte* data = sides[i];
+			srcWidth = width[i];
+			srcHeight = height[i];
+
 			uint stride = bits / 8;
 
 			uint face = 0;

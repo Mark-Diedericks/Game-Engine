@@ -65,8 +65,8 @@ SamplerState u_EnvironmentMapSampler : register(s0);
 float4 PSMain(in VSOutput input) : SV_TARGET
 {
 	Attributes attributes;
-	attributes.position = input.position;
+	attributes.position = input.position.xyz;
 	attributes.uv = input.uv;
 
-	return u_EnvironmentMap.SampleLevel(u_EnvironmentMapSampler, input.position, 4);
+	return u_EnvironmentMap.SampleLevel(u_EnvironmentMapSampler, input.position.xyz, 4);
 }

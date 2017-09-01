@@ -51,29 +51,28 @@ namespace gebase { namespace graphics { namespace API {
 
 		String result = source;
 		int32 startPos;
-
 		while ((startPos = IndexOf(result, "/*")) != -1)
 		{
 			int32 endPos = IndexOf(result, "*/");
 
-			if (endPos == -1)
+			if(endPos == -1)
 			{
-				std::cout << "[DX11Shader] RemoveComments() - endPos = -1" << std::endl;
+				std::cout << "[DX11Shader] RemoveComments() - End position (*/) == -1." << std::endl;
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
 			}
 
-			result = Remove(result, startPos, endPos - startPos + 1);
+			result = Remove(result, startPos, endPos - startPos + 2);
 		}
 
 		while ((startPos = IndexOf(result, "//")) != -1)
 		{
-			int32 endPos = IndexOf(result, "\n");
+			int32 endPos = IndexOf(result, "\n", startPos);
 
 			if (endPos == -1)
 			{
-				std::cout << "[DX11Shader] RemoveComments() - endPos = -1" << std::endl;
+				std::cout << "[DX11Shader] RemoveComments() - End position (\n) == -1." << std::endl;
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
@@ -143,7 +142,7 @@ namespace gebase { namespace graphics { namespace API {
 		const char* str;
 
 		String src = RemoveComments(source);
-		
+
 		str = src.c_str();
 		while (token = FindToken(str, "struct"))
 			ParseStruct(GetBlock(token, &str));
@@ -287,7 +286,7 @@ namespace gebase { namespace graphics { namespace API {
 
 			if (t == DX11ShaderUniformDeclaration::UniformType::NONE)
 			{
-				ShaderStruct* s = FindStruct(name);
+				ShaderStruct* s = FindStruct(type);
 
 				if (!s)
 				{
@@ -354,8 +353,8 @@ namespace gebase { namespace graphics { namespace API {
 			reg = NextInt(texRegister);
 		}
 
-		DX11ShaderResourceDeclaration* declaration = genew DX11ShaderResourceDeclaration(DX11ShaderResourceDeclaration::ResourceType::SAMPLERSTATE, name);
-		declaration->m_Register = reg;
+		//DX11ShaderResourceDeclaration* declaration = genew DX11ShaderResourceDeclaration(DX11ShaderResourceDeclaration::ResourceType::SAMPLERSTATE, name);
+		//declaration->m_Register = reg;
 		//m_Resources.push_back(declaration);
 	}
 	

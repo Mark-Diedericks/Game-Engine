@@ -37,7 +37,7 @@ namespace gebase { namespace graphics { namespace API {
 		return nullptr;
 	}
 
-	APITextureCube* APITextureCube::CreateFromVerticalCross(const String& name, const byte** sides, int32 mips, uint width, uint height, uint bits)
+	APITextureCube* APITextureCube::CreateFromVerticalCross(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits)
 	{
 		switch (gebase::graphics::Context::getRenderAPI())
 		{

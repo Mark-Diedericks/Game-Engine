@@ -1,25 +1,33 @@
 #include "ge.h"
+#include "FPSCamera.h"
+
 #include "Input/InputManager.h"
 #include "Application/Application.h"
-#include "FPSCamera.h"
+#include "Debug/DebugMenu.h"
 
 namespace gebase { namespace graphics {
 
 	FPSCamera::FPSCamera(const math::Matrix4f& projectionMatrix) : Camera(projectionMatrix), m_MouseSensitivity(0.002f), m_Speed(0.4f), m_SprintSpeed(m_Speed * 4.0f), m_MouseWasGrabbed(false)
 	{
-		m_Position = math::Vector3f();
-		m_Rotation = math::Quaternion(math::Vector3f(90.0f, 0.0f, 0.0f), 1.0f);
+		m_Position = math::Vector3f(0.0f, 25.0f, -25.0f);
+		m_Rotation = math::Vector3f(90.0f, 0.0f, 0.0f);
+
+		m_Pitch = 0.7f;
+		m_Yaw = 2.4f;
+
+		debug::DebugMenu::Add("Camera/FPS Camera Speed", &m_Speed);
+		debug::DebugMenu::Add("Camera/FPS Camera Sprint Speed", &m_SprintSpeed);
 	}
 
 	FPSCamera::~FPSCamera()
 	{
-
+		debug::DebugMenu::Remove("Camera/FPS Camera Speed");
+		debug::DebugMenu::Remove("Camera/FPS Camera Sprint Speed");
 	}
 
 	void FPSCamera::Focus()
 	{
 		Input::getInputManager()->setMouseCursor(GE_NO_CURSOR);
-		Input::getInputManager()->setMouseGrabbed(true);
 	}
 
 	void FPSCamera::Update(float delta)
@@ -38,23 +46,24 @@ namespace gebase { namespace graphics {
 
 		if (Input::getInputManager()->isMouseGrabbed())
 		{
-			
-
 			math::Vector2f mPos = Input::getInputManager()->getMousePosition();
 			mPos.x -= windowCent.x;
 			mPos.y -= windowCent.y;
 
 			if (m_MouseWasGrabbed)
 			{
-				m_Rotation *= math::Quaternion(math::Vector3f(0.0f, 1.0f, 0.0f), (float)math::Utils::toRadians(mPos.x * m_MouseSensitivity)).normalize();
-				m_Rotation *= math::Quaternion(getRightDirection(m_Rotation), (float)math::Utils::toRadians(-mPos.y * m_MouseSensitivity)).normalize();
+				m_Pitch += mPos.y * m_MouseSensitivity;
+				m_Yaw += mPos.x * m_MouseSensitivity;
 			}
 
 			m_MouseWasGrabbed = true;
 			Input::getInputManager()->setMousePosition(windowCent);
 
-			math::Vector3f forward = getForwardDirection(m_Rotation);
-			math::Vector3f right = getRightDirection(m_Rotation);
+			math::Quaternion orientation = getOrientation();
+			m_Rotation = orientation.ToEulerAngles() * (180.0f / GE_PI);
+
+			math::Vector3f forward = getForwardDirection(orientation);
+			math::Vector3f right = getRightDirection(orientation);
 			math::Vector3f up = math::Vector3f(0.0f, 1.0f, 0.0f);
 
 			float speed = Input::isKeyPressed(GE_KEY_SHIFT) ? m_SprintSpeed : m_Speed;
@@ -73,6 +82,10 @@ namespace gebase { namespace graphics {
 				Translate(up, speed * delta);
 			else if (Input::isKeyPressed(GE_KEY_CONTROL))
 				Translate(up, -speed * delta);
+
+			math::Matrix4f rot = orientation.conjugate().toRotationMatrix();
+			math::Matrix4f loc = math::Matrix4f::initTranslation(m_Position * -1.0f);
+			m_ViewMatrix = rot * loc;
 		}
 
 		if (Input::isKeyPressed(GE_KEY_ESCAPE))
@@ -81,6 +94,11 @@ namespace gebase { namespace graphics {
 			Input::getInputManager()->setMouseCursor(1);
 			m_MouseWasGrabbed = false;
 		}
+	}
+
+	math::Quaternion FPSCamera::getOrientation() const
+	{
+		return math::Quaternion(math::Vector3f(-m_Pitch, -m_Yaw, 0.0f), 1.0f);
 	}
 
 } }

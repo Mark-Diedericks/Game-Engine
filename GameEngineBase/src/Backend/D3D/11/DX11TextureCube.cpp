@@ -16,10 +16,10 @@ namespace gebase { namespace graphics { namespace API {
 		LoadFromMultipleFiles(sides, bits);
 	}
 
-	DX11TextureCube::DX11TextureCube(const String& name, const byte** sides, int32 mips, uint width, uint height, uint bits, InputFormat format) : m_Name(name), m_File(name), m_Width(width), m_Height(height), m_Bits(bits), m_Format(format)
+	DX11TextureCube::DX11TextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : m_Name(name), m_File(name), m_Width(width[0]), m_Height(height[0]), m_Bits(bits), m_Format(format)
 	{
-		if(format == InputFormat::VERTICAL_CROSS)
-			LoadFromVerticalCross(sides, bits, mips);
+		if (format == InputFormat::VERTICAL_CROSS)
+			LoadFromVerticalCross(sides, width, height, bits, mips);
 	}
 
 	DX11TextureCube::~DX11TextureCube()
@@ -39,7 +39,7 @@ namespace gebase { namespace graphics { namespace API {
 		return 0;
 	}
 
-	uint DX11TextureCube::LoadFromVerticalCross(const byte** sides, uint mbits, uint mips)
+	uint DX11TextureCube::LoadFromVerticalCross(const byte** sides, uint* width, uint* height, uint mbits, uint mips)
 	{
 		uint srcWidth = m_Width;
 		uint srcHeight = m_Height;
@@ -56,6 +56,9 @@ namespace gebase { namespace graphics { namespace API {
 		for (uint m = 0; m < mips; m++)
 		{
 			const byte* data = sides[m];
+			srcWidth = width[m];
+			srcHeight = height[m];
+
 			uint stride = bits / 8;
 
 			uint face = 0;

@@ -13,18 +13,22 @@ namespace gebase { namespace graphics {
 
 		math::Vector2f m_InitialMousePosition;
 		math::Vector3f m_InitialFocalPoint;
-		math::Quaternion m_IntialRotatoin;
+		math::Vector3f m_IntialRotatoin;
 
 		float m_Distance;
 		float m_PanSpeed;
 		float m_RotationSpeed;
 		float m_ZoomSpeed;
 
-		inline math::Quaternion getOrientation() const { return m_Rotation; }
-		inline math::Vector3f getForwardDirection(const math::Quaternion& orientation) const { return orientation.getRotateForward(); }
-		inline math::Vector3f getUpDirection(const math::Quaternion& orientation) const { return orientation.getRotateUp(); }
-		inline math::Vector3f getRightDirection(const math::Quaternion& orientation) const { return orientation.getRotateRight(); }
-		inline math::Vector3f calculatePosition() { return m_FocalPoint - getForwardDirection(m_Rotation) * m_Distance; }
+		float m_Pitch;
+		float m_Yaw;
+
+		math::Quaternion getOrientation() const;
+		math::Vector3f calculatePosition();
+
+		inline math::Vector3f getForwardDirection(const math::Quaternion& orientation) const { return orientation.rotate(math::Vector3f(0.0f, 0.0f, -1.0f)); }
+		inline math::Vector3f getUpDirection(const math::Quaternion& orientation) const { return orientation.rotate(math::Vector3f(0.0f, 1.0f, 0.0f)); }
+		inline math::Vector3f getRightDirection(const math::Quaternion& orientation) const { return orientation.rotate(math::Vector3f(1.0f, 0.0f, 0.0f)); }
 
 		void MousePan(const math::Vector2f& delta, float tDelta);
 		void MouseRotate(const math::Vector2f& delta, float tDelta);

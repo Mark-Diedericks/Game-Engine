@@ -88,7 +88,7 @@ namespace gebase { namespace graphics {
 			}
 		}
 
-		setCamera(genew Camera(math::Matrix4f::initOrthographic(-16.0f, 16.0f, 9.0f, -9.0f, -1.0f, 1.0f)));
+		setCamera(genew Camera(math::Matrix4f::initOrthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f)));
 		m_Shader->Bind();
 
 		VertexBuffer* vb = VertexBuffer::Create(API::BufferUsage::DYNAMIC);

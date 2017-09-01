@@ -27,7 +27,12 @@ namespace gebase { namespace math {
 		this->w = cosHalfAngle;
 	}
 
-	Vector3f Quaternion::rotate(const Vector3f& vec3f) {
+	Vector3f Quaternion::ToEulerAngles() const
+	{
+		return Vector3f(::atan2(2 * x * w - 2 * y * z, 1 - 2 * x * x - 2 * z * z), ::atan2(2 * y * w - 2 * x * z, 1 - 2 * y * y - 2 * z * z), ::asin(2 * x * y + 2 * z * w));
+	}
+
+	Vector3f Quaternion::rotate(const Vector3f& vec3f) const {
 		Quaternion conjugate = this->conjugate();
 
 		Quaternion w = ((*this * vec3f) * conjugate);
@@ -54,7 +59,7 @@ namespace gebase { namespace math {
 		return (Quaternion)*this;
 	}
 
-	Quaternion Quaternion::conjugate() {
+	Quaternion Quaternion::conjugate() const {
 		Quaternion res(-x, -y, -z, w);
 		return res;
 	}

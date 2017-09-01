@@ -29,7 +29,7 @@ namespace gebase { namespace math {
 	}
 
 	Matrix4f Matrix4f::initIdentity() {
-		return Matrix4f(1);
+		return Matrix4f(1.0f);
 	}
 		
 	Matrix4f Matrix4f::initDiagonal(const float& diagonal) {
@@ -54,7 +54,7 @@ namespace gebase { namespace math {
 		return result;
 	}
 
-	Matrix4f Matrix4f::initOrthographic(const float& left, const float& right, const float& top, const float& bottom, const float& near, const float& far) {
+	Matrix4f Matrix4f::initOrthographic(const float& left, const float& right, const float& bottom, const float& top, const float& near, const float& far) {
 		Matrix4f result(1.0f);
 
 		result.m[0 + 0 * 4] = 2.0f / (right - left);

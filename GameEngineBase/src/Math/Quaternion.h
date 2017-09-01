@@ -16,10 +16,11 @@ namespace gebase { namespace math {
 		float getLength() const;
 		float dot(const Quaternion& quat) const;
 		Quaternion normalize();
-		Quaternion conjugate();
+		Quaternion conjugate() const;
 		Quaternion nlerp(const Quaternion& dest, const float& lerpFactor, const bool& shortest) const;
 		Quaternion slerp(const Quaternion& dest, const float& lerpFactor, const bool& shortest) const;
-		Vector3f rotate(const Vector3f& vec3f);
+		Vector3f ToEulerAngles() const;
+		Vector3f rotate(const Vector3f& vec3f) const;
 		Matrix4f toRotationMatrix();
 		Vector3f getRotateForward() const;
 		Vector3f getRotateUp() const;

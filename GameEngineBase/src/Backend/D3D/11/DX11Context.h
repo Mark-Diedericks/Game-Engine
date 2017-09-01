@@ -44,7 +44,7 @@ namespace gebase { namespace graphics { namespace API {
 		inline static IDXGISwapChain* getSwapChain() { return Get()->swapchain; }
 		inline static ID3D11Device* getDevice() { return Get()->device; }
 		inline static ID3D11DeviceContext* getDeviceContext() { return Get()->deviceContext; }
-		inline static ID3D11RenderTargetView* getBackBuffer() { return Get()->backbuffer; }
+		inline static ID3D11RenderTargetView* getBackBuffer() { return Get()->m_RenderTargetView; }
 	};
 
 } } }

@@ -57,21 +57,21 @@ namespace gebase { namespace graphics {
 		TextureCube* thisTC = genew TextureCube();
 		byte** pixels = genew byte*[mips];
 
-		uint width;
-		uint height;
-		uint bits;
+		uint* width = genew uint[mips];
+		uint* height = genew uint[mips];
+		uint* bits = genew uint[mips];
 
 		for (uint i = 0; i < (uint)mips; i++)
 		{
-			pixels[i] = LoadImage(files[i], &width, &height, &bits, true);
+			pixels[i] = LoadImage(files[i], &width[i], &height[i], &bits[i], true);
 		}
 
 		thisTC->sides = const_cast<const byte**>(pixels);
-		thisTC->m_BitsPerPixel = bits;
-		thisTC->m_Width = width;
-		thisTC->m_Height = height;
+		thisTC->m_BitsPerPixel = bits[0];
+		thisTC->m_Width = width[0];
+		thisTC->m_Height = height[0];
 
-		thisTC->m_Instance = API::APITextureCube::CreateFromVerticalCross(files[0], const_cast<const byte**>(pixels), mips, width, height, bits);
+		thisTC->m_Instance = API::APITextureCube::CreateFromVerticalCross(files[0], const_cast<const byte**>(pixels), mips, width, height, bits[0]);
 		return thisTC;
 	}
 

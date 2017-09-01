@@ -10,12 +10,14 @@ namespace gebase { namespace graphics {
 		float m_MouseSensitivity;
 		float m_Speed;
 		float m_SprintSpeed;
+		float m_Pitch;
+		float m_Yaw;
 		bool m_MouseWasGrabbed;
 
-		inline math::Quaternion getOrientation() const { return m_Rotation; }
-		inline math::Vector3f getForwardDirection(const math::Quaternion& orientation) const { return orientation.getRotateForward(); }
-		inline math::Vector3f getUpDirection(const math::Quaternion& orientation) const { return orientation.getRotateUp(); }
-		inline math::Vector3f getRightDirection(const math::Quaternion& orientation) const { return orientation.getRotateRight(); }
+		math::Quaternion getOrientation() const;
+		inline math::Vector3f getForwardDirection(const math::Quaternion& orientation) const { return orientation.rotate(math::Vector3f(0.0f, 0.0f, -1.0f)); }
+		inline math::Vector3f getUpDirection(const math::Quaternion& orientation) const { return orientation.rotate(math::Vector3f(0.0f, 1.0f, 0.0f)); }
+		inline math::Vector3f getRightDirection(const math::Quaternion& orientation) const { return orientation.rotate(math::Vector3f(1.0f, 0.0f, 0.0f)); }
 	public:
 		FPSCamera(const math::Matrix4f& projectionMatrix);
 		~FPSCamera();

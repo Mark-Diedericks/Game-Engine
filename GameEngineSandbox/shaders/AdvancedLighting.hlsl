@@ -5,8 +5,8 @@
 struct VSInput
 {
 	float4 position : POSITION;
-	float3 normal : NORMAL;
 	float2 uv : TEXCOORD;
+	float3 normal : NORMAL;
 	float3 binormal : BINORMAL;
 	float3 tangent : TANGENT;
 };

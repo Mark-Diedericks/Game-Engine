@@ -45,17 +45,15 @@ namespace gebase {
 	const char* FindToken(const char* str, const String& token) 
 	{ 
 		const char* t = str;
-
-		while (t = strstr(t, token.c_str())) {
+		while (t = strstr(t, token.c_str()))
+		{
 			bool left = str == t || isspace(t[-1]);
 			bool right = !t[token.size()] || isspace(t[token.size()]);
-
 			if (left && right)
 				return t;
 
 			t += token.size();
 		}
-
 		return nullptr;
 	}
 
@@ -106,10 +104,10 @@ namespace gebase {
 		return String(str, length);
 	}
 
-	String GetBlock(const String& str, uint offset) 
+	String GetBlock(const String& string, uint offset) 
 	{ 
-		const char* cstr = str.c_str() + offset;
-		return GetBlock(cstr);
+		const char* str = string.c_str() + offset;
+		return GetBlock(str);
 	}
 
 	String GetStatement(const char* str, const char** outPosition) 
