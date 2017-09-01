@@ -28,7 +28,7 @@ namespace gebase { namespace graphics {
 		gedel this->m_Instance;
 		this->m_Instance = API::APIVertexBuffer::Create(m_Usage);
 		this->m_Instance->setData(m_Size, m_Data);
-		this->m_Instance->setLayout(m_Layout)
+		this->m_Instance->setLayout(m_Layout);
 		return true;
 	}
 

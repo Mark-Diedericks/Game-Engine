@@ -91,10 +91,10 @@ namespace gebase { namespace graphics {
 			this->m_Instance = API::APITextureCube::CreateFromFile(m_Name, sides[0], m_Width[0], m_Height[0], m_BitsPerPixel);
 			break;
 		case 1:
-			this->m_Instance = API::APITextureCube::CreateFromFiles(m_Name, sides, m_Width[0], m_Height[0], m_BitsPerPixel);
+			this->m_Instance = API::APITextureCube::CreateFromFiles(m_Name, const_cast<const byte**>(sides), m_Width[0], m_Height[0], m_BitsPerPixel);
 			break;
 		case 2:
-			this->m_Instance = API::APITextureCube::CreateFromVerticalCross(m_Name, sides, m_Mips, m_Width, m_Height, m_BitsPerPixel);
+			this->m_Instance = API::APITextureCube::CreateFromVerticalCross(m_Name, const_cast<const byte**>(sides), m_Mips, m_Width, m_Height, m_BitsPerPixel);
 			break;
 		}
 
