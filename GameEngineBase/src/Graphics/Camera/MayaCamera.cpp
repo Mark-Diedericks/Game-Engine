@@ -13,13 +13,10 @@ namespace gebase { namespace graphics {
 		m_ZoomSpeed = 0.2f;
 
 		m_Position = math::Vector3f(0.0f, 25.0f, -25.0f);
-		m_Rotation = math::Vector3f(90.0f, 0.0f, 0.0f);
+		m_Rotation = math::Quaternion(math::Vector3f(90.0f, 0.0f, 0.0f), 1.0f);
 
 		m_FocalPoint = math::Vector3f();
 		m_Distance = (m_Position - m_FocalPoint).getLength();
-
-		m_Pitch = GE_PI / 4.0f;
-		m_Yaw = 3.0f * GE_PI / 4.0f;
 	}
 
 	void MayaCamera::Focus()
@@ -44,11 +41,8 @@ namespace gebase { namespace graphics {
 
 		m_Position = calculatePosition();
 
-		math::Quaternion orientation = getOrientation();
-		m_Rotation = orientation.ToEulerAngles() * (180.0f / GE_PI);
-
 		math::Matrix4f trans = math::Matrix4f::Translation(0.0f, 0.0f, 1.0f);
-		math::Matrix4f rot = orientation.conjugate().toRotationMatrix();
+		math::Matrix4f rot = getOrientation().conjugate().toRotationMatrix();
 		math::Matrix4f loc = math::Matrix4f::Translation(m_Position * -1.0f);
 
 		m_ViewMatrix = trans * rot * loc;
@@ -64,8 +58,8 @@ namespace gebase { namespace graphics {
 	void MayaCamera::MouseRotate(const math::Vector2f& delta, float tDelta)
 	{
 		float yawSign = getUpDirection(getOrientation()).y < 0.0f ? -1.0f : 1.0f;
-		m_Pitch += delta.y * m_RotationSpeed;
-		m_Yaw += yawSign * delta.x * m_RotationSpeed;
+		m_Rotation *= math::Quaternion(math::Vector3f(0.0f, 1.0f, 0.0f), delta.y * m_RotationSpeed * tDelta).normalize();
+		m_Rotation *= math::Quaternion(getOrientation().getRotateRight(), yawSign * delta.x * m_RotationSpeed * tDelta).normalize();
 	}
 
 	void MayaCamera::MouseZoom(float delta, float tDelta)
@@ -86,7 +80,7 @@ namespace gebase { namespace graphics {
 
 	math::Quaternion MayaCamera::getOrientation() const
 	{
-		return math::Quaternion::RotationY(-m_Yaw) * math::Quaternion::RotationX(-m_Pitch);
+		return m_Rotation;
 	}
 
 } }

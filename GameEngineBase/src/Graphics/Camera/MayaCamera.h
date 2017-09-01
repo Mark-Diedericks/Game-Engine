@@ -20,9 +20,6 @@ namespace gebase { namespace graphics {
 		float m_RotationSpeed;
 		float m_ZoomSpeed;
 
-		float m_Pitch;
-		float m_Yaw;
-
 		math::Quaternion getOrientation() const;
 		math::Vector3f calculatePosition();
 

@@ -72,7 +72,6 @@ namespace gebase {
 
 				m_FPS = fps;
 				m_UPS = fps;
-				m_FrT = ((float)counter / (float)fpsCount);
 
 				avgFps = (unsigned int)((double)avgFpsCount / (double)secondsCount);
 
@@ -88,6 +87,7 @@ namespace gebase {
 				std::cout << "Render Stats |||| UPS: " << delta << "ms |||| FPS: " << fps << " MIN: " << minFps << " MAX: " << maxFps << " AVG: " << avgFps << std::endl;
 			}
 
+			m_FrT = delta;
 			window->Clear();
 			OnUpdate((float)delta);
 			OnRender();

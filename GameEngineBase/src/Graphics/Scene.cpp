@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "Scene.h"
 
+#include "Application/Application.h"
 #include "Renderer/Renderer3D.h"
 #include "Camera/FPSCamera.h"
 #include "Camera/MayaCamera.h"
@@ -66,7 +67,7 @@ namespace gebase {
 	void Scene::Render(graphics::Renderer3D& renderer)
 	{
 		graphics::Camera* camera = m_Camera;
-		camera->Update(0.0f);
+		camera->Update(Application::getApplication().getFrT());
 
 		debug::DebugRenderer::setCamera(camera);
 

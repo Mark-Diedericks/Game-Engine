@@ -10,8 +10,6 @@ namespace gebase { namespace graphics {
 		float m_MouseSensitivity;
 		float m_Speed;
 		float m_SprintSpeed;
-		float m_Pitch;
-		float m_Yaw;
 		bool m_MouseWasGrabbed;
 
 		math::Quaternion getOrientation() const;

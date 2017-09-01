@@ -5,10 +5,10 @@ namespace gebase {
 	namespace math {
 		Quaternion::Quaternion(void)
 		{
-			x = 0;
-			y = 0;
-			z = 0;
-			w = 1;
+			x = 0.0f;
+			y = 0.0f;
+			z = 0.0f;
+			w = 1.0f;
 		}
 
 		Quaternion::Quaternion(const float& ix, const float& iy, const float& iz, const float& iw) {
@@ -18,13 +18,13 @@ namespace gebase {
 			w = iw;
 		}
 
-		Quaternion::Quaternion(const Vector3f& am_xis, const float& angle) {
+		Quaternion::Quaternion(const Vector3f& axis, const float& angle) {
 			float sinHalfAngle = (float)::sin(angle / 2.0f);
 			float cosHalfAngle = (float)::cos(angle / 2.0f);
 
-			this->x = am_xis.x * sinHalfAngle;
-			this->y = am_xis.y * sinHalfAngle;
-			this->z = am_xis.z * sinHalfAngle;
+			this->x = axis.x * sinHalfAngle;
+			this->y = axis.y * sinHalfAngle;
+			this->z = axis.z * sinHalfAngle;
 			this->w = cosHalfAngle;
 		}
 
@@ -61,8 +61,7 @@ namespace gebase {
 		}
 
 		Quaternion Quaternion::conjugate() const {
-			Quaternion res(-x, -y, -z, w);
-			return res;
+			return Quaternion(-x, -y, -z, w);
 		}
 
 		Quaternion Quaternion::nlerp(const Quaternion& dest, const float& lerpFactor, const bool& shortest) const {

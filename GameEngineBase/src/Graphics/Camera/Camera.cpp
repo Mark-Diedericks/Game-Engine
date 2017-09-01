@@ -7,7 +7,7 @@ namespace gebase { namespace graphics {
 	{
 		m_ViewMatrix = math::Matrix4f::Identity();
 		m_Position = math::Vector3f();
-		m_Rotation = math::Vector3f();
+		m_Rotation = math::Quaternion();
 	}
 
 } }
