@@ -16,6 +16,7 @@ namespace gebase { namespace graphics { namespace API {
 	{
 		hDc = GetDC((HWND)deviceContext);
 		HGLRC hrc = wglCreateContext(hDc);
+		setVSync(properties.vsync);
 
 		if (hrc)
 		{
@@ -41,6 +42,29 @@ namespace gebase { namespace graphics { namespace API {
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
+		}
+	}
+
+	void GLContext::setVSync(bool enabled)
+	{
+		typedef BOOL(APIENTRY *PFNWGLSWAPINTERVALPROC)(int);
+		PFNWGLSWAPINTERVALPROC wglSwapIntervalEXT = 0;
+
+		const char* extensions = (char*)glGetString(GL_EXTENSIONS);
+
+		if (!extensions)
+			return;
+
+		if (strstr(extensions, "WGL_EXT_swap_control") == 0)
+		{
+			return;
+		}
+		else
+		{
+			wglSwapIntervalEXT = (PFNWGLSWAPINTERVALPROC)wglGetProcAddress("wglSwapIntervalEXT");
+
+			if (wglSwapIntervalEXT)
+				wglSwapIntervalEXT(enabled);
 		}
 	}
 

@@ -245,6 +245,7 @@
     <ClCompile Include="src\Graphics\Framebuffer\Framebuffer2D.cpp" />
     <ClCompile Include="src\Graphics\Framebuffer\FramebufferDepth.cpp" />
     <ClCompile Include="src\Graphics\GBuffer.cpp" />
+    <ClCompile Include="src\Graphics\IRenderAPIDependant.cpp" />
     <ClCompile Include="src\Graphics\Label.cpp" />
     <ClCompile Include="src\Graphics\Layer\Group.cpp" />
     <ClCompile Include="src\Graphics\Layer\Layer.cpp" />
@@ -397,6 +398,7 @@
     <ClInclude Include="src\Graphics\Framebuffer\FramebufferDepth.h" />
     <ClInclude Include="src\Graphics\GBuffer.h" />
     <ClInclude Include="src\Graphics\IRenderable.h" />
+    <ClInclude Include="src\Graphics\IRenderAPIDependant.h" />
     <ClInclude Include="src\Graphics\Label.h" />
     <ClInclude Include="src\Graphics\Layer\Group.h" />
     <ClInclude Include="src\Graphics\Layer\Layer.h" />

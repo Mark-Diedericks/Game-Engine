@@ -43,10 +43,11 @@ namespace gebase {
 		graphics::Layer* PopLayer();
 		graphics::Layer* PopLayer(graphics::Layer* layer);
 
-
 		void PushOverlay(graphics::Layer* layer);
 		graphics::Layer* PopOverlay();
 		graphics::Layer* PopOverlay(graphics::Layer* layer);
+
+		bool TrySetRenderAPI(graphics::RenderAPI api);
 
 		void Start();
 		void Stop();

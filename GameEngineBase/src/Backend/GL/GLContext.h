@@ -7,6 +7,8 @@ namespace gebase { namespace graphics { namespace API {
 
 	class GLContext : public APIContext
 	{
+	private:
+		void setVSync(bool enabled);
 	public:
 		GLContext(WindowProperties properties, void* deviceContext);
 		void Present();

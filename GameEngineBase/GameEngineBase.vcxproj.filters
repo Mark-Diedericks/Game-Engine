@@ -492,6 +492,7 @@
     <ClCompile Include="src\Graphics\Buffer\VertexBuffer.cpp">
       <Filter>src\ge\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\IRenderAPIDependant.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ge.h">
@@ -947,6 +948,7 @@
     <ClInclude Include="src\GameEngineBase.h">
       <Filter>src\ge</Filter>
     </ClInclude>
+    <ClInclude Include="src\Graphics\IRenderAPIDependant.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Graphics\Shader\default\BasicLight.shader">

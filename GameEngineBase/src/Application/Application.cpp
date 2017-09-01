@@ -78,6 +78,11 @@ namespace gebase {
 		return layer;
 	}
 
+	bool Application::TrySetRenderAPI(graphics::RenderAPI api)
+	{
+		return graphics::Context::EmployRenderAPI(api);
+	}
+
 	void Application::OnEvent(events::Event& event)
 	{
 		m_DebugLayer->OnEvent(event);
