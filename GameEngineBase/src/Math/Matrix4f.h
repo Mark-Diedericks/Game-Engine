@@ -24,6 +24,7 @@ namespace gebase {
 			Matrix4f(const float elements[]);
 			Matrix4f(float* elements);
 			Matrix4f(float diagonal);
+
 			static Matrix4f Identity();
 			static Matrix4f Diagonal(const float& diagonal);
 			static Matrix4f Perspective(const float& fov, const float& aspectRatio, const float& zNear, const float& zFar);
@@ -32,6 +33,8 @@ namespace gebase {
 			static inline Matrix4f Translation(const Vector3f& position) { return Matrix4f::Translation(position.x, position.y, position.z); }
 			static Matrix4f Rotation(const Quaternion& quat);
 			static Matrix4f Scale(const float& m_x, const float& y, const float& z);
+			static inline Matrix4f Invert(const Matrix4f& mat4f) { return mat4f.inverse(); }
+
 			Matrix4f inverse() const;
 
 			inline void operator =(const Matrix4f& mat4f) {

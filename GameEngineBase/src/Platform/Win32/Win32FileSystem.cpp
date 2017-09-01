@@ -21,7 +21,7 @@ namespace gebase {
 
 	static bool ReadFileInternal(HANDLE file, void* buffer, int64 size) {
 		OVERLAPPED overlapped = { 0 };
-		return ReadFileEx(file, buffer, size, &overlapped, FileIOCompletionRoutine);
+		return ReadFileEx(file, buffer, (DWORD)size, &overlapped, FileIOCompletionRoutine);
 	}
 
 	bool FileSystem::FileExists(const String& path) {
