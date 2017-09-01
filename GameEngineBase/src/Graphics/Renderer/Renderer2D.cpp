@@ -19,7 +19,7 @@
 
 namespace gebase { namespace graphics {
 
-#define RENDERER_MAX_SPRITES	100000
+#define RENDERER_MAX_SPRITES	60000
 #define RENDERER_SPRITE_SIZE	RENDERER_VERTEX_SIZE * 4
 #define RENDERER_BUFFER_SIZE	RENDERER_SPRITE_SIZE * RENDERER_MAX_SPRITES
 #define RENDERER_INDICES_SIZE	RENDERER_MAX_SPRITES * 6
@@ -32,7 +32,7 @@ namespace gebase { namespace graphics {
 	const String g_RequiredSystemUniforms[g_RequiredSystemUniformsCount] = { "sys_ProjectionMatrix", "sys_ViewMatrix" };
 
 	const uint sys_ProjectionMatrixIndex = 0;
-	const uint sys_ViewMatrixIndex = 0;
+	const uint sys_ViewMatrixIndex = 1;
 
 	Renderer2D::Renderer2D(uint width, uint height) : m_ScreenSize(math::Vector2f((float)width, (float)height)), m_ViewportSize(math::Vector2f((float)width, (float)height)), m_IndexCount(0), m_Mask(nullptr), m_PostEffectsEnabled(false)
 	{
@@ -109,7 +109,7 @@ namespace gebase { namespace graphics {
 		uint* indices = genew uint[RENDERER_INDICES_SIZE];
 
 		int32 offset = 0;
-		for (int32 i = 0; i < RENDERER_INDICES_SIZE; i++)
+		for (int32 i = 0; i < RENDERER_INDICES_SIZE; i += 6)
 		{
 			indices[i + 0] = offset + 0;
 			indices[i + 1] = offset + 1;
@@ -340,14 +340,14 @@ namespace gebase { namespace graphics {
 			{
 				if (i > 0)
 				{
-					float kerring = texture_glyph_get_kerning(glyph, str[i - 1]);
-					x += kerring / scale.x;
+					float kerning = texture_glyph_get_kerning(glyph, str[i - 1]);
+					x += kerning / scale.x;
 				}
 
 				float x0 = x + glyph->offset_x / scale.x;
 				float y0 = pos.y + glyph->offset_y / scale.y;
-				float x1 = x0 + (glyph->width / scale.x);
-				float y1 = y0 + (glyph->height / scale.y);
+				float x1 = x0 + glyph->width / scale.x;
+				float y1 = y0 - glyph->height / scale.y;
 
 				float u0 = glyph->s0;
 				float v0 = glyph->t0;

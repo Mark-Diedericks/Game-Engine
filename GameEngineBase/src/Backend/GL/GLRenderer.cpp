@@ -35,7 +35,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	void GLRenderer::ClearInternal(uint buffer)
 	{
-		GLCall(glClear(API::GLConvert::RendererBufferToGL(buffer)));
+		GLCall(glClear(GLConvert::RendererBufferToGL(buffer)));
 	}
 
 	void GLRenderer::PresentInternal()
@@ -46,22 +46,30 @@ namespace gebase { namespace graphics { namespace API {
 	void GLRenderer::setDepthTestingInternal(bool enabled)
 	{
 		if (enabled)
-		{ GLCall(glEnable(GL_DEPTH_TEST)); }
+		{ 
+			GLCall(glEnable(GL_DEPTH_TEST)); 
+		}
 		else
-		{ GLCall(glDisable(GL_DEPTH_TEST)); }
+		{ 
+			GLCall(glDisable(GL_DEPTH_TEST)); 
+		}
 	}
 
 	void GLRenderer::setBlendInternal(bool enabled)
 	{
 		if (enabled)
-		{ GLCall(glEnable(GL_BLEND)); }
+		{ 
+			GLCall(glEnable(GL_BLEND)); 
+		}
 		else
-		{ GLCall(glDisable(GL_BLEND)); }
+		{ 
+			GLCall(glDisable(GL_BLEND)); 
+		}
 	}
 
 	void GLRenderer::setBlendFunctionInternal(RendererBlendFunction source, RendererBlendFunction destination)
 	{
-		GLCall(glBlendFunc(API::GLConvert::RendererBlendFunctionToGL(source), API::GLConvert::RendererBlendFunctionToGL(destination)));
+		GLCall(glBlendFunc(GLConvert::RendererBlendFunctionToGL(source), GLConvert::RendererBlendFunctionToGL(destination)));
 	}
 
 	void GLRenderer::setBlendEquationInternal(RendererBlendEquation blendEquation)

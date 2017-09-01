@@ -486,7 +486,7 @@ namespace gebase { namespace graphics { namespace API {
 			}
 		}
 
-		Unbind();
+		Unbind();		
 	}
 
 	void GLShader::ValidateUniforms()
@@ -652,6 +652,7 @@ namespace gebase { namespace graphics { namespace API {
 			setUniformMat4(uniform->getLocation(), *(math::Matrix4f*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::STRUCT:
+			setUniformStruct(uniform, data, offset);
 			break;
 		default:
 			std::cout << "[GLShader] ResolveAndSetUniform() - Unknown uniform type." << std::endl;

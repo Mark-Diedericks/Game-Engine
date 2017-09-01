@@ -8,7 +8,7 @@ using namespace component;
 using namespace math;
 
 Test2D::Test2D()
-	: Layer2D(genew Scene2D(Matrix4f::Orthographic(-16.0f, 16.0f, 9.0f, -9.0f, -1.0f, 1.0f)))
+	: Layer2D(genew Scene2D(Matrix4f::Orthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f)))
 {
 	m_Renderer = nullptr;
 }

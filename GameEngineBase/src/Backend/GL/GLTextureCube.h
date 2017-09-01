@@ -13,7 +13,7 @@ namespace gebase { namespace graphics { namespace API {
 		uint m_Height;
 
 		String m_Name;
-		String* m_Files;
+		String m_File;
 
 		uint m_Bits;
 
@@ -34,7 +34,7 @@ namespace gebase { namespace graphics { namespace API {
 		void Unbind(uint slot = 0) const override;
 
 		inline const String& getName() const override { return m_Name; }
-		inline const String& getFilepath() const override { return m_Files[0]; }
+		inline const String& getFilepath() const override { return m_File; }
 		inline uint getWidth() const override { return m_Width; }
 		inline uint getHeight() const override { return m_Height; }
 	};

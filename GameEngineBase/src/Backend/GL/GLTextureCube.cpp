@@ -15,20 +15,20 @@ namespace gebase { namespace graphics { namespace API {
 
 	GLTextureCube::GLTextureCube(const String& name, const byte* pixels, uint width, uint height, uint bits) : m_Name(name), m_Width(width), m_Height(height), m_Bits(bits)
 	{
-		m_Files[0] = name;
+		m_File = name;
 		m_Handle = LoadFromSingleFile(pixels, bits);
 	}
 
 	GLTextureCube::GLTextureCube(const String& name, const byte** sides, uint width, uint height, uint bits) : m_Name(name), m_Width(width), m_Height(height), m_Bits(bits)
 	{
-		m_Files[0] = name;
+		m_File = name;
 
 		m_Handle = LoadFromMultipleFiles(sides, bits);
 	}
 
 	GLTextureCube::GLTextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : m_Name(name), m_Width(width[0]), m_Height(height[0]), m_Bits(bits)
 	{
-		m_Files[0] = name;
+		m_File = name;
 
 		if (format == InputFormat::VERTICAL_CROSS)
 			m_Handle = LoadFromVerticalCross(sides, width, height, bits, mips);
@@ -157,7 +157,7 @@ namespace gebase { namespace graphics { namespace API {
 
 						uint yp = cy * fHeight + offset;
 
-						for (uint x = 0; x < fWidth; cx++)
+						for (uint x = 0; x < fWidth; x++)
 						{
 							offset = x;
 

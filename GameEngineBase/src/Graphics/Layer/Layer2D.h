@@ -3,6 +3,7 @@
 #include "Layer.h"
 
 #include "Common.h"
+#include "Types.h"
 #include "Graphics/Scene2D.h"
 #include "Events/Event.h"
 #include "Graphics/Renderable2D.h"

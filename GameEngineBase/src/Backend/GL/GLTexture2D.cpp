@@ -14,7 +14,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	GLTexture2D::GLTexture2D(uint width, uint height, TextureParameters parameters) : m_Filepath("NULL"), m_Width(width), m_Height(height), m_Parameters(parameters)
 	{
-		m_Handle = Load(nullptr, NULL);
+		m_Handle = Load(NULL, NULL);
 	}
 
 	GLTexture2D::GLTexture2D(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters) : m_Filepath(name), m_Width(width), m_Height(height), m_Parameters(parameters)
@@ -29,13 +29,11 @@ namespace gebase { namespace graphics { namespace API {
 
 	uint GLTexture2D::Load(const byte* pixels, uint bits)
 	{
-		if(bits) m_Parameters.format = bits == 24 ? TextureFormat::RGB : TextureFormat::RGBA;
-
 		uint handle;
 
 		GLCall(glGenTextures(1, &handle));
 		GLCall(glBindTexture(GL_TEXTURE_2D, handle));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_Parameters.filter == TextureFilter::LINEAR ? GL_LINEAR_MIPMAP_LINEAR : GL_NEAREST_MIPMAP_NEAREST));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_Parameters.filter == TextureFilter::LINEAR ? GL_LINEAR_MIPMAP_LINEAR : GL_NEAREST));
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_Parameters.filter == TextureFilter::LINEAR ? GL_LINEAR : GL_NEAREST));
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GLConvert::TextureWrapToGL(s_WrapMode)));
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GLConvert::TextureWrapToGL(s_WrapMode)));

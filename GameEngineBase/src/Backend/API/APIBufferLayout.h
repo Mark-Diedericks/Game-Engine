@@ -48,13 +48,7 @@ namespace gebase { namespace graphics { namespace API {
 			case RenderAPI::OPENGL:
 				Push(name, GL_FLOAT, sizeof(float), count, normalized);
 				break;
-			case RenderAPI::VULKAN:
-				Push(name, 0, sizeof(float), count, normalized);
-				break;
 			case RenderAPI::D3D11:
-				Push(name, DX_TYPE_R32_FLOAT, sizeof(float), count, normalized);
-				break;
-			case RenderAPI::D3D12:
 				Push(name, DX_TYPE_R32_FLOAT, sizeof(float), count, normalized);
 				break;
 			}
@@ -68,13 +62,7 @@ namespace gebase { namespace graphics { namespace API {
 			case RenderAPI::OPENGL:
 				Push(name, GL_UNSIGNED_INT, sizeof(uint), count, normalized);
 				break;
-			case RenderAPI::VULKAN:
-				Push(name, 0, sizeof(uint), count, normalized);
-				break;
 			case RenderAPI::D3D11:
-				Push(name, DX_TYPE_R32_UINT, sizeof(uint), count, normalized);
-				break;
-			case RenderAPI::D3D12:
 				Push(name, DX_TYPE_R32_UINT, sizeof(uint), count, normalized);
 				break;
 			}
@@ -88,14 +76,8 @@ namespace gebase { namespace graphics { namespace API {
 			case RenderAPI::OPENGL:
 				Push(name, GL_UNSIGNED_BYTE, sizeof(byte), count, normalized);
 				break;
-			case RenderAPI::VULKAN:
-				Push(name, 0, sizeof(byte) * 4, 1, normalized);
-				break;
 			case RenderAPI::D3D11:
-				Push(name, DX_TYPE_R8G8B8A8_UNORM, sizeof(byte), count, normalized);
-				break;
-			case RenderAPI::D3D12:
-				Push(name, DX_TYPE_R8G8B8A8_UNORM, sizeof(byte), count, normalized);
+				Push(name, DX_TYPE_R8G8B8A8_UNORM, sizeof(byte) * 4, 1, normalized);
 				break;
 			}
 		}
@@ -106,15 +88,9 @@ namespace gebase { namespace graphics { namespace API {
 			switch (gebase::graphics::Context::getRenderAPI())
 			{
 			case RenderAPI::OPENGL:
-				Push(name, GL_FLOAT, sizeof(math::Vector2f), 2, normalized);
-				break;
-			case RenderAPI::VULKAN:
-				Push(name, 0, sizeof(math::Vector2f), count, normalized);
+				Push(name, GL_FLOAT, sizeof(float), 2, normalized);
 				break;
 			case RenderAPI::D3D11:
-				Push(name, DX_TYPE_R32G32_FLOAT, sizeof(math::Vector2f), count, normalized);
-				break;
-			case RenderAPI::D3D12:
 				Push(name, DX_TYPE_R32G32_FLOAT, sizeof(math::Vector2f), count, normalized);
 				break;
 			}
@@ -126,15 +102,9 @@ namespace gebase { namespace graphics { namespace API {
 			switch (gebase::graphics::Context::getRenderAPI())
 			{
 			case RenderAPI::OPENGL:
-				Push(name, GL_FLOAT, sizeof(math::Vector3f), 3, normalized);
-				break;
-			case RenderAPI::VULKAN:
-				Push(name, 0, sizeof(math::Vector3f), count, normalized);
+				Push(name, GL_FLOAT, sizeof(float), 3, normalized);
 				break;
 			case RenderAPI::D3D11:
-				Push(name, DX_TYPE_R32G32B32_FLOAT, sizeof(math::Vector3f), count, normalized);
-				break;
-			case RenderAPI::D3D12:
 				Push(name, DX_TYPE_R32G32B32_FLOAT, sizeof(math::Vector3f), count, normalized);
 				break;
 			}
@@ -146,15 +116,9 @@ namespace gebase { namespace graphics { namespace API {
 			switch (gebase::graphics::Context::getRenderAPI())
 			{
 			case RenderAPI::OPENGL:
-				Push(name, GL_FLOAT, sizeof(math::Vector4f), 4, normalized);
-				break;
-			case RenderAPI::VULKAN:
-				Push(name, 0, sizeof(math::Vector4f), count, normalized);
+				Push(name, GL_FLOAT, sizeof(float), 4, normalized);
 				break;
 			case RenderAPI::D3D11:
-				Push(name, DX_TYPE_R32G32B32A32_FLOAT, sizeof(math::Vector4f), count, normalized);
-				break;
-			case RenderAPI::D3D12:
 				Push(name, DX_TYPE_R32G32B32A32_FLOAT, sizeof(math::Vector4f), count, normalized);
 				break;
 			}
