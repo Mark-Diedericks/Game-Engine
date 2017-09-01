@@ -87,7 +87,7 @@ namespace gebase {
 				std::cout << "Render Stats |||| UPS: " << delta << "ms |||| FPS: " << fps << " MIN: " << minFps << " MAX: " << maxFps << " AVG: " << avgFps << std::endl;
 			}
 
-			m_FrT = delta;
+			m_FrT = (float)delta;
 			window->Clear();
 			OnUpdate((float)delta);
 			OnRender();
