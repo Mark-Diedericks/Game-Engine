@@ -18,6 +18,7 @@ namespace gebase { namespace graphics {
 	{
 		m_Instance->setData(size, data);
 		m_Data = data;
+		m_Size = size;
 	}
 
 } }

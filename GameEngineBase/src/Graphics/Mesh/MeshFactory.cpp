@@ -143,8 +143,8 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 
 		API::APIBufferLayout layout;
 		layout.Push<Vector3f>("POSITION");
-		layout.Push<Vector2f>("TEXCOORD");
 		layout.Push<Vector3f>("NORMAL");
+		layout.Push<Vector2f>("TEXCOORD");
 		layout.Push<Vector3f>("BINORMAL");
 		layout.Push<Vector3f>("TANGENT");
 		vb->setLayout(layout);

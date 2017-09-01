@@ -12,6 +12,7 @@ namespace gebase { namespace graphics {
 	{
 	private:
 		const void* m_Data;
+		uint m_Size;
 		API::APIVertexBuffer* m_Instance;
 		VertexBuffer() { }
 	public:
