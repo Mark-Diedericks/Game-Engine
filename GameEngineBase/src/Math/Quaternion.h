@@ -43,6 +43,8 @@ namespace gebase { namespace math {
 		Quaternion slerp(const Quaternion& dest, const float& lerpFactor, const bool& shortest) const;
 
 		Vector3f ToEulerAngles() const;
+		static Quaternion FromEulerAngles(const Vector3f& angles);
+		static Quaternion FromEulerAngles(float pitch, float roll, float yaw);
 
 		Vector3f rotate(const Vector3f& vec3f) const;
 		static Vector3f Rotate(const Quaternion& quat, const Vector3f& vec3f) { return quat.rotate(vec3f); }

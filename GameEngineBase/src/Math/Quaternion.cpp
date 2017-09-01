@@ -33,6 +33,32 @@ namespace gebase {
 			return Vector3f(::atan2(2 * x * w - 2 * y * z, 1 - 2 * x * x - 2 * z * z), ::atan2(2 * y * w - 2 * x * z, 1 - 2 * y * y - 2 * z * z), ::asin(2 * x * y + 2 * z * w));
 		}
 
+		Quaternion Quaternion::FromEulerAngles(const Vector3f& angles)
+		{
+			Quaternion pitch(Vector3f(1.0, 0.0, 0.0), angles.x);
+			Quaternion yaw(Vector3f(0.0, 1.0, 0.0), angles.y);
+			Quaternion roll(Vector3f(0.0, 0.0, 1.0), angles.z);
+			return pitch * yaw * roll;
+		}
+
+		Quaternion Quaternion::FromEulerAngles(float pitch, float roll, float yaw)
+		{
+			Quaternion q;
+
+			double cy = cos(yaw * 0.5);
+			double sy = sin(yaw * 0.5);
+			double cr = cos(roll * 0.5);
+			double sr = sin(roll * 0.5);
+			double cp = cos(pitch * 0.5);
+			double sp = sin(pitch * 0.5);
+
+			q.w = cy * cr * cp + sy * sr * sp;
+			q.x = cy * sr * cp - sy * cr * sp;
+			q.y = cy * cr * sp + sy * sr * cp;
+			q.z = sy * cr * cp - cy * sr * sp;
+			return q;
+		}
+
 		Vector3f Quaternion::rotate(const Vector3f& vec3f) const {
 			Quaternion conjugate = this->conjugate();
 
