@@ -7,7 +7,7 @@
 
 namespace gebase { namespace math {
 
-	class Matrix4f;
+	struct Matrix4f;
 
 	class GE_API Vector4f {
 	public:
@@ -17,9 +17,9 @@ namespace gebase { namespace math {
 		Vector4f(const float& ix, const float& iy, const float& iz, const float& iw);
 		Vector4f(const Vector3f& vector, const float& iw);
 		float getLength() const;
-		float dot(const Vector4f& vec4f) const;
+		float dot(const Vector4f& Vector4ff) const;
 		Vector4f normalize();
-		Vector4f lerp(const Vector4f& vec4f, const float& factor) const;
+		Vector4f lerp(const Vector4f& Vector4ff, const float& factor) const;
 		Vector4f refelect(const Vector4f& normal) const;
 
 		inline void operator =(const float& f) {
@@ -29,15 +29,15 @@ namespace gebase { namespace math {
 			this->w = f;
 		}
 
-		inline void operator =(const Vector4f& vec4f) {
-			this->x = vec4f.x;
-			this->y = vec4f.y;
-			this->z = vec4f.z;
-			this->w = vec4f.w;
+		inline void operator =(const Vector4f& Vector4ff) {
+			this->x = Vector4ff.x;
+			this->y = Vector4ff.y;
+			this->z = Vector4ff.z;
+			this->w = Vector4ff.w;
 		}
 
-		inline bool operator ==(const Vector4f& vec4f) const {
-			return this->x == vec4f.x && this->y == vec4f.y && this->z == vec4f.z && this->w == vec4f.w;
+		inline bool operator ==(const Vector4f& Vector4ff) const {
+			return this->x == Vector4ff.x && this->y == Vector4ff.y && this->z == Vector4ff.z && this->w == Vector4ff.w;
 		}
 
 		inline Vector4f& operator +=(const float& f) {
@@ -48,11 +48,11 @@ namespace gebase { namespace math {
 			return *this;
 		}
 
-		inline Vector4f& operator +=(const Vector4f& vec4f) {
-			this->x += vec4f.x;
-			this->y += vec4f.y;
-			this->z += vec4f.z;
-			this->w += vec4f.w;
+		inline Vector4f& operator +=(const Vector4f& Vector4ff) {
+			this->x += Vector4ff.x;
+			this->y += Vector4ff.y;
+			this->z += Vector4ff.z;
+			this->w += Vector4ff.w;
 			return *this;
 		}
 
@@ -64,11 +64,11 @@ namespace gebase { namespace math {
 			return *this;
 		}
 
-		inline Vector4f& operator -=(const Vector4f& vec4f) {
-			this->x -= vec4f.x;
-			this->y -= vec4f.y;
-			this->z -= vec4f.z;
-			this->w -= vec4f.w;
+		inline Vector4f& operator -=(const Vector4f& Vector4ff) {
+			this->x -= Vector4ff.x;
+			this->y -= Vector4ff.y;
+			this->z -= Vector4ff.z;
+			this->w -= Vector4ff.w;
 			return *this;
 		}
 
@@ -80,11 +80,11 @@ namespace gebase { namespace math {
 			return *this;
 		}
 
-		inline Vector4f& operator *=(const Vector4f& vec4f) {
-			this->x *= vec4f.x;
-			this->y *= vec4f.y;
-			this->z *= vec4f.z;
-			this->w *= vec4f.w;
+		inline Vector4f& operator *=(const Vector4f& Vector4ff) {
+			this->x *= Vector4ff.x;
+			this->y *= Vector4ff.y;
+			this->z *= Vector4ff.z;
+			this->w *= Vector4ff.w;
 			return *this;
 		}
 
@@ -96,11 +96,11 @@ namespace gebase { namespace math {
 			return *this;
 		}
 
-		inline Vector4f& operator /=(const Vector4f& vec4f) {
-			this->x /= vec4f.x;
-			this->y /= vec4f.y;
-			this->z /= vec4f.z;
-			this->w /= vec4f.w;
+		inline Vector4f& operator /=(const Vector4f& Vector4ff) {
+			this->x /= Vector4ff.x;
+			this->y /= Vector4ff.y;
+			this->z /= Vector4ff.z;
+			this->w /= Vector4ff.w;
 			return *this;
 		}
 
@@ -108,35 +108,35 @@ namespace gebase { namespace math {
 			return Vector4f(x + f, y + f, z + f, w + f);
 		}
 
-		inline Vector4f operator +(const Vector4f& vec4f) const {
-			return Vector4f(x + vec4f.x, y + vec4f.y, z + vec4f.z, w + vec4f.w);
+		inline Vector4f operator +(const Vector4f& Vector4ff) const {
+			return Vector4f(x + Vector4ff.x, y + Vector4ff.y, z + Vector4ff.z, w + Vector4ff.w);
 		}
 
 		inline Vector4f operator -(const float& f) const {
 			return Vector4f(x - f, y - f, z - f, w - f);
 		}
 
-		inline Vector4f operator -(const Vector4f& vec4f) const {
-			return Vector4f(x - vec4f.x, y - vec4f.y, z - vec4f.z, w - vec4f.w);
+		inline Vector4f operator -(const Vector4f& Vector4ff) const {
+			return Vector4f(x - Vector4ff.x, y - Vector4ff.y, z - Vector4ff.z, w - Vector4ff.w);
 		}
 
 		inline Vector4f operator *(const float& f) const {
 			return Vector4f(x * f, y * f, z * f, w * f);
 		}
 
-		inline Vector4f operator *(const Vector4f& vec4f) const {
-			return Vector4f(x * vec4f.x, y * vec4f.y, z * vec4f.z, w * vec4f.w);
+		inline Vector4f operator *(const Vector4f& Vector4ff) const {
+			return Vector4f(x * Vector4ff.x, y * Vector4ff.y, z * Vector4ff.z, w * Vector4ff.w);
 		}
 
 		inline Vector4f operator /(const float& f) const {
 			return Vector4f(x / f, y / f, z / f, w / f);
 		}
 
-		inline Vector4f operator /(const Vector4f& vec4f) const {
-			return Vector4f(x / vec4f.x, y / vec4f.y, z / vec4f.z, w / vec4f.w);
+		inline Vector4f operator /(const Vector4f& Vector4ff) const {
+			return Vector4f(x / Vector4ff.x, y / Vector4ff.y, z / Vector4ff.z, w / Vector4ff.w);
 		}
 
-		Vector4f operator *(const Matrix4f& mat4f) const;
-		Vector4f Mul(const Matrix4f& mat4f) const;
+		Vector4f operator *(const Matrix4f& Matrix4ff) const;
+		Vector4f Mul(const Matrix4f& Matrix4ff) const;
 	};
 } }

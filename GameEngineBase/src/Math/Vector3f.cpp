@@ -26,14 +26,14 @@ namespace gebase { namespace math {
 		return (float)::sqrt(x * x + y * y + z * z);
 	}
 
-	float Vector3f::dot(const Vector3f& vec3f) const {
-		return x * vec3f.x + y * vec3f.y + z * vec3f.z;
+	float Vector3f::dot(const Vector3f& Vector3ff) const {
+		return x * Vector3ff.x + y * Vector3ff.y + z * Vector3ff.z;
 	}
 
-	Vector3f Vector3f::cross(const Vector3f& vec3f) const {
-		float m_x = y * vec3f.z - z * vec3f.y;
-		float y = z * vec3f.x - m_x * vec3f.z;
-		float z = m_x * vec3f.y - y * vec3f.x;
+	Vector3f Vector3f::cross(const Vector3f& Vector3ff) const {
+		float m_x = y * Vector3ff.z - z * Vector3ff.y;
+		float y = z * Vector3ff.x - m_x * Vector3ff.z;
+		float z = m_x * Vector3ff.y - y * Vector3ff.x;
 		return Vector3f(m_x, y, z);
 	}
 
@@ -47,8 +47,8 @@ namespace gebase { namespace math {
 		return this->cross(axis * sinAngle) + (*this * cosAngle) + axis * this->dot(axis * (1 - cosAngle));
 	}
 
-	Vector3f Vector3f::lerp(const Vector3f& vec3f, const float& factor) const {
-		return ((vec3f - *this) * factor) - *this;
+	Vector3f Vector3f::lerp(const Vector3f& Vector3ff, const float& factor) const {
+		return ((Vector3ff - *this) * factor) - *this;
 	}
 
 	Vector3f Vector3f::normalize() {
@@ -59,11 +59,11 @@ namespace gebase { namespace math {
 		return (Vector3f)*this;
 	}
 
-	Vector3f Vector3f::operator *(const Matrix4f& mat4f) const {
-		return Vector3f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w);
+	Vector3f Vector3f::operator *(const Matrix4f& Matrix4ff) const {
+		return Vector3f(Matrix4ff.rows[0].x * x + Matrix4ff.rows[0].y * y + Matrix4ff.rows[0].z * z + Matrix4ff.rows[0].w, Matrix4ff.rows[1].x * x + Matrix4ff.rows[1].y * y + Matrix4ff.rows[1].z * z + Matrix4ff.rows[1].w, Matrix4ff.rows[2].x * x + Matrix4ff.rows[2].y * y + Matrix4ff.rows[2].z * z + Matrix4ff.rows[2].w);
 	}
 
-	Vector3f Vector3f::Mul(const Matrix4f& mat4f) const {
-		return Vector3f(mat4f.rows[0].x * x + mat4f.rows[0].y * y + mat4f.rows[0].z * z + mat4f.rows[0].w, mat4f.rows[1].x * x + mat4f.rows[1].y * y + mat4f.rows[1].z * z + mat4f.rows[1].w, mat4f.rows[2].x * x + mat4f.rows[2].y * y + mat4f.rows[2].z * z + mat4f.rows[2].w);
+	Vector3f Vector3f::Mul(const Matrix4f& Matrix4ff) const {
+		return Vector3f(Matrix4ff.rows[0].x * x + Matrix4ff.rows[0].y * y + Matrix4ff.rows[0].z * z + Matrix4ff.rows[0].w, Matrix4ff.rows[1].x * x + Matrix4ff.rows[1].y * y + Matrix4ff.rows[1].z * z + Matrix4ff.rows[1].w, Matrix4ff.rows[2].x * x + Matrix4ff.rows[2].y * y + Matrix4ff.rows[2].z * z + Matrix4ff.rows[2].w);
 	}
 } }

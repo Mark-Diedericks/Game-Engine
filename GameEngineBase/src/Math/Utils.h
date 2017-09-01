@@ -5,27 +5,80 @@
 #include "Common.h"
 
 namespace gebase { namespace math {
-	class GE_API Utils {
-	public:
-		static inline float toRadians(const float& degrees) {
-			return (degrees * (float)GE_PI) / 180.0f;
-		}
 
-		static inline float toDegrees(const float& radians) {
-			return (radians * 180.0f) / (float)GE_PI;
-		}
+	GE_API inline float toRadians(float degrees)
+	{
+		return (float)(degrees * (GE_PI / 180.0f));
+	}
 
-		static inline float clamp(float in, float min, float max)
-		{
-			float out = in;
+	GE_API inline float toDegrees(float radians)
+	{
+		return (float)(radians * (180.0f / GE_PI));
+	}
 
-			if (out < min)
-				out = min;
+	GE_API inline int32 sign(float value)
+	{
+		return (value > 0) - (value < 0);
+	}
 
-			if (out > max)
-				out = max;
+	GE_API inline float sin(float angle)
+	{
+		return ::sin(angle);
+	}
 
-			return out;
-		}
-	};
+	GE_API inline float cos(float angle)
+	{
+		return ::cos(angle);
+	}
+
+	GE_API inline float tan(float angle)
+	{
+		return ::tan(angle);
+	}
+
+	GE_API inline float sqrt(float value)
+	{
+		return ::sqrt(value);
+	}
+
+	GE_API inline float rsqrt(float value)
+	{
+		return 1.0f / ::sqrt(value);
+	}
+
+	GE_API inline float asin(float value)
+	{
+		return ::asin(value);
+	}
+
+	GE_API inline float acos(float value)
+	{
+		return ::acos(value);
+	}
+
+	GE_API inline float atan(float value)
+	{
+		return ::atan(value);
+	}
+
+	GE_API inline float atan2(float y, float x)
+	{
+		return ::atan2(y, x);
+	}
+
+	GE_API inline float _min(float value, float minimum)
+	{
+		return (value < minimum) ? minimum : value;
+	}
+
+	GE_API inline float _max(float value, float maximum)
+	{
+		return (value > maximum) ? maximum : value;
+	}
+
+	GE_API inline float clamp(float value, float minimum, float maximum)
+	{
+		return (value > minimum) ? (value < maximum) ? value : maximum : minimum;
+	}
+
 } }

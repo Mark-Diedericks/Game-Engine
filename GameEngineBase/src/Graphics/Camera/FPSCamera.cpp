@@ -84,7 +84,7 @@ namespace gebase {
 				else if (Input::isKeyPressed(GE_KEY_CONTROL))
 					Translate(up, -speed * delta);
 
-				math::Matrix4f rot = orientation.conjugate().toRotationMatrix();
+				math::Matrix4f rot = orientation.Conjugate().toRotationMatrix();
 				math::Matrix4f loc = math::Matrix4f::Translation(m_Position * -1.0f);
 				m_ViewMatrix = rot * loc;
 			}

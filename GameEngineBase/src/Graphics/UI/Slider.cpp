@@ -19,7 +19,7 @@ namespace gebase { namespace graphics { namespace ui {
 
 	void Slider::setValue(float value)
 	{
-		value = Utils::clamp(value, 0.0f, 1.0f);
+		value = clamp(value, 0.0f, 1.0f);
 		m_Value = value;
 		m_Callback(value);
 	}

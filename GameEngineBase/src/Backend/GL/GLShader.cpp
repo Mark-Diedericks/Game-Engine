@@ -789,7 +789,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	void GLShader::setUniformMat4(uint location, math::Matrix4f& value)
 	{
-		GLCall(glUniformMatrix4fv(location, 1, GL_TRUE, value.m));
+		GLCall(glUniformMatrix4fv(location, 1, GL_TRUE, value.elements));
 	}
 
 } } }
