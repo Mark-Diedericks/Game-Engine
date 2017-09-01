@@ -31,7 +31,7 @@ namespace gebase {
 
 	void InputManager::setMousePosition(const math::Vector2f& pos)
 	{
-		POINT p = { pos.x, pos.y };
+		POINT p = { (LONG)pos.x, (LONG)pos.y };
 		ClientToScreen(hWnd, &p);
 		SetCursorPos(p.x, p.y);
 	}

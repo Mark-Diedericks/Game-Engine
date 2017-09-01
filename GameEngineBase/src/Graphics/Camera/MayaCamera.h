@@ -26,9 +26,9 @@ namespace gebase { namespace graphics {
 		math::Quaternion getOrientation() const;
 		math::Vector3f calculatePosition();
 
-		inline math::Vector3f getForwardDirection(const math::Quaternion& orientation) const { return orientation.rotate(math::Vector3f(0.0f, 0.0f, -1.0f)); }
-		inline math::Vector3f getUpDirection(const math::Quaternion& orientation) const { return orientation.rotate(math::Vector3f(0.0f, 1.0f, 0.0f)); }
-		inline math::Vector3f getRightDirection(const math::Quaternion& orientation) const { return orientation.rotate(math::Vector3f(1.0f, 0.0f, 0.0f)); }
+		inline math::Vector3f getForwardDirection(const math::Quaternion& orientation) const { return math::Quaternion::Rotate(orientation, math::Vector3f(0.0f, 0.0f, -1.0f)); }
+		inline math::Vector3f getUpDirection(const math::Quaternion& orientation) const { return math::Quaternion::Rotate(orientation, math::Vector3f(0.0f, 1.0f, 0.0f)); }
+		inline math::Vector3f getRightDirection(const math::Quaternion& orientation) const { return math::Quaternion::Rotate(orientation, math::Vector3f(1.0f, 0.0f, 0.0f)); }
 
 		void MousePan(const math::Vector2f& delta, float tDelta);
 		void MouseRotate(const math::Vector2f& delta, float tDelta);

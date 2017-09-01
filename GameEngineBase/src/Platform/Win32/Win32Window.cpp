@@ -66,7 +66,7 @@ namespace gebase {
 			return false;
 		}
 
-		RECT size = { 0, 0, m_Properties.width, m_Properties.height };
+		RECT size = { 0, 0, (LONG)m_Properties.width, (LONG)m_Properties.height };
 		AdjustWindowRectEx(&size, WS_EX_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, false, WS_EX_APPWINDOW | WS_EX_WINDOWEDGE);
 
 		hWnd = CreateWindowExA(WS_EX_APPWINDOW | WS_EX_WINDOWEDGE, wndClass.lpszClassName, m_Title.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, (int)(GetSystemMetrics(SM_CXSCREEN) / 2.0f - m_Properties.width / 2.0f), (int)(GetSystemMetrics(SM_CYSCREEN) / 2.0f - m_Properties.height / 2.0f), (int)(size.right + (-size.left)), (int)(size.bottom + (-size.top)), NULL, NULL, hInstance, NULL);

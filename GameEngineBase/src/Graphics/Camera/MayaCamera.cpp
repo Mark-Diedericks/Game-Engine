@@ -86,7 +86,7 @@ namespace gebase { namespace graphics {
 
 	math::Quaternion MayaCamera::getOrientation() const
 	{
-		return math::Quaternion(math::Vector3f(-m_Pitch, -m_Yaw, 0.0f), 1.0f);
+		return math::Quaternion::RotationY(-m_Yaw) * math::Quaternion::RotationX(-m_Pitch);
 	}
 
 } }

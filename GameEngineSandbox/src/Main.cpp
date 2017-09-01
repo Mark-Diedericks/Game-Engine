@@ -30,7 +30,7 @@ public:
 
 		//PushLayer(genew Test2D());
 		//PushLayer(genew Test3D());
-		PushLayer(genew SponzaTest());
+		//PushLayer(genew SponzaTest());
 	}
 
 };
