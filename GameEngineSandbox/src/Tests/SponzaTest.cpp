@@ -83,7 +83,7 @@ void SponzaTest::OnInit(Renderer3D& renderer, Scene& scene)
 		}
 
 		Model* model = genew Model("res/Sponza/" + models[i] + "/model.spm", genew MaterialInstance(material));
-		Entity* entity = genew Entity(model->getMesh(), Matrix4f::Translation(Vector3f(0, 0, 0))* Quaternion(Vector3f(1, 0, 0), -90.0f).toRotationMatrix());
+		Entity* entity = genew Entity(model->getMesh(), Matrix4f::Translation(Vector3f(0, 0, 0)) * Matrix4f::Rotate(-90.0f, Vector3f(1.0f, 0.0f, 0.0f)));
 		m_Scene->Add(entity);
 	}
 	//Reset it

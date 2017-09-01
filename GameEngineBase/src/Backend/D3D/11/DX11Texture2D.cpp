@@ -12,12 +12,12 @@
 
 namespace gebase { namespace graphics { namespace API {
 
-	DX11Texture2D::DX11Texture2D(uint width, uint height, TextureParameters parameters) : m_Filepath("NULL"), m_Width(width), m_Height(height), m_Parameters(parameters)
+	DX11Texture2D::DX11Texture2D(uint width, uint height, TextureParameters parameters) : m_Filepath("NULL"), m_Width(width), m_Height(height), m_Parameters(parameters), m_BitsPerPixel(32)
 	{
 		Load(NULL, NULL);
 	}
 
-	DX11Texture2D::DX11Texture2D(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters) : m_Filepath(name), m_Width(width), m_Height(height), m_Parameters(parameters)
+	DX11Texture2D::DX11Texture2D(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters) : m_Filepath(name), m_Width(width), m_Height(height), m_Parameters(parameters), m_BitsPerPixel(bits)
 	{
 		Load(pixels, bits);
 	}
@@ -29,9 +29,6 @@ namespace gebase { namespace graphics { namespace API {
 
 	void DX11Texture2D::Load(const byte* data, uint bits)
 	{
-		m_BitsPerPixel = bits;
-		m_Parameters.format = m_BitsPerPixel == 24 ? TextureFormat::RGB : TextureFormat::RGBA;
-
 		bool generateMips = data != nullptr;
 		uint stride = 4;
 

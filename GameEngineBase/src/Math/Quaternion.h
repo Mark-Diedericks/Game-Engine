@@ -18,8 +18,6 @@ namespace gebase { namespace math {
 		Quaternion(const Vector4f& vec);
 		Quaternion(float scalar);
 
-		inline Matrix4f toRotationMatrix() { return Matrix4f::Rotation(*this); }
-
 		Quaternion& operator=(const Quaternion& quat);
 
 		Quaternion& SetXYZ(const Vector3f& vec);

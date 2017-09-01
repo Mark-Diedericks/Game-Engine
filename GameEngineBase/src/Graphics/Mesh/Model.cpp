@@ -154,8 +154,8 @@ namespace gebase { namespace graphics {
 
 		API::APIBufferLayout layout;
 		layout.Push<math::Vector3f>("POSITION");
-		layout.Push<math::Vector2f>("TEXCOORD");
 		layout.Push<math::Vector3f>("NORMAL");
+		layout.Push<math::Vector2f>("TEXCOORD");
 		layout.Push<math::Vector3f>("BINORMAL");
 		layout.Push<math::Vector3f>("TANGENT");
 		vb->setLayout(layout);

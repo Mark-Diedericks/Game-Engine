@@ -279,8 +279,6 @@ namespace gebase { namespace graphics {
 
 	void Renderer2D::Present()
 	{
-		FillRect(math::Rectangle(0, 0, 10, 10), 0xff00ff00);
-
 		Renderer::setDepthTesting(false);
 
 		m_Shader->Bind();

@@ -176,7 +176,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	PBRMaterial* cubeMaterial = genew PBRMaterial(pbrShader);
 	cubeMaterial->setEnvironmentMap(environment);
 	Model* cubeModel = genew Model("/models/RoundedCube.spm", genew MaterialInstance(cubeMaterial));
-	m_Cube = genew Entity(cubeModel->getMesh(), Quaternion(Vector3f(0, 0, 1), 90.0f).toRotationMatrix() * Matrix4f::Translation(g_CubeTransform));
+	m_Cube = genew Entity(cubeModel->getMesh(), Matrix4f::Rotate(90.0f, Vector3f(0, 0, 1)) * Matrix4f::Translation(g_CubeTransform));
 	m_Scene->Add(m_Cube);
 
 	Model* sphereModel = genew Model("/models/Sphere.spm");
@@ -262,7 +262,7 @@ void Test3D::OnUpdate(float delta)
 
  	TransformComponent* cubeTransform = m_Cube->getComponent<TransformComponent>();
  
- 	Matrix4f transform = Matrix4f::Translation(Vector3f(0, 2.5f, 0)) * Quaternion(Vector3f(1, 0, 0), m_Rotation).toRotationMatrix() * Quaternion(Vector3f(0, 1, 0), m_Rotation).toRotationMatrix() * Quaternion(Vector3f(0, 0, 1), m_Rotation).toRotationMatrix();
+	Matrix4f transform = Matrix4f::Translate(Vector3f(0, 2.5f, 0)) * Matrix4f::Rotate(m_Rotation, Vector3f(1, 0, 0)) * Matrix4f::Rotate(m_Rotation, Vector3f(0, 1, 0)) * Matrix4f::Rotate(m_Rotation, Vector3f(0, 0, 1));
  	cubeTransform->transform = Matrix4f::Translation(g_CubeTransform) * transform * Matrix4f::Scale(1.4f, 1.4f, 1.4f);
 
 	TransformComponent* dagger = m_Dagger->getComponent<TransformComponent>();

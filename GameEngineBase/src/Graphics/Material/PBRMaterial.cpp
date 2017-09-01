@@ -13,8 +13,8 @@ namespace gebase { namespace graphics {
 		if (s_PreintegratedFG == nullptr)
 			s_PreintegratedFG = Texture2D::CreateFromFile("PreintegratedFG", "res/pbr/PreintegratedFG.bmp");
 
-		setTexture("u_PreintegratedFG", s_PreintegratedFG);
 		setUniform("u_UsingNormalMap", 0.0f);
+		setTexture("u_PreintegratedFG", s_PreintegratedFG);
 
 		setUniform("u_UsingAlbedoMap", 0.0f);
 		setUniform("u_AlbedoColor", math::Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
@@ -68,19 +68,19 @@ namespace gebase { namespace graphics {
 	void PBRMaterial::setSpecularMap(Texture2D* texture)
 	{
 		setTexture("u_SpecularMap", texture);
-		setUniform("u_UsingAlbedoMap", 1.0f);
+		setUniform("u_UsingSpecularMap", 1.0f);
 	}
 
 	void PBRMaterial::setNormalMap(Texture2D* texture)
 	{
 		setTexture("u_NormalMap", texture);
-		setUniform("u_UsingAlbedoMap", 1.0f);
+		setUniform("u_UsingNormalMap", 1.0f);
 	}
 
 	void PBRMaterial::setGlossMap(Texture2D* texture)
 	{
 		setTexture("u_GlossMap", texture);
-		setUniform("u_UsingAlbedoMap", 1.0f);
+		setUniform("u_UsingGlossMap", 1.0f);
 	}
 
 	Texture* PBRMaterial::getMap(const String& name)
@@ -163,19 +163,19 @@ namespace gebase { namespace graphics {
 	void PBRMaterialInstance::setSpecularMap(Texture2D* texture)
 	{
 		setTexture("u_SpecularMap", texture);
-		setUniform("u_UsingAlbedoMap", 1.0f);
+		setUniform("u_UsingSpecularMap", 1.0f);
 	}
 
 	void PBRMaterialInstance::setNormalMap(Texture2D* texture)
 	{
 		setTexture("u_NormalMap", texture);
-		setUniform("u_UsingAlbedoMap", 1.0f);
+		setUniform("u_UsingNormalMap", 1.0f);
 	}
 
 	void PBRMaterialInstance::setGlossMap(Texture2D* texture)
 	{
 		setTexture("u_GlossMap", texture);
-		setUniform("u_UsingAlbedoMap", 1.0f);
+		setUniform("u_UsingGlossMap", 1.0f);
 	}
 
 } }

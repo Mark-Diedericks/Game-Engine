@@ -54,7 +54,6 @@ namespace gebase { namespace graphics {
 
 	void Texture2D::setData(const byte* pixels)
 	{
-		m_Color = 0x00000000;
 		m_Pixels = pixels;
 		m_Instance->setData(pixels);
 	}
