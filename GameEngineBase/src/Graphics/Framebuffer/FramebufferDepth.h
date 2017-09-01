@@ -9,8 +9,13 @@ namespace gebase { namespace graphics {
 	{
 	private:
 		API::APIFramebufferDepth* m_Instance;
+
+		uint m_Width;
+		uint m_Height;
 	public:
 		static FramebufferDepth* Create(uint width, uint height);
+
+		bool EmployRenderAPI(RenderAPI api);
 
 		inline void Bind() const override { m_Instance->Bind(); }
 		inline void Unbind() const override { m_Instance->Unbind(); }

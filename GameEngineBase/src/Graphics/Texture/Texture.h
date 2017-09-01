@@ -8,7 +8,7 @@
 
 namespace gebase { namespace graphics {
 
-	class GE_API Texture : IRenderAPIDependant
+	class GE_API Texture : public IRenderAPIDependant
 	{
 	public:
 		virtual ~Texture() {}

@@ -18,6 +18,7 @@ namespace gebase { namespace graphics {
 	{
 		gedel this->m_Instance;
 		this->m_Instance = API::APITextureDepth::Create(m_Width, m_Height);
+		return true;
 	}
 
 } }

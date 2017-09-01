@@ -5,19 +5,27 @@
 #include "Backend/API/APIBufferLayout.h"
 #include "Backend/API/APIVertexBuffer.h"
 #include "System/Memory.h"
+#include "Graphics/IRenderAPIDependant.h"
 
 namespace gebase { namespace graphics {
 	
-	class GE_API VertexBuffer
+	class GE_API VertexBuffer : public IRenderAPIDependant
 	{
 	private:
+		API::APIVertexBuffer* m_Instance;
+
 		const void* m_Data;
 		uint m_Size;
-		API::APIVertexBuffer* m_Instance;
+		API::BufferUsage m_Usage;
+		API::APIBufferLayout m_Layout;
+
 		VertexBuffer() { }
 	public:
+		bool EmployRenderAPI(RenderAPI api) override;
+
 		inline void Resize(uint size) { m_Instance->Resize(size); }
-		inline void setLayout(const API::APIBufferLayout& layout) { m_Instance->setLayout(layout); }
+		inline void setLayout(const API::APIBufferLayout& layout) { m_Layout = layout; m_Instance->setLayout(layout); }
+
 		void setData(uint size, const void* data);
 
 		inline void ReleasePointer() { m_Instance->ReleasePointer(); }

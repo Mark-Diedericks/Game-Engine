@@ -9,7 +9,12 @@ namespace gebase { namespace graphics {
 	{
 	private:
 		API::APIFramebuffer2D* m_Instance;
+
+		uint m_Width;
+		uint m_Height;
 	public:
+		bool EmployRenderAPI(RenderAPI api);
+
 		inline void setClearColor(const math::Vector4f& color) { m_Instance->setClearColor(color); }
 		 
 		inline void Bind() const override { m_Instance->Bind(); }

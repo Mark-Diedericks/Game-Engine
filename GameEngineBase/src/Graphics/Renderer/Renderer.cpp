@@ -14,4 +14,11 @@ namespace gebase { namespace graphics {
 		s_Instance = genew Renderer();
 	}
 
+	bool Renderer::EmployRenderAPI(RenderAPI api)
+	{
+		gedel API::APIRenderer::getRenderer();
+		API::APIRenderer::Init();
+		return true;
+	}
+
 } }

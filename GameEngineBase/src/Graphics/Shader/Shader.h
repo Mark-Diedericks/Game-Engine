@@ -5,6 +5,7 @@
 
 #include "Math/Maths.h"
 #include "System/VirtualFileSystem.h"
+#include "Graphics/IRenderAPIDependant.h"
 
 #include "Backend/API/APIShaderUniform.h"
 #include "Backend/API/APIShaderResource.h"
@@ -13,13 +14,18 @@
 
 namespace gebase { namespace graphics {
 
-	class GE_API Shader
+	class GE_API Shader : public IRenderAPIDependant
 	{
 	private:
 		API::APIShader* m_Instance;
+
 		API::ShaderDeclaration m_Declaration;
+		String m_Source;
+
 		Shader() { }
 	public:
+		bool EmployRenderAPI(RenderAPI api) override;
+
 		inline void Bind() const { m_Instance->Bind(); }
 		inline void Unbind() const { m_Instance->Unbind(); }
 

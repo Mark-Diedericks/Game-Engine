@@ -14,4 +14,15 @@ namespace gebase { namespace graphics {
 		return thisVA;
 	}
 
+	bool VertexArray::EmployRenderAPI(RenderAPI api)
+	{
+		gedel this->m_Instance;
+		this->m_Instance = API::APIVertexArray::Create();
+		
+		for(VertexBuffer* buffer : m_Buffers)
+			this->m_Instance->PushBuffer(buffer);
+
+		return true;
+	}
+
 } }

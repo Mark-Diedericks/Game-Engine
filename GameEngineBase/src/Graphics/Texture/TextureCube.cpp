@@ -97,6 +97,8 @@ namespace gebase { namespace graphics {
 			this->m_Instance = API::APITextureCube::CreateFromVerticalCross(m_Name, sides, m_Mips, m_Width, m_Height, m_BitsPerPixel);
 			break;
 		}
+
+		return true;
 	}
 
 } }

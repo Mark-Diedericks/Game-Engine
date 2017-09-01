@@ -24,12 +24,15 @@ namespace gebase { namespace graphics { namespace API {
 	class APIBufferLayout
 	{
 	private:
+		RenderAPI m_RenderAPI;
 		uint m_Size;
 		std::vector<BufferElement> m_Layout;
 
 		void Push(const String& name, uint type, uint size, uint count, bool normalized);
 	public:
 		APIBufferLayout();
+
+		void EmployRenderAPI(RenderAPI api);
 
 		inline const std::vector<BufferElement>& getLayout() const { return m_Layout; }
 		inline uint getStride() const { return m_Size; }

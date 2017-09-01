@@ -63,6 +63,8 @@ namespace gebase { namespace graphics {
 
 		if (!m_Pixels)
 			this->m_Instance->setData(m_Color);
+
+		return true;
 	}
 
 	void Texture2D::setData(const byte* pixels)
