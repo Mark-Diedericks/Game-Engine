@@ -27,7 +27,7 @@ namespace gebase { namespace graphics { namespace API {
 		}
 	}
 
-	static std::vector<BufferElement> GLConvertTo(RenderAPI api)
+	std::vector<BufferElement> APIBufferLayout::GLConvertTo(RenderAPI api)
 	{
 		std::vector<BufferElement> layout;
 
@@ -44,7 +44,7 @@ namespace gebase { namespace graphics { namespace API {
 		return layout;
 	}
 
-	static std::vector<BufferElement> DX11ConvertTo(RenderAPI api)
+	std::vector<BufferElement> APIBufferLayout::DX11ConvertTo(RenderAPI api)
 	{
 		std::vector<BufferElement> layout;
 

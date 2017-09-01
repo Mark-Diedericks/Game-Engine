@@ -29,6 +29,9 @@ namespace gebase { namespace graphics { namespace API {
 		std::vector<BufferElement> m_Layout;
 
 		void Push(const String& name, uint type, uint size, uint count, bool normalized);
+
+		std::vector<BufferElement> APIBufferLayout::GLConvertTo(RenderAPI api);
+		std::vector<BufferElement> APIBufferLayout::DX11ConvertTo(RenderAPI api);
 	public:
 		APIBufferLayout();
 

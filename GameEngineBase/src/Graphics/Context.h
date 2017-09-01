@@ -28,12 +28,11 @@ namespace gebase { namespace graphics {
 		static std::vector<IRenderAPIDependant*> s_RenderAPIDependantObjects;
 
 		Context();
-
-		static void setRenderAPI(RenderAPI api) { s_PreviousRenderAPI = s_RenderAPI;  s_RenderAPI = api; }
 	public:
 		static void Create(WindowProperties properties, void* deviceContext);
 
 		static RenderAPI getRenderAPI() { return s_RenderAPI; }
+		static void setRenderAPI(RenderAPI api) { s_PreviousRenderAPI = s_RenderAPI;  s_RenderAPI = api; }
 
 		static bool EmployRenderAPI(RenderAPI api);
 		static bool RevertRenderAPI();
