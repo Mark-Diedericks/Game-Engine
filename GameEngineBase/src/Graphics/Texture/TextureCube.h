@@ -9,11 +9,16 @@ namespace gebase { namespace graphics {
 	{
 	private:
 		API::APITextureCube* m_Instance;
-		const byte** sides;
+		String m_Name;
+		byte** sides;
 		uint m_BitsPerPixel;
-		uint m_Width;
-		uint m_Height;
+		uint* m_Width;
+		uint* m_Height;
+		uint m_Mips;
+		uint m_LoadType;
 	public:
+		bool EmployRenderAPI(RenderAPI api) override;
+
 		inline void Bind(uint slot = 0) const override { m_Instance->Bind(slot); }
 		inline void Unbind(uint slot = 0) const override { m_Instance->Unbind(slot); }
 

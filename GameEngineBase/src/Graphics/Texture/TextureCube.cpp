@@ -9,7 +9,7 @@ namespace gebase { namespace graphics {
 	TextureCube* TextureCube::CreateFromFile(const String& filepath)
 	{
 		TextureCube* thisTC = genew TextureCube();
-		const byte* pixels;
+		byte* pixels;
 
 		uint width;
 		uint height;
@@ -19,8 +19,10 @@ namespace gebase { namespace graphics {
 
 		thisTC->sides[0] = pixels;
 		thisTC->m_BitsPerPixel = bits;
-		thisTC->m_Width = width;
-		thisTC->m_Height = height;
+		thisTC->m_Width[0] = width;
+		thisTC->m_Height[0] = height;
+		thisTC->m_Name = filepath;
+		thisTC->m_LoadType = 0;
 
 		thisTC->m_Instance = API::APITextureCube::CreateFromFile(filepath, pixels, width, height, bits);
 
@@ -43,10 +45,12 @@ namespace gebase { namespace graphics {
 		pixels[4] = LoadImage(files[4], &width, &height, &bits, true);
 		pixels[5] = LoadImage(files[5], &width, &height, &bits, true);
 
-		thisTC->sides = const_cast<const byte**>(pixels);
+		thisTC->sides = pixels;
 		thisTC->m_BitsPerPixel = bits;
-		thisTC->m_Width = width;
-		thisTC->m_Height = height;
+		thisTC->m_Width[0] = width;
+		thisTC->m_Height[0] = height;
+		thisTC->m_Name = files[0];
+		thisTC->m_LoadType = 1;
 
 		thisTC->m_Instance = API::APITextureCube::CreateFromFiles(files[0], const_cast<const byte**>(pixels), width, height, bits);
 		return thisTC;
@@ -66,13 +70,33 @@ namespace gebase { namespace graphics {
 			pixels[i] = LoadImage(files[i], &width[i], &height[i], &bits[i], true);
 		}
 
-		thisTC->sides = const_cast<const byte**>(pixels);
+		thisTC->sides = pixels;
 		thisTC->m_BitsPerPixel = bits[0];
-		thisTC->m_Width = width[0];
-		thisTC->m_Height = height[0];
+		thisTC->m_Width = width;
+		thisTC->m_Height = height;
+		thisTC->m_Mips = mips;
+		thisTC->m_Name = files[0];
+		thisTC->m_LoadType = 2;
 
 		thisTC->m_Instance = API::APITextureCube::CreateFromVerticalCross(files[0], const_cast<const byte**>(pixels), mips, width, height, bits[0]);
 		return thisTC;
+	}
+
+	bool TextureCube::EmployRenderAPI(RenderAPI api)
+	{
+		gedel this->m_Instance;
+		switch (m_LoadType)
+		{
+		case 0:
+			this->m_Instance = API::APITextureCube::CreateFromFile(m_Name, sides[0], m_Width[0], m_Height[0], m_BitsPerPixel);
+			break;
+		case 1:
+			this->m_Instance = API::APITextureCube::CreateFromFiles(m_Name, sides, m_Width[0], m_Height[0], m_BitsPerPixel);
+			break;
+		case 2:
+			this->m_Instance = API::APITextureCube::CreateFromVerticalCross(m_Name, sides, m_Mips, m_Width, m_Height, m_BitsPerPixel);
+			break;
+		}
 	}
 
 } }

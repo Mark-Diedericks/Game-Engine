@@ -42,6 +42,10 @@ namespace gebase { namespace graphics {
 
 		thisT2->m_BitsPerPixel = bits;
 		thisT2->m_Pixels = pixels;
+		thisT2->m_Width = width;
+		thisT2->m_Height = height;
+		thisT2->m_Name = name;
+		thisT2->m_Parameters = parameters;
 
 		thisT2->m_Instance = API::APITexture2D::CreateFromFile(name, pixels, width, height, bits, parameters);
 		return thisT2;
@@ -52,9 +56,18 @@ namespace gebase { namespace graphics {
 		return CreateFromFile(name, filepath, API::TextureParameters(), loadOptions);
 	}
 
+	bool Texture2D::EmployRenderAPI(RenderAPI api)
+	{
+		gedel this->m_Instance;
+		this->m_Instance = API::APITexture2D::CreateFromFile(m_Name, m_Pixels, m_Width, m_Height, m_BitsPerPixel, m_Parameters);
+
+		if (!m_Pixels)
+			this->m_Instance->setData(m_Color);
+	}
+
 	void Texture2D::setData(const byte* pixels)
 	{
-		m_Pixels = pixels;
+		m_Pixels = (byte*)pixels;
 		m_Instance->setData(pixels);
 	}
 

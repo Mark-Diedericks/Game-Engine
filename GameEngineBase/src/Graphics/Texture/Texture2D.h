@@ -9,14 +9,21 @@ namespace gebase { namespace graphics {
 	{
 	private:
 		API::APITexture2D* m_Instance;
-		const byte* m_Pixels;
+
+		String m_Name;
+		byte* m_Pixels;
 		uint m_Color;
 		uint m_BitsPerPixel;
+		uint m_Width;
+		uint m_Height;
+		API::TextureParameters m_Parameters;
 
 		Texture2D() { }
 	public:
 		void setData(const byte* pixels);
 		void setData(uint color);
+
+		bool EmployRenderAPI(RenderAPI api) override;
 
 		inline uint getWidth() const { return m_Instance->getWidth(); }
 		inline uint getHeight() const { return m_Instance->getHeight(); }

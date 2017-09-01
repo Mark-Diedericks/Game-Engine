@@ -4,16 +4,19 @@
 #include "Common.h"
 #include "CustomString.h"
 #include "Backend/API/APITexture.h"
+#include "Graphics/IRenderAPIDependant.h"
 
 namespace gebase { namespace graphics {
 
-	class GE_API Texture
+	class GE_API Texture : IRenderAPIDependant
 	{
 	public:
 		virtual ~Texture() {}
 
 		virtual void Bind(uint slot = 0) const = 0;
 		virtual void Unbind(uint slot = 0) const = 0;
+
+		virtual bool EmployRenderAPI(RenderAPI api) = 0;
 
 		virtual const String& getName() const = 0;
 		virtual const String& getFilepath() const = 0;
