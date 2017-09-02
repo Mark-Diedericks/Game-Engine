@@ -65,11 +65,47 @@ namespace gebase { namespace graphics {
 
 	bool Renderer2D::EmployRenderAPI(RenderAPI api)
 	{
-		return  m_Shader->EmployRenderAPI(api) && m_PostEffects->EmployRenderAPI(api) 
-			&& m_Mask->EmployRenderAPI(api) && m_FramebufferMaterial->EmployRenderAPI(api)
-			&& m_Framebuffer->EmployRenderAPI(api) && m_PostEffectsFramebuffer->EmployRenderAPI(api)
-			&& m_ScreenQuad->EmployRenderAPI(api) && m_VertexArray->EmployRenderAPI(api)
-			&& m_IndexBuffer->EmployRenderAPI(api) && m_LineIndexBuffer->EmployRenderAPI(api);
+		if (m_Shader)
+			if (!m_Shader->EmployRenderAPI(api))
+				return false;
+
+		if (m_PostEffects)
+			if (!m_PostEffects->EmployRenderAPI(api))
+				return false;
+
+		if (m_Mask)
+			if (!m_Mask->EmployRenderAPI(api))
+				return false;
+
+		if (m_FramebufferMaterial)
+			if (!m_FramebufferMaterial->EmployRenderAPI(api))
+				return false;
+
+		if (m_Framebuffer)
+			if (!m_Framebuffer->EmployRenderAPI(api))
+				return false;
+
+		if (m_PostEffectsFramebuffer)
+			if (!m_PostEffectsFramebuffer->EmployRenderAPI(api))
+				return false;
+
+		if (m_ScreenQuad)
+			if (!m_ScreenQuad->EmployRenderAPI(api))
+				return false;
+
+		if (m_VertexArray)
+			if (!m_VertexArray->EmployRenderAPI(api))
+				return false;
+
+		if (m_IndexBuffer)
+			if (!m_IndexBuffer->EmployRenderAPI(api))
+				return false;
+
+		if (m_LineIndexBuffer)
+			if (!m_LineIndexBuffer->EmployRenderAPI(api))
+				return false;
+
+		return true;
 	}
 
 	void Renderer2D::Init()
