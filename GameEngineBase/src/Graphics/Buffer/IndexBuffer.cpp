@@ -28,13 +28,17 @@ namespace gebase { namespace graphics {
 	{
 		if (m_Type) 
 		{
-			uint* data = this->m_Instance->getIndexData32();
+			uint* data = genew uint[m_Count];
+			memcpy(data, this->m_Instance->getIndexData32(), m_Count * sizeof(uint));
+
 			gedel this->m_Instance;
 			this->m_Instance = API::APIIndexBuffer::Create(data, m_Count);
 		}
 		else
 		{
-			uint16* data = this->m_Instance->getIndexData16();
+			uint16* data = genew uint16[m_Count];
+			memcpy(data, this->m_Instance->getIndexData16(), m_Count * sizeof(uint16));
+
 			gedel this->m_Instance;
 			this->m_Instance = API::APIIndexBuffer::Create(data, m_Count);
 		}

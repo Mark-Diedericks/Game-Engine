@@ -18,11 +18,12 @@ namespace gebase { namespace graphics { namespace API {
 	void APIBufferLayout::EmployRenderAPI(RenderAPI api)
 	{
 		m_Size = 0;
+		m_RenderAPI = api;
 		
 		for (uint i = 0; i < m_Layout.size(); i++)
 		{
 			m_Layout[i].offset = m_Size;
-			m_Size += APIConvert::BufferElementSize(m_Layout[i].type) * m_Layout[i].count.getCurrentCount();
+			m_Size += APIConvert::BufferElementSize(m_Layout[i].type, api) * m_Layout[i].count.getCurrentCount();
 		}
 	}
 

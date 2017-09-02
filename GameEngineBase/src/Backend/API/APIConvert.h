@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Common.h"
+#include "Graphics/Context.h"
 
 namespace gebase { namespace graphics { namespace API {
 
@@ -9,8 +10,8 @@ namespace gebase { namespace graphics { namespace API {
 	class GE_API APIConvert
 	{
 	public:
-		static uint BufferElementSize(API::BufferElementType type);
-		static uint BufferElementType(API::BufferElementType type);
+		static uint BufferElementSize(API::BufferElementType type, graphics::RenderAPI api = graphics::Context::getRenderAPI());
+		static uint BufferElementType(API::BufferElementType type, graphics::RenderAPI api = graphics::Context::getRenderAPI());
 
 		static uint BufferElementSizeToGL(API::BufferElementType type);
 		static uint BufferElementSizeToDX(API::BufferElementType type);

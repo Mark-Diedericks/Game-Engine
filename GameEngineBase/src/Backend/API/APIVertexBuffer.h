@@ -26,7 +26,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		virtual void* getBufferData() = 0;
 		virtual uint getSize() = 0;
-		virtual APIBufferLayout& getBufferLayout() = 0;
+		virtual APIBufferLayout getBufferLayout() = 0;
 
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;

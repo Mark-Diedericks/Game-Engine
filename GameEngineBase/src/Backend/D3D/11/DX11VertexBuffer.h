@@ -31,7 +31,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		void* getBufferData() override;
 		inline uint getSize() override { return m_Size; }
-		inline APIBufferLayout& getBufferLayout() { return m_Layout; }
+		inline APIBufferLayout getBufferLayout() override { return m_Layout; }
 
 		void ReleasePointer() override;
 	};

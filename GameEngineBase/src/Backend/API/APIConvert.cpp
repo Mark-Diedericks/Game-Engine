@@ -10,9 +10,9 @@
 
 namespace gebase { namespace graphics { namespace API {
 
-	uint APIConvert::BufferElementSize(API::BufferElementType type)
+	uint APIConvert::BufferElementSize(API::BufferElementType type, graphics::RenderAPI api)
 	{
-		switch (graphics::Context::getRenderAPI())
+		switch (api)
 		{
 		case graphics::RenderAPI::OPENGL: return BufferElementSizeToGL(type);
 		case graphics::RenderAPI::D3D11: return BufferElementSizeToDX(type);
@@ -21,9 +21,9 @@ namespace gebase { namespace graphics { namespace API {
 		return 0;
 	}	
 	
-	uint APIConvert::BufferElementType(API::BufferElementType type)
+	uint APIConvert::BufferElementType(API::BufferElementType type, graphics::RenderAPI api)
 	{
-		switch (graphics::Context::getRenderAPI())
+		switch (api)
 		{
 		case graphics::RenderAPI::OPENGL: return BufferElementTypeToGL(type);
 		case graphics::RenderAPI::D3D11: return BufferElementTypeToDX(type);

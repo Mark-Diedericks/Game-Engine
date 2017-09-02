@@ -9,9 +9,10 @@ namespace gebase { namespace graphics { namespace API {
 	{
 	private:
 		uint m_Handle;
-		uint m_Size;
+
 		BufferUsage m_Usage;
 		APIBufferLayout m_Layout;
+		uint m_Size;
 	protected:
 		void* getPointerInternal() override;
 	public:
@@ -21,13 +22,14 @@ namespace gebase { namespace graphics { namespace API {
 		void Bind() override;
 		void Unbind() override;
 
-		void* getBufferData() override;
-		inline uint getSize() override { return m_Size; }
-		inline APIBufferLayout& getBufferLayout() { return m_Layout; }
-
 		void Resize(uint size) override;
 		void setLayout(const APIBufferLayout& layout) override;
 		void setData(uint size, const void* data) override;
+
+		void* getBufferData() override;
+		inline uint getSize() override { return m_Size; }
+		inline APIBufferLayout getBufferLayout() override { return m_Layout; }
+
 		void ReleasePointer() override;
 	};
 

@@ -26,6 +26,11 @@ namespace gebase {
 		return result;
 	}
 
+	void* Allocator::AllocateDebug(size_t size, const char* file, uint line)
+	{
+		return Allocate(size);
+	}
+
 	void Allocator::Free(void* block) {
 		byte* mem = ((byte*)block) - sizeof(size_t);
 		size_t size = *(size_t*)mem;
@@ -35,6 +40,11 @@ namespace gebase {
 		gebase::MemoryManager::Get()->m_MemoryInfo.cUsed -= size;
 
 		GE_FREE(mem);
+	}
+
+	void Allocator::FreeDebug(void* block, const char* file, uint line)
+	{
+		Free(block);
 	}
 
 }

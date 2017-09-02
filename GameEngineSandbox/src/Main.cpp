@@ -11,7 +11,7 @@ using namespace gebase::math;
 class Game : public Application
 {
 public:
-	Game() : Application("Sandbox", {1280, 720, false, false}, gebase::graphics::RenderAPI::OPENGL)
+	Game() : Application("Sandbox", { 1280, 720, false, false }, gebase::graphics::RenderAPI::OPENGL)
 	{
 
 	}

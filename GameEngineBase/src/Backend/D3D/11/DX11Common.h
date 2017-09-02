@@ -5,8 +5,11 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 
-static bool CheckD3DError(HRESULT result)
+static bool CheckD3DError(HRESULT result, const char* file, int32 line)
 {
+	if (result != S_OK)
+		std::cout << "[D3D11 Error] File: " << file << "    Line: " << line << std::endl;
+
 	switch (result)
 	{
 	case D3D11_ERROR_FILE_NOT_FOUND:
@@ -50,7 +53,7 @@ static bool CheckD3DError(HRESULT result)
 #ifdef GE_DEBUG
 #define DXCall(x) do {				\
 	HRESULT __hr = x;				\
-		if(!CheckD3DError(__hr))	\
+		if(!CheckD3DError(__hr, __FILE__, __LINE__))	\
 			__debugbreak();			\
 	} while(false)
 #else

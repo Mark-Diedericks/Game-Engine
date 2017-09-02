@@ -40,7 +40,11 @@ namespace gebase { namespace graphics {
 
 	bool Sprite::EmployRenderAPI(RenderAPI api)
 	{
-		return m_Texture->EmployRenderAPI(api);
+		if (m_Texture)
+			if (!m_Texture->EmployRenderAPI(api))
+				return false;
+
+		return true;
 	}
 
 
