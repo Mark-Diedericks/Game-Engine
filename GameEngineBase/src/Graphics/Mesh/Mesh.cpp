@@ -57,7 +57,21 @@ namespace gebase { namespace graphics {
 
 	bool Mesh::EmployRenderAPI(RenderAPI api)
 	{
-		return m_MaterialInstance->EmployRenderAPI(api) && m_VertexArray->EmployRenderAPI(api) && m_IndexBuffer->EmployRenderAPI(api);
+		if (m_MaterialInstance)
+			if (!m_MaterialInstance->EmployRenderAPI(api))
+				return false;
+
+		m_MaterialInstance->getMaterial()->getShader()->Bind();
+
+		if (m_VertexArray)
+			if (!m_VertexArray->EmployRenderAPI(api))
+				return false;
+
+		if (m_IndexBuffer)
+			if (!m_IndexBuffer->EmployRenderAPI(api))
+				return false;
+
+		return true;
 	}
 
 

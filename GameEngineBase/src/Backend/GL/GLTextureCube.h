@@ -28,13 +28,15 @@ namespace gebase { namespace graphics { namespace API {
 		uint LoadFromSingleFile(const byte* pixels, uint bits);
 		uint LoadFromMultipleFiles(const byte** sides, uint bits);
 		uint LoadFromVerticalCross(const byte** sides, uint* width, uint* height, uint bits, uint mips);
+		uint LoadFromVerticalCross(const byte*** sides, uint* width, uint* height, uint bits, uint mips);
 	public:
 		GLTextureCube(const String& name, const byte* pixels, uint width, uint height, uint bits);
 		GLTextureCube(const String& name, const byte** sides, uint width, uint height, uint bits);
 		GLTextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format);
+		GLTextureCube(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits, InputFormat format);
 		~GLTextureCube();
 
-		byte** getPixelData() override;
+		byte*** getPixelData() override;
 
 		void Bind(uint slot = 0) const override;
 		void Unbind(uint slot = 0) const override;

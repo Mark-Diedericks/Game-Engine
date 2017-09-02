@@ -26,6 +26,8 @@ namespace gebase { namespace graphics {
 		if (!m_Shader->EmployRenderAPI(api))
 			return false;
 
+		m_Shader->Bind();
+
 		for (uint i = 0; i < m_Textures.size(); i++)
 			if(!m_Textures[i]->EmployRenderAPI(api))
 				return false;

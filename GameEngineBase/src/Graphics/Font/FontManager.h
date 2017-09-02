@@ -18,7 +18,6 @@ namespace gebase { namespace graphics {
 		static void setScale(const math::Vector2f& scale);
 		static inline const math::Vector2f& getScale() { return s_Scale; }
 
-
 		bool PreEmployRenderAPI() override;
 		bool EmployRenderAPI(RenderAPI api) override;
 

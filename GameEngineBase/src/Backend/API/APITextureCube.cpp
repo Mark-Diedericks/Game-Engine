@@ -50,4 +50,17 @@ namespace gebase { namespace graphics { namespace API {
 		return nullptr;
 	}
 
+	APITextureCube* APITextureCube::CreateFromVerticalCross(const String& name, const byte*** sides, int32 mips, uint* width, uint* height, uint bits)
+	{
+		switch (gebase::graphics::Context::getRenderAPI())
+		{
+		case RenderAPI::OPENGL: return genew GLTextureCube(name, sides, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
+			//case RenderAPI::VULKAN: return genew VKTextureCube(name, sides, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
+		case RenderAPI::D3D11: return genew DX11TextureCube(name, sides, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
+			//case RenderAPI::D3D12: return genew DX12TextureCube(name, sides, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
+		}
+
+		return nullptr;
+	}
+
 } } }

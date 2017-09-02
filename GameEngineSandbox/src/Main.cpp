@@ -29,8 +29,8 @@ public:
 		VirtualFileSystem::Get()->Mount("shaders", "shaders");
 
 		//PushLayer(genew SponzaTest());
-		//PushLayer(genew Test3D());
-		PushLayer(genew Test2D());
+		PushLayer(genew Test3D());
+		//PushLayer(genew Test2D());
 	}
 
 };

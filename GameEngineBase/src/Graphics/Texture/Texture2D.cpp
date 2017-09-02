@@ -10,9 +10,11 @@ namespace gebase { namespace graphics {
 	Texture2D* Texture2D::Create(uint width, uint height, API::TextureParameters parameters, API::TextureLoadOptions loadOptions)
 	{
 		Texture2D* thisT2 = genew Texture2D();
-		thisT2->m_BitsPerPixel = parameters.format == API::TextureFormat::RGB ? 3 : 4;
+		thisT2->m_BitsPerPixel = parameters.format == API::TextureFormat::RGB ? 24 : 32;
 		thisT2->m_Width = width;
 		thisT2->m_Height = height;
+		thisT2->m_Parameters = parameters;
+		thisT2->m_Name = StringFormat::ToString(width) + StringFormat::ToString(height);
 		thisT2->m_Instance = API::APITexture2D::Create(width, height, parameters);
 		return thisT2;
 	}
@@ -30,7 +32,7 @@ namespace gebase { namespace graphics {
 	Texture2D* Texture2D::CreateFromFile(const String& name, const String& filepath, API::TextureParameters parameters, API::TextureLoadOptions loadOptions)
 	{
 		Texture2D* thisT2 = genew Texture2D();
-		thisT2->m_BitsPerPixel = parameters.format == API::TextureFormat::RGB ? 3 : 4;
+		thisT2->m_BitsPerPixel = parameters.format == API::TextureFormat::RGB ? 24 : 32;
 
 		uint bits;
 		uint width;

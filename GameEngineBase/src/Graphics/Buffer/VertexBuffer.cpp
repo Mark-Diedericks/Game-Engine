@@ -27,8 +27,8 @@ namespace gebase { namespace graphics {
 
 		uint size = m_Instance->getSize();
 
-		byte* data = genew byte[size / 8];
-		memcpy((void*)data, m_Instance->getBufferData(), size);
+		void* data = genew byte[size];
+		memcpy(data, m_Instance->getBufferData(), size);
 
 		gedel m_Instance;
 

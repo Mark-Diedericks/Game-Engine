@@ -26,6 +26,12 @@ namespace gebase { namespace graphics { namespace API {
 			LoadFromVerticalCross(sides, width, height, bits, mips);
 	}
 
+	DX11TextureCube::DX11TextureCube(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits, InputFormat format) : m_Name(name), m_File(name), m_Width(faceWidths), m_Height(faceHeights), m_Bits(bits), m_Format(format)
+	{
+		if (format == InputFormat::VERTICAL_CROSS)
+			LoadFromVerticalCross(faces, faceWidths, faceHeights, bits, mips);
+	}
+
 	DX11TextureCube::~DX11TextureCube()
 	{
 
@@ -185,6 +191,79 @@ namespace gebase { namespace graphics { namespace API {
 		return 0;
 	}
 
+	uint DX11TextureCube::LoadFromVerticalCross(const byte*** cubeTextureData, uint* faceWidths, uint* faceHeights, uint bits, uint mips)
+	{
+		m_FaceWidths = faceWidths;
+		m_FaceHeights = faceHeights;
+		m_Bits = bits;
+		m_Mips = mips;
+
+		D3D11_TEXTURE2D_DESC td;
+		td.Width = m_FaceWidths[0];
+		td.Height = m_FaceHeights[0];
+		td.MipLevels = mips;
+		td.ArraySize = 6;
+		td.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		td.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+		td.SampleDesc.Count = 1;
+		td.SampleDesc.Quality = 0;
+		td.Usage = D3D11_USAGE_DEFAULT;
+		td.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		td.CPUAccessFlags = 0;
+		td.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
+
+		D3D11_SHADER_RESOURCE_VIEW_DESC srd;
+		srd.Format = td.Format;
+		srd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
+		srd.TextureCube.MipLevels = td.MipLevels;
+		srd.TextureCube.MostDetailedMip = 0;
+
+		D3D11_SUBRESOURCE_DATA* pData = genew D3D11_SUBRESOURCE_DATA[6 * mips];
+
+		uint result = 0;
+		uint index = 0;
+		uint faceOrder[6] = { 3, 1, 0, 4, 2, 5 };
+
+		for (int32 f = 0; f < 6; f++)
+		{
+			uint fi = faceOrder[f];
+			for (int32 m = 0; m < (int32)mips; m++)
+			{
+				pData[index].pSysMem = cubeTextureData[m][fi];
+				pData[index].SysMemPitch = m_FaceWidths[m] * 4;
+				pData[index].SysMemSlicePitch = m_FaceWidths[m] * m_FaceHeights[m] * 4;
+				index++;
+			}
+		}
+
+		m_Texture = nullptr;
+
+		DXCall(DX11Context::getDevice()->CreateTexture2D(&td, pData, &m_Texture));
+		DXCall(DX11Context::getDevice()->CreateShaderResourceView(m_Texture, &srd, &m_ResourceView));
+
+		gedel[] pData;
+
+		for (int32 m = 0; m < (int32)mips; m++)
+		{
+			for (int32 f = 0; f < 6; f++)
+				gedel[] cubeTextureData[m][f];
+			gedel[] cubeTextureData[m];
+		}
+		gedel[] cubeTextureData;
+
+		ZeroMemory(&m_SamplerDesc, sizeof(D3D11_SAMPLER_DESC));
+		m_SamplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		m_SamplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		m_SamplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		m_SamplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		m_SamplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+		m_SamplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+		DXCall(DX11Context::getDevice()->CreateSamplerState(&m_SamplerDesc, &m_SamplerState));
+
+		return 0;
+	}
+
 	void DX11TextureCube::Bind(uint slot) const
 	{
 		DX11Context::getDeviceContext()->PSSetShaderResources(slot, 1, &m_ResourceView);
@@ -197,7 +276,7 @@ namespace gebase { namespace graphics { namespace API {
 		DX11Context::getDeviceContext()->PSSetShaderResources(slot, 1, &nullView);
 	}
 
-	byte** DX11TextureCube::getPixelData()
+	byte*** DX11TextureCube::getPixelData()
 	{
 		return nullptr;
 	}

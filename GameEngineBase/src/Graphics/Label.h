@@ -29,6 +29,9 @@ namespace gebase { namespace graphics {
 		Label(const String& text, float x, float y, const String& font, uint color, Alignment alignment = Alignment::LEFT);
 		Label(const String& text, float x, float y, const String& font, uint size, uint color, Alignment alignment = Alignment::LEFT);
 
+		bool PreEmployRenderAPI() override;
+		bool EmployRenderAPI(RenderAPI api) override;
+
 		void Submit(Renderer2D* renderer) const override;
 		void ValidateFont(const String& name, int32 size = -1);
 		void setAlignment(Alignment alignment);

@@ -38,6 +38,20 @@ namespace gebase { namespace graphics {
 		ValidateFont(font, size);
 	}
 
+	bool Label::PreEmployRenderAPI()
+	{
+		return true;
+	}
+
+	bool Label::EmployRenderAPI(RenderAPI api)
+	{
+		if (m_Font)
+			if (!m_Font->EmployRenderAPI(api))
+				return false;
+
+		return Sprite::EmployRenderAPI(api);
+	}
+
 	void Label::Submit(Renderer2D* renderer) const
 	{
 		renderer->DrawString(m_Text, m_Bounds.getMinimumBound() + m_AlignmentOffset, *m_Font, m_Color);

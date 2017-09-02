@@ -24,7 +24,7 @@ namespace gebase { namespace graphics {
 		inline void Bind(uint slot = 0) const override { m_Instance->Bind(slot); }
 		inline void Unbind(uint slot = 0) const override { m_Instance->Unbind(slot); }
 
-		inline byte** getPixelData() { return m_Instance->getPixelData(); }
+		inline byte*** getPixelData() { return m_Instance->getPixelData(); }
 
 		inline const String& getName() const override { return m_Instance->getName(); }
 		inline const String& getFilepath() const override { return m_Instance->getFilepath(); }

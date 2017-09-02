@@ -63,7 +63,7 @@ namespace gebase { namespace graphics {
 				return font;
 		}
 
-		Font* res = new Font("SourceSansPro", embedded::DEFAULT_FONT, embedded::DEFAULT_FONT_SIZE, (float)size);
+		Font* res = genew Font("SourceSansPro", embedded::DEFAULT_FONT, embedded::DEFAULT_FONT_SIZE, (float)size);
 		res->setScale(s_Scale);
 		Add(res);
 		return res;

@@ -69,6 +69,9 @@ namespace gebase { namespace graphics {
 			if (!m_Shader->EmployRenderAPI(api))
 				return false;
 
+		if (m_Shader)
+			m_Shader->Bind();
+
 		if (m_PostEffects)
 			if (!m_PostEffects->EmployRenderAPI(api))
 				return false;
