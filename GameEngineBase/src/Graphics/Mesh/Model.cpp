@@ -34,7 +34,7 @@ namespace gebase { namespace graphics {
 		char* footer = "1234";
 	};
 
-	Model::Model(const String& path, MaterialInstance* materialInstance)
+	Model::Model(const String& path, MaterialInstance* materialInstance) : IRenderable()
 	{
 		Load(path);
 		m_Mesh->setMaterial(materialInstance);
@@ -48,6 +48,16 @@ namespace gebase { namespace graphics {
 	void Model::Render(Renderer3D& renderer)
 	{
 		m_Mesh->Render(renderer);
+	}
+
+	bool Model::PreEmployRenderAPI()
+	{
+		return m_Mesh->PreEmployRenderAPI();
+	}
+
+	bool Model::EmployRenderAPI(RenderAPI api)
+	{
+		return m_Mesh->EmployRenderAPI(api);
 	}
 
 	byte* ReadBytes(FILE* file, byte* buffer, uint size)

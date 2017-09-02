@@ -12,6 +12,8 @@ namespace gebase { namespace graphics {
 
 		uint m_Width;
 		uint m_Height;
+
+		FramebufferDepth() : Framebuffer() { }
 	public:
 		static FramebufferDepth* Create(uint width, uint height);
 

@@ -1,5 +1,6 @@
 #include "ge.h"
 #include "Application/Application.h"
+#include "Graphics/Context.h"
 
 namespace gebase {
 

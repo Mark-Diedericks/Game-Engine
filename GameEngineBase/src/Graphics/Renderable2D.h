@@ -6,6 +6,7 @@
 #include "Buffer/IndexBuffer.h"
 #include "Shader/Shader.h"
 #include "Math/Maths.h"
+#include "IRenderableBase.h"
 
 namespace gebase { namespace graphics {
 
@@ -23,7 +24,7 @@ namespace gebase { namespace graphics {
 
 #define RENDERER_VERTEX_SIZE sizeof(VertexData)
 
-	class GE_API Renderable2D
+	class GE_API Renderable2D : public IRenderableBase
 	{
 	protected:
 		math::Rectangle m_Bounds;
@@ -33,11 +34,12 @@ namespace gebase { namespace graphics {
 		bool m_Visible;
 
 		Renderable2D();
-	public:
 		Renderable2D(const math::Vector2f& position, const math::Vector2f& size, uint color);
+	public:
 		virtual ~Renderable2D();
 
 		virtual void Submit(Renderer2D* renderer) const;
+		virtual bool EmployRenderAPI(RenderAPI api) = 0;
 		
 		inline const math::Vector2f& getPosition() const { return m_Bounds.position; }
 		inline const math::Vector2f& getSize() const { return m_Bounds.size; }

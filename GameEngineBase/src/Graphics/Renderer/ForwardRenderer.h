@@ -22,6 +22,9 @@ namespace gebase { namespace graphics {
 		ForwardRenderer();
 		ForwardRenderer(uint width, uint height);
 
+		bool PreEmployRenderAPI() override;
+		bool EmployRenderAPI(RenderAPI api) override;
+
 		void Init() override;
 		void Begin() override;
 		void End() override;

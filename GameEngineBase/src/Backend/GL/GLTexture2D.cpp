@@ -92,4 +92,16 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
 	}
 
+	byte* GLTexture2D::getPixelData()
+	{
+		Bind();
+
+		byte* pixels = genew byte[m_Width * m_Height * getStrideFromFormat(m_Parameters.format)];
+		GLCall(glGetTexImage(GL_TEXTURE_2D, 0, GLConvert::TextureFormatToGL(m_Parameters.format), GL_UNSIGNED_BYTE, pixels));
+
+		Unbind();
+
+		return (byte*)pixels;
+	}
+
 } } }

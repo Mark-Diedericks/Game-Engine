@@ -21,6 +21,9 @@ namespace gebase { namespace graphics {
 		DeferredRenderer(uint width, uint height);
 		~DeferredRenderer();
 
+		bool PreEmployRenderAPI() override;
+		bool EmployRenderAPI(RenderAPI api) override;
+
 		void Init() override;
 		void Begin() override;
 		void End() override;

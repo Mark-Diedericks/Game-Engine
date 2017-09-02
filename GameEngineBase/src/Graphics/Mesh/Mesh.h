@@ -38,6 +38,9 @@ namespace gebase { namespace graphics {
 
 		void Render(Renderer3D& renderer) override;
 
+		bool PreEmployRenderAPI() override;
+		bool EmployRenderAPI(RenderAPI api) override;
+
 		inline void setMaterial(MaterialInstance* materialInstance) { m_MaterialInstance = materialInstance; }
 		inline MaterialInstance* getMaterialInstance() const { return m_MaterialInstance; }
 

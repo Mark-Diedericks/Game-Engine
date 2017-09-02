@@ -15,6 +15,9 @@ namespace gebase { namespace graphics { namespace API {
 
 	void APIContext::Create(WindowProperties properties, void* deviceContext)
 	{
+		if (s_Context)
+			gedel s_Context;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
 		case RenderAPI::OPENGL: s_Context = genew GLContext(properties, deviceContext);

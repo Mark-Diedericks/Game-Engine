@@ -3,11 +3,12 @@
 #include "Common.h"
 #include "CustomString.h"
 #include "Backend/API/APIRenderer.h"
-#include "Graphics/IRenderAPIDependant.h"
 
 namespace gebase { namespace graphics {
 
-	class GE_API Renderer : public IRenderAPIDependant
+	enum class RenderAPI;
+
+	class GE_API Renderer
 	{
 	private:
 		static Renderer* s_Instance;
@@ -15,7 +16,7 @@ namespace gebase { namespace graphics {
 	public:
 		static void Init();
 
-		bool EmployRenderAPI(RenderAPI api) override;
+		static bool EmployRenderAPI(RenderAPI api);
 
 		inline static void Clear(uint buffer) { API::APIRenderer::Clear(buffer); }
 		inline static void Present() { API::APIRenderer::Present(); }

@@ -14,7 +14,10 @@ namespace gebase { namespace graphics {
 		PBRMaterial(Shader* shader);
 		~PBRMaterial();
 
+		bool EmployRenderAPI(RenderAPI api) override;
+
 		void setEnvironmentMap(TextureCube* texture);
+		TextureCube* getEnvironmentMap();
 
 		//STATICS
 		void setAlbedo(const math::Vector4f& color);
@@ -29,16 +32,18 @@ namespace gebase { namespace graphics {
 		void setGlossMap(Texture2D* texture);
 
 		//GET MAPS
-		Texture* getAlbedoMap();
-		Texture* getSpecularMap();
-		Texture* getNormalMap();
-		Texture* getGlossMap();
+		Texture2D* getAlbedoMap();
+		Texture2D* getSpecularMap();
+		Texture2D* getNormalMap();
+		Texture2D* getGlossMap();
 	};
 
 	class GE_API PBRMaterialInstance : public MaterialInstance
 	{
 	public:
 		PBRMaterialInstance(PBRMaterial* material);
+
+		bool EmployRenderAPI(RenderAPI api) override;
 
 		void setEnvironmentMap(TextureCube* texture);
 

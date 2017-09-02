@@ -48,4 +48,15 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glClearColor(m_ClearColor.x, m_ClearColor.y, m_ClearColor.z, m_ClearColor.w));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 	}
+
+	byte* GLFramebuffer2D::getPixelData()
+	{
+		return m_Texture->getPixelData();
+	}
+
+	void GLFramebuffer2D::setData(const void* pixels)
+	{
+		m_Texture->setData(pixels);
+	}
+
 } } }

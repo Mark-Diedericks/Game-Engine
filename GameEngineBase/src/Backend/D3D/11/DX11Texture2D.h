@@ -33,6 +33,8 @@ namespace gebase { namespace graphics { namespace API {
 		void Bind(uint slot = 0) const override;
 		void Unbind(uint slot = 0) const override;
 
+		byte* getPixelData() override;
+
 		void setData(const void* pixels) override;
 		void setData(uint color) override;
 

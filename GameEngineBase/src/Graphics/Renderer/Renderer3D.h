@@ -4,21 +4,27 @@
 #include "Graphics/RenderCommand.h"
 #include "Graphics/Camera/Camera.h"
 #include "Graphics/Light/LightSetup.h"
+#include "IRenderer.h"
 
 namespace gebase { namespace graphics {
 
 	typedef std::vector<RenderCommand> CommandQue;
 	typedef std::vector<RendererUniform> SystemUniformList;
 
-	class GE_API Renderer3D
+	class GE_API Renderer3D : public IRenderer
 	{
 	protected:
 		uint m_ScreenBufferWidth;
 		uint m_ScreenBufferHeight;
 		CommandQue m_CommandQue;
 		SystemUniformList m_SystemUniforms;
+
+		Renderer3D() : IRenderer() { }
 	public:
 		virtual ~Renderer3D() {}
+
+		virtual bool PreEmployRenderAPI() = 0;
+		virtual bool EmployRenderAPI(RenderAPI api) = 0;
 
 		virtual void Init() = 0;
 		

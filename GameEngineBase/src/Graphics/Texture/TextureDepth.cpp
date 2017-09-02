@@ -16,8 +16,12 @@ namespace gebase { namespace graphics {
 
 	bool TextureDepth::EmployRenderAPI(RenderAPI api)
 	{
+		uint16* pixels = this->m_Instance->getPixelData();
 		gedel this->m_Instance;
+
 		this->m_Instance = API::APITextureDepth::Create(m_Width, m_Height);
+		this->m_Instance->setData(pixels);
+
 		return true;
 	}
 

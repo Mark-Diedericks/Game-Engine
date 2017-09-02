@@ -12,15 +12,13 @@ namespace gebase { namespace graphics {
 	private:
 		API::APIVertexArray* m_Instance;
 
-		std::vector<VertexBuffer*> m_Buffers;
-
-		VertexArray() { }
+		VertexArray() : IRenderAPIDependant(RenderObjectType::Buffer) { }
 	public:
 		bool EmployRenderAPI(RenderAPI api) override;
 
 		inline VertexBuffer* getBuffer(uint index = 0) { return m_Instance->getBuffer(index); }
 		inline std::vector<gebase::graphics::VertexBuffer*>& getBuffers() { return m_Instance->getBuffers(); }
-		inline void PushBuffer(VertexBuffer* buffer) { m_Buffers.push_back(buffer); m_Instance->PushBuffer(buffer); }
+		inline void PushBuffer(VertexBuffer* buffer) { m_Instance->PushBuffer(buffer); }
 
 		inline void Bind() const { m_Instance->Bind(); }
 		inline void Unbind() const { m_Instance->Unbind(); }

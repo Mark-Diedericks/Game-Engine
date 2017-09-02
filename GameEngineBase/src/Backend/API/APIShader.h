@@ -48,11 +48,11 @@ namespace gebase { namespace graphics { namespace API {
 		virtual const ShaderUniformBufferDeclaration* getVSUserUniformBuffer() const = 0;
 		virtual const ShaderUniformBufferDeclaration* getFSUserUniformBuffer() const = 0;
 
-		static bool GE_API TryCompile(const String& source, String& error);
-		static bool GE_API TryCompileFromFile(const ShaderDeclaration& shader, String& error);
+		static bool GE_API TryCompile(const API::ShaderSource& source, String& error);
+		static bool GE_API TryCompileFromFile(const ShaderDeclaration& shader, const API::ShaderSource& source, String& error);
 
-		static APIShader* CreateFromFile(const ShaderDeclaration& shader, void* address = nullptr);
-		static APIShader* CreateFromSource(const ShaderDeclaration& shader, const String& source);
+		static APIShader* CreateFromFile(const ShaderDeclaration& shader, const API::ShaderSource& source, void* address = nullptr);
+		static APIShader* CreateFromSource(const ShaderDeclaration& shader, const API::ShaderSource& source);
 	};
 
 } } }

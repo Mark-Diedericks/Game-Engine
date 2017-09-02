@@ -6,17 +6,21 @@
 
 namespace gebase { namespace graphics { namespace API {
 
-	DX11TextureCube::DX11TextureCube(const String& name, const byte* pixels, uint width, uint height, uint bits) : m_Name(name), m_File(name), m_Width(width), m_Height(height), m_Bits(bits)
+	DX11TextureCube::DX11TextureCube(const String& name, const byte* pixels, uint width, uint height, uint bits) : m_Name(name), m_File(name), m_Bits(bits)
 	{
+		m_Width[0] = width;
+		m_Height[0] = height;
 		LoadFromSingleFile(pixels, bits);
 	}
 
-	DX11TextureCube::DX11TextureCube(const String& name, const byte** sides, uint width, uint height, uint bits) : m_Name(name), m_File(name), m_Width(width), m_Height(height), m_Bits(bits)
+	DX11TextureCube::DX11TextureCube(const String& name, const byte** sides, uint width, uint height, uint bits) : m_Name(name), m_File(name), m_Bits(bits)
 	{
+		m_Width[0] = width;
+		m_Height[0] = height;
 		LoadFromMultipleFiles(sides, bits);
 	}
 
-	DX11TextureCube::DX11TextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : m_Name(name), m_File(name), m_Width(width[0]), m_Height(height[0]), m_Bits(bits), m_Format(format)
+	DX11TextureCube::DX11TextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : m_Name(name), m_File(name), m_Width(width), m_Height(height), m_Bits(bits), m_Format(format)
 	{
 		if (format == InputFormat::VERTICAL_CROSS)
 			LoadFromVerticalCross(sides, width, height, bits, mips);
@@ -41,9 +45,10 @@ namespace gebase { namespace graphics { namespace API {
 
 	uint DX11TextureCube::LoadFromVerticalCross(const byte** sides, uint* width, uint* height, uint mbits, uint mips)
 	{
-		uint srcWidth = m_Width;
-		uint srcHeight = m_Height;
+		uint srcWidth = m_Width[0];
+		uint srcHeight = m_Height[0];
 		uint bits = mbits;
+		m_Mips = mips;
 
 		byte*** cubeTextureData = genew byte**[mips];
 
@@ -111,13 +116,16 @@ namespace gebase { namespace graphics { namespace API {
 			gedel[] data;
 		}
 
+		this->m_FaceWidths = fWidths;
+		this->m_FaceHeights = fHeights;
+
 		D3D11_TEXTURE2D_DESC td;
 		td.Width = fWidths[0];
 		td.Height = fHeights[0];
 		td.MipLevels = mips;
 		td.ArraySize = 6;
 		td.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-		td.CPUAccessFlags = 0;
+		td.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
 		td.SampleDesc.Count = 1;
 		td.SampleDesc.Quality = 0;
 		td.Usage = D3D11_USAGE_DEFAULT;
@@ -187,6 +195,11 @@ namespace gebase { namespace graphics { namespace API {
 	{
 		ID3D11ShaderResourceView* nullView = nullptr;
 		DX11Context::getDeviceContext()->PSSetShaderResources(slot, 1, &nullView);
+	}
+
+	byte** DX11TextureCube::getPixelData()
+	{
+		return nullptr;
 	}
 
 } } }

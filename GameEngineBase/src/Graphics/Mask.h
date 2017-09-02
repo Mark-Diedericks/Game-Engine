@@ -6,14 +6,19 @@
 
 namespace gebase { namespace graphics {
 
-	struct GE_API Mask
+	struct GE_API Mask : public IRenderAPIDependant
 	{
 		Texture2D* texture;
 		math::Matrix4f transform;
 
-		Mask(Texture2D* texture, const math::Matrix4f& transform = math::Matrix4f::Identity()) : texture(texture), transform(transform)
+		Mask(Texture2D* texture, const math::Matrix4f& transform = math::Matrix4f::Identity()) : IRenderAPIDependant(RenderObjectType::Material), texture(texture), transform(transform)
 		{
 			this->transform = math::Matrix4f::Scale((float)texture->getWidth() / (float)texture->getHeight(), 1.0f, 1.0f);
+		}
+
+		bool EmployRenderAPI(RenderAPI api) override
+		{
+			return texture->EmployRenderAPI(api);
 		}
 	};
 

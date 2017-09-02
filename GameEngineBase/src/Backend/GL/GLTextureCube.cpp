@@ -13,20 +13,25 @@
 
 namespace gebase { namespace graphics { namespace API {
 
-	GLTextureCube::GLTextureCube(const String& name, const byte* pixels, uint width, uint height, uint bits) : m_Name(name), m_Width(width), m_Height(height), m_Bits(bits)
+	GLTextureCube::GLTextureCube(const String& name, const byte* pixels, uint width, uint height, uint bits) : m_Name(name), m_Bits(bits)
 	{
 		m_File = name;
+		m_Width[0] = width;
+		m_Height[0] = height;
+
 		m_Handle = LoadFromSingleFile(pixels, bits);
 	}
 
-	GLTextureCube::GLTextureCube(const String& name, const byte** sides, uint width, uint height, uint bits) : m_Name(name), m_Width(width), m_Height(height), m_Bits(bits)
+	GLTextureCube::GLTextureCube(const String& name, const byte** sides, uint width, uint height, uint bits) : m_Name(name), m_Bits(bits)
 	{
 		m_File = name;
+		m_Width[0] = width;
+		m_Height[0] = height;
 
 		m_Handle = LoadFromMultipleFiles(sides, bits);
 	}
 
-	GLTextureCube::GLTextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : m_Name(name), m_Width(width[0]), m_Height(height[0]), m_Bits(bits)
+	GLTextureCube::GLTextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : m_Name(name), m_Width(width), m_Height(height), m_Bits(bits)
 	{
 		m_File = name;
 
@@ -67,8 +72,8 @@ namespace gebase { namespace graphics { namespace API {
 	{
 		m_Parameters.format = TextureFormat::RGBA;
 
-		uint width = m_Width;
-		uint height = m_Height;
+		uint width = m_Width[0];
+		uint height = m_Height[0];
 		uint bits = mbits;
 
 		const byte* xp = sides[0];
@@ -111,6 +116,7 @@ namespace gebase { namespace graphics { namespace API {
 		uint srcWidth = width[0];
 		uint srcHeight = height[0];
 		uint bits = mbits;
+		m_Mips = mips;
 
 		byte*** cubeTextureData = genew byte**[mips];
 
@@ -183,6 +189,9 @@ namespace gebase { namespace graphics { namespace API {
 			gedel[] data;
 		}
 
+		this->m_FaceWidths = faceWidths;
+		this->m_FaceHeights = faceHeights;
+
 		uint handle;
 
 		GLCall(glGenTextures(1, &handle));
@@ -192,7 +201,7 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 		GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
-		uint internalFormat = GLConvert::TextureFormatToGL(m_Parameters.format); //TODO Switch to conversion class
+		uint internalFormat = GLConvert::TextureFormatToGL(m_Parameters.format);
 		uint format = internalFormat;
 
 		for (uint i = 0; i < mips; i++)
@@ -218,6 +227,110 @@ namespace gebase { namespace graphics { namespace API {
 		gedel[] cubeTextureData;
 
 		return handle;
+	}
+
+	byte** GLTextureCube::getPixelData()
+	{
+		Bind();
+
+		byte*** cubeTextureData = genew byte**[m_Mips];
+
+		for (uint i = 0; i < m_Mips; i++)
+		{
+			cubeTextureData[i] = genew byte*[6];
+			for (int f = 0; f < 6; f++)
+			{
+				cubeTextureData[i][f] = genew byte[m_FaceWidths[f] * m_FaceHeights[f] * getStrideFromFormat(m_Parameters.format)];
+			}
+		}
+
+		uint internalFormat = GLConvert::TextureFormatToGL(m_Parameters.format);
+		uint format = internalFormat;
+
+		for (uint i = 0; i < m_Mips; i++)
+		{
+			GLCall(glGetTexImage(GL_TEXTURE_CUBE_MAP_POSITIVE_X, i, format, GL_UNSIGNED_BYTE, cubeTextureData[i][3]));
+			GLCall(glGetTexImage(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, i, format, GL_UNSIGNED_BYTE, cubeTextureData[i][1]));
+
+			GLCall(glGetTexImage(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, i, format, GL_UNSIGNED_BYTE, cubeTextureData[i][0]));
+			GLCall(glGetTexImage(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, i, format, GL_UNSIGNED_BYTE, cubeTextureData[i][4]));
+
+			GLCall(glGetTexImage(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, i, format, GL_UNSIGNED_BYTE, cubeTextureData[i][2]));
+			GLCall(glGetTexImage(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, i, format, GL_UNSIGNED_BYTE, cubeTextureData[i][5]));
+		}
+
+		byte** pixels = genew byte*[m_Mips];
+		uint srcWidth = m_Width[0];
+		uint srcHeight = m_Height[0];
+		uint stride = m_Bits / 8;
+
+		for (uint i = 0; i < m_Mips; i++)
+		{
+			srcWidth = m_Width[i];
+			srcHeight = m_Height[i];
+
+			pixels[i] = genew byte[srcWidth * srcHeight * stride];
+			byte* data = pixels[i];
+
+			uint face = 0;
+
+			uint fWidth = m_FaceWidths[i];
+			uint fHeight = m_FaceHeights[i];
+
+			for (uint cy = 0; cy < 4; cy++)
+			{
+				for (uint cx = 0; cx < 3; cx++)
+				{
+					if (cy == 0 || cy == 2 || cy == 3)
+						if (cx != 1)
+							continue;
+
+					uint index = 0;
+
+					for (uint y = 0; y < fHeight; y++)
+					{
+						uint offset = y;
+
+						if (face == 5)
+							offset = fHeight - (y + 1);
+
+						uint yp = cy * fHeight + offset;
+
+						for (uint x = 0; x < fWidth; x++)
+						{
+							offset = x;
+
+							if (face == 5)
+								offset = fWidth - (x + 1);
+
+							uint xp = cx * fWidth + offset;
+
+							uint xyws = (x + y * fWidth) * stride;
+							uint sxyws = (xp + yp * srcWidth) * stride;
+
+							data[sxyws + 0] = cubeTextureData[i][face][xyws + 0];
+							data[sxyws + 1] = cubeTextureData[i][face][xyws + 1];
+							data[sxyws + 2] = cubeTextureData[i][face][xyws + 2];
+							if (stride >= 4) data[sxyws + 3] = cubeTextureData[i][face][xyws + 3];
+						}
+					}
+
+					face++;
+				}
+			}
+		}
+
+		for (uint i = 0; i < m_Mips; i++)
+		{
+			for (uint j = 0; j < 6; j++)
+				gedel[] cubeTextureData[i][j];
+			gedel[] cubeTextureData[i];
+		}
+		gedel[] cubeTextureData;
+
+		Unbind();
+
+		return pixels;
 	}
 
 } } }

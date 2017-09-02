@@ -493,6 +493,7 @@
       <Filter>src\ge\graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\IRenderAPIDependant.cpp" />
+    <ClCompile Include="src\Backend\API\APIConvert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ge.h">
@@ -949,6 +950,9 @@
       <Filter>src\ge</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\IRenderAPIDependant.h" />
+    <ClInclude Include="src\Backend\API\APIConvert.h" />
+    <ClInclude Include="src\Graphics\IRenderableBase.h" />
+    <ClInclude Include="src\Graphics\Renderer\IRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Graphics\Shader\default\BasicLight.shader">

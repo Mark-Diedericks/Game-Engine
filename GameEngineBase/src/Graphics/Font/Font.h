@@ -13,7 +13,7 @@ namespace ftgl
 
 namespace gebase { namespace graphics {
 
-	class GE_API Font
+	class GE_API Font : public IRenderAPIDependant
 	{
 	private:
 		ftgl::texture_atlas_t* m_FTAtlas;
@@ -31,6 +31,8 @@ namespace gebase { namespace graphics {
 	public:
 		Font(const String& name, const String& filepath, float size);
 		Font(const String& name, const byte* data, uint datasize, float size);
+
+		bool EmployRenderAPI(RenderAPI api) override;
 
 		inline void setScale(float x, float y) { m_Scale = math::Vector2f(x, y); }
 		inline void setScale(const math::Vector2f& scale) { m_Scale = scale; }

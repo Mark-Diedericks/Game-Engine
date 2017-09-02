@@ -79,7 +79,7 @@ namespace gebase { namespace graphics { namespace API {
 		m_TextureDesc.Format = format;
 		m_TextureDesc.CPUAccessFlags = 0;
 		m_TextureDesc.Usage = generateMips ? D3D11_USAGE_DEFAULT : D3D11_USAGE_DYNAMIC;
-		m_TextureDesc.CPUAccessFlags = m_TextureDesc.Usage == D3D11_USAGE_DYNAMIC ? D3D11_CPU_ACCESS_WRITE : 0;
+		m_TextureDesc.CPUAccessFlags = m_TextureDesc.Usage == D3D11_USAGE_DYNAMIC ? D3D11_CPU_ACCESS_WRITE: 0;
 		m_TextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 		if (generateMips) m_TextureDesc.BindFlags |= D3D11_BIND_RENDER_TARGET;
 		m_TextureDesc.MiscFlags = generateMips ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0;
@@ -149,6 +149,11 @@ namespace gebase { namespace graphics { namespace API {
 		}
 
 		DX11Context::getDeviceContext()->Unmap(m_Texture, NULL);
+	}
+
+	byte* DX11Texture2D::getPixelData()
+	{
+		return nullptr;
 	}
 
 	void DX11Texture2D::setData(uint color)

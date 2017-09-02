@@ -1,8 +1,9 @@
 #include "ge.h"
 #include "Context.h"
-
+#include "Renderer/Renderer.h"
 #include "Backend/API/APIContext.h"
-
+#include "IRenderableBase.h"
+#include "Renderer/IRenderer.h"
 #include "System/Memory.h"
 
 namespace gebase { namespace graphics {
@@ -13,7 +14,9 @@ namespace gebase { namespace graphics {
 
 	void* Context::s_DeviceContext = nullptr;
 	WindowProperties Context::s_Properties;
-	std::vector<IRenderAPIDependant*> Context::s_RenderAPIDependantObjects;
+
+	std::vector<IRenderer*> Context::s_RendererObjects;
+	std::vector<IRenderableBase*> Context::s_RenderableObjects;
 
 	void Context::Create(WindowProperties properties, void* deviceContext)
 	{
@@ -26,8 +29,21 @@ namespace gebase { namespace graphics {
 	{
 		setRenderAPI(api);
 
-		for (uint i = 0; i < s_RenderAPIDependantObjects.size(); i++)
-			if(!s_RenderAPIDependantObjects[i]->EmployRenderAPI(api))
+		for (uint i = 0; i < s_RendererObjects.size(); i++)
+			if (!s_RendererObjects[i]->PreEmployRenderAPI())
+				return false;
+
+		API::APIContext::Create(s_Properties, s_DeviceContext);
+
+		if (!Renderer::EmployRenderAPI(api))
+			return false;
+
+		for (uint i = 0; i < s_RendererObjects.size(); i++)
+			if (!s_RendererObjects[i]->EmployRenderAPI(api))
+				return false;
+
+		for (uint i = 0; i < s_RenderableObjects.size(); i++)
+			if (!s_RenderableObjects[i]->EmployRenderAPI(api))
 				return false;
 
 		return true;
@@ -38,16 +54,28 @@ namespace gebase { namespace graphics {
 		return EmployRenderAPI(s_PreviousRenderAPI != RenderAPI::NONE ? s_PreviousRenderAPI : s_DefaultRenderAPI);
 	}
 
-	void Context::Add(IRenderAPIDependant* object)
+	void Context::Add(IRenderer* object)
 	{
-		s_RenderAPIDependantObjects.push_back(object);
+		s_RendererObjects.push_back(object);
 	}
 
-	void Context::Remove(IRenderAPIDependant* object)
+	void Context::Remove(IRenderer* object)
 	{
-		for (uint i = 0; i < s_RenderAPIDependantObjects.size(); i++)
-			if (s_RenderAPIDependantObjects[i] == object)
-				s_RenderAPIDependantObjects.erase(s_RenderAPIDependantObjects.begin() + i);
+		for (uint i = 0; i < s_RendererObjects.size(); i++)
+			if (s_RendererObjects[i] == object)
+				s_RendererObjects.erase(s_RendererObjects.begin() + i);
+	}
+
+	void Context::Add(IRenderableBase* object)
+	{
+		s_RenderableObjects.push_back(object);
+	}
+
+	void Context::Remove(IRenderableBase* object)
+	{
+		for (uint i = 0; i < s_RenderableObjects.size(); i++)
+			if (s_RenderableObjects[i] == object)
+				s_RenderableObjects.erase(s_RenderableObjects.begin() + i);
 	}
 
 } }

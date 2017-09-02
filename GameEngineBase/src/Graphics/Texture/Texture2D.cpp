@@ -11,6 +11,8 @@ namespace gebase { namespace graphics {
 	{
 		Texture2D* thisT2 = genew Texture2D();
 		thisT2->m_BitsPerPixel = parameters.format == API::TextureFormat::RGB ? 3 : 4;
+		thisT2->m_Width = width;
+		thisT2->m_Height = height;
 		thisT2->m_Instance = API::APITexture2D::Create(width, height, parameters);
 		return thisT2;
 	}
@@ -41,7 +43,6 @@ namespace gebase { namespace graphics {
 		parameters.format = bits == 24 ? API::TextureFormat::RGB : API::TextureFormat::RGBA;
 
 		thisT2->m_BitsPerPixel = bits;
-		thisT2->m_Pixels = pixels;
 		thisT2->m_Width = width;
 		thisT2->m_Height = height;
 		thisT2->m_Name = name;
@@ -58,25 +59,21 @@ namespace gebase { namespace graphics {
 
 	bool Texture2D::EmployRenderAPI(RenderAPI api)
 	{
+		byte* pixels = this->m_Instance->getPixelData();
 		gedel this->m_Instance;
-		this->m_Instance = API::APITexture2D::CreateFromFile(m_Name, m_Pixels, m_Width, m_Height, m_BitsPerPixel, m_Parameters);
 
-		if (!m_Pixels)
-			this->m_Instance->setData(m_Color);
+		this->m_Instance = API::APITexture2D::CreateFromFile(m_Name, pixels, m_Width, m_Height, m_BitsPerPixel, m_Parameters);
 
 		return true;
 	}
 
 	void Texture2D::setData(const byte* pixels)
 	{
-		m_Pixels = (byte*)pixels;
 		m_Instance->setData(pixels);
 	}
 
 	void Texture2D::setData(uint color)
 	{
-		m_Pixels = nullptr;
-		m_Color = color;
 		m_Instance->setData(color);
 	}
 

@@ -39,22 +39,15 @@ namespace gebase{ namespace graphics { namespace ShaderFactory {
 #endif // PLATFORM_WINDOWS
 
 
-	Shader* BatchRendererShader() { 
-		switch (gebase::graphics::Context::getRenderAPI())
-		{
-		case RenderAPI::OPENGL: return Shader::CreateFromSource({ "Batch Renderer" }, s_BatchRendererShaderGL);
-		case RenderAPI::D3D11: return Shader::CreateFromSource({ "Batch Renderer" }, s_BatchRendererShaderD3D);
-		case RenderAPI::D3D12: return Shader::CreateFromSource({ "Batch Renderer" }, s_BatchRendererShaderD3D);
-		case RenderAPI::VULKAN: return Shader::CreateFromSource({ "Batch Renderer" }, s_BatchRendererShaderVK);
-		}
-
-		return nullptr;
+	Shader* BatchRendererShader() 
+	{ 
+		return Shader::CreateFromSource({ "Batch Renderer" }, { s_BatchRendererShaderGL, s_BatchRendererShaderVK, s_BatchRendererShaderD3D, s_BatchRendererShaderD3D });
 	}
 
-	Shader* SimpleShader() { return Shader::CreateFromSource({ "Simple Shader" }, s_SimpleShader); }
-	Shader* BasicLightShader() { return Shader::CreateFromSource({ "Basic Light Shader" }, s_BasicLightShader); }
-	Shader* GeometryShader() { return Shader::CreateFromSource({ "Geometry Shader" }, s_GeometryShader); }
+	Shader* SimpleShader() { return Shader::CreateFromSource({ "Simple Shader" }, { s_SimpleShader, s_SimpleShader, s_SimpleShader, s_SimpleShader }); }
+	Shader* BasicLightShader() { return Shader::CreateFromSource({ "Basic Light Shader" }, { s_BasicLightShader, s_BasicLightShader, s_BasicLightShader, s_BasicLightShader }); }
+	Shader* GeometryShader() { return Shader::CreateFromSource({ "Geometry Shader" }, { s_GeometryShader, s_GeometryShader, s_GeometryShader, s_GeometryShader }); }
 
-	Shader* DebugShader() { return Shader::CreateFromSource({ "Debug Shader" }, s_DebugShader); }
+	Shader* DebugShader() { return Shader::CreateFromSource({ "Debug Shader" }, { s_DebugShader, s_DebugShader, s_DebugShader, s_DebugShader }); }
 
 } } }

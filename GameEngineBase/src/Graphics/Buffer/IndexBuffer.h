@@ -9,12 +9,12 @@ namespace gebase { namespace graphics {
 	class GE_API IndexBuffer : public IRenderAPIDependant
 	{
 	private:
-		uint16* m_Data16;
-		uint* m_Data;
-		uint m_Count;
-
 		API::APIIndexBuffer* m_Instance;
-		IndexBuffer() { }
+
+		uint m_Count;
+		uint m_Type;
+
+		IndexBuffer() : IRenderAPIDependant(RenderObjectType::Buffer) { }
 	public:
 		bool EmployRenderAPI(RenderAPI api) override;
 

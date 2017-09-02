@@ -36,4 +36,28 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	}
 
+	uint* GLIndexBuffer::getIndexData32()
+	{
+		Bind();
+
+		uint* data = genew uint[m_Count];
+		glGetBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, m_Count * sizeof(uint), data);
+
+		Unbind();
+
+		return data;
+	}
+
+	uint16* GLIndexBuffer::getIndexData16()
+	{
+		Bind();
+
+		uint16* data = genew uint16[m_Count];
+		glGetBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, m_Count * sizeof(uint16), data);
+
+		Unbind();
+
+		return data;
+	}
+
 } } }

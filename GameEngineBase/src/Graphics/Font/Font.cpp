@@ -5,7 +5,7 @@
 
 namespace gebase { namespace graphics {
 
-	Font::Font(const String& name, const String& filepath, float size) : m_Name(name), m_Filepath(filepath), m_Size(size), m_Scale(math::Vector2f(1.0f, 1.0f)), m_Texture(nullptr)
+	Font::Font(const String& name, const String& filepath, float size) : IRenderAPIDependant(RenderObjectType::Texture), m_Name(name), m_Filepath(filepath), m_Size(size), m_Scale(math::Vector2f(1.0f, 1.0f)), m_Texture(nullptr)
 	{
 		m_FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
 		m_FTFont = ftgl::texture_font_new_from_file(m_FTAtlas, size, filepath.c_str());
@@ -23,7 +23,7 @@ namespace gebase { namespace graphics {
 		}
 	}
 
-	Font::Font(const String& name, const byte* data, uint datasize, float size) : m_Name(name), m_Filepath("NULL"), m_Size(size), m_Scale(math::Vector2f(1.0f, 1.0f)), m_Texture(nullptr)
+	Font::Font(const String& name, const byte* data, uint datasize, float size) : IRenderAPIDependant(RenderObjectType::Texture), m_Name(name), m_Filepath("NULL"), m_Size(size), m_Scale(math::Vector2f(1.0f, 1.0f)), m_Texture(nullptr)
 	{
 		m_FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
 		m_FTFont = ftgl::texture_font_new_from_memory(m_FTAtlas, size, data, datasize);
@@ -39,6 +39,11 @@ namespace gebase { namespace graphics {
 			__debugbreak();
 #endif
 		}
+	}
+
+	bool Font::EmployRenderAPI(RenderAPI api)
+	{
+		return m_Texture->EmployRenderAPI(api);
 	}
 
 	Texture2D* Font::getTexture() const

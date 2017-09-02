@@ -9,7 +9,7 @@
 
 namespace gebase { namespace graphics {
 
-	Material::Material(Shader* shader) : m_Shader(shader), m_isInstance(false)
+	Material::Material(Shader* shader) : IRenderAPIDependant(RenderObjectType::Material), m_Shader(shader), m_isInstance(false)
 	{
 		AllocateStorage();
 		m_Resources = &shader->getResources();
@@ -19,6 +19,21 @@ namespace gebase { namespace graphics {
 	{
 		gedel[] m_VSUserUniformBuffer;
 		gedel[] m_FSUserUniformBuffer;
+	}
+
+	bool Material::EmployRenderAPI(RenderAPI api)
+	{
+		if (!m_Shader->EmployRenderAPI(api))
+			return false;
+
+		for (uint i = 0; i < m_Textures.size(); i++)
+			if(!m_Textures[i]->EmployRenderAPI(api))
+				return false;
+
+		AllocateStorage();
+		m_Resources = &m_Shader->getResources();
+
+		return true;
 	}
 
 	void Material::AllocateStorage()
@@ -159,7 +174,7 @@ namespace gebase { namespace graphics {
 	}
 
 	//MATERIAL INSTANCE START
-	MaterialInstance::MaterialInstance(Material* material) : m_Material(material)
+	MaterialInstance::MaterialInstance(Material* material) : IRenderAPIDependant(RenderObjectType::Material), m_Material(material)
 	{
 		AllocateStorage();
 
@@ -169,6 +184,27 @@ namespace gebase { namespace graphics {
 		m_Resources = &m_Material->getShader()->getResources();
 		m_RenderFlags = material->m_RenderFlags;
 		m_Material->m_isInstance = true;
+	}
+
+	bool MaterialInstance::EmployRenderAPI(RenderAPI api)
+	{
+		if (!m_Material->EmployRenderAPI(api))
+			return false;
+
+		for (uint i = 0; i < m_Textures.size(); i++)
+			if (!m_Textures[i]->EmployRenderAPI(api))
+				return false;
+
+		AllocateStorage();
+
+		memcpy(m_VSUserUniformBuffer, m_Material->m_VSUserUniformBuffer, m_VSUserUniformBufferSize);
+		memcpy(m_FSUserUniformBuffer, m_Material->m_FSUserUniformBuffer, m_FSUserUniformBufferSize);
+
+		m_Resources = &m_Material->getShader()->getResources();
+		m_RenderFlags = m_Material->m_RenderFlags;
+		m_Material->m_isInstance = true;
+
+		return true;
 	}
 
 	void MaterialInstance::AllocateStorage()

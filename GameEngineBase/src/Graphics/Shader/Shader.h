@@ -20,9 +20,9 @@ namespace gebase { namespace graphics {
 		API::APIShader* m_Instance;
 
 		API::ShaderDeclaration m_Declaration;
-		String m_Source;
+		API::ShaderSource m_Source;
 
-		Shader() { }
+		Shader() : IRenderAPIDependant(RenderObjectType::Shader) { }
 	public:
 		bool EmployRenderAPI(RenderAPI api) override;
 
@@ -46,11 +46,11 @@ namespace gebase { namespace graphics {
 		inline const API::ShaderUniformBufferDeclaration* getVSUserUniformBuffer() { return m_Instance->getVSUserUniformBuffer(); }
 		inline const API::ShaderUniformBufferDeclaration* getFSUserUniformBuffer() { return m_Instance->getFSUserUniformBuffer(); }
 
-		inline static bool TryCompile(const String& source, String& error) { return API::APIShader::TryCompile(source, error); }
-		inline static bool TryCompileFromFile(const API::ShaderDeclaration& shader, String& error) { return API::APIShader::TryCompileFromFile(shader, error); }
+		inline static bool TryCompile(const API::ShaderSource& source, String& error) { return API::APIShader::TryCompile(source, error); }
+		static bool TryCompileFromFile(const API::ShaderDeclaration& shader, String& error);
 
 		static Shader* CreateFromFile(const API::ShaderDeclaration& shader, void* address = nullptr);
-		static Shader* CreateFromSource(const API::ShaderDeclaration& shader, const String& source);
+		static Shader* CreateFromSource(const API::ShaderDeclaration& shader, const API::ShaderSource& source);
 	};
 
 } }

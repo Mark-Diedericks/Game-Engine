@@ -14,6 +14,7 @@
 #include "Debug/DebugMenu.h"
 
 #include "Graphics/Renderable2D.h"
+#include "IRenderer.h"
 
 #include <freetype-gl/freetype-gl.h>
 
@@ -34,13 +35,13 @@ namespace gebase { namespace graphics {
 	const uint sys_ProjectionMatrixIndex = 0;
 	const uint sys_ViewMatrixIndex = 1;
 
-	Renderer2D::Renderer2D(uint width, uint height) : m_ScreenSize(math::Vector2f((float)width, (float)height)), m_ViewportSize(math::Vector2f((float)width, (float)height)), m_IndexCount(0), m_Mask(nullptr), m_PostEffectsEnabled(false)
+	Renderer2D::Renderer2D(uint width, uint height) : IRenderer(), m_ScreenSize(math::Vector2f((float)width, (float)height)), m_ViewportSize(math::Vector2f((float)width, (float)height)), m_IndexCount(0), m_Mask(nullptr), m_PostEffectsEnabled(false)
 	{
 		Init();
 	}
 
 
-	Renderer2D::Renderer2D(const math::Vector2f& size) : m_ScreenSize(size), m_ViewportSize(size), m_IndexCount(0), m_Mask(nullptr), m_PostEffectsEnabled(false)
+	Renderer2D::Renderer2D(const math::Vector2f& size) : IRenderer(), m_ScreenSize(size), m_ViewportSize(size), m_IndexCount(0), m_Mask(nullptr), m_PostEffectsEnabled(false)
 	{
 		Init();
 	}
@@ -50,6 +51,22 @@ namespace gebase { namespace graphics {
 		gedel m_IndexBuffer;
 		gedel m_VertexArray;
 		gedel m_ScreenQuad;
+	}
+
+	bool Renderer2D::PreEmployRenderAPI()
+	{
+		End();
+		Present();
+		return true;
+	}
+
+	bool Renderer2D::EmployRenderAPI(RenderAPI api)
+	{
+		return  m_Shader->EmployRenderAPI(api) && m_PostEffects->EmployRenderAPI(api) 
+			&& m_Mask->EmployRenderAPI(api) && m_FramebufferMaterial->EmployRenderAPI(api)
+			&& m_Framebuffer->EmployRenderAPI(api) && m_PostEffectsFramebuffer->EmployRenderAPI(api)
+			&& m_ScreenQuad->EmployRenderAPI(api) && m_VertexArray->EmployRenderAPI(api)
+			&& m_IndexBuffer->EmployRenderAPI(api) && m_LineIndexBuffer->EmployRenderAPI(api);
 	}
 
 	void Renderer2D::Init()

@@ -11,7 +11,7 @@
 
 namespace gebase { namespace graphics {
 
-	class GE_API Material
+	class GE_API Material : public IRenderAPIDependant
 	{
 	public:
 		enum class RenderFlags
@@ -46,6 +46,8 @@ namespace gebase { namespace graphics {
 	public:
 		Material(Shader* shader);
 		~Material();
+
+		bool EmployRenderAPI(RenderAPI api) override;
 
 		void Bind();
 		void Unbind();
@@ -87,7 +89,7 @@ namespace gebase { namespace graphics {
 		}
 	};
 
-	class GE_API MaterialInstance
+	class GE_API MaterialInstance : public IRenderAPIDependant
 	{
 	private:
 		Material* m_Material;
@@ -111,6 +113,8 @@ namespace gebase { namespace graphics {
 		API::ShaderResourceDeclaration* FindResourceDeclaration(const String& name);
 	public:
 		MaterialInstance(Material* material);
+
+		bool EmployRenderAPI(RenderAPI api) override;
 
 		inline Material* getMaterial() const { return m_Material; }
 

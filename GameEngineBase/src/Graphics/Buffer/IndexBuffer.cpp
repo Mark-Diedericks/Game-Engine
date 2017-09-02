@@ -9,7 +9,7 @@ namespace gebase { namespace graphics {
 	IndexBuffer* IndexBuffer::Create(uint16* data, uint count)
 	{
 		IndexBuffer* thisIB = genew IndexBuffer();
-		thisIB->m_Data16 = data;
+		thisIB->m_Type = 0;
 		thisIB->m_Count = count;
 		thisIB->m_Instance = API::APIIndexBuffer::Create(data, count);
 		return thisIB;
@@ -18,7 +18,7 @@ namespace gebase { namespace graphics {
 	IndexBuffer* IndexBuffer::Create(uint* data, uint count)
 	{
 		IndexBuffer* thisIB = genew IndexBuffer();
-		thisIB->m_Data = data;
+		thisIB->m_Type = 1;
 		thisIB->m_Count = count;
 		thisIB->m_Instance = API::APIIndexBuffer::Create(data, count);
 		return thisIB;
@@ -26,10 +26,18 @@ namespace gebase { namespace graphics {
 
 	bool IndexBuffer::EmployRenderAPI(RenderAPI api)
 	{
-		gedel this->m_Instance;
-
-		if(m_Data) this->m_Instance = API::APIIndexBuffer::Create(m_Data, m_Count);
-		else this->m_Instance = API::APIIndexBuffer::Create(m_Data16, m_Count);
+		if (m_Type) 
+		{
+			uint* data = this->m_Instance->getIndexData32();
+			gedel this->m_Instance;
+			this->m_Instance = API::APIIndexBuffer::Create(data, m_Count);
+		}
+		else
+		{
+			uint16* data = this->m_Instance->getIndexData16();
+			gedel this->m_Instance;
+			this->m_Instance = API::APIIndexBuffer::Create(data, m_Count);
+		}
 
 		return true;
 	}

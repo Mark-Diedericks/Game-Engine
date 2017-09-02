@@ -5,12 +5,12 @@
 
 namespace gebase { namespace graphics {
 
-	Renderable2D::Renderable2D() : m_Texture(nullptr)
+	Renderable2D::Renderable2D() : IRenderableBase(), m_Texture(nullptr)
 	{
 		m_UVs = getDefaultUVs();
 	}
 
-	Renderable2D::Renderable2D(const math::Vector2f& position, const math::Vector2f& size, uint color) : m_Bounds(position, size), m_Color(color), m_Texture(nullptr), m_Visible(true)
+	Renderable2D::Renderable2D(const math::Vector2f& position, const math::Vector2f& size, uint color) : IRenderableBase(), m_Bounds(position, size), m_Color(color), m_Texture(nullptr), m_Visible(true)
 	{
 		m_UVs = getDefaultUVs();
 	}

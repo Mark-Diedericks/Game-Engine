@@ -12,6 +12,8 @@ namespace gebase { namespace graphics {
 
 		uint m_Width;
 		uint m_Height;
+
+		Framebuffer2D() : Framebuffer() { }
 	public:
 		bool EmployRenderAPI(RenderAPI api);
 

@@ -31,6 +31,37 @@ namespace gebase { namespace graphics {
 		gedel m_Shader;
 	}
 
+	bool PBRMaterial::EmployRenderAPI(RenderAPI api)
+	{
+		if (!Material::EmployRenderAPI(api))
+			return false;
+
+		if (!s_PreintegratedFG->EmployRenderAPI(api))
+			return false;
+
+		if (getAlbedoMap())
+			if (!getAlbedoMap()->EmployRenderAPI(api))
+				return false;
+
+		if (getNormalMap())
+			if (!getNormalMap()->EmployRenderAPI(api))
+				return false;
+
+		if (getSpecularMap())
+			if (!getSpecularMap()->EmployRenderAPI(api))
+				return false;
+
+		if (getGlossMap())
+			if (!getGlossMap()->EmployRenderAPI(api))
+				return false;
+
+		if (getEnvironmentMap())
+			if (!getEnvironmentMap()->EmployRenderAPI(api))
+				return false;
+
+		return true;
+	}
+
 	void PBRMaterial::setEnvironmentMap(TextureCube* texture)
 	{
 		setTexture("u_EnvironmentMap", texture);
@@ -99,24 +130,29 @@ namespace gebase { namespace graphics {
 		return m_Textures.size() > slot ? m_Textures[slot] : nullptr;
 	}
 
-	Texture* PBRMaterial::getAlbedoMap()
+	TextureCube* PBRMaterial::getEnvironmentMap()
 	{
-		return getMap("u_AlbedoMap");
+		return (TextureCube*)getMap("u_EnvironmentMap");
 	}
 
-	Texture* PBRMaterial::getSpecularMap()
+	Texture2D* PBRMaterial::getAlbedoMap()
 	{
-		return getMap("u_SpecularMap");
+		return (Texture2D*)getMap("u_AlbedoMap");
 	}
 
-	Texture* PBRMaterial::getNormalMap()
+	Texture2D* PBRMaterial::getSpecularMap()
 	{
-		return getMap("u_NormalMap");
+		return (Texture2D*)getMap("u_SpecularMap");
 	}
 
-	Texture* PBRMaterial::getGlossMap()
+	Texture2D* PBRMaterial::getNormalMap()
 	{
-		return getMap("u_GlossMap");
+		return (Texture2D*)getMap("u_NormalMap");
+	}
+
+	Texture2D* PBRMaterial::getGlossMap()
+	{
+		return (Texture2D*)getMap("u_GlossMap");
 	}
 
 	//PBR MATERIAL INSTANCE START
@@ -124,6 +160,11 @@ namespace gebase { namespace graphics {
 	PBRMaterialInstance::PBRMaterialInstance(PBRMaterial* material) : MaterialInstance(material)
 	{
 
+	}
+
+	bool PBRMaterialInstance::EmployRenderAPI(RenderAPI api)
+	{
+		return MaterialInstance::EmployRenderAPI(api);
 	}
 
 	void PBRMaterialInstance::setEnvironmentMap(TextureCube* texture)

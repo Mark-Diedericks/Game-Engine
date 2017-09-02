@@ -17,6 +17,9 @@ namespace gebase { namespace graphics {
 		Sprite(float x, float y, float width, float height, Texture* texture);
 
 		void setUV(const std::vector<math::Vector2f>& UVs);
+
+		bool PreEmployRenderAPI() override;
+		bool EmployRenderAPI(RenderAPI api) override;
 		
 		inline void setTexture(Texture2D* texture) { m_Texture = texture; }
 	};

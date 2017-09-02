@@ -33,6 +33,17 @@ namespace gebase { namespace graphics {
 		m_Texture = texture;
 	}
 
+	bool Sprite::PreEmployRenderAPI()
+	{
+		return true;
+	}
+
+	bool Sprite::EmployRenderAPI(RenderAPI api)
+	{
+		return m_Texture->EmployRenderAPI(api);
+	}
+
+
 	void Sprite::setUV(const std::vector<math::Vector2f>& UVs)
 	{
 		m_UVs = UVs;

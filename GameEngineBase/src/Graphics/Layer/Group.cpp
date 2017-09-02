@@ -4,7 +4,7 @@
 
 namespace gebase { namespace graphics {
 
-	Group::Group(const math::Matrix4f& transform) : m_TransformationMatrix(transform)
+	Group::Group(const math::Matrix4f& transform) : Renderable2D(), m_TransformationMatrix(transform)
 	{
 
 	}
@@ -28,6 +28,16 @@ namespace gebase { namespace graphics {
 			renderable->Submit(renderer);
 
 		renderer->Pop();
+	}
+
+	bool Group::PreEmployRenderAPI()
+	{
+		return true;
+	}
+
+	bool Group::EmployRenderAPI(RenderAPI api)
+	{
+		return true;
 	}
 
 } }

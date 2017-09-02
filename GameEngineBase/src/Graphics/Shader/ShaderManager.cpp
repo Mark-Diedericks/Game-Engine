@@ -36,7 +36,7 @@ namespace gebase { namespace graphics {
 				String path = s_Shaders[i]->getFilepath();
 				String error;
 
-				if (!API::APIShader::TryCompileFromFile({ name, path, path, path, path }, error))
+				if (!Shader::TryCompileFromFile({ name, path, path, path, path }, error))
 				{
 					std::cout << "[ShaderManager] Reload() - TryCompileFromFile has failed." << std::endl;
 				}

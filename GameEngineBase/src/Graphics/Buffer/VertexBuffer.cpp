@@ -18,17 +18,22 @@ namespace gebase { namespace graphics {
 	void VertexBuffer::setData(uint size, const void* data)
 	{
 		m_Instance->setData(size, data);
-		m_Data = data;
-		m_Size = size;
 	}
 
 	bool VertexBuffer::EmployRenderAPI(RenderAPI api)
 	{
-		m_Layout.EmployRenderAPI(api);
-		gedel this->m_Instance;
-		this->m_Instance = API::APIVertexBuffer::Create(m_Usage);
-		this->m_Instance->setData(m_Size, m_Data);
-		this->m_Instance->setLayout(m_Layout);
+		API::APIBufferLayout layout = m_Instance->getBufferLayout();
+		layout.EmployRenderAPI(api);
+
+		void* data = m_Instance->getBufferData();
+		uint size = m_Instance->getSize();
+
+		gedel m_Instance;
+
+		m_Instance = API::APIVertexBuffer::Create(m_Usage);
+		setData(size, data);
+		setLayout(layout);
+
 		return true;
 	}
 

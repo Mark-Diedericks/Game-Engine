@@ -10,7 +10,7 @@
 
 namespace gebase { namespace graphics {
 
-	class GE_API PostEffects
+	class GE_API PostEffects : public IRenderAPIDependant
 	{
 	private:
 		std::vector<PostEffectsPass*> m_Passes;
@@ -21,6 +21,7 @@ namespace gebase { namespace graphics {
 		void Push(PostEffectsPass* pass);
 		void Pop();
 
+		bool EmployRenderAPI(RenderAPI api) override;
 		void RenderPostEffects(Framebuffer* source, Framebuffer* target, VertexArray* quad, IndexBuffer* indices);
  	};
 

@@ -8,6 +8,20 @@ namespace gebase { namespace graphics {
 	std::vector<Font*> FontManager::s_Fonts;
 	math::Vector2f FontManager::s_Scale = math::Vector2f(1.0f, 1.0f);
 
+	bool FontManager::PreEmployRenderAPI()
+	{
+		return true;
+	}
+
+	bool FontManager::EmployRenderAPI(RenderAPI api)
+	{
+		for (uint i = 0; i < s_Fonts.size(); i++)
+			if (!s_Fonts[i]->EmployRenderAPI(api))
+				return false;
+
+		return true;
+	}
+
 	void FontManager::setScale(const math::Vector2f& scale)
 	{
 		s_Scale = scale;

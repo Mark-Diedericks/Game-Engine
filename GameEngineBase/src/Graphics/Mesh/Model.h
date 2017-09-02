@@ -35,12 +35,15 @@ namespace gebase { namespace graphics {
 		friend struct std::hash<IndexSet>;
 
 		void Load(const String& path);
-		void InsetVertex(std::vector<Vertex>& vertices, std::vector<uint>& indices, std::unordered_map<IndexSet, int32>& mapping, VertexSet& inputVertices, IndexSet& indexSet);
+		void InsertVertex(std::vector<Vertex>& vertices, std::vector<uint>& indices, std::unordered_map<IndexSet, int32>& mapping, VertexSet& inputVertices, IndexSet& indexSet);
 	public:
 		Model(const String& path, MaterialInstance* materialInstance = nullptr);
 		~Model();
 
 		void Render(Renderer3D& renderer) override;
+
+		bool PreEmployRenderAPI() override;
+		bool EmployRenderAPI(RenderAPI api) override;
 
 		inline Mesh* getMesh() const { return m_Mesh; }
 	};

@@ -3,9 +3,11 @@
 #include "Common.h"
 #include "Application/Window.h"
 #include "Backend/API/APIContext.h"
-#include "IRenderAPIDependant.h"
-
 namespace gebase { namespace graphics { 
+
+	class IRenderAPIDependant;
+	class IRenderer;
+	class IRenderableBase;
 
 	enum class GE_API RenderAPI
 	{
@@ -25,7 +27,9 @@ namespace gebase { namespace graphics {
 
 		static void* s_DeviceContext;
 		static WindowProperties s_Properties;
-		static std::vector<IRenderAPIDependant*> s_RenderAPIDependantObjects;
+
+		static std::vector<IRenderer*> s_RendererObjects;
+		static std::vector<IRenderableBase*> s_RenderableObjects;
 
 		Context();
 	public:
@@ -37,8 +41,11 @@ namespace gebase { namespace graphics {
 		static bool EmployRenderAPI(RenderAPI api);
 		static bool RevertRenderAPI();
 
-		static void Add(IRenderAPIDependant* object);
-		static void Remove(IRenderAPIDependant* object);
+		static void Add(IRenderer* object);
+		static void Remove(IRenderer* object);
+
+		static void Add(IRenderableBase* object);
+		static void Remove(IRenderableBase* object);
 	};
 
 } }

@@ -173,6 +173,7 @@
     <ClCompile Include="src\Audio\SoundManager.cpp" />
     <ClCompile Include="src\Backend\API\APIBufferLayout.cpp" />
     <ClCompile Include="src\Backend\API\APIContext.cpp" />
+    <ClCompile Include="src\Backend\API\APIConvert.cpp" />
     <ClCompile Include="src\Backend\API\APIFramebuffer.cpp" />
     <ClCompile Include="src\Backend\API\APIFramebuffer2D.cpp" />
     <ClCompile Include="src\Backend\API\APIFramebufferDepth.cpp" />
@@ -311,6 +312,7 @@
     <ClInclude Include="src\Audio\SoundManager.h" />
     <ClInclude Include="src\Backend\API\APIBufferLayout.h" />
     <ClInclude Include="src\Backend\API\APIContext.h" />
+    <ClInclude Include="src\Backend\API\APIConvert.h" />
     <ClInclude Include="src\Backend\API\APIFramebuffer.h" />
     <ClInclude Include="src\Backend\API\APIFramebuffer2D.h" />
     <ClInclude Include="src\Backend\API\APIFramebufferDepth.h" />
@@ -398,6 +400,7 @@
     <ClInclude Include="src\Graphics\Framebuffer\FramebufferDepth.h" />
     <ClInclude Include="src\Graphics\GBuffer.h" />
     <ClInclude Include="src\Graphics\IRenderable.h" />
+    <ClInclude Include="src\Graphics\IRenderableBase.h" />
     <ClInclude Include="src\Graphics\IRenderAPIDependant.h" />
     <ClInclude Include="src\Graphics\Label.h" />
     <ClInclude Include="src\Graphics\Layer\Group.h" />
@@ -418,6 +421,7 @@
     <ClInclude Include="src\Graphics\RenderCommand.h" />
     <ClInclude Include="src\Graphics\Renderer\DeferredRenderer.h" />
     <ClInclude Include="src\Graphics\Renderer\ForwardRenderer.h" />
+    <ClInclude Include="src\Graphics\Renderer\IRenderer.h" />
     <ClInclude Include="src\Graphics\Renderer\Renderer.h" />
     <ClInclude Include="src\Graphics\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Graphics\Renderer\Renderer3D.h" />

@@ -16,7 +16,7 @@ namespace gebase { namespace graphics {
 
 	bool Renderer::EmployRenderAPI(RenderAPI api)
 	{
-		gedel API::APIRenderer::getRenderer();
+		gedel s_Instance;
 		API::APIRenderer::Init();
 		return true;
 	}

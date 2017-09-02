@@ -10,6 +10,8 @@ namespace gebase { namespace graphics {
 
 	class GE_API Texture : public IRenderAPIDependant
 	{
+	protected:
+		Texture() : IRenderAPIDependant(RenderObjectType::Texture) { }
 	public:
 		virtual ~Texture() {}
 

@@ -52,4 +52,14 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glClear(GL_DEPTH_BUFFER_BIT));
 	}
 
+	uint16* GLFramebufferDepth::getPixelData()
+	{
+		return m_Texture->getPixelData();
+	}
+
+	void GLFramebufferDepth::setData(const void* pixels)
+	{
+		m_Texture->setData(pixels);
+	}
+
 } } }

@@ -3,7 +3,7 @@
 
 namespace gebase { namespace graphics {
 
-	PostEffects::PostEffects()
+	PostEffects::PostEffects() : IRenderAPIDependant(RenderObjectType::Material)
 	{
 
 	}
@@ -11,6 +11,15 @@ namespace gebase { namespace graphics {
 	PostEffects::~PostEffects()
 	{
 
+	}
+
+	bool PostEffects::EmployRenderAPI(RenderAPI api)
+	{
+		for (uint i = 0; i < m_Passes.size(); i++)
+			if(!m_Passes[i]->EmployRenderAPI(api))
+				return false;
+
+		return true;
 	}
 
 	void PostEffects::Push(PostEffectsPass* pass)

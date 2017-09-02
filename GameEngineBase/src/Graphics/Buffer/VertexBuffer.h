@@ -14,17 +14,14 @@ namespace gebase { namespace graphics {
 	private:
 		API::APIVertexBuffer* m_Instance;
 
-		const void* m_Data;
-		uint m_Size;
 		API::BufferUsage m_Usage;
-		API::APIBufferLayout m_Layout;
 
-		VertexBuffer() { }
+		VertexBuffer() : IRenderAPIDependant(RenderObjectType::Buffer) { }
 	public:
 		bool EmployRenderAPI(RenderAPI api) override;
 
 		inline void Resize(uint size) { m_Instance->Resize(size); }
-		inline void setLayout(const API::APIBufferLayout& layout) { m_Layout = layout; m_Instance->setLayout(layout); }
+		inline void setLayout(const API::APIBufferLayout& layout) { m_Instance->setLayout(layout); }
 
 		void setData(uint size, const void* data);
 

@@ -7,6 +7,8 @@ namespace gebase { namespace graphics { namespace API {
 	class APITexture2D : public APITexture
 	{
 	public:
+		virtual byte* getPixelData() = 0;
+
 		virtual void setData(const void* pixels) = 0;
 		virtual void setData(uint color) = 0;
 

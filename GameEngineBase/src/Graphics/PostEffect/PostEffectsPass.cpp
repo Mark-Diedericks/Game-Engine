@@ -10,7 +10,7 @@ namespace gebase { namespace graphics {
 		Texture* texture;
 	};
 
-	PostEffectsPass::PostEffectsPass(Shader* shader)
+	PostEffectsPass::PostEffectsPass(Shader* shader) : IRenderAPIDependant(RenderObjectType::Material)
 	{
 		m_Material = genew Material(shader);
 	}
@@ -24,6 +24,11 @@ namespace gebase { namespace graphics {
 	{
 		m_Material->setUniform("pr_matrix", math::Matrix4f::Orthographic(0.0f, (float)target->getWidth(), (float)target->getHeight(), 0.0f, -1.0f, 1.0f));
 		m_Material->Bind();
+	}
+
+	bool PostEffectsPass::EmployRenderAPI(RenderAPI api)
+	{
+		return m_Material->EmployRenderAPI(api);
 	}
 
 } }

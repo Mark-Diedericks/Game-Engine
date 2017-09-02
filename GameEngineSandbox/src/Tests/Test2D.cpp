@@ -79,9 +79,16 @@ bool Test2D::OnKeyPressedEvent(KeyPressedEvent& event)
 		renderer.setRenderTarget(renderer.getRenderTarget() == RenderTarget::SCREEN ? RenderTarget::BUFFER : RenderTarget::SCREEN);
 		return true;
 	}
+
 	if (event.getKeyCode() == GE_KEY_P)
 	{
 		renderer.setPostEffects(!renderer.getPostEffects());
+		return true;
+	}
+
+	if (event.getKeyCode() == GE_KEY_0)
+	{
+		Application::getApplication().TrySetRenderAPI(graphics::Context::getRenderAPI() == graphics::RenderAPI::D3D11 ? graphics::RenderAPI::OPENGL : graphics::RenderAPI::D3D11);
 		return true;
 	}
 

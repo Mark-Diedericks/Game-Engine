@@ -16,10 +16,12 @@ namespace gebase { namespace graphics {
 
 	bool VertexArray::EmployRenderAPI(RenderAPI api)
 	{
+		std::vector<VertexBuffer*> buffers = this->m_Instance->getBuffers();
 		gedel this->m_Instance;
+
 		this->m_Instance = API::APIVertexArray::Create();
 		
-		for(VertexBuffer* buffer : m_Buffers)
+		for(VertexBuffer* buffer : buffers)
 			this->m_Instance->PushBuffer(buffer);
 
 		return true;

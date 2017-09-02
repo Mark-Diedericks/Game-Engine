@@ -12,6 +12,7 @@
 #include "Graphics/PostEffect/PostEffects.h"
 #include "Graphics/Buffer/VertexArray.h"
 #include "Graphics/Buffer/IndexBuffer.h"
+#include "IRenderer.h"
 
 namespace gebase { namespace graphics {
 
@@ -42,7 +43,7 @@ namespace gebase { namespace graphics {
 		BR2DSystemUniform(const UniformBuffer& buff, uint off) : buffer(buff), offset(off) {}
 	};
 
-	class GE_API Renderer2D
+	class GE_API Renderer2D : public IRenderer
 	{
 	private:
 		static bool s_PostEffectsEnabled;
@@ -50,7 +51,7 @@ namespace gebase { namespace graphics {
 		
 		std::vector<math::Matrix4f> m_TransformationStack;
 		const math::Matrix4f* m_TransformationBack;
-		const Mask* m_Mask;
+		Mask* m_Mask;
 
 		RenderTarget m_Target;
 		PostEffects* m_PostEffects;
@@ -87,6 +88,9 @@ namespace gebase { namespace graphics {
 		Renderer2D(const math::Vector2f& screenSize);
 		~Renderer2D();
 
+		bool PreEmployRenderAPI() override;
+		bool EmployRenderAPI(RenderAPI api) override;
+
 		void Push(const math::Matrix4f& matrix, bool override = false);
 		void Pop();
 
@@ -111,7 +115,7 @@ namespace gebase { namespace graphics {
 		void FillRect(const math::Rectangle& rect, uint color = 0xffffffff);
 		
 		inline void setRenderTarget(RenderTarget target) { m_Target = target; }
-		inline void setMask(const Mask* mask) { m_Mask = mask; }
+		inline void setMask(Mask* mask) { m_Mask = mask; }
 		inline void setPostEffects(bool enabled) { m_PostEffectsEnabled = enabled; }
 		inline void addPostEffectsPass(PostEffectsPass* pass) { m_PostEffects->Push(pass); }
 		inline void setScreenSize(const math::Vector2f& size) { m_ScreenSize = size; }

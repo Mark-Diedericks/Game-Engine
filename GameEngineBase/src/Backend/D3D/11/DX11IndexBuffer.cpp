@@ -56,4 +56,14 @@ namespace gebase { namespace graphics { namespace API {
 
 	}
 
+	uint* DX11IndexBuffer::getIndexData32()
+	{
+		return nullptr;
+	}
+
+	uint16* DX11IndexBuffer::getIndexData16()
+	{
+		return nullptr;
+	}
+
 } } }

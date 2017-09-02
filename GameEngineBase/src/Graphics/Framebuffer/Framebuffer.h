@@ -9,6 +9,8 @@ namespace gebase { namespace graphics {
 
 	class GE_API Framebuffer : public IRenderAPIDependant
 	{
+	protected:
+		Framebuffer() : IRenderAPIDependant(RenderObjectType::Framebuffer) { }
 	public:
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;

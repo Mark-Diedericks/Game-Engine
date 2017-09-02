@@ -17,7 +17,6 @@ namespace gebase { namespace graphics {
 
 		pixels = LoadImage(filepath, &width, &height, &bits, true);
 
-		thisTC->sides[0] = pixels;
 		thisTC->m_BitsPerPixel = bits;
 		thisTC->m_Width[0] = width;
 		thisTC->m_Height[0] = height;
@@ -45,7 +44,6 @@ namespace gebase { namespace graphics {
 		pixels[4] = LoadImage(files[4], &width, &height, &bits, true);
 		pixels[5] = LoadImage(files[5], &width, &height, &bits, true);
 
-		thisTC->sides = pixels;
 		thisTC->m_BitsPerPixel = bits;
 		thisTC->m_Width[0] = width;
 		thisTC->m_Height[0] = height;
@@ -70,7 +68,6 @@ namespace gebase { namespace graphics {
 			pixels[i] = LoadImage(files[i], &width[i], &height[i], &bits[i], true);
 		}
 
-		thisTC->sides = pixels;
 		thisTC->m_BitsPerPixel = bits[0];
 		thisTC->m_Width = width;
 		thisTC->m_Height = height;
@@ -84,7 +81,9 @@ namespace gebase { namespace graphics {
 
 	bool TextureCube::EmployRenderAPI(RenderAPI api)
 	{
+		byte** sides = this->m_Instance->getPixelData();
 		gedel this->m_Instance;
+
 		switch (m_LoadType)
 		{
 		case 0:

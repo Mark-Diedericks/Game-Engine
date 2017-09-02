@@ -6,6 +6,8 @@
 #include "DX11Convert.h"
 #include "DX11Shader.h"
 
+#include "Backend/API/APIConvert.h"
+
 namespace gebase { namespace graphics { namespace API {
 
 	DX11VertexBuffer::DX11VertexBuffer(BufferUsage usage) : m_Usage(usage), m_Size(0)
@@ -37,7 +39,7 @@ namespace gebase { namespace graphics { namespace API {
 		for (uint i = 0; i < layout.size(); i++)
 		{
 			const BufferElement& element = layout[i];
-			desc[i] = { element.name.c_str(), 0, (DXGI_FORMAT)element.type, 0, element.offset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+			desc[i] = { element.name.c_str(), 0, (DXGI_FORMAT)APIConvert::BufferElementTypeToDX(element.type), 0, element.offset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
 		}
 
 		const DX11Shader* shader = DX11Shader::CurrentlyBound();
@@ -87,6 +89,11 @@ namespace gebase { namespace graphics { namespace API {
 	void DX11VertexBuffer::ReleasePointer()
 	{
 		DX11Context::getDeviceContext()->Unmap(m_Handle, NULL);
+	}
+
+	void* DX11VertexBuffer::getBufferData()
+	{
+		return nullptr;
 	}
 
 } } }

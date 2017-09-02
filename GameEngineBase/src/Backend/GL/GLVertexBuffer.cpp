@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "GLConvert.h"
 #include "GLVertexBuffer.h"
+#include "Backend/API/APIConvert.h"
 
 #include <GL\glew.h>
 
@@ -34,12 +35,13 @@ namespace gebase { namespace graphics { namespace API {
 		{
 			const BufferElement& element = layout[i];
 			GLCall(glEnableVertexAttribArray(i));
-			GLCall(glVertexAttribPointer(i, element.count, element.type, element.normalized, bufferLayout.getStride(), (const void*)element.offset));
+			GLCall(glVertexAttribPointer(i, element.count.gl_count, APIConvert::BufferElementTypeToGL(element.type), element.normalized, bufferLayout.getStride(), (const void*)element.offset));
 		}
 	}
 
 	void GLVertexBuffer::setData(uint size, const void* data)
 	{
+		m_Size = size;
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
 		GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GLConvert::BufferUsageToGL(m_Usage)));
 	}
@@ -64,6 +66,18 @@ namespace gebase { namespace graphics { namespace API {
 	{
 		GLCall(void* result = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
 		return result;
+	}
+
+	void* GLVertexBuffer::getBufferData()
+	{
+		Bind();
+
+		byte* data = genew byte[m_Size / 8];
+		glGetBufferSubData(GL_ARRAY_BUFFER, 0, m_Size / 8, data);
+
+		Unbind();
+
+		return (void*)data;
 	}
 
 } } }

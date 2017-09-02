@@ -19,6 +19,9 @@ namespace gebase { namespace graphics { namespace API {
 		void Bind(uint slot = 0) const override;
 		void Unbind(uint slot = 0) const override;
 
+		uint16* getPixelData() override;
+		void setData(const void* data) override;
+
 		inline const String& getName() const override { return m_Name; }
 		inline const String& getFilepath() const override { return m_Name; }
 

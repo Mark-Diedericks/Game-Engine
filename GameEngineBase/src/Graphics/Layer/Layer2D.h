@@ -33,7 +33,7 @@ namespace gebase { namespace graphics {
 		virtual Renderable2D* Submit(Renderable2D* renderable);
 		virtual void OnRender(Renderer2D& renderer);
 
-		inline void setMask(const Mask* mask) const { m_Renderer->setMask(mask); }
+		inline void setMask(Mask* mask) const { m_Renderer->setMask(mask); }
 		inline Scene2D* getScene() { return m_Scene; }
 
 		void OnUpdateInternal(const float delta) override;

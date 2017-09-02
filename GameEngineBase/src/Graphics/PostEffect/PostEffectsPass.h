@@ -8,7 +8,7 @@
 
 namespace gebase { namespace graphics {
 
-	class GE_API PostEffectsPass
+	class GE_API PostEffectsPass : public IRenderAPIDependant
 	{
 	private:
 		Material* m_Material;
@@ -16,6 +16,7 @@ namespace gebase { namespace graphics {
 		PostEffectsPass(Shader* shader);
 		~PostEffectsPass();
 
+		bool EmployRenderAPI(RenderAPI api) override;
 		void RenderPass(Framebuffer* target);
 	};
 

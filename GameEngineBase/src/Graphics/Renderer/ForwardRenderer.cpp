@@ -21,16 +21,28 @@ namespace gebase { namespace graphics {
 		FSSystemUniformIndex_Size
 	};
 
-	ForwardRenderer::ForwardRenderer()
+	ForwardRenderer::ForwardRenderer() : Renderer3D()
 	{
 		setScreenBufferSize(Application::getApplication().getWindowWidth(), Application::getApplication().getWindowHeight());
 		Init();
 	}
 
-	ForwardRenderer::ForwardRenderer(uint width, uint height)
+	ForwardRenderer::ForwardRenderer(uint width, uint height) : Renderer3D()
 	{
 		setScreenBufferSize(width, height);
 		Init();
+	}
+
+	bool ForwardRenderer::PreEmployRenderAPI()
+	{
+		End();
+		Present();
+		return true;
+	}
+
+	bool ForwardRenderer::EmployRenderAPI(RenderAPI api)
+	{
+		return true;
 	}
 
 	void ForwardRenderer::Init()
