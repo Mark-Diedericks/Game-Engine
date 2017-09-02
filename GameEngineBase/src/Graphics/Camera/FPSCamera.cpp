@@ -8,7 +8,7 @@
 namespace gebase {
 	namespace graphics {
 
-		FPSCamera::FPSCamera(const math::Matrix4f& projectionMatrix) : Camera(projectionMatrix), m_MouseSensitivity(0.002f), m_Speed(0.4f), m_SprintSpeed(m_Speed * 4.0f), m_MouseWasGrabbed(false)
+		FPSCamera::FPSCamera(const math::Matrix4f& projectionMatrix) : Camera(projectionMatrix), m_MouseSensitivity(0.0005f), m_Speed(0.4f), m_SprintSpeed(m_Speed * 4.0f), m_MouseWasGrabbed(false)
 		{
 			m_Position = math::Vector3f(0.0f, 25.0f, -25.0f);
 			m_Rotation = math::Vector3f(90.0f, 0.0f, 0.0f);
@@ -53,8 +53,8 @@ namespace gebase {
 
 				if (m_MouseWasGrabbed)
 				{
-					m_Pitch += mPos.y * m_MouseSensitivity;
-					m_Yaw += mPos.x * m_MouseSensitivity;
+					m_Pitch += mPos.y * m_MouseSensitivity * delta;
+					m_Yaw += mPos.x * m_MouseSensitivity * delta;
 				}
 
 				m_MouseWasGrabbed = true;

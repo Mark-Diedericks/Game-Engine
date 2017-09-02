@@ -291,7 +291,7 @@ namespace gebase { namespace graphics { namespace API {
 			cubeTextureData[i] = genew byte*[6];
 			for (int f = 0; f < 6; f++)
 			{
-				cubeTextureData[i][f] = genew byte[m_FaceWidths[f] * m_FaceHeights[f] * stride];
+				cubeTextureData[i][f] = genew byte[m_FaceWidths[i] * m_FaceHeights[i] * stride];
 			}
 		}
 

@@ -17,6 +17,9 @@ namespace gebase { namespace graphics { namespace API {
 
 	void APIBufferLayout::EmployRenderAPI(RenderAPI api)
 	{
+		if (m_RenderAPI == api)
+			return;
+
 		m_Size = 0;
 		m_RenderAPI = api;
 		

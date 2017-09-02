@@ -22,6 +22,11 @@ namespace gebase { namespace graphics {
 
 	bool VertexBuffer::EmployRenderAPI(RenderAPI api)
 	{
+		if (current == api)
+			return true;
+
+		current = api;
+
 		API::APIBufferLayout layout = m_Instance->getBufferLayout();
 		layout.EmployRenderAPI(api);
 

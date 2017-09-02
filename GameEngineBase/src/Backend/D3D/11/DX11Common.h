@@ -7,7 +7,7 @@
 
 static bool CheckD3DError(HRESULT result, const char* file, int32 line)
 {
-	if (result != S_OK)
+	if (result != S_OK && false)
 		std::cout << "[D3D11 Error] File: " << file << "    Line: " << line << std::endl;
 
 	switch (result)

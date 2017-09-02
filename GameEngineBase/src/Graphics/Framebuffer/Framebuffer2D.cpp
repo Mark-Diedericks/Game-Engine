@@ -17,6 +17,11 @@ namespace gebase { namespace graphics {
 
 	bool Framebuffer2D::EmployRenderAPI(RenderAPI api)
 	{
+		if (current == api)
+			return true;
+
+		current = api;
+
 		gedel this->m_Instance;
 		this->m_Instance = API::APIFramebuffer2D::Create(m_Width, m_Height);
 		return true;

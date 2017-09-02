@@ -81,6 +81,11 @@ namespace gebase { namespace graphics {
 
 	bool TextureCube::EmployRenderAPI(RenderAPI api)
 	{
+		if (current == api)
+			return true;
+
+		current = api;
+
 		byte*** faces = this->m_Instance->getPixelData();
 		gedel this->m_Instance;
 
@@ -93,7 +98,15 @@ namespace gebase { namespace graphics {
 			std::cout << "[TextureCube] EmployRenderAPI() - Method 2 is not implemented." << std::endl;
 			break;
 		case 2:
-			this->m_Instance = API::APITextureCube::CreateFromVerticalCross(m_Name, const_cast<const byte***>(faces), m_Mips, m_Width, m_Height, m_BitsPerPixel);
+			uint* fWidth = genew uint[m_Mips];
+			for (uint i = 0; i < m_Mips; i++)
+				fWidth[i] = m_Width[i] / 3;
+
+			uint* fHeight = genew uint[m_Mips];
+			for (uint i = 0; i < m_Mips; i++)
+				fHeight[i] = m_Height[i] / 4;
+
+			this->m_Instance = API::APITextureCube::CreateFromVerticalCross(m_Name, const_cast<const byte***>(faces), m_Mips, fWidth, fHeight, m_BitsPerPixel);
 			break;
 		}
 

@@ -19,8 +19,9 @@ namespace gebase { namespace graphics {
 	public:
 		virtual bool EmployRenderAPI(RenderAPI api) = 0;
 		RenderObjectType type;
+		RenderAPI current;
 	protected:
-		IRenderAPIDependant(RenderObjectType t) { type = t; }
+		IRenderAPIDependant(RenderObjectType t) { type = t; current = Context::getRenderAPI(); }
 	};
 
 } }

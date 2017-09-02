@@ -26,6 +26,11 @@ namespace gebase { namespace graphics {
 
 	bool IndexBuffer::EmployRenderAPI(RenderAPI api)
 	{
+		if (current == api)
+			return true;
+
+		current = api;
+
 		if (m_Type) 
 		{
 			uint* data = genew uint[m_Count];

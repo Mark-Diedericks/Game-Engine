@@ -17,6 +17,11 @@ namespace gebase { namespace graphics {
 
 	bool FramebufferDepth::EmployRenderAPI(RenderAPI api)
 	{
+		if (current == api)
+			return true;
+
+		current = api;
+
 		gedel this->m_Instance;
 		this->m_Instance = API::APIFramebufferDepth::Create(m_Width, m_Height);
 		return true;

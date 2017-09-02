@@ -41,6 +41,11 @@ namespace gebase { namespace graphics {
 
 	bool Shader::EmployRenderAPI(RenderAPI api)
 	{
+		if (current == api)
+			return true;
+
+		current = api;
+
 		gedel this->m_Instance;
 
 		this->m_Instance = API::APIShader::CreateFromSource(m_Declaration, m_Source);

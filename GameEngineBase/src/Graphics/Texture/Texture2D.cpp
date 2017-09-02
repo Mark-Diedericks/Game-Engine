@@ -61,6 +61,11 @@ namespace gebase { namespace graphics {
 
 	bool Texture2D::EmployRenderAPI(RenderAPI api)
 	{
+		if (current == api)
+			return true;
+
+		current = api;
+
 		byte* pixels = this->m_Instance->getPixelData();
 		gedel this->m_Instance;
 

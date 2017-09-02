@@ -16,6 +16,11 @@ namespace gebase { namespace graphics {
 
 	bool VertexArray::EmployRenderAPI(RenderAPI api)
 	{
+		if (current == api)
+			return true;
+
+		current = api;
+
 		std::vector<VertexBuffer*> buffers = m_Instance->getBuffers();
 
 		for (uint i = 0; i < buffers.size(); i++)
