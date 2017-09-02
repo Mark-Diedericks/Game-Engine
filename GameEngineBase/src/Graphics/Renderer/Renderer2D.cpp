@@ -55,6 +55,9 @@ namespace gebase { namespace graphics {
 
 	bool Renderer2D::PreEmployRenderAPI()
 	{
+		if (!m_Began)
+			return true;
+
 		End();
 		Present();
 		return true;
@@ -204,6 +207,7 @@ namespace gebase { namespace graphics {
 
 	void Renderer2D::Begin()
 	{
+		m_Began = true;
 		if (m_Target == RenderTarget::BUFFER)
 		{
 			std::cout << "[Renderer2D] Begin() - Render to buffer is not implemnted." << std::endl;
@@ -222,6 +226,7 @@ namespace gebase { namespace graphics {
 
 	void Renderer2D::End()
 	{
+		m_Began = false;
 		m_VertexArray->getBuffer()->ReleasePointer();
 		m_VertexArray->Unbind();
 	}

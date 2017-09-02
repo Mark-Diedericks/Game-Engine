@@ -35,6 +35,9 @@ namespace gebase { namespace graphics {
 
 	bool ForwardRenderer::PreEmployRenderAPI()
 	{
+		if (!m_Began)
+			return true;
+
 		End();
 		Present();
 		return true;
@@ -71,6 +74,7 @@ namespace gebase { namespace graphics {
 
 	void ForwardRenderer::Begin()
 	{
+		m_Began = true;
 		Renderer::setViewport(0, 0, m_ScreenBufferWidth, m_ScreenBufferHeight);
 
 		m_CommandQue.clear();
@@ -79,7 +83,7 @@ namespace gebase { namespace graphics {
 
 	void ForwardRenderer::End()
 	{
-
+		m_Began = false;
 	}
 
 	void ForwardRenderer::BeginScene(Camera* camera)

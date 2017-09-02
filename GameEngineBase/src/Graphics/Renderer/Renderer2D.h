@@ -81,6 +81,8 @@ namespace gebase { namespace graphics {
 		VertexArray* m_ScreenQuad;
 		Camera* m_Camera;
 
+		bool m_Began;
+
 		void Init();
 		float SubmitTexture(Texture* texture);
 	public:

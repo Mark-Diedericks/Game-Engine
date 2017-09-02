@@ -18,6 +18,7 @@ namespace gebase { namespace graphics {
 		uint m_ScreenBufferHeight;
 		CommandQue m_CommandQue;
 		SystemUniformList m_SystemUniforms;
+		bool m_Began;
 
 		Renderer3D() : IRenderer() { }
 	public:
