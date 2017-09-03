@@ -47,6 +47,7 @@ namespace gebase {
 	void Application::Run()
 	{
 		m_Timer = utils::TimeUtil();
+		m_Timer.set();
 
 		double delta = 0.0;
 		float counter = 0.0;
@@ -85,7 +86,7 @@ namespace gebase {
 				fpsCount = 0;
 				counter = 0.0f;
 
-				std::cout << "Render Stats |||| UPS: " << delta << "ms |||| FPS: " << fps << " MIN: " << minFps << " MAX: " << maxFps << " AVG: " << avgFps << std::endl;
+				std::cout << "Render Stats |||| FrameTime: " << StringFormat::Float((float)delta).c_str() << "ms |||| FPS: " << fps << " MIN: " << minFps << " MAX: " << maxFps << " AVG: " << avgFps << std::endl;
 			}
 
 			m_FrT = (float)delta;

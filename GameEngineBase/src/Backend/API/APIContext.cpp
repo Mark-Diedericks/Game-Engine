@@ -15,8 +15,10 @@ namespace gebase { namespace graphics { namespace API {
 
 	void APIContext::Create(WindowProperties properties, void* deviceContext)
 	{
-		if (s_Context)
+		if (s_Context != nullptr)
 			gedel s_Context;
+
+		s_Context = nullptr;
 
 		switch (gebase::graphics::Context::getRenderAPI())
 		{

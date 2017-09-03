@@ -14,18 +14,18 @@ namespace gebase { namespace graphics {
 		uint m_BitsPerPixel;
 		uint m_Width;
 		uint m_Height;
+		uint m_LoadType;
 
 		API::TextureParameters m_Parameters;
 
 		Texture2D() : Texture() {}
 	public:
-		void setData(const byte* pixels);
 		void setData(uint color);
 
 		bool EmployRenderAPI(RenderAPI api) override;
 
-		inline byte* getPixelData() { return m_Instance->getPixelData(); }
-		inline void setData(const void* data) { m_Instance->setData(data); }
+		inline void getPixelData(byte* pixels) { return m_Instance->getPixelData(pixels); }
+		inline void setData(const byte* data) { m_Instance->setData(data); }
 
 		inline uint getWidth() const { return m_Instance->getWidth(); }
 		inline uint getHeight() const { return m_Instance->getHeight(); }

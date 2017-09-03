@@ -30,12 +30,12 @@ namespace gebase { namespace graphics { namespace API {
 
 	}
 
-	uint16* DX11FramebufferDepth::getPixelData()
+	void DX11FramebufferDepth::getPixelData(uint16* data)
 	{
-		return nullptr;
+		data = nullptr;
 	}
 
-	void DX11FramebufferDepth::setData(const void* data)
+	void DX11FramebufferDepth::setData(const uint16* data)
 	{
 
 	}

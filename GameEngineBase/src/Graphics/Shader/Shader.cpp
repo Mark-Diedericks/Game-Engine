@@ -16,6 +16,7 @@ namespace gebase { namespace graphics {
 
 		API::ShaderSource source = { gl_src, "", dx11_src, "" };
 
+		thisS->m_Declaration = shader;
 		thisS->m_Source = source;
 		thisS->m_Instance = API::APIShader::CreateFromFile(shader, source, address);
 		return thisS;
@@ -36,6 +37,7 @@ namespace gebase { namespace graphics {
 		String dx11_src = VirtualFileSystem::Get()->ReadFileString(shader.d3d11);
 
 		API::ShaderSource source = { gl_src, "", dx11_src, "" };
+
 		return API::APIShader::TryCompileFromFile(shader, source, error);
 	}
 

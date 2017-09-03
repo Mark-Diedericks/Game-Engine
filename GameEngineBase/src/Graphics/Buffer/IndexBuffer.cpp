@@ -31,22 +31,37 @@ namespace gebase { namespace graphics {
 
 		current = api;
 
+		API::APIIndexBuffer* inst;
+
 		if (m_Type) 
 		{
 			uint* data = genew uint[m_Count];
-			memcpy(data, m_Instance->getIndexData32(), m_Count * sizeof(uint));
+			this->m_Instance->getIndexData32(data);
 
-			gedel m_Instance;
-			m_Instance = API::APIIndexBuffer::Create(data, m_Count);
+			inst = API::APIIndexBuffer::Create(data, m_Count);
+
+			//if(data)
+			//	gedel[] data;
+
+			gedel this->m_Instance;
 		}
 		else
 		{
 			uint16* data = genew uint16[m_Count];
-			memcpy(data, m_Instance->getIndexData16(), m_Count * sizeof(uint16));
+			this->m_Instance->getIndexData16(data);
 
-			gedel m_Instance;
-			m_Instance = API::APIIndexBuffer::Create(data, m_Count);
+			inst = API::APIIndexBuffer::Create(data, m_Count);
+
+			//if(data)
+			//	gedel[] data;
+
+			gedel this->m_Instance;
 		}
+
+		if (!inst)
+			return false;
+
+		this->m_Instance = inst;
 
 		return true;
 	}

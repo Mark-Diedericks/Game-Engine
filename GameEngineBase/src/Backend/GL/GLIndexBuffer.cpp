@@ -12,6 +12,7 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glGenBuffers(1, &m_Handle));
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Handle));
 		GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint16), data, GL_STATIC_DRAW));
+		gedel[] data;
 	}
 
 	GLIndexBuffer::GLIndexBuffer(uint* data, uint count) : m_Count(count)
@@ -19,6 +20,7 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glGenBuffers(1, &m_Handle));
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Handle));
 		GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint), data, GL_STATIC_DRAW));
+		gedel[] data;
 	}
 
 	GLIndexBuffer::~GLIndexBuffer()
@@ -36,28 +38,18 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	}
 
-	uint* GLIndexBuffer::getIndexData32()
+	void GLIndexBuffer::getIndexData32(uint* data)
 	{
 		Bind();
-
-		uint* data = genew uint[m_Count];
 		glGetBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, m_Count * sizeof(uint), data);
-
 		Unbind();
-
-		return data;
 	}
 
-	uint16* GLIndexBuffer::getIndexData16()
+	void GLIndexBuffer::getIndexData16(uint16* data)
 	{
 		Bind();
-
-		uint16* data = genew uint16[m_Count];
 		glGetBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, m_Count * sizeof(uint16), data);
-
 		Unbind();
-
-		return data;
 	}
 
 } } }

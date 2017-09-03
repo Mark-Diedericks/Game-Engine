@@ -24,6 +24,7 @@ namespace gebase { namespace graphics {
 
 		gedel this->m_Instance;
 		this->m_Instance = API::APIFramebuffer2D::Create(m_Width, m_Height);
+
 		return true;
 	}
 

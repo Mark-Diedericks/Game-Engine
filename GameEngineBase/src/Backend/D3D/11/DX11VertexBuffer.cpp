@@ -91,9 +91,9 @@ namespace gebase { namespace graphics { namespace API {
 		DX11Context::getDeviceContext()->Unmap(m_Handle, NULL);
 	}
 
-	void* DX11VertexBuffer::getBufferData()
+	void DX11VertexBuffer::getBufferData(void* data)
 	{
-		return nullptr;
+		data = nullptr;
 	}
 
 } } }

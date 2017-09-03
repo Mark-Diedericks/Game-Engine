@@ -18,7 +18,8 @@ namespace gebase { namespace graphics { namespace API {
 		static APITextureCube* CreateFromVerticalCross(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits);
 		static APITextureCube* CreateFromVerticalCross(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits);
 
-		virtual byte*** getPixelData() = 0;
+		virtual void getPixelData(byte*** pixels) = 0;
+		virtual uint getSize() const = 0;
 	};
 
 } } }

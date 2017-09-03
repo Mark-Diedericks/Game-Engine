@@ -18,8 +18,8 @@ namespace gebase { namespace graphics { namespace API {
 		void Bind() const;
 		void Unbind() const;
 
-		uint* getIndexData32() override;
-		uint16* getIndexData16() override;
+		void getIndexData32(uint* data) override;
+		void getIndexData16(uint16* data) override;
 
 		uint getCount() const { return m_Count; }
 	};

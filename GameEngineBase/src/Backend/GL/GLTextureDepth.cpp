@@ -48,22 +48,22 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
 	}
 
-	uint16* GLTextureDepth::getPixelData()
-	{
-		Bind();
-
-		uint16* pixels = genew uint16[m_Width * m_Height * 1];
-		GLCall(glGetTexImage(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, pixels));
-
-		Unbind();
-
-		return (uint16*)pixels;
-	}
-	
-	void GLTextureDepth::setData(const void* pixels)
+	void GLTextureDepth::setData(const uint16* pixels)
 	{
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_Handle));
 		GLCall(glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_Width, m_Height, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, pixels));
+	}
+
+	void GLTextureDepth::getPixelData(uint16* pixels)
+	{
+		Bind();
+		GLCall(glGetTexImage(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, pixels));
+		Unbind();
+	}
+
+	uint GLTextureDepth::getSize() const
+	{
+		return m_Width * m_Height * 1;
 	}
 
 } } }

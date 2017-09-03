@@ -26,8 +26,8 @@ namespace gebase { namespace graphics { namespace API {
 		void Unbind() const override;
 		void Clear() override;
 		
-		uint16* getPixelData() override;
-		void setData(const void* data) override;
+		void getPixelData(uint16* data) override;
+		void setData(const uint16* data) override;
 
 		inline uint getWidth() const override { return m_Width; }
 		inline uint getHeight() const override { return m_Height; }

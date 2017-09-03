@@ -21,11 +21,21 @@ namespace gebase { namespace graphics {
 
 		current = api;
 
-		uint16* pixels = this->m_Instance->getPixelData();
+		uint16* pixels = genew uint16[this->m_Instance->getSize()];
+		this->m_Instance->getPixelData(pixels);
+
+		API::APITextureDepth* inst = API::APITextureDepth::Create(m_Width, m_Height);
+		inst->setData(pixels);
+
+		if(pixels)
+			gedel[] pixels;
+
 		gedel this->m_Instance;
 
-		this->m_Instance = API::APITextureDepth::Create(m_Width, m_Height);
-		this->m_Instance->setData(pixels);
+		if (!inst)
+			return false;
+
+		this->m_Instance = inst;
 
 		return true;
 	}

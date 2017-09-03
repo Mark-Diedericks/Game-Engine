@@ -15,6 +15,11 @@ namespace gebase { namespace graphics { namespace API {
 
 	void APIRenderer::Init()
 	{
+		if (s_Instance != nullptr)
+			gedel s_Instance;
+
+		s_Instance = nullptr;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
 		case RenderAPI::OPENGL: s_Instance = genew GLRenderer(); break;

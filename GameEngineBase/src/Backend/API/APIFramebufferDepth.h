@@ -9,8 +9,8 @@ namespace gebase { namespace graphics { namespace API {
 	public:
 		static APIFramebufferDepth* Create(uint width, uint height);
 
-		virtual uint16* getPixelData() = 0;
-		virtual void setData(const void* data) = 0;
+		virtual void getPixelData(uint16* data) = 0;
+		virtual void setData(const uint16* data) = 0;
 	};
 
 } } }

@@ -13,6 +13,8 @@ namespace gebase { namespace graphics { namespace API {
 	GLFramebuffer2D::~GLFramebuffer2D()
 	{
 		GLCall(glDeleteFramebuffers(1, &m_FramebufferHandle));
+		gedel m_Texture->getInstance();
+		gedel m_Texture;
 	}
 
 	void GLFramebuffer2D::Init()
@@ -49,12 +51,12 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 	}
 
-	byte* GLFramebuffer2D::getPixelData()
+	void GLFramebuffer2D::getPixelData(byte* data)
 	{
-		return m_Texture->getPixelData();
+		m_Texture->getPixelData(data);
 	}
 
-	void GLFramebuffer2D::setData(const void* pixels)
+	void GLFramebuffer2D::setData(const byte* pixels)
 	{
 		m_Texture->setData(pixels);
 	}

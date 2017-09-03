@@ -68,16 +68,11 @@ namespace gebase { namespace graphics { namespace API {
 		return result;
 	}
 
-	void* GLVertexBuffer::getBufferData()
+	void GLVertexBuffer::getBufferData(void* data)
 	{
 		Bind();
-
-		byte* data = genew byte[m_Size];
 		glGetBufferSubData(GL_ARRAY_BUFFER, 0, m_Size, data);
-
 		Unbind();
-
-		return (void*)data;
 	}
 
 } } }

@@ -61,21 +61,21 @@ namespace gebase { namespace graphics {
 
 		uint* width = genew uint[mips];
 		uint* height = genew uint[mips];
-		uint* bits = genew uint[mips];
+		uint bits = 32;
 
 		for (uint i = 0; i < (uint)mips; i++)
 		{
-			pixels[i] = LoadImage(files[i], &width[i], &height[i], &bits[i], true);
+			pixels[i] = LoadImage(files[i], &width[i], &height[i], &bits, true);
 		}
 
-		thisTC->m_BitsPerPixel = bits[0];
+		thisTC->m_BitsPerPixel = bits;
 		thisTC->m_Width = width;
 		thisTC->m_Height = height;
 		thisTC->m_Mips = mips;
 		thisTC->m_Name = files[0];
 		thisTC->m_LoadType = 2;
 
-		thisTC->m_Instance = API::APITextureCube::CreateFromVerticalCross(files[0], const_cast<const byte**>(pixels), mips, width, height, bits[0]);
+		thisTC->m_Instance = API::APITextureCube::CreateFromVerticalCross(files[0], const_cast<const byte**>(pixels), mips, width, height, bits);
 		return thisTC;
 	}
 
@@ -85,9 +85,8 @@ namespace gebase { namespace graphics {
 			return true;
 
 		current = api;
-
-		byte*** faces = this->m_Instance->getPixelData();
-		gedel this->m_Instance;
+		
+		API::APITextureCube* inst;
 
 		switch (m_LoadType)
 		{
@@ -104,11 +103,32 @@ namespace gebase { namespace graphics {
 
 			uint* fHeight = genew uint[m_Mips];
 			for (uint i = 0; i < m_Mips; i++)
-				fHeight[i] = m_Height[i] / 4;
+				fHeight[i] = m_Height[i] / 4;		
+			
+			byte*** faces = genew byte**[m_Mips];
+			uint stride = m_BitsPerPixel / 8;
 
-			this->m_Instance = API::APITextureCube::CreateFromVerticalCross(m_Name, const_cast<const byte***>(faces), m_Mips, fWidth, fHeight, m_BitsPerPixel);
+			for (uint i = 0; i < m_Mips; i++)
+			{
+				faces[i] = genew byte*[6];
+				for (int f = 0; f < 6; f++)
+				{
+					faces[i][f] = genew byte[fWidth[i] * fHeight[i] * stride];
+				}
+			}
+
+			this->m_Instance->getPixelData(faces);
+
+			inst = API::APITextureCube::CreateFromVerticalCross(m_Name, const_cast<const byte***>(faces), m_Mips, fWidth, fHeight, m_BitsPerPixel);
 			break;
 		}
+
+		gedel this->m_Instance;
+
+		if (!inst)
+			return false;
+
+		this->m_Instance = inst;
 
 		return true;
 	}

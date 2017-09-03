@@ -43,7 +43,10 @@ namespace gebase { namespace graphics {
 
 	bool Font::EmployRenderAPI(RenderAPI api)
 	{
-		return m_Texture->EmployRenderAPI(api);
+		if (!m_Texture->EmployRenderAPI(api))
+			return false;
+
+		return true;
 	}
 
 	Texture2D* Font::getTexture() const

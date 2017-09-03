@@ -13,6 +13,8 @@ namespace gebase { namespace graphics { namespace API {
 	GLFramebufferDepth::~GLFramebufferDepth()
 	{
 		GLCall(glDeleteFramebuffers(1, &m_FramebufferHandle));
+		gedel m_Texture->getInstance();
+		gedel m_Texture;
 	}
 
 	void GLFramebufferDepth::Init()
@@ -52,12 +54,12 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glClear(GL_DEPTH_BUFFER_BIT));
 	}
 
-	uint16* GLFramebufferDepth::getPixelData()
+	void GLFramebufferDepth::getPixelData(uint16* data)
 	{
-		return m_Texture->getPixelData();
+		m_Texture->getPixelData(data);
 	}
 
-	void GLFramebufferDepth::setData(const void* pixels)
+	void GLFramebufferDepth::setData(const uint16* pixels)
 	{
 		m_Texture->setData(pixels);
 	}

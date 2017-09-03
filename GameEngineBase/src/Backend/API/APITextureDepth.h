@@ -9,8 +9,10 @@ namespace gebase { namespace graphics { namespace API {
 	public:
 		static APITextureDepth* Create(uint width, uint height);
 
-		virtual uint16* getPixelData() = 0;
-		virtual void setData(const void* data) = 0;
+		virtual void getPixelData(uint16* pixels) = 0;
+		virtual uint getSize() const = 0;
+
+		virtual void setData(const uint16* data) = 0;
 	};
 
 } } }

@@ -34,7 +34,10 @@ namespace gebase { namespace graphics { namespace API {
 
 	DX11TextureCube::~DX11TextureCube()
 	{
-
+		gedel[] m_Width;
+		gedel[] m_Height;
+		gedel[] m_FaceWidths;
+		gedel[] m_FaceHeights;
 	}
 
 	uint DX11TextureCube::LoadFromSingleFile(const byte* pixels, uint mbits)
@@ -276,9 +279,14 @@ namespace gebase { namespace graphics { namespace API {
 		DX11Context::getDeviceContext()->PSSetShaderResources(slot, 1, &nullView);
 	}
 
-	byte*** DX11TextureCube::getPixelData()
+	void DX11TextureCube::getPixelData(byte*** faces)
 	{
-		return nullptr;
+		faces = nullptr;
+	}
+
+	uint DX11TextureCube::getSize() const
+	{
+		return 0;
 	}
 
 } } }

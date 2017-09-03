@@ -52,6 +52,8 @@ namespace gebase { namespace graphics { namespace API {
 	void GLShader::Shutdown()
 	{
 		GLCall(glDeleteProgram(m_Handle));
+		gedel m_VSUserUniformBuffer;
+		gedel m_FSUserUniformBuffer;
 	}
 
 	void GLShader::Preprocess(const String& source, String** shaders)

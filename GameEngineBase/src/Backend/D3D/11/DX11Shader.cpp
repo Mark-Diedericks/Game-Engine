@@ -43,6 +43,19 @@ namespace gebase { namespace graphics { namespace API {
 	{
 		m_Data.vertexShader->Release();
 		m_Data.pixelShader->Release();
+
+		gedel m_VSUserUniformBuffer;
+		gedel m_FSUserUniformBuffer;
+
+		for (uint i = 0; i < m_VSConstantBuffersCount; i++)
+			gedel m_VSConstantBuffers[i];
+
+		gedel[] m_VSConstantBuffers;
+
+		for (uint i = 0; i < m_FSConstantBuffersCount; i++)
+			gedel m_FSConstantBuffers[i];
+
+		gedel[] m_FSConstantBuffers;
 	}
 	
 	String DX11Shader::RemoveComments(const String& source)

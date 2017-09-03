@@ -1,11 +1,11 @@
 #pragma once
-#pragma warning(disable:4595)
 
 #include "Allocator.h"
 
 #define genew new(__FILE__, __LINE__)
 #define gedel delete
 
+#pragma warning(disable : 4595)
 
 inline void* operator new(size_t size) { return gebase::Allocator::Allocate(size); }
 

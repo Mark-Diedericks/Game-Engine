@@ -48,7 +48,7 @@ namespace gebase { namespace graphics { namespace API {
 		return handle;
 	}
 
-	void GLTexture2D::setData(const void* pixels)
+	void GLTexture2D::setData(const byte* pixels)
 	{
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_Handle));
 		GLCall(glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_Width, m_Height, GLConvert::TextureFormatToGL(m_Parameters.format), GL_UNSIGNED_BYTE, pixels));
@@ -92,16 +92,16 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
 	}
 
-	byte* GLTexture2D::getPixelData()
+	void GLTexture2D::getPixelData(byte* pixels)
 	{
 		Bind();
-
-		byte* pixels = genew byte[m_Width * m_Height * getStrideFromFormat(m_Parameters.format)];
 		GLCall(glGetTexImage(GL_TEXTURE_2D, 0, GLConvert::TextureFormatToGL(m_Parameters.format), GL_UNSIGNED_BYTE, pixels));
-
 		Unbind();
+	}
 
-		return (byte*)pixels;
+	uint GLTexture2D::getSize() const
+	{
+		return m_Width * m_Height * (m_Parameters.format == TextureFormat::RGB ? 3 : 4);
 	}
 
 } } }

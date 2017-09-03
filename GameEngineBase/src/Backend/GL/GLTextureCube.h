@@ -36,7 +36,8 @@ namespace gebase { namespace graphics { namespace API {
 		GLTextureCube(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits, InputFormat format);
 		~GLTextureCube();
 
-		byte*** getPixelData() override;
+		void getPixelData(byte*** pixels) override;
+		uint getSize() const override;
 
 		void Bind(uint slot = 0) const override;
 		void Unbind(uint slot = 0) const override;

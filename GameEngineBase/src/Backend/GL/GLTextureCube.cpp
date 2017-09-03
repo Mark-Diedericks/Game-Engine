@@ -50,6 +50,10 @@ namespace gebase { namespace graphics { namespace API {
 	GLTextureCube::~GLTextureCube()
 	{
 		GLCall(glDeleteTextures(1, &m_Handle));
+		gedel[] m_Width;
+		gedel[] m_Height;
+		gedel[] m_FaceWidths;
+		gedel[] m_FaceHeights;
 	}
 
 
@@ -100,7 +104,7 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 		GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
-		uint internalFormat = GLConvert::TextureFormatToGL(m_Parameters.format); //TODO Switch to conversion class
+		uint internalFormat = GLConvert::TextureFormatToGL(m_Parameters.format);
 		uint format = internalFormat;
 
 		GLCall(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, xp));
@@ -279,21 +283,9 @@ namespace gebase { namespace graphics { namespace API {
 	}
 
 
-	byte*** GLTextureCube::getPixelData()
+	void GLTextureCube::getPixelData(byte*** cubeTextureData)
 	{
 		Bind();
-
-		byte*** cubeTextureData = genew byte**[m_Mips];
-		uint stride = m_Bits / 8;
-
-		for (uint i = 0; i < m_Mips; i++)
-		{
-			cubeTextureData[i] = genew byte*[6];
-			for (int f = 0; f < 6; f++)
-			{
-				cubeTextureData[i][f] = genew byte[m_FaceWidths[i] * m_FaceHeights[i] * stride];
-			}
-		}
 
 		uint internalFormat = GLConvert::TextureFormatToGL(m_Parameters.format);
 		uint format = internalFormat;
@@ -311,8 +303,11 @@ namespace gebase { namespace graphics { namespace API {
 		}
 
 		Unbind();
+	}
 
-		return cubeTextureData;
+	uint GLTextureCube::getSize() const
+	{
+		return m_Bits;
 	}
 
 } } }

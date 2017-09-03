@@ -41,9 +41,10 @@ void Test2D::OnInit(Renderer2D& renderer, Material& material)
 	Add(m_DebugInfo[2] = genew Label("", -15.5f, 6.5f, 0xffffffff));
 	Add(m_DebugInfo[3] = genew Label("", -15.5f, 5.5f, 0xffffffff));
 	Add(m_DebugInfo[4] = genew Label("", -15.5f, 4.5f, 0xffffffff));
+	Add(m_DebugInfo[5] = genew Label("", -15.5f, 3.5f, 0xffffffff));
 
-	Add(genew Label("Consolas", -15.5f, 0.0f, FontManager::Get("Consolas"), 0xffffffff));
-	Add(genew Label("Brush Script", -15.5f, 2.0f, FontManager::Get("Brush Script"), 0xffffffff));
+	Add(genew Label("Consolas", -15.5f, -1.0f, FontManager::Get("Consolas"), 0xffffffff));
+	Add(genew Label("Brush Script", -15.5f, 1.0f, FontManager::Get("Brush Script"), 0xffffffff));
 
 	Texture::setWrap(API::TextureWrap::CLAMP_TO_BORDER);
 	Mask* mask = genew Mask(Texture2D::CreateFromFile("Mask", "res/mask.png"));
@@ -62,6 +63,7 @@ void Test2D::OnUpdate(float delta)
 	m_DebugInfo[2]->setText("Total Allocs: " + StringFormat::ToString(MemoryManager::Get()->GetMemoryInfo().tAllocations));
 	m_DebugInfo[3]->setText("Total Allocated: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tAllocated));
 	m_DebugInfo[4]->setText("Total Freed: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tFreed));
+	m_DebugInfo[4]->setText("Render API: " + (graphics::Context::getRenderAPI() == graphics::RenderAPI::D3D11) ? "Direct3D 11" : "OpenGL");
 }
 
 bool Test2D::OnKeyPressedEvent(KeyPressedEvent& event)

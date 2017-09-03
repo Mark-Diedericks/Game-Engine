@@ -15,7 +15,7 @@ namespace gebase { namespace graphics { namespace API {
 		case TextureFormat::LUMINANCE_ALPHA: return 4;
 		}
 
-		return 0;
+		return 4;
 	}
 
 } } }

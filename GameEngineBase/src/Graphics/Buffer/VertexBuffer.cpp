@@ -27,19 +27,27 @@ namespace gebase { namespace graphics {
 
 		current = api;
 
-		API::APIBufferLayout layout = m_Instance->getBufferLayout();
+		API::APIBufferLayout layout = this->m_Instance->getBufferLayout();
 		layout.EmployRenderAPI(api);
 
-		uint size = m_Instance->getSize();
+		uint size = this->m_Instance->getSize();
+		byte* data = genew byte[size];
+		this->m_Instance->getBufferData((void*)data);
 
-		void* data = genew byte[size];
-		memcpy(data, m_Instance->getBufferData(), size);
 
-		gedel m_Instance;
+		API::APIVertexBuffer* inst = API::APIVertexBuffer::Create(m_Usage);
+		inst->setData(size, data);
+		inst->setLayout(layout);
 
-		m_Instance = API::APIVertexBuffer::Create(m_Usage);
-		m_Instance->setData(size, data);
-		m_Instance->setLayout(layout);
+		if(data)
+			gedel[] data;
+
+		gedel this->m_Instance;
+
+		if (!inst)
+			return false;
+
+		this->m_Instance = inst;
 
 		return true;
 	}

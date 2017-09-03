@@ -70,6 +70,8 @@ namespace gebase { namespace graphics { namespace API {
 		virtual uint getWidth() const = 0;
 		virtual uint getHeight() const = 0;
 
+		virtual uint getSize() const = 0;
+
 		inline static void setWrap(TextureWrap wrap) { s_WrapMode = wrap; }
 		inline static void setFilter(TextureFilter filter) { s_FilterMode = filter; }
 

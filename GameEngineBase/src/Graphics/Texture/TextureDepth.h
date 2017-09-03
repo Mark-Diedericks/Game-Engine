@@ -19,8 +19,8 @@ namespace gebase { namespace graphics {
 
 		bool EmployRenderAPI(RenderAPI api) override;
 
-		inline uint16* getPixelData() { return m_Instance->getPixelData(); }
-		inline void setData(const void* data) { m_Instance->setData(data); }
+		inline void getPixelData(uint16* pixels) { return m_Instance->getPixelData(pixels); }
+		inline void setData(const uint16* data) { m_Instance->setData(data); }
 
 		inline void Bind(uint slot = 0) const override { m_Instance->Bind(slot); }
 		inline void Unbind(uint slot = 0) const override { m_Instance->Unbind(slot); }

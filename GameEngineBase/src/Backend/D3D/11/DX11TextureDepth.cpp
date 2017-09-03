@@ -23,14 +23,19 @@ namespace gebase { namespace graphics { namespace API {
 
 	}
 
-	void DX11TextureDepth::setData(const void* pixels)
+	void DX11TextureDepth::setData(const uint16* pixels)
 	{
 
 	}
 
-	uint16* DX11TextureDepth::getPixelData()
+	void DX11TextureDepth::getPixelData(uint16* data)
 	{
-		return nullptr;
+		data = nullptr;
+	}
+
+	uint DX11TextureDepth::getSize() const
+	{
+		return 0;
 	}
 
 } } }
