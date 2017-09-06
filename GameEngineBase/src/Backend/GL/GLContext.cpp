@@ -11,12 +11,14 @@
 namespace gebase { namespace graphics { namespace API {
 
 	static HDC hDc;
+	static HGLRC hrc;
+	static HWND hWnd;
 
 	GLContext::GLContext(WindowProperties properties, void* deviceContext)
 	{
-		hDc = GetDC((HWND)deviceContext);
+		hWnd = (HWND)deviceContext;
+		hDc = GetDC(hWnd);
 		HGLRC hrc = wglCreateContext(hDc);
-		setVSync(properties.vsync);
 
 		if (hrc)
 		{
@@ -42,6 +44,24 @@ namespace gebase { namespace graphics { namespace API {
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
+		}
+
+		setVSync(properties.vsync);
+	}
+
+	GLContext::~GLContext()
+	{
+		//TODO end glew
+
+		HGLRC hgrlc;
+		HDC hdc;
+
+		if (hgrlc = wglGetCurrentContext())
+		{
+			hdc = wglGetCurrentDC();
+			wglMakeCurrent(NULL, NULL);
+			ReleaseDC(hWnd, hdc);
+			wglDeleteContext(hgrlc);
 		}
 	}
 

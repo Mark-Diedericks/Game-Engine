@@ -24,7 +24,10 @@ namespace gebase { namespace graphics {
 
 		Shader() : IRenderAPIDependant(RenderObjectType::Shader) { }
 	public:
+		~Shader();
 		bool EmployRenderAPI(RenderAPI api) override;
+
+		inline API::ShaderDeclaration getDeclaration() const { return m_Declaration; }
 
 		inline void Bind() const { m_Instance->Bind(); }
 		inline void Unbind() const { m_Instance->Unbind(); }

@@ -80,7 +80,12 @@ namespace gebase {
 
 	bool Application::TrySetRenderAPI(graphics::RenderAPI api)
 	{
-		return graphics::Context::EmployRenderAPI(api);
+		if (!graphics::Context::EmployRenderAPI(api))
+			return false;
+
+		std::cout << "Render API Employment: Success!" << std::endl;
+
+		return true;
 	}
 
 	void Application::OnEvent(events::Event& event)

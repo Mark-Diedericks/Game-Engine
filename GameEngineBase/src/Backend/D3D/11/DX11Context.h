@@ -33,6 +33,7 @@ namespace gebase { namespace graphics { namespace API {
 		ID3D11RenderTargetView* backbuffer;
 
 		DX11Context(WindowProperties properties, void* deviceContext);
+		~DX11Context();
 
 		void Present();
 

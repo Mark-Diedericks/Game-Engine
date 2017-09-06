@@ -39,12 +39,14 @@ namespace gebase { namespace graphics {
 			return false;
 
 		for (uint i = 0; i < s_RendererObjects.size(); i++)
+			if(s_RendererObjects[i])
 			if (!s_RendererObjects[i]->EmployRenderAPI(api))
 				return false;
 
 		for (uint i = 0; i < s_RenderableObjects.size(); i++)
-			if (!s_RenderableObjects[i]->EmployRenderAPI(api))
-				return false;
+			if(s_RenderableObjects[i])
+				if (!s_RenderableObjects[i]->EmployRenderAPI(api))
+					return false;
 
 		return true;
 	}

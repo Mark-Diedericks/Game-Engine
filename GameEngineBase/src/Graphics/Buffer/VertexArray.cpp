@@ -21,18 +21,19 @@ namespace gebase { namespace graphics {
 
 		current = api;
 
-		std::vector<VertexBuffer*> buffers = m_Instance->getBuffers();
+		std::vector<VertexBuffer*> buffers(m_Instance->getBuffers());
 
 		for (uint i = 0; i < buffers.size(); i++)
 			if (!buffers[i]->EmployRenderAPI(api))
 				return false;
 
-		gedel this->m_Instance;
+		API::APIVertexArray* inst = API::APIVertexArray::Create();
 
-		m_Instance = API::APIVertexArray::Create();
-		
-		for(VertexBuffer* buffer : buffers)
-			m_Instance->PushBuffer(buffer);
+		for (uint i = 0; i < buffers.size(); i++)
+			inst->PushBuffer(buffers[i]);
+
+		gedel this->m_Instance;
+		this->m_Instance = inst;
 
 		return true;
 	}

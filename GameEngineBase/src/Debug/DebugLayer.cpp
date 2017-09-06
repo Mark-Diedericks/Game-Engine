@@ -17,7 +17,7 @@ namespace gebase { namespace debug {
 	
 	DebugLayer* DebugLayer::s_Instance = nullptr;
 
-	DebugLayer::DebugLayer() : Layer2D(Matrix4f::Orthographic(0.0f, 32.0f, 0.0f, 18.0f, -1.0f, 1.0f)), m_Application(Application::getApplication())
+	DebugLayer::DebugLayer() : Layer2D(Matrix4f::Orthographic(0.0f, 32.0f, 0.0f, 18.0f, -1.0f, 1.0f)), m_Application(Application::getApplication()), m_TotalDelta(0.0f)
 	{
 		s_Instance = this;
 	}
@@ -42,6 +42,13 @@ namespace gebase { namespace debug {
 	void DebugLayer::OnUpdate(float delta)
 	{
 		DebugMenu::Get()->OnUpdate(delta);
+
+		m_TotalDelta += delta;
+
+		if (m_TotalDelta < 1000.0f)
+			return;
+
+		m_TotalDelta = 0.0f;
 
 		m_FPSLabel->setText(StringFormat::ToString(m_Application.getFPS()) + " fps");
 		m_FrametimeLabel->setText(StringFormat::ToString(m_Application.getFrT()) + " ms");

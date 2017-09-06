@@ -10,7 +10,6 @@ namespace gebase { namespace graphics {
 	{
 		IndexBuffer* thisIB = genew IndexBuffer();
 		thisIB->m_Type = 0;
-		thisIB->m_Count = count;
 		thisIB->m_Instance = API::APIIndexBuffer::Create(data, count);
 		return thisIB;
 	}
@@ -19,7 +18,6 @@ namespace gebase { namespace graphics {
 	{
 		IndexBuffer* thisIB = genew IndexBuffer();
 		thisIB->m_Type = 1;
-		thisIB->m_Count = count;
 		thisIB->m_Instance = API::APIIndexBuffer::Create(data, count);
 		return thisIB;
 	}
@@ -35,25 +33,19 @@ namespace gebase { namespace graphics {
 
 		if (m_Type) 
 		{
-			uint* data = genew uint[m_Count];
+			uint* data = genew uint[getCount()];
 			this->m_Instance->getIndexData32(data);
 
-			inst = API::APIIndexBuffer::Create(data, m_Count);
-
-			//if(data)
-			//	gedel[] data;
+			inst = API::APIIndexBuffer::Create(data, getCount());
 
 			gedel this->m_Instance;
 		}
 		else
 		{
-			uint16* data = genew uint16[m_Count];
+			uint16* data = genew uint16[getCount()];
 			this->m_Instance->getIndexData16(data);
 
-			inst = API::APIIndexBuffer::Create(data, m_Count);
-
-			//if(data)
-			//	gedel[] data;
+			inst = API::APIIndexBuffer::Create(data, getCount());
 
 			gedel this->m_Instance;
 		}

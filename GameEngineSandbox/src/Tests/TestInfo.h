@@ -1,14 +1,14 @@
 #pragma once
-
 #include <GameEngineBase.h>
 
-class Test2D : public gebase::graphics::Layer2D
+class TestInfo : public gebase::graphics::Layer2D
 {
 private:
+	gebase::graphics::Label** m_DebugInfo;
 	gebase::graphics::Renderer2D* m_Renderer;
 public:
-	Test2D();
-	~Test2D();
+	TestInfo();
+	~TestInfo();
 
 	void OnInit(gebase::graphics::Renderer2D& renderer, gebase::graphics::Material& material) override;
 

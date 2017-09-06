@@ -1,5 +1,6 @@
 #include <GameEngineBase.h>
 
+#include "Tests/TestInfo.h"
 #include "Tests/Test2D.h"
 #include "Tests/Test3D.h"
 #include "Tests/SponzaTest.h"
@@ -28,9 +29,11 @@ public:
 		VirtualFileSystem::Get()->Mount("pbr", "res/pbr");
 		VirtualFileSystem::Get()->Mount("shaders", "shaders");
 
-		//PushLayer(genew SponzaTest());
+		PushLayer(genew SponzaTest());
 		//PushLayer(genew Test3D());
-		PushLayer(genew Test2D());
+		//PushLayer(genew Test2D());
+
+		PushLayer(genew TestInfo());
 	}
 
 };

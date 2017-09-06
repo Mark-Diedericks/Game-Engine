@@ -61,7 +61,8 @@ namespace gebase { namespace graphics {
 			if (!m_MaterialInstance->EmployRenderAPI(api))
 				return false;
 
-		m_MaterialInstance->getMaterial()->getShader()->Bind();
+		if (m_MaterialInstance)
+			m_MaterialInstance->getMaterial()->getShader()->Bind();
 
 		if (m_VertexArray)
 			if (!m_VertexArray->EmployRenderAPI(api))

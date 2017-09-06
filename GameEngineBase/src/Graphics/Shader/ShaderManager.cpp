@@ -33,17 +33,17 @@ namespace gebase { namespace graphics {
 		{
 			if (s_Shaders[i]->getName() == name)
 			{
-				String path = s_Shaders[i]->getFilepath();
+				API::ShaderDeclaration path = s_Shaders[i]->getDeclaration();
 				String error;
 
-				if (!Shader::TryCompileFromFile({ name, path, path, path, path }, error))
+				if (!Shader::TryCompileFromFile(path, error))
 				{
 					std::cout << "[ShaderManager] Reload() - TryCompileFromFile has failed." << std::endl;
 				}
 				else
 				{
 					s_Shaders[i]->~Shader();
-					s_Shaders[i] = Shader::CreateFromFile({ name , path, path, path, path }, s_Shaders[i]);
+					s_Shaders[i] = Shader::CreateFromFile(path, s_Shaders[i]);
 				}
 
 				return;

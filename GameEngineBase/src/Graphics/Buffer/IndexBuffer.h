@@ -11,7 +11,6 @@ namespace gebase { namespace graphics {
 	private:
 		API::APIIndexBuffer* m_Instance;
 
-		uint m_Count;
 		uint m_Type;
 
 		IndexBuffer() : IRenderAPIDependant(RenderObjectType::Buffer) { }

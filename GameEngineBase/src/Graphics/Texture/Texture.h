@@ -12,8 +12,12 @@ namespace gebase { namespace graphics {
 	{
 	protected:
 		Texture() : IRenderAPIDependant(RenderObjectType::Texture) { }
+		String m_Name;
 	public:
 		virtual ~Texture() {}
+
+		inline const String& getResourceName() const { return m_Name; }
+		inline void setResourceName(const String& name) { m_Name = name; }
 
 		virtual void Bind(uint slot = 0) const = 0;
 		virtual void Unbind(uint slot = 0) const = 0;

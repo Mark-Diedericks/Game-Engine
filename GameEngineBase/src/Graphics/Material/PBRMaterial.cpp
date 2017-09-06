@@ -33,8 +33,15 @@ namespace gebase { namespace graphics {
 
 	bool PBRMaterial::EmployRenderAPI(RenderAPI api)
 	{
+		if (m_Shader)
+			if (!m_Shader->EmployRenderAPI(api))
+				return false;
+
 		if (!Material::EmployRenderAPI(api))
 			return false;
+
+		if (m_Shader)
+			m_Shader->Bind();
 
 		if (!s_PreintegratedFG->EmployRenderAPI(api))
 			return false;
@@ -164,7 +171,10 @@ namespace gebase { namespace graphics {
 
 	bool PBRMaterialInstance::EmployRenderAPI(RenderAPI api)
 	{
-		return MaterialInstance::EmployRenderAPI(api);
+		if (!MaterialInstance::EmployRenderAPI(api))
+			return false;
+
+		return true;
 	}
 
 	void PBRMaterialInstance::setEnvironmentMap(TextureCube* texture)

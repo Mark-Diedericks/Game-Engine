@@ -34,7 +34,6 @@ namespace gebase { namespace graphics {
 		byte* data = genew byte[size];
 		this->m_Instance->getBufferData((void*)data);
 
-
 		API::APIVertexBuffer* inst = API::APIVertexBuffer::Create(m_Usage);
 		inst->setData(size, data);
 		inst->setLayout(layout);

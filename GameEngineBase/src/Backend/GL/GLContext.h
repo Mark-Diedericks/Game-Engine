@@ -11,6 +11,7 @@ namespace gebase { namespace graphics { namespace API {
 		void setVSync(bool enabled);
 	public:
 		GLContext(WindowProperties properties, void* deviceContext);
+		~GLContext();
 		void Present();
 		inline static GLContext* Get() { return (GLContext*)s_Context; }
 	};

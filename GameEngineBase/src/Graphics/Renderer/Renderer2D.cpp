@@ -55,10 +55,9 @@ namespace gebase { namespace graphics {
 
 	bool Renderer2D::PreEmployRenderAPI()
 	{
-		if (!m_Began)
-			return true;
+		if (m_Began)
+			End();
 
-		End();
 		Present();
 		return true;
 	}

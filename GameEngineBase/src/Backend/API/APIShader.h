@@ -51,7 +51,6 @@ namespace gebase { namespace graphics { namespace API {
 		static bool GE_API TryCompile(const API::ShaderSource& source, String& error);
 		static bool GE_API TryCompileFromFile(const ShaderDeclaration& shader, const API::ShaderSource& source, String& error);
 
-		static APIShader* CreateFromFile(const ShaderDeclaration& shader, const API::ShaderSource& source, void* address = nullptr);
 		static APIShader* CreateFromSource(const ShaderDeclaration& shader, const API::ShaderSource& source);
 	};
 

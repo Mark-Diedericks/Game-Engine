@@ -7,15 +7,6 @@
 
 namespace gebase { namespace graphics {
 
-	enum VertexAttribute
-	{
-		POSITION = BIT(0),
-		NORMAL = BIT(1),
-		UV = BIT(2),
-		BINORMAL = BIT(3),
-		TANGET = BIT(4)
-	};
-
 	struct ModelFormat
 	{
 		char* header = "SPMF";
@@ -57,7 +48,11 @@ namespace gebase { namespace graphics {
 
 	bool Model::EmployRenderAPI(RenderAPI api)
 	{
-		return m_Mesh->EmployRenderAPI(api);
+		if (m_Mesh)
+			if (!m_Mesh->EmployRenderAPI(api))
+				return false;
+
+		return true;
 	}
 
 	byte* ReadBytes(FILE* file, byte* buffer, uint size)
@@ -174,7 +169,7 @@ namespace gebase { namespace graphics {
 		va->PushBuffer(vb);
 
 		IndexBuffer* ib = IndexBuffer::Create((uint*)format.indexData, format.indexBufferSize / sizeof(uint));
-		
+
 		m_Mesh = genew Mesh(va, ib, nullptr);
 
 #ifdef GE_DEBUG

@@ -131,11 +131,13 @@
     <ClCompile Include="src\Tests\Test2D.cpp" />
     <ClCompile Include="src\Tests\Test3D.cpp" />
     <ClCompile Include="src\Tests\SponzaTest.cpp" />
+    <ClCompile Include="src\Tests\TestInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Tests\Test2D.h" />
     <ClInclude Include="src\Tests\Test3D.h" />
     <ClInclude Include="src\Tests\SponzaTest.h" />
+    <ClInclude Include="src\Tests\TestInfo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

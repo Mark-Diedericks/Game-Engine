@@ -299,9 +299,6 @@ void Test3D::OnEvent(Event& event)
 				case GE_KEY_C:
 					m_Scene->setCamera(m_Scene->getCamera() == m_MayaCamera ? m_FPSCamera : m_MayaCamera);
 					break;
-				case GE_KEY_0:
-					Application::getApplication().TrySetRenderAPI(graphics::Context::getRenderAPI() == graphics::RenderAPI::D3D11 ? graphics::RenderAPI::OPENGL : graphics::RenderAPI::D3D11);
-					break;
 			}
 		}
 	}

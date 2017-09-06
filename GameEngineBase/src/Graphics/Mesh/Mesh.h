@@ -41,6 +41,9 @@ namespace gebase { namespace graphics {
 		bool PreEmployRenderAPI() override;
 		bool EmployRenderAPI(RenderAPI api) override;
 
+		inline VertexArray* getVertexArray() const { return m_VertexArray; }
+		inline IndexBuffer* getIndexBuffer() const { return m_IndexBuffer; }
+
 		inline void setMaterial(MaterialInstance* materialInstance) { m_MaterialInstance = materialInstance; }
 		inline MaterialInstance* getMaterialInstance() const { return m_MaterialInstance; }
 

@@ -25,6 +25,8 @@ namespace gebase { namespace debug {
 		graphics::Label* m_MemoryUsageLabel;
 		graphics::Label* m_FrametimeLabel;
 
+		float m_TotalDelta;
+
 		std::vector<graphics::Sprite*> m_TempSprites;
 	public:
 		DebugLayer();

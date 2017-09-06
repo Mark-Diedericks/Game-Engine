@@ -28,6 +28,11 @@ namespace gebase { namespace graphics { namespace API {
 		InitD3D((HWND)deviceContext);
 	}
 
+	DX11Context::~DX11Context()
+	{
+
+	}
+
 	void DX11Context::InitD3D(HWND hWnd)
 	{
 		uint width = m_Properties.width;
