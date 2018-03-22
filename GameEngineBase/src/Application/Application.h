@@ -29,13 +29,15 @@ namespace gebase {
 		uint m_FPS;
 		float m_FrT;
 
+		String m_LogDirectory;
+
 		String m_Name;
 		WindowProperties m_Properties;
 
 		std::vector<graphics::Layer*> m_LayerStack;
 		std::vector<graphics::Layer*> m_OverlayStack;
 	public:
-		Application(const String& name, const WindowProperties& properties, graphics::RenderAPI api = graphics::RenderAPI::OPENGL);
+		Application(const String& name, const WindowProperties& properties, graphics::RenderAPI api = graphics::RenderAPI::OPENGL, const String& logDirectory = "./logs/");
 		virtual ~Application();
 		virtual void Create();
 

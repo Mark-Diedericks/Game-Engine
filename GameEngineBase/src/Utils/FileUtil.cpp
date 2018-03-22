@@ -1,6 +1,7 @@
 #include "ge.h"
 #include "CustomString.h"
 #include "FileUtil.h"
+#include "LogUtil.h"
 
 namespace gebase { namespace utils {
 
@@ -8,7 +9,7 @@ namespace gebase { namespace utils {
 		FILE* file = fopen(filepath, "rt");
 
 		if (file == nullptr)
-			std::cout << "Could not open file " << filepath << "." << std::endl;
+			LogUtil::WriteLine("ERROR", "[FileUtil] ReadFile() - Could not open file " + (String)filepath);
 
 		fseek(file, 0, SEEK_END);
 		int32 length = ftell(file);

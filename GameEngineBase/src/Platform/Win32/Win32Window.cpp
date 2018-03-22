@@ -17,6 +17,8 @@
 #include "Graphics/Font/FontManager.h"
 #include "Events/EventHeader.h"
 
+#include "Utils\LogUtil.h"
+
 #include <GL/glew.h>
 
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
@@ -62,7 +64,7 @@ namespace gebase {
 
 		if (!RegisterClassA(&wndClass))
 		{
-			std::cout << "[Win32Window] PlatformInit() - Could not register the Win32 Window Class." << std::endl;
+			utils::LogUtil::WriteLine("CRITICAL", "[Win32Window] PlatformInit() - Could not register the Win32 Window Class.");
 			return false;
 		}
 
@@ -73,7 +75,7 @@ namespace gebase {
 
 		if (!hWnd)
 		{
-			std::cout << "[Win32Window] PlatformInit() - Failed to create the window handle." << std::endl;
+			utils::LogUtil::WriteLine("CRITICAL", "[Win32Window] PlatformInit() - Failed to create the window handle.");
 			return false;
 		}
 
@@ -87,13 +89,13 @@ namespace gebase {
 		{
 			if (!SetPixelFormat(hDc, pf, &pfd))
 			{
-				std::cout << "[Win32Window] PlatformInit() - Failed to set the pixel format." << std::endl;
+				utils::LogUtil::WriteLine("CRITICAL", "[Win32Window] PlatformInit() - Failed to set the pixel format.");
 				return false;
 			}
 		}
 		else
 		{
-			std::cout << "[Win32Window] PlatformInit() - Failed to choose the pixel format." << std::endl;
+			utils::LogUtil::WriteLine("CRITICAL", "[Win32Window] PlatformInit() - Failed to choose the pixel format.");
 			return false;
 		}
 

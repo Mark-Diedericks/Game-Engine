@@ -1,6 +1,7 @@
 #include "ge.h"
 #include "System.h"
 #include "VirtualFileSystem.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase {
 
@@ -23,9 +24,9 @@ namespace gebase {
 
 	void System::LogSystemInfo()
 	{
-		std::cout << "--------------------------" << std::endl;
-		std::cout << "    SYSTEM INFORMATION    " << std::endl;
-		std::cout << "--------------------------" << std::endl;
+		utils::LogUtil::WriteLine("INFO", "--------------------------");
+		utils::LogUtil::WriteLine("INFO", "    SYSTEM INFORMATION    ");
+		utils::LogUtil::WriteLine("INFO", "--------------------------");
 
 		//s_SystemInfo.processorInfo.Log();
 		s_SystemInfo.memoryInfo.Log();

@@ -7,6 +7,8 @@
 #include "System/Memory.h"
 #include "System/VirtualFileSystem.h"
 
+#include "Utils\LogUtil.h"
+
 namespace gebase {
 	
 	byte* LoadImage(const char* filename, uint* width, uint* height, uint* bits, bool flipY) 
@@ -15,7 +17,7 @@ namespace gebase {
 
 		if (!VirtualFileSystem::Get()->ResolveActualPath(filename, actualPath))
 		{
-			std::cout << "[ImageUtil] LoadImage() - Could not resolve the actual path for the file; " << filename << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[ImageUtil] LoadImage() - Could not resolve the actual path for the file; " + (String)filename);
 			return nullptr;
 		}
 
@@ -31,7 +33,7 @@ namespace gebase {
 
 		if (fif == FIF_UNKNOWN)
 		{
-			std::cout << "[ImageUtil] LoadImage() - Could not find a compatiable fif in the file: " << filename << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[ImageUtil] LoadImage() - Could not find a compatiable fif in the file: " + (String)filename);
 			return nullptr;
 		}
 
@@ -40,7 +42,7 @@ namespace gebase {
 
 		if (!fib)
 		{
-			std::cout << "[ImageUtil] LoadImage() - Could not load image: " << filename << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[ImageUtil] LoadImage() - Could not load image: " + (String)filename);
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -72,7 +74,7 @@ namespace gebase {
 		int32 size = w * h * (b / 8);
 		byte* result = genew byte[size];
 		
-		std::cout << "[INFO - ImageUtil] LoadImage() - the width is; " << w << " the height is; " << h << " the bit depth is; " << b << std::endl;
+		utils::LogUtil::WriteLine("INFO", "[ImageUtil] LoadImage() - the width is; " + std::to_string(w) + " the height is; " + std::to_string(h) + " the bit depth is; " + std::to_string(b));
 
 		memcpy(result, pixels, size);
 		FreeImage_Unload(bitmap);

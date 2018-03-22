@@ -67,7 +67,7 @@ namespace gebase { namespace graphics { namespace API {
 		template <typename T>
 		void Push(const String& name, uint count = 1, bool normalized = false)
 		{
-			std::cout << "Error, unknown type buffer element type" << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[APIBufferLayout] Push() - Unknown type buffer element type");
 		}
 
 		template <>

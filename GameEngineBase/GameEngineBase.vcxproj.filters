@@ -494,6 +494,8 @@
     </ClCompile>
     <ClCompile Include="src\Graphics\IRenderAPIDependant.cpp" />
     <ClCompile Include="src\Backend\API\APIConvert.cpp" />
+    <ClCompile Include="src\Utils\LogUtil.cpp" />
+    <ClCompile Include="src\Utils\LogStream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ge.h">
@@ -953,6 +955,8 @@
     <ClInclude Include="src\Backend\API\APIConvert.h" />
     <ClInclude Include="src\Graphics\IRenderableBase.h" />
     <ClInclude Include="src\Graphics\Renderer\IRenderer.h" />
+    <ClInclude Include="src\Utils\LogStream.h" />
+    <ClInclude Include="src\Utils\LogUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Graphics\Shader\default\BasicLight.shader">

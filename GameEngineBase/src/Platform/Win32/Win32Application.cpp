@@ -1,10 +1,11 @@
 #include "ge.h"
 #include "Application/Application.h"
 #include "Graphics/Context.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase {
 
-	Application::Application(const String& name, const WindowProperties& properties, graphics::RenderAPI api) : m_Name(name), m_Properties(properties), m_FrT(0.0f)
+	Application::Application(const String& name, const WindowProperties& properties, graphics::RenderAPI api, const String& logDirectory) : m_Name(name), m_Properties(properties), m_FrT(0.0f), m_LogDirectory(logDirectory)
 	{
 		s_Instance = this;
 		graphics::Context::setRenderAPI(api);
@@ -86,7 +87,7 @@ namespace gebase {
 				fpsCount = 0;
 				counter = 0.0f;
 
-				std::cout << "Render Stats |||| FrameTime: " << StringFormat::Float((float)delta).c_str() << "ms |||| FPS: " << fps << " MIN: " << minFps << " MAX: " << maxFps << " AVG: " << avgFps << std::endl;
+				utils::LogUtil::WriteLine("INFO", "Render Stats || FrameTime: " + StringFormat::Float((float)delta) + "ms || FPS: " + std::to_string(fps) + " MIN: " + std::to_string(minFps) + " MAX: "  + std::to_string(maxFps) + " AVG: " + std::to_string(avgFps));
 			}
 
 			m_FrT = (float)delta;

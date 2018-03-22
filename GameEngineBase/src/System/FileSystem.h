@@ -6,6 +6,7 @@
 namespace gebase {
 	class GE_API FileSystem {
 	public:
+		static bool MakeDirectory(const String& path);
 		static bool FileExists(const String& path);
 		static int64 GetFileSize(const String& path);
 

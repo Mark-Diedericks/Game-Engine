@@ -2,8 +2,10 @@
 #include "Common.h"
 #include "System/FileSystem.h"
 #include "System/Memory.h"
+#include "Utils\LogUtil.h"
 
 #include <Windows.h>
+#include <direct.h>
 
 namespace gebase {
 
@@ -24,16 +26,32 @@ namespace gebase {
 		return ReadFileEx(file, buffer, (DWORD)size, &overlapped, FileIOCompletionRoutine);
 	}
 
+	bool FileSystem::MakeDirectory(const String& path)
+	{
+		TCHAR full_path[MAX_PATH];
+		GetFullPathName(path.c_str(), MAX_PATH, full_path, NULL);
+		int res = mkdir(full_path);
+
+		if (res == -1)
+		{
+			DWORD err = GetLastError();
+			std::cout << "[ERROR] [Win32FileSystem] MakeDirectory() - Error code: " << err << std::endl;
+			return false;
+		}
+
+		return true;
+	}
+
 	bool FileSystem::FileExists(const String& path) {
 		DWORD res = GetFileAttributes(path.c_str());
 
 		if (res == INVALID_FILE_ATTRIBUTES)
-			std::cout << "[Win32FileSystem] FileExists() - File has invalid attributes; " << path.c_str() << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Win32FileSystem] FileExists() - File has invalid attributes; " + path);
 
 		DWORD lerror = GetLastError();
 		
 		if (lerror == ERROR_FILE_NOT_FOUND)
-			std::cout << "[Win32FileSystem] FileExists() - File does not exist; " << path.c_str() << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Win32FileSystem] FileExists() - File does not exist; " + path);
 
 		return !(res == INVALID_FILE_ATTRIBUTES && lerror == ERROR_FILE_NOT_FOUND);
 	}
@@ -105,7 +123,11 @@ namespace gebase {
 		HANDLE file = CreateFile(path.c_str(), GENERIC_WRITE, NULL, NULL, CREATE_NEW | OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
 		if (file == INVALID_HANDLE_VALUE)
+		{
+			DWORD err = GetLastError();
+			std::cout << "[ERROR] [Win32FileSystem] WriteFileBytes() - Error code: " << err << std::endl;
 			return false;
+		}
 
 		int64 size = GetFileSizeInternal(file);
 		DWORD written;

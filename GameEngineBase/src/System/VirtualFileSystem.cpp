@@ -4,6 +4,8 @@
 #include "Memory.h"
 #include "FileSystem.h"
 
+#include "Utils\LogUtil.h"
+
 namespace gebase {
 	VirtualFileSystem* VirtualFileSystem::s_Instance = nullptr;
 
@@ -18,7 +20,7 @@ namespace gebase {
 	void VirtualFileSystem::Mount(const String& virtualPath, const String& actualPath) {
 		if (!s_Instance)
 		{
-			std::cout << "[VirtualFileSystem] Mount() - Instance is null." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[VirtualFileSystem] Mount() - Instance is null.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -30,7 +32,7 @@ namespace gebase {
 	void VirtualFileSystem::Unmount(const String& path) {
 		if (!s_Instance)
 		{
-			std::cout << "[VirtualFileSystem] Unount() - Instance is null." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[VirtualFileSystem] Unount() - Instance is null.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -51,7 +53,7 @@ namespace gebase {
 
 		if (m_MountPoints.find(virtualDir) == m_MountPoints.end() || m_MountPoints[virtualDir].empty())
 		{
-			std::cout << "[VirtualFileSystem] ResolveActualPath() - Virtual directory does not exist; " << virtualDir.c_str() << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[VirtualFileSystem] ResolveActualPath() - Virtual directory does not exist; " + virtualDir);
 			return false;
 		}
 
@@ -67,7 +69,7 @@ namespace gebase {
 			}
 		}
 
-		std::cout << "[VirtualFileSystem] ResolveActualPath() - File does not exist; " << path.c_str() << std::endl;
+		utils::LogUtil::WriteLine("ERROR", "[VirtualFileSystem] ResolveActualPath() - File does not exist; " + path);
 		return false;
 	}
 

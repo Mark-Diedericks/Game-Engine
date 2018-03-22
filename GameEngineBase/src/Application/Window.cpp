@@ -8,6 +8,8 @@
 #include "Graphics/Texture/TextureManager.h"
 #include "Graphics/Font/FontManager.h"
 
+#include "Utils\LogUtil.h"
+
 #include <FreeImage.h>
 
 namespace gebase {
@@ -20,7 +22,7 @@ namespace gebase {
 	{
 		if (!Create())
 		{
-			std::cout << "[Window] Window() - Failed to initialize window base." << std::endl;
+			utils::LogUtil::WriteLine("CRTICAL", "[Window] Window() - Failed to initialize window base.");
 			return;
 		}
 
@@ -44,7 +46,7 @@ namespace gebase {
 	{
 		if (!PlatformInit())
 		{
-			std::cout << "[Window] Create() - Failed the platform initialization." << std::endl;
+			utils::LogUtil::WriteLine("CRITICAL", "[Window] Create() - Failed the platform initialization.");
 			return false;
 		}
 

@@ -2,6 +2,7 @@
 #include "MemoryManager.h"
 #include "Memory.h"
 #include "CustomString.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase {
 	MemoryManager* MemoryManager::m_Instance = nullptr;
@@ -47,10 +48,10 @@ namespace gebase {
 	}
 
 	void SystemMemoryInfo::Log() {
-		std::cout << "Avaliable Physical Memory: " << MemoryManager::BytesToString(apm).c_str() << std::endl;
-		std::cout << "Total Physical Memory: " << MemoryManager::BytesToString(tpm).c_str() << std::endl;
+		utils::LogUtil::WriteLine("INFO", "Avaliable Physical Memory: " + MemoryManager::BytesToString(apm));
+		utils::LogUtil::WriteLine("INFO", "Total Physical Memory: " + MemoryManager::BytesToString(tpm));
 
-		std::cout << "Avaliable Virtual Memory: " << MemoryManager::BytesToString(avm).c_str() << std::endl;
-		std::cout << "Total Virtual Memory: " << MemoryManager::BytesToString(tvm).c_str() << std::endl;
+		utils::LogUtil::WriteLine("INFO", "Avaliable Virtual Memory: " + MemoryManager::BytesToString(avm));
+		utils::LogUtil::WriteLine("INFO", "Total Virtual Memory: " + MemoryManager::BytesToString(tvm));
 	}
 }

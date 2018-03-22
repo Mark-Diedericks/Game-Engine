@@ -320,6 +320,8 @@
     <ClCompile Include="src\System\VirtualFileSystem.cpp" />
     <ClCompile Include="src\Utils\FileUtil.cpp" />
     <ClCompile Include="src\Utils\ImageUtil.cpp" />
+    <ClCompile Include="src\Utils\LogStream.cpp" />
+    <ClCompile Include="src\Utils\LogUtil.cpp" />
     <ClCompile Include="src\Utils\TimeUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -477,6 +479,8 @@
     <ClInclude Include="src\Types.h" />
     <ClInclude Include="src\Utils\FileUtil.h" />
     <ClInclude Include="src\Utils\ImageUtil.h" />
+    <ClInclude Include="src\Utils\LogStream.h" />
+    <ClInclude Include="src\Utils\LogUtil.h" />
     <ClInclude Include="src\Utils\TimeUtil.h" />
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,8 @@
 #include "System/System.h"
 #include "System/Memory.h"
 
+#include "Utils/LogUtil.h"
+
 namespace gebase {
 	using namespace graphics;
 	using namespace debug;
@@ -16,6 +18,7 @@ namespace gebase {
 
 	void Application::Create()
 	{
+		utils::LogUtil::Create(m_LogDirectory);
 		System::Create();
 		PlatformInit();
 
@@ -83,7 +86,7 @@ namespace gebase {
 		if (!graphics::Context::EmployRenderAPI(api))
 			return false;
 
-		std::cout << "Render API Employment: Success!" << std::endl;
+		utils::LogUtil::WriteLine("INFO", "[Application] TrySetRenderAPI() - Render API Employment: Success!");
 
 		return true;
 	}

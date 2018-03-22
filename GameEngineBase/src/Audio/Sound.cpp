@@ -2,6 +2,8 @@
 #include "Sound.h"
 #include "SoundManager.h"
 
+#include "Utils\LogUtil.h"
+
 #include <ga.h>
 #include <gau.h>
 
@@ -13,14 +15,14 @@ namespace gebase { namespace audio {
 		
 		if (split.size() < 2)
 		{
-			std::cout << "Invalid sound file name '" << m_FileName.c_str() << "'." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Sound] Sound() - Invalid sound file name '" + m_FileName + "'.");
 			return;
 		}
 
 		m_Sound = gau_load_sound_file(m_FileName.c_str(), split.back().c_str());
 
 		if (m_Sound == nullptr)
-			std::cout << "Could not load sound file '" << m_FileName.c_str() << "'." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Sound] Sound() - Could not load sound file '" + m_FileName + "'.");
 	}
 
 	Sound::~Sound()
@@ -78,7 +80,7 @@ namespace gebase { namespace audio {
 	{
 		if (!m_Playing)
 		{
-			std::cout << "The sound gain cannot be set as it is not playing." << std::endl;
+			utils::LogUtil::WriteLine("WARNING", "[Sound] setGain() - The sound gain cannot be set as it is not playing.");
 			return;
 		}
 

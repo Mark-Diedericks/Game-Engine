@@ -16,6 +16,9 @@ namespace gebase { namespace graphics {
 
 	bool TextureDepth::EmployRenderAPI(RenderAPI api)
 	{
+		utils::TimeUtil time = utils::TimeUtil();
+		time.set();
+
 		if (current == api)
 			return true;
 
@@ -36,6 +39,8 @@ namespace gebase { namespace graphics {
 			return false;
 
 		this->m_Instance = inst;
+
+		time.get();
 
 		return true;
 	}
