@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngineBase", "GameEngineBase\GameEngineBase.vcxproj", "{9BFBD146-8FC8-44BB-BCEF-2339BC57B7B6}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -38,12 +38,12 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9BFBD146-8FC8-44BB-BCEF-2339BC57B7B6}.Debug|x86.ActiveCfg = Debug|Win32
 		{9BFBD146-8FC8-44BB-BCEF-2339BC57B7B6}.Debug|x86.Build.0 = Debug|Win32
-		{9BFBD146-8FC8-44BB-BCEF-2339BC57B7B6}.Release|x86.ActiveCfg = Release|Win32
-		{9BFBD146-8FC8-44BB-BCEF-2339BC57B7B6}.Release|x86.Build.0 = Release|Win32
+		{9BFBD146-8FC8-44BB-BCEF-2339BC57B7B6}.Release|x86.ActiveCfg = Release|x64
+		{9BFBD146-8FC8-44BB-BCEF-2339BC57B7B6}.Release|x86.Build.0 = Release|x64
 		{2BDD4B3B-E6B1-4A8D-8C46-5997850ED000}.Debug|x86.ActiveCfg = Debug|Win32
 		{2BDD4B3B-E6B1-4A8D-8C46-5997850ED000}.Debug|x86.Build.0 = Debug|Win32
-		{2BDD4B3B-E6B1-4A8D-8C46-5997850ED000}.Release|x86.ActiveCfg = Release|Win32
-		{2BDD4B3B-E6B1-4A8D-8C46-5997850ED000}.Release|x86.Build.0 = Release|Win32
+		{2BDD4B3B-E6B1-4A8D-8C46-5997850ED000}.Release|x86.ActiveCfg = Release|x64
+		{2BDD4B3B-E6B1-4A8D-8C46-5997850ED000}.Release|x86.Build.0 = Release|x64
 		{BCE9869C-CDE3-4935-99AB-4522493CE0B3}.Debug|x86.ActiveCfg = Debug|Win32
 		{BCE9869C-CDE3-4935-99AB-4522493CE0B3}.Debug|x86.Build.0 = Debug|Win32
 		{BCE9869C-CDE3-4935-99AB-4522493CE0B3}.Release|x86.ActiveCfg = Release|Win32
@@ -79,5 +79,8 @@ Global
 		{E9A0F826-3688-4461-8E49-7CCC543F9E40} = {B2D6770B-0DA6-4045-925A-E508CD9E3C59}
 		{54CE06E0-6313-4F5E-8BDA-4E7815C8743C} = {B2D6770B-0DA6-4045-925A-E508CD9E3C59}
 		{8ED62764-0D19-40AC-BC88-E82AADF1189B} = {B2D6770B-0DA6-4045-925A-E508CD9E3C59}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7BD1FDE1-E021-4866-AD3E-4B76697B25CB}
 	EndGlobalSection
 EndGlobal
