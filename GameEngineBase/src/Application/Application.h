@@ -6,7 +6,7 @@
 #include "Math/Maths.h"
 #include "Graphics/Context.h"
 #include "Graphics/Layer/Layer.h"
-#include "Utils/TimeUtil.h"
+#include "Utils/Timer.h"
 
 namespace gebase {
 	namespace debug {
@@ -22,7 +22,7 @@ namespace gebase {
 		debug::DebugLayer* m_DebugLayer;
 
 	private:
-		utils::TimeUtil m_Timer;
+		Timer* m_Timer;
 		bool m_Running;
 		bool m_Suspended;
 		uint m_UPS;

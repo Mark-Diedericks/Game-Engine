@@ -51,15 +51,16 @@ namespace gebase {
 		//Update: Update Tick (60 times per second)
 		//Tick: Once per second
 
-		m_Timer = utils::TimeUtil();
+		m_Timer = new Timer();
 
 		const float updateTick = 1000.0f / 60.0f;
 		const float statisticsInterval = 1000.0f;
 
-		double delta = 0.0;
+		float now = 0.0;
 
-		float fpsCounter = 0.0;
-		float upsCounter = 0.0;
+		float fpsPrevious = m_Timer->ElapsedMillis();
+		float upsPrevious = m_Timer->ElapsedMillis();
+		float previous = m_Timer->ElapsedMillis();
 
 		long long avgFpsCount = 0;
 		long secondsCount = 0;
@@ -74,30 +75,28 @@ namespace gebase {
 
 		while (m_Running)
 		{
-			delta = m_Timer.get();
-			m_Timer.set();
-
-			fpsCounter += (float)delta;
-			upsCounter += (float)delta;
+			now = m_Timer->ElapsedMillis();
 
 			fpsCount++;
 
-			m_FrT = (float)delta;
+			m_FrT = (float)now - previous;
+			previous = now;
+
 			window->Clear();
 
-			if (upsCounter >= updateTick)
+			if (now - upsPrevious >= updateTick)
 			{
-				OnUpdate(upsCounter);
+				OnUpdate(now - upsPrevious);
 				upsCount++;
-				upsCounter = 0.0f;
+				upsPrevious += updateTick;
 			}
 
 			OnRender();
 			window->Update();
 
-			if (fpsCounter >= statisticsInterval) {
-				fps = (unsigned int)((double)fpsCount / ((double)fpsCounter / 1000.0));
-				ups = (unsigned int)((double)upsCount / ((double)fpsCounter / 1000.0));
+			if (now - fpsPrevious >= statisticsInterval) {
+				fps = (unsigned int)((double)fpsCount / ((double)(now - fpsPrevious) / 1000.0));
+				ups = (unsigned int)((double)upsCount / ((double)(now - fpsPrevious) / 1000.0));
 
 				avgFpsCount += fps;
 				secondsCount++;
@@ -115,11 +114,12 @@ namespace gebase {
 
 				fpsCount = 0;
 				upsCount = 0;
-				fpsCounter = 0.0f;
+
+				fpsPrevious = now;
 
 				OnTick();
 
-				utils::LogUtil::WriteLine("INFO", "Render Stats || FrameTime: " + StringFormat::Float((float)delta) + "ms || UPS: " + std::to_string(ups) + " || FPS: " + std::to_string(fps) + " MIN: " + std::to_string(minFps) + " MAX: " + std::to_string(maxFps) + " AVG: " + std::to_string(avgFps));
+				utils::LogUtil::WriteLine("INFO", "Render Stats || FrameTime: " + StringFormat::Float((float)m_FrT) + "ms || UPS: " + std::to_string(ups) + " || FPS: " + std::to_string(fps) + " MIN: " + std::to_string(minFps) + " MAX: " + std::to_string(maxFps) + " AVG: " + std::to_string(avgFps));
 			}
 
 			if (window->Closed())

@@ -310,6 +310,7 @@
     <ClCompile Include="src\Platform\Win32\Win32FileSystem.cpp" />
     <ClCompile Include="src\Platform\Win32\Win32InputManager.cpp" />
     <ClCompile Include="src\Platform\Win32\Win32MemoryManger.cpp" />
+    <ClCompile Include="src\Platform\Win32\Win32Timer.cpp" />
     <ClCompile Include="src\Platform\Win32\Win32Window.cpp" />
     <ClCompile Include="src\CustomString.cpp" />
     <ClCompile Include="src\System\Allocator.cpp" />
@@ -322,7 +323,6 @@
     <ClCompile Include="src\Utils\ImageUtil.cpp" />
     <ClCompile Include="src\Utils\LogStream.cpp" />
     <ClCompile Include="src\Utils\LogUtil.cpp" />
-    <ClCompile Include="src\Utils\TimeUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h" />
@@ -481,7 +481,7 @@
     <ClInclude Include="src\Utils\ImageUtil.h" />
     <ClInclude Include="src\Utils\LogStream.h" />
     <ClInclude Include="src\Utils\LogUtil.h" />
-    <ClInclude Include="src\Utils\TimeUtil.h" />
+    <ClInclude Include="src\Utils\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dependencies\Box2D\Box2D.vcxproj">

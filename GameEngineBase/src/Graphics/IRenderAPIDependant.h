@@ -2,7 +2,7 @@
 
 #include "Common.h"
 #include "Context.h"
-#include "Utils\TimeUtil.h"
+#include "Utils\Timer.h"
 
 namespace gebase { namespace graphics {
 

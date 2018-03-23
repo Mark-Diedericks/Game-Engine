@@ -88,7 +88,7 @@
 #include "Math/Vector4f.h"
 
 #include "Utils/ImageUtil.h"
-#include "Utils/TimeUtil.h"
+#include "Utils/Timer.h"
 
 #include "System/FileSystem.h"
 #include "System/Memory.h"

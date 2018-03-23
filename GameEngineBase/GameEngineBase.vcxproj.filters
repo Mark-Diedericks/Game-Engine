@@ -333,9 +333,6 @@
     <ClCompile Include="src\Utils\ImageUtil.cpp">
       <Filter>src\ge\utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils\TimeUtil.cpp">
-      <Filter>src\ge\utils</Filter>
-    </ClCompile>
     <ClCompile Include="src\System\Memory.cpp">
       <Filter>src\ge\system</Filter>
     </ClCompile>
@@ -496,6 +493,7 @@
     <ClCompile Include="src\Backend\API\APIConvert.cpp" />
     <ClCompile Include="src\Utils\LogUtil.cpp" />
     <ClCompile Include="src\Utils\LogStream.cpp" />
+    <ClCompile Include="src\Platform\Win32\Win32Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ge.h">
@@ -771,9 +769,6 @@
     <ClInclude Include="src\Utils\ImageUtil.h">
       <Filter>src\ge\utils</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utils\TimeUtil.h">
-      <Filter>src\ge\utils</Filter>
-    </ClInclude>
     <ClInclude Include="src\Math\Utils.h">
       <Filter>src\ge\math</Filter>
     </ClInclude>
@@ -957,6 +952,7 @@
     <ClInclude Include="src\Graphics\Renderer\IRenderer.h" />
     <ClInclude Include="src\Utils\LogStream.h" />
     <ClInclude Include="src\Utils\LogUtil.h" />
+    <ClInclude Include="src\Utils\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Graphics\Shader\default\BasicLight.shader">
