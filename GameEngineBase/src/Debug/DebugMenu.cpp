@@ -5,6 +5,7 @@
 #include "Application/Window.h"
 #include "Graphics/UI/Button.h"
 #include "System/Memory.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase { namespace debug {
 
@@ -226,7 +227,7 @@ namespace gebase { namespace debug {
 
 			if (!pathAction)
 			{
-				std::cout << "[DebugMenu] Add() - pathAction is null." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[DebugMenu] Add() - pathAction is null.");
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
@@ -256,7 +257,7 @@ namespace gebase { namespace debug {
 
 			if (!pathAction)
 			{
-				std::cout << "[DebugMenu] Add() - pathAction is null." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[DebugMenu] Add() - pathAction is null.");
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif

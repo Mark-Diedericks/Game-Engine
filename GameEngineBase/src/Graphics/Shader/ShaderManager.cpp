@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "ShaderManager.h"
 #include "System/Memory.h"
+#include "Utils/LogUtil.h"
 
 namespace gebase { namespace graphics {
 
@@ -38,7 +39,7 @@ namespace gebase { namespace graphics {
 
 				if (!Shader::TryCompileFromFile(path, error))
 				{
-					std::cout << "[ShaderManager] Reload() - TryCompileFromFile has failed." << std::endl;
+					utils::LogUtil::WriteLine("ERROR", "[ShaderManager] Reload() - TryCompileFromFile has failed.");
 				}
 				else
 				{
@@ -50,7 +51,7 @@ namespace gebase { namespace graphics {
 			}
 		}
 
-		std::cout << "[ShaderManager] Reload() - Could not find the shader." << std::endl;
+		utils::LogUtil::WriteLine("ERROR", "[ShaderManager] Reload() - Could not find the shader.");
 	}
 
 	void ShaderManager::Reload(const Shader* shader)
@@ -69,7 +70,7 @@ namespace gebase { namespace graphics {
 			}
 		}
 
-		std::cout << "[ShaderManager] Reload() - Could not find the shader." << std::endl;
+		utils::LogUtil::WriteLine("ERROR", "[ShaderManager] Reload() - Could not find the shader.");
 	}
 
 } }

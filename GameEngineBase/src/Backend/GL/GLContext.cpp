@@ -1,5 +1,6 @@
 #include "ge.h"
 #include "Common.h"
+#include "Utils/LogUtil.h"
 #include "GLContext.h"
 
 #undef NOGDI
@@ -24,7 +25,7 @@ namespace gebase { namespace graphics { namespace API {
 		{
 			if (!wglMakeCurrent(hDc, hrc))
 			{
-				std::cout << "Failed setting OpenGL context." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "Failed setting OpenGL context.");
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
@@ -32,7 +33,7 @@ namespace gebase { namespace graphics { namespace API {
 		}
 		else
 		{
-			std::cout << "Failed creating OpenGL context." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "Failed creating OpenGL context.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -40,7 +41,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		if (glewInit() != GLEW_OK)
 		{
-			std::cout << "Could not initialize GLEW." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "Could not initialize GLEW.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif

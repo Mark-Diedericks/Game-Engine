@@ -3,6 +3,7 @@
 #include "Common.h"
 #include "Backend/API/APIShaderUniform.h"
 #include "GLCommon.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase { namespace graphics { namespace API {
 
@@ -50,7 +51,7 @@ namespace gebase { namespace graphics { namespace API {
 		inline const ShaderStruct& getShaderUniformStruct() const { 
 			if (m_Struct == nullptr) 
 			{ 
-				std::cout << "[GLShaderUniform] getShaderUniformStruct() - ShaderStruct is null." << std::endl; 
+				utils::LogUtil::WriteLine("ERROR", "[GLShaderUniform] getShaderUniformStruct() - ShaderStruct is null.");
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif

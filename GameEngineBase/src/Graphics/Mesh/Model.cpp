@@ -4,6 +4,7 @@
 #include "System/Memory.h"
 #include "Graphics/Shader/ShaderManager.h"
 #include "System/VirtualFileSystem.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase { namespace graphics {
 
@@ -71,7 +72,7 @@ namespace gebase { namespace graphics {
 
 		if (!f)
 		{
-			std::cout << "[Model] Load() - File is null, " << path.c_str() << "    " << actualPath.c_str() << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Model] Load() - File is null, " + path + "    " + actualPath);
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -83,7 +84,7 @@ namespace gebase { namespace graphics {
 			ReadBytes(f, header, 4);
 			if (memcmp(header, format.header, 4) != 0)
 			{
-				std::cout << "[Model] Load() - Headers do not compare, " << (const char*)header << "    " << (const char*)format.header << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[Model] Load() - Headers do not compare, " + (String)(char*)header + "    " + format.header);
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
@@ -143,7 +144,7 @@ namespace gebase { namespace graphics {
 			ReadBytes(f, footer, 4);
 			if (memcmp(footer, format.footer, 4) != 0)
 			{
-				std::cout << "[Model] Load() - Footers do not compare, " << (const char*)footer << "    " << (const char*)format.footer << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[Model] Load() - Footers do not compare, " + (String)(char*)footer + "    " + format.footer);
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif

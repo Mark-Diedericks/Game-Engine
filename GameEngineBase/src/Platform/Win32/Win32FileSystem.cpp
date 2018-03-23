@@ -35,7 +35,7 @@ namespace gebase {
 		if (res == -1)
 		{
 			DWORD err = GetLastError();
-			std::cout << "[ERROR] [Win32FileSystem] MakeDirectory() - Error code: " << err << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[ERROR] [Win32FileSystem] MakeDirectory() - Error code: " + (String)(char*)err);
 			return false;
 		}
 
@@ -125,7 +125,7 @@ namespace gebase {
 		if (file == INVALID_HANDLE_VALUE)
 		{
 			DWORD err = GetLastError();
-			std::cout << "[ERROR] [Win32FileSystem] WriteFileBytes() - Error code: " << err << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[ERROR] [Win32FileSystem] WriteFileBytes() - Error code: " + (String)(char*)err);
 			return false;
 		}
 

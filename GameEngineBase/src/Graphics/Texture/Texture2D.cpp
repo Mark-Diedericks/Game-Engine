@@ -4,6 +4,7 @@
 #include "Graphics/Context.h"
 #include "System/Memory.h"
 #include "Utils/ImageUtil.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase { namespace graphics {
 
@@ -41,7 +42,7 @@ namespace gebase { namespace graphics {
 		byte* pixels = LoadImage(filepath.c_str(), &width, &height, &bits, !loadOptions.flipY); //FreeImage loads from the bottom up to the top
 
 		if (bits != 24 && bits != 32)
-			std::cout << "[Texture2D] Unsupported image bit-depth: " << (int)bits << " in file: " << filepath.c_str() << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Texture2D] Unsupported image bit-depth: " + std::to_string(bits) + " in file: " + filepath);
 
 		parameters.format = bits == 24 ? API::TextureFormat::RGB : API::TextureFormat::RGBA;
 

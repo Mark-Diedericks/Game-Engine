@@ -3,6 +3,8 @@
 #include "Common.h"
 #include "Types.h"
 
+#include "Utils\LogUtil.h"
+
 #include "Graphics/Texture/Texture2D.h"
 #include "Graphics/Texture/TextureCube.h"
 #include "Graphics/Texture/TextureDepth.h"
@@ -69,7 +71,7 @@ namespace gebase { namespace graphics {
 
 			if (!declaration)
 			{
-				std::cout << "[Material] setUniform() - Declaration is null." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[Material] setUniform() - Declaration is null.");
 				return;
 			}
 
@@ -137,7 +139,7 @@ namespace gebase { namespace graphics {
 
 			if (!declaration)
 			{
-				std::cout << "[Material] setUniform() - Declaration is null." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[Material] setUniform() - Declaration is null.");
 				return;
 			}
 

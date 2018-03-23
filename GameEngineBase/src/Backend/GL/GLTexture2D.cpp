@@ -7,6 +7,8 @@
 #include <FreeImage.h>
 
 #include "Utils/ImageUtil.h"
+#include "Utils\LogUtil.h"
+
 #include "GLShader.h"
 #include "System/Memory.h"
 
@@ -72,7 +74,7 @@ namespace gebase { namespace graphics { namespace API {
 		setData(data);
 		gedel[] data;
 #else
-		std::cout << "[GLTexture2D] setData() - setData to color is broken!" << std::endl;
+		utils::LogUtil::WriteLine("ERROR", "[GLTexture2D] setData() - setData to color is broken!");
 #ifdef GE_DEBUG
 		__debugbreak();
 #endif

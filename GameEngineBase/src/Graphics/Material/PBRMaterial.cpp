@@ -3,6 +3,7 @@
 
 #include "System/Memory.h"
 #include "Backend/API/APIShaderResource.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase { namespace graphics {
 
@@ -127,7 +128,7 @@ namespace gebase { namespace graphics {
 
 		if (!declaration)
 		{
-			std::cout << "[PBRMaterial] getMap() - Declaration is null, " << name.c_str() << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[PBRMaterial] getMap() - Declaration is null, " + name);
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif

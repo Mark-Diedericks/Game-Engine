@@ -8,6 +8,7 @@
 
 #include "Utils/ImageUtil.h"
 #include "System/Memory.h"
+#include "Utils/LogUtil.h"
 
 #include "GLTexture2D.h"
 
@@ -71,7 +72,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	uint GLTextureCube::LoadFromSingleFile(const byte* pixels, uint mbits)
 	{
-		std::cout << "[GLTextureCube] LoadFromSingleFile() - Load from single file is not implemented" << std::endl;
+		utils::LogUtil::WriteLine("ERROR", "[GLTextureCube] LoadFromSingleFile() - Load from single file is not implemented");
 
 #ifdef GE_DEBUG
 		__debugbreak();

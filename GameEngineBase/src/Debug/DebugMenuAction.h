@@ -169,7 +169,7 @@ namespace gebase { namespace debug {
 
 		void OnAction() override
 		{
-			std::cout << "[ValueAction] OnAction() - Not implemented" << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[ValueAction] OnAction() - Not implemented");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif

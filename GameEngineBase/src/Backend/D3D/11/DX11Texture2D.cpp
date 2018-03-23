@@ -65,7 +65,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		if (!(formatSupport & D3D11_FORMAT_SUPPORT_MIP_AUTOGEN))
 		{
-			std::cout << "[DX11Texture2D] Load() - Format not supported" << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[DX11Texture2D] Load() - Format not supported");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif

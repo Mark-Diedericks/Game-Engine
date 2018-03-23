@@ -1,6 +1,7 @@
 #include "ge.h"
 #include "Label.h"
 #include "Renderer/Renderer2D.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase { namespace graphics {
 
@@ -81,12 +82,10 @@ namespace gebase { namespace graphics {
 		if (m_Font != nullptr)
 			return;
 
-		std::cout << "[Label] ValidateFont() - m_Font is null.";
+		utils::LogUtil::WriteLine("ERROR", "[Label] ValidateFont() - m_Font is null.");
 
 		if (size > 0)
-			std::cout << "[Label] ValidateFont() - Font size is " << size;
-
-		std::cout << std::endl;
+			utils::LogUtil::WriteLine("INFO", "[Label] ValidateFont() - Font size is " + std::to_string(size));
 
 		m_Font = FontManager::Get("SourceSansPro");
 	}

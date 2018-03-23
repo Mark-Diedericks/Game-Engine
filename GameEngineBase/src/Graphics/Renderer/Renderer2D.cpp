@@ -16,6 +16,8 @@
 #include "Graphics/Renderable2D.h"
 #include "IRenderer.h"
 
+#include "Utils\LogUtil.h"
+
 #include <freetype-gl/freetype-gl.h>
 
 namespace gebase { namespace graphics {
@@ -124,7 +126,7 @@ namespace gebase { namespace graphics {
 
 		if (!vssu.size())
 		{
-			std::cout << "[Renderer2D] Init() - VSSU size is <= 0." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Renderer2D] Init() - VSSU size is <= 0.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -248,7 +250,7 @@ namespace gebase { namespace graphics {
 		m_Began = true;
 		if (m_Target == RenderTarget::BUFFER)
 		{
-			std::cout << "[Renderer2D] Begin() - Render to buffer is not implemnted." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Renderer2D] Begin() - Render to buffer is not implemnted.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -363,7 +365,7 @@ namespace gebase { namespace graphics {
 
 		if (m_Target == RenderTarget::BUFFER)
 		{
-			std::cout << "[Renderer2D] Present() - Render to buffer is not implemnted." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Renderer2D] Present() - Render to buffer is not implemnted.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -378,7 +380,7 @@ namespace gebase { namespace graphics {
 
 		if (!texture)
 		{
-			std::cout << "[Renderer2D] DrawString() - Font texture is null." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Renderer2D] DrawString() - Font texture is null.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif

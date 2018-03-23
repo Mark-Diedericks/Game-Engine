@@ -4,6 +4,7 @@
 #include "Graphics/Texture/Texture2D.h"
 #include "System/Memory.h"
 #include "Backend/API/APIShaderResource.h"
+#include "Utils\LogUtil.h"
 
 #include <sstream>
 
@@ -45,8 +46,6 @@ namespace gebase { namespace graphics {
 
 		AllocateStorage();
 		m_Resources = &m_Shader->getResources();
-
-		byte* data;
 
 		if (m_VSUserUniforms != nullptr)
 			for (API::ShaderUniformDeclaration* uniform : vs_uniforms)
@@ -143,7 +142,7 @@ namespace gebase { namespace graphics {
 
 		if (!buffer)
 		{
-			std::cout << "[Material] setUniformData() - Buffer is null." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Material] setUniformData() - Buffer is null.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -158,7 +157,7 @@ namespace gebase { namespace graphics {
 
 		if (!declaration)
 		{
-			std::cout << "[Material] setTexture() - Resource declaration is null." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Material] setTexture() - Resource declaration is null.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -255,8 +254,6 @@ namespace gebase { namespace graphics {
 
 		m_Resources = &m_Material->getShader()->getResources();
 
-		byte* data;
-
 		if (m_VSUserUniforms != nullptr)
 			for (API::ShaderUniformDeclaration* uniform : vs_uniforms)
 				setUniformData(uniform->getName(), vs_buffer + uniform->getOffset());
@@ -351,7 +348,7 @@ namespace gebase { namespace graphics {
 
 		if (!buffer)
 		{
-			std::cout << "[MaterialInstance] setUniformData() - Buffer is null." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[MaterialInstance] setUniformData() - Buffer is null.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -366,7 +363,7 @@ namespace gebase { namespace graphics {
 
 		if (!declaration)
 		{
-			std::cout << "[Material] setTexture() - Resource declaration is null." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Material] setTexture() - Resource declaration is null.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif

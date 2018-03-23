@@ -1,5 +1,6 @@
 #include "ge.h"
 #include "Font.h"
+#include "Utils\LogUtil.h"
 
 #include <freetype-gl/freetype-gl.h>
 
@@ -16,7 +17,7 @@ namespace gebase { namespace graphics {
 
 		if (!m_FTFont)
 		{
-			std::cout << "[Font] Font() - Failed to load font " << filepath.c_str() << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Font] Font() - Failed to load font " + filepath);
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -34,7 +35,7 @@ namespace gebase { namespace graphics {
 
 		if (!m_FTFont)
 		{
-			std::cout << "[Font] Font() - Failed to load font from data." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Font] Font() - Failed to load font from data.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -75,7 +76,7 @@ namespace gebase { namespace graphics {
 
 		if (!glyph)
 		{
-			std::cout << "[Font] getOffsets() - Glyph is null." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Font] getOffsets() - Glyph is null.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -90,7 +91,7 @@ namespace gebase { namespace graphics {
 
 			if (!g)
 			{
-				std::cout << "[Font] getOffsets() - Glyph \"g\" is null." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[Font] getOffsets() - Glyph \"g\" is null.");
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
@@ -119,7 +120,7 @@ namespace gebase { namespace graphics {
 
 			if (!g)
 			{
-				std::cout << "[Font] getOffsets() - Glyph \"g\" is null." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[Font] getOffsets() - Glyph \"g\" is null.");
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
@@ -151,7 +152,7 @@ namespace gebase { namespace graphics {
 
 			if (!g)
 			{
-				std::cout << "[Font] getOffsets() - Glyph \"g\" is null." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[Font] getOffsets() - Glyph \"g\" is null.");
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif

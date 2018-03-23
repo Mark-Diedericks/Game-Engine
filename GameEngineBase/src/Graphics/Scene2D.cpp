@@ -3,6 +3,7 @@
 
 #include "Application/Application.h"
 #include "Debug/DebugRenderer.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase
 {
@@ -64,7 +65,7 @@ namespace gebase
 				entity::component::TransformComponent* transform = entity->getComponent<entity::component::TransformComponent>();
 				if (!transform)
 				{
-					std::cout << "[Scene2D] OnRender() - Entity does not have a transform component!" << std::endl;
+					utils::LogUtil::WriteLine("ERROR", "[Scene2D] OnRender() - Entity does not have a transform component!");
 #ifdef GE_DEBUG
 					__debugbreak();
 #endif

@@ -46,7 +46,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		if (!shader)
 		{
-			std::cout << "[DX11VertexBuffer] setLayout() - Shader assertion failed" << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[DX11VertexBuffer] setLayout() - Shader assertion failed");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif

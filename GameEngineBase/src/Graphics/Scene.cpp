@@ -8,6 +8,7 @@
 #include "Camera/MayaCamera.h"
 #include "Debug/DebugRenderer.h"
 #include "System/Memory.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase {
 
@@ -36,7 +37,7 @@ namespace gebase {
 
 		if (!entity->getComponent<entity::component::TransformComponent>())
 		{
-			std::cout << "[Scene] Add() - Entity does not have a transform component" << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[Scene] Add() - Entity does not have a transform component");
 			entity->AddComponent(new entity::component::TransformComponent(math::Matrix4f::Identity()));
 		}
 	}
@@ -86,7 +87,7 @@ namespace gebase {
 				entity::component::TransformComponent* transform = entity->getComponent<entity::component::TransformComponent>();
 				if (!transform)
 				{
-					std::cout << "[Scene] Render() - Entity does not have a transform component!" << std::endl;
+					utils::LogUtil::WriteLine("ERROR", "[Scene] Render() - Entity does not have a transform component!");
 #ifdef GE_DEBUG
 					__debugbreak();
 #endif

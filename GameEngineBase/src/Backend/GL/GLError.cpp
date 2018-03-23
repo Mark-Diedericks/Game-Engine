@@ -1,7 +1,7 @@
 #include "ge.h"
 #include "Common.h"
 #include "CustomString.h"
-
+#include "Utils\LogUtil.h"
 #include "GLCommon.h"
 
 namespace gebase {
@@ -17,7 +17,7 @@ namespace gebase {
 
 		if (error != GL_NO_ERROR)
 		{
-			std::cout << "[OpenGL Error] - " << glGetString(error) << "(" << (int)(error) << "): " << function << " in file " << file << " at line " << (int)line << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[OpenGL Error] - " + std::to_string((short)glGetString(error)) + "(" + std::to_string(error) + "): " + (String)function + " in file " + (String)file + " at line " + std::to_string(line));
 			return false;
 		}
 

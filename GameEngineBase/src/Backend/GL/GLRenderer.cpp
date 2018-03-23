@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "GLConvert.h"
 #include "GLRenderer.h"
+#include "Utils\LogUtil.h"
 
 #include <GL\glew.h>
 
@@ -18,12 +19,12 @@ namespace gebase { namespace graphics { namespace API {
 		setBlend(true);
 		setBlendFunction(RendererBlendFunction::SOURCE_ALPHA, RendererBlendFunction::ONE_MINUS_SOURCE_ALPHA);
 
-		std::cout << "-----------------------------------" << std::endl;
-		std::cout << "               OPENGL              " << std::endl;
-		std::cout << "		" << (const char*)glGetString(GL_VERSION) << std::endl;
-		std::cout << "		" << (const char*)glGetString(GL_VENDOR) << std::endl;
-		std::cout << "		" << (const char*)glGetString(GL_RENDERER) << std::endl;
-		std::cout << "-----------------------------------" << std::endl;
+		utils::LogUtil::WriteLine("INFO", "-----------------------------------");
+		utils::LogUtil::WriteLine("INFO", "               OPENGL              ");
+		utils::LogUtil::WriteLine("INFO", "		" + (String)(char*)glGetString(GL_VERSION));
+		utils::LogUtil::WriteLine("INFO", "		" + (String)(char*)glGetString(GL_VENDOR));
+		utils::LogUtil::WriteLine("INFO", "		" + (String)(char*)glGetString(GL_RENDERER));
+		utils::LogUtil::WriteLine("INFO", "-----------------------------------");
 
 		//TODO - API INDEPENDENT
 		GLCall(glEnable(GL_CULL_FACE));
@@ -74,7 +75,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	void GLRenderer::setBlendEquationInternal(RendererBlendEquation blendEquation)
 	{
-		std::cout << "[GLRenderer] setBlendEquationInternal() - Blend equation setting not implemented." << std::endl;
+		utils::LogUtil::WriteLine("ERROR", "[GLRenderer] setBlendEquationInternal() - Blend equation setting not implemented.");
 #ifdef GE_DEBUG
 		__debugbreak();
 #endif

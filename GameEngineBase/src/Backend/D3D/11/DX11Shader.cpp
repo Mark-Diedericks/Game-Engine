@@ -70,7 +70,7 @@ namespace gebase { namespace graphics { namespace API {
 
 			if(endPos == -1)
 			{
-				std::cout << "[DX11Shader] RemoveComments() - End position (*/) == -1." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[DX11Shader] RemoveComments() - End position (*/) == -1.");
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
@@ -85,7 +85,7 @@ namespace gebase { namespace graphics { namespace API {
 
 			if (endPos == -1)
 			{
-				std::cout << "[DX11Shader] RemoveComments() - End position (\n) == -1." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[DX11Shader] RemoveComments() - End position (\n) == -1.");
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
@@ -104,7 +104,7 @@ namespace gebase { namespace graphics { namespace API {
 		m_Data.vs = Compile(source, "vs_4_0", "VSMain", info);
 		if (!m_Data.vs)
 		{
-			std::cout << "[DX11Shader] Load() - m_Data.vs assertion failed" << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[DX11Shader] Load() - m_Data.vs assertion failed");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -113,7 +113,7 @@ namespace gebase { namespace graphics { namespace API {
 		m_Data.ps = Compile(source, "ps_4_0", "PSMain", info);
 		if (!m_Data.ps)
 		{
-			std::cout << "[DX11Shader] Load() - m_Data.ps assertion failed" << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[DX11Shader] Load() - m_Data.ps assertion failed");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -138,7 +138,10 @@ namespace gebase { namespace graphics { namespace API {
 			info.profile += profile + "\n";
 
 			if (errorBlob->GetBufferSize())
-				std::cout << "[DX11Shader] Compile() - Shader compile errors;" << std::endl << "	" << (const char*)errorBlob->GetBufferPointer() << std::endl;
+			{
+				utils::LogUtil::WriteLine("ERROR", "[DX11Shader] Compile() - Shader compile errors;");
+				utils::LogUtil::WriteLine("ERROR", "	" + (String)(char*)errorBlob->GetBufferPointer());
+			}
 
 			errorBlob->Release();
 		}
@@ -232,7 +235,7 @@ namespace gebase { namespace graphics { namespace API {
 			shaderType = 1;
 		else
 		{
-			std::cout << "[DX11Shader] ParseCBuffer() - ShaderType is unknown." << std::endl;
+			utils::LogUtil::WriteLine("WARNING", "[DX11Shader] ParseCBuffer() - ShaderType is unknown.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -273,7 +276,7 @@ namespace gebase { namespace graphics { namespace API {
 					case 0:
 						if (m_VSUserUniformBuffer != nullptr)
 						{
-							std::cout << "[DX11Shader] ParseCBuffer - m_VSUserUniformBuffer != nullptr" << std::endl;
+							utils::LogUtil::WriteLine("WARNING", "[DX11Shader] ParseCBuffer - m_VSUserUniformBuffer != nullptr");
 #ifdef GE_DEBUG
 							__debugbreak();
 #endif
@@ -283,7 +286,7 @@ namespace gebase { namespace graphics { namespace API {
 					case 1:
 						if (m_FSUserUniformBuffer != nullptr)
 						{
-							std::cout << "[DX11Shader] ParseCBuffer - m_FSUserUniformBuffer != nullptr" << std::endl;
+							utils::LogUtil::WriteLine("WARNING", "[DX11Shader] ParseCBuffer - m_FSUserUniformBuffer != nullptr");
 #ifdef GE_DEBUG
 							__debugbreak();
 #endif
@@ -303,7 +306,7 @@ namespace gebase { namespace graphics { namespace API {
 
 				if (!s)
 				{
-					std::cout << "[DX11Shader] ParseCBuffer() - Could not find struct; " << type.c_str() << "	" << name.c_str() << std::endl;
+					utils::LogUtil::WriteLine("ERROR", "[DX11Shader] ParseCBuffer() - Could not find struct; " + type + "	" + name);
 #ifdef GE_DEBUG
 					__debugbreak();
 #endif
@@ -349,7 +352,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		if (tokens.front() != "SamplerState")
 		{
-			std::cout << "[DX11Shader] ParseSamplerState() - Statement is not a SamplerState." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[DX11Shader] ParseSamplerState() - Statement is not a SamplerState.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -463,7 +466,7 @@ namespace gebase { namespace graphics { namespace API {
 		if (m_VSUserUniformBuffer)
 			if (slot == m_VSUserUniformBuffer->getRegister())
 			{
-				std::cout << "[DX11Shader] setVSSystemUniformBuffer() - Buffer slot is equal to user uniform buffer slot." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[DX11Shader] setVSSystemUniformBuffer() - Buffer slot is equal to user uniform buffer slot." );
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
@@ -484,7 +487,7 @@ namespace gebase { namespace graphics { namespace API {
 		if (m_FSUserUniformBuffer)
 			if (slot == m_FSUserUniformBuffer->getRegister())
 			{
-				std::cout << "[DX11Shader] setFSSystemUniformBuffer() - Buffer slot is equal to user uniform buffer slot." << std::endl;
+				utils::LogUtil::WriteLine("ERROR", "[DX11Shader] setFSSystemUniformBuffer() - Buffer slot is equal to user uniform buffer slot.");
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif

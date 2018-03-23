@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Common.h"
+#include "Utils/LogUtil.h"
 
 #include <d3d11.h>
 #include <d3dcompiler.h>
@@ -8,42 +9,42 @@
 static bool CheckD3DError(HRESULT result, const char* file, int32 line)
 {
 	if (result != S_OK && false)
-		std::cout << "[D3D11 Error] File: " << file << "    Line: " << line << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "[D3D11 Error] File: " + (String)file + "    Line: " + std::to_string(line));
 
 	switch (result)
 	{
 	case D3D11_ERROR_FILE_NOT_FOUND:
-		std::cout << "D3D11_ERROR_FILE_NOT_FOUND" << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "D3D11_ERROR_FILE_NOT_FOUND");
 		break;
 	case D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS:
-		std::cout << "D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS" << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS");
 		break;
 	case D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS:
-		std::cout << "D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS" << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS");
 		break;
 	case D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD:
-		std::cout << "D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD" << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD");
 		break;
 	case DXGI_ERROR_INVALID_CALL:
-		std::cout << "DXGI_ERROR_INVALID_CALL" << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "DXGI_ERROR_INVALID_CALL");
 		break;
 	case DXGI_ERROR_WAS_STILL_DRAWING:
-		std::cout << "DXGI_ERROR_WAS_STILL_DRAWING" << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "DXGI_ERROR_WAS_STILL_DRAWING");
 		break;
 	case E_FAIL:
-		std::cout << "E_FAIL" << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "E_FAIL");
 		break;
 	case E_INVALIDARG:
-		std::cout << "E_INVALIDARG" << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "E_INVALIDARG");
 		break;
 	case E_OUTOFMEMORY:
-		std::cout << "E_OUTOFMEMORY" << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "E_OUTOFMEMORY");
 		break;
 	case E_NOTIMPL:
-		std::cout << "E_NOTIMPL" << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "E_NOTIMPL");
 		break;
 	case S_FALSE:
-		std::cout << "S_FALSE" << std::endl;
+		gebase::utils::LogUtil::WriteLine("ERROR", "S_FALSE");
 		break;
 	}
 

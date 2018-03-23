@@ -3,6 +3,7 @@
 
 #include "Application/Application.h"
 #include "Graphics/Renderer/Renderer.h"
+#include "Utils\LogUtil.h"
 
 namespace gebase { namespace graphics {
 
@@ -117,7 +118,7 @@ namespace gebase { namespace graphics {
 
 		if (lights.size() > 1)
 		{
-			std::cout << "[ForwardRenderer] SubmitLightSetup() - Only one light is supported currently." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[ForwardRenderer] SubmitLightSetup() - Only one light is supported currently.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif

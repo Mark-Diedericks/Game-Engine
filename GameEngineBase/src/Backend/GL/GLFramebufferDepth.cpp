@@ -3,6 +3,7 @@
 
 #include "GLFramebufferDepth.h"
 #include "System/Memory.h"
+#include "Utils\LogUtil.h"
 
 #include <GL\glew.h>
 
@@ -29,7 +30,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		{
-			std::cout << "Framebuffer (Depth) is incomplete" << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "Framebuffer (Depth) is incomplete");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif

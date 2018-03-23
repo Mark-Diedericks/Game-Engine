@@ -3,6 +3,7 @@
 #include "Graphics/Context.h"
 #include "System/Memory.h"
 #include "Utils/ImageUtil.h"
+#include "Utils/LogUtil.h"
 
 namespace gebase { namespace graphics {
 
@@ -91,10 +92,10 @@ namespace gebase { namespace graphics {
 		switch (m_LoadType)
 		{
 		case 0:
-			std::cout << "[TextureCube] EmployRenderAPI() - Method 1 is not implemented." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[TextureCube] EmployRenderAPI() - Method 1 is not implemented.");
 			break;
 		case 1:
-			std::cout << "[TextureCube] EmployRenderAPI() - Method 2 is not implemented." << std::endl;
+			utils::LogUtil::WriteLine("ERROR", "[TextureCube] EmployRenderAPI() - Method 2 is not implemented.");
 			break;
 		case 2:
 			uint* fWidth = genew uint[m_Mips];
