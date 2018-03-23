@@ -1,0 +1,84 @@
+[INFO] --------------------------
+[INFO]     SYSTEM INFORMATION    
+[INFO] --------------------------
+[INFO] Avaliable Physical Memory: 7.89GB
+[INFO] Total Physical Memory: 15.89GB
+[INFO] Avaliable Virtual Memory: 1.88GB
+[INFO] Total Virtual Memory: 2.00GB
+[INFO] -----------------------------------
+[INFO]                OPENGL              
+[INFO] 		4.5.13507 Compatibility Profile Context 23.20.15027.2002
+[INFO] 		ATI Technologies Inc.
+[INFO] 		Radeon RX 580 Series
+[INFO] -----------------------------------
+[INFO] [ImageUtil] LoadImage() - the width is; 3072 the height is; 4096 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1536 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 768 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 384 the height is; 512 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 192 the height is; 256 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 96 the height is; 128 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 48 the height is; 64 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 24 the height is; 32 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 12 the height is; 16 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 6 the height is; 8 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 3 the height is; 4 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 256 the height is; 256 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] Render Stats || FrameTime: 1.50ms || FPS: 389 MIN: 389 MAX: 389 AVG: 389
+[INFO] Render Stats || FrameTime: 3.53ms || FPS: 434 MIN: 389 MAX: 434 AVG: 411
+[INFO] Render Stats || FrameTime: 2.48ms || FPS: 322 MIN: 322 MAX: 434 AVG: 381
+[INFO] Render Stats || FrameTime: 3.18ms || FPS: 373 MIN: 322 MAX: 434 AVG: 379
+[INFO] Render Stats || FrameTime: 2.98ms || FPS: 356 MIN: 322 MAX: 434 AVG: 374
+[INFO] Render Stats || FrameTime: 1.86ms || FPS: 356 MIN: 322 MAX: 434 AVG: 371
+[INFO] Render Stats || FrameTime: 2.72ms || FPS: 403 MIN: 322 MAX: 434 AVG: 376
+[INFO] Render Stats || FrameTime: 2.40ms || FPS: 434 MIN: 322 MAX: 434 AVG: 383
+[INFO] Render Stats || FrameTime: 3.18ms || FPS: 369 MIN: 322 MAX: 434 AVG: 381
+[INFO] Render Stats || FrameTime: 2.86ms || FPS: 385 MIN: 322 MAX: 434 AVG: 382
+[INFO] Render Stats || FrameTime: 2.46ms || FPS: 428 MIN: 322 MAX: 434 AVG: 386
+[INFO] Render Stats || FrameTime: 3.10ms || FPS: 386 MIN: 322 MAX: 434 AVG: 386
+[INFO] Render Stats || FrameTime: 2.37ms || FPS: 390 MIN: 322 MAX: 434 AVG: 386
+[INFO] Render Stats || FrameTime: 3.20ms || FPS: 415 MIN: 322 MAX: 434 AVG: 388
+[INFO] Render Stats || FrameTime: 2.60ms || FPS: 448 MIN: 322 MAX: 448 AVG: 392
+[INFO] Render Stats || FrameTime: 2.41ms || FPS: 452 MIN: 322 MAX: 452 AVG: 396
+[INFO] Render Stats || FrameTime: 3.32ms || FPS: 447 MIN: 322 MAX: 452 AVG: 399
+[INFO] Render Stats || FrameTime: 1.98ms || FPS: 418 MIN: 322 MAX: 452 AVG: 400
+[INFO] Render Stats || FrameTime: 1.74ms || FPS: 438 MIN: 322 MAX: 452 AVG: 402
+[INFO] Render Stats || FrameTime: 1.79ms || FPS: 444 MIN: 322 MAX: 452 AVG: 404
+[INFO] Render Stats || FrameTime: 2.97ms || FPS: 439 MIN: 322 MAX: 452 AVG: 406
+[INFO] Render Stats || FrameTime: 2.15ms || FPS: 445 MIN: 322 MAX: 452 AVG: 407
+[INFO] Render Stats || FrameTime: 1.79ms || FPS: 451 MIN: 322 MAX: 452 AVG: 409
+[INFO] Render Stats || FrameTime: 1.98ms || FPS: 455 MIN: 322 MAX: 455 AVG: 411
+[INFO] Render Stats || FrameTime: 1.79ms || FPS: 461 MIN: 322 MAX: 461 AVG: 413
+[INFO] Render Stats || FrameTime: 1.78ms || FPS: 447 MIN: 322 MAX: 461 AVG: 414
+[INFO] Render Stats || FrameTime: 1.92ms || FPS: 450 MIN: 322 MAX: 461 AVG: 416
+[INFO] Render Stats || FrameTime: 2.01ms || FPS: 463 MIN: 322 MAX: 463 AVG: 417
+[INFO] Render Stats || FrameTime: 2.33ms || FPS: 453 MIN: 322 MAX: 463 AVG: 419
+[INFO] Render Stats || FrameTime: 1.83ms || FPS: 414 MIN: 322 MAX: 463 AVG: 418
+[INFO] Render Stats || FrameTime: 1.78ms || FPS: 453 MIN: 322 MAX: 463 AVG: 419
+[INFO] Render Stats || FrameTime: 1.90ms || FPS: 444 MIN: 322 MAX: 463 AVG: 420
+[INFO] Render Stats || FrameTime: 2.14ms || FPS: 450 MIN: 322 MAX: 463 AVG: 421
+[INFO] Render Stats || FrameTime: 2.29ms || FPS: 408 MIN: 322 MAX: 463 AVG: 421
+[INFO] Render Stats || FrameTime: 2.91ms || FPS: 389 MIN: 322 MAX: 463 AVG: 420

@@ -13,8 +13,8 @@ namespace gebase { namespace graphics {
 	struct GE_API Vertex
 	{
 		math::Vector3f position;
-		math::Vector2f uv;
 		math::Vector3f normal;
+		math::Vector2f uv;
 		math::Vector3f binormal;
 		math::Vector3f tangent;
 	};

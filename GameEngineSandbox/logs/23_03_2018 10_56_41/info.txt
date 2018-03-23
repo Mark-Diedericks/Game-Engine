@@ -1,0 +1,55 @@
+[INFO] --------------------------
+[INFO]     SYSTEM INFORMATION    
+[INFO] --------------------------
+[INFO] Avaliable Physical Memory: 7.85GB
+[INFO] Total Physical Memory: 15.89GB
+[INFO] Avaliable Virtual Memory: 1.87GB
+[INFO] Total Virtual Memory: 2.00GB
+[INFO] -----------------------------------
+[INFO]                OPENGL              
+[INFO] 		4.5.13507 Compatibility Profile Context 23.20.15027.2002
+[INFO] 		ATI Technologies Inc.
+[INFO] 		Radeon RX 580 Series
+[INFO] -----------------------------------
+[INFO] [ImageUtil] LoadImage() - the width is; 3072 the height is; 4096 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1536 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 768 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 384 the height is; 512 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 192 the height is; 256 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 96 the height is; 128 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 48 the height is; 64 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 24 the height is; 32 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 12 the height is; 16 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 6 the height is; 8 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 3 the height is; 4 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 256 the height is; 256 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] Render Stats || FrameTime: 23108.65ms || FPS: 0 MIN: 0 MAX: 0 AVG: 0
+[INFO] Render Stats || FrameTime: 14.26ms || FPS: 63 MIN: 63 MAX: 63 AVG: 31
+[INFO] Render Stats || FrameTime: 12.77ms || FPS: 72 MIN: 63 MAX: 72 AVG: 45
+[INFO] Render Stats || FrameTime: 12.25ms || FPS: 75 MIN: 63 MAX: 75 AVG: 52
+[INFO] Render Stats || FrameTime: 11.31ms || FPS: 72 MIN: 63 MAX: 75 AVG: 56
+[INFO] Render Stats || FrameTime: 11.15ms || FPS: 80 MIN: 63 MAX: 80 AVG: 60

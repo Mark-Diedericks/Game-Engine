@@ -27,6 +27,7 @@ namespace gebase { namespace graphics {
 
 		virtual void Init();
 		virtual void OnEvent(events::Event& event);
+		virtual void OnTick();
 		virtual void OnUpdate(const float delta);
 		virtual void OnUpdateInternal(const float delta);
 		virtual void OnRender();

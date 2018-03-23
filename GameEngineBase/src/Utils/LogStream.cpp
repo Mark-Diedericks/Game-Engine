@@ -4,10 +4,8 @@
 
 namespace gebase { namespace utils {
 
-	LogStream::LogStream(const String& fileLocation, const String& identifyingTag) : m_FileLocation(fileLocation), m_IdentifyingTag(identifyingTag)
+	LogStream::LogStream(const String& fileLocation, const String& identifyingTag) : m_FileStream(fileLocation), m_FileLocation(fileLocation), m_IdentifyingTag(identifyingTag)
 	{
-		m_FileStream.open(m_FileLocation);
-
 		if(m_FileStream.bad())
 			std::cout << "[ERROR] [LogStream] Write() - Cannot open file: " << m_FileLocation.c_str() << std::endl;
 	}
@@ -21,9 +19,14 @@ namespace gebase { namespace utils {
 	void LogStream::Write(const char* text)
 	{
 		if (m_FileStream.is_open())
+		{
 			m_FileStream << ("[" + m_IdentifyingTag + "] " + text);
+			m_FileStream.flush();
+		}
 		else
+		{
 			std::cout << "[ERROR] [LogStream] Write() - Cannot write to file: " << m_FileLocation.c_str() << std::endl;
+		}
 
 		std::cout << "[" + m_IdentifyingTag + "] " + text;
 	}
@@ -31,9 +34,14 @@ namespace gebase { namespace utils {
 	void LogStream::WriteLine(const char* text)
 	{
 		if (m_FileStream.is_open())
+		{
 			m_FileStream << ("[" + m_IdentifyingTag + "] " + text + '\n');
+			m_FileStream.flush();
+		}
 		else
+		{
 			std::cout << "[ERROR] [LogStream] Write() - Cannot write to file: " << m_FileLocation.c_str() << std::endl;
+		}
 
 		std::cout << "[" + m_IdentifyingTag + "] " + text << std::endl;
 	}

@@ -117,13 +117,13 @@ namespace gebase {
 
 	void Application::OnTick()
 	{
-		//m_DebugLayer->OnTick();
-		//
-		//for (uint i = 0; i < m_OverlayStack.size(); i++)
-		//	m_OverlayStack[i]->OnTick();
-		//
-		//for (uint i = 0; i < m_LayerStack.size(); i++)
-		//	m_LayerStack[i]->OnTick();
+		m_DebugLayer->OnTick();
+		
+		for (uint i = 0; i < m_OverlayStack.size(); i++)
+			m_OverlayStack[i]->OnTick();
+		
+		for (uint i = 0; i < m_LayerStack.size(); i++)
+			m_LayerStack[i]->OnTick();
 	}
 
 	void Application::OnUpdate(const float& delta)

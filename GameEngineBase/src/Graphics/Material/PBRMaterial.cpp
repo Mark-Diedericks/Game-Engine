@@ -14,17 +14,19 @@ namespace gebase { namespace graphics {
 		if (s_PreintegratedFG == nullptr)
 			s_PreintegratedFG = Texture2D::CreateFromFile("PreintegratedFG", "res/pbr/PreintegratedFG.bmp");
 
-		setUniform("u_UsingNormalMap", 0.0f);
 		setTexture("u_PreintegratedFG", s_PreintegratedFG);
+		setUniform("u_UsingNormalMap", 0.0f);
 
-		setUniform("u_UsingAlbedoMap", 0.0f);
 		setUniform("u_AlbedoColor", math::Vector4f(0.0f, 0.0f, 0.0f, 1.0f));
+		setUniform("u_UsingAlbedoMap", 0.0f);
 
-		setUniform("u_UsingSpecularMap", 0.0f);
 		setUniform("u_SpecularColor", math::Vector3f(1.0f, 1.0f, 1.0f));
+		setUniform("u_UsingSpecularMap", 0.0f);
 
-		setUniform("u_UsingGlossMap", 0.0f);
 		setUniform("u_GlossColor", 0.8f);
+		setUniform("u_UsingGlossMap", 0.0f);
+
+		setUniform("u_UsingNormalMap", 0.0f);
 	}
 
 	PBRMaterial::~PBRMaterial()
@@ -135,6 +137,9 @@ namespace gebase { namespace graphics {
 		}
 
 		uint slot = declaration->getRegister();
+
+		utils::LogUtil::WriteLine("DEBUG", "Texture Map Retrieval: " + name + " || Size vs Slot: " + std::to_string(m_Textures.size()) + " " + std::to_string(slot));
+
 		return m_Textures.size() > slot ? m_Textures[slot] : nullptr;
 	}
 

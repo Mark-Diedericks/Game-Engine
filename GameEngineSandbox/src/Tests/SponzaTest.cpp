@@ -98,6 +98,11 @@ void SponzaTest::OnInit(Renderer3D& renderer, Scene& scene)
 	DebugMenu::Add("SponzaTest/Light Intensity", &lights->getLights()[0]->intensity, 0, 100);
 }
 
+void SponzaTest::OnTick()
+{
+	
+}
+
 void SponzaTest::OnUpdate(float delta)
 {
 	// Still OpenGL maths style (column-major)

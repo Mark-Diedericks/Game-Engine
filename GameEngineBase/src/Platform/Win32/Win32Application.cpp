@@ -47,11 +47,20 @@ namespace gebase {
 
 	void Application::Run()
 	{
+		//Render: Every frame
+		//Update: Update Tick (60 times per second)
+		//Tick: Once per second
+
 		m_Timer = utils::TimeUtil();
-		m_Timer.set();
+
+		const float updateTick = 1000.0f / 60.0f;
+		const float statisticsInterval = 1000.0f;
 
 		double delta = 0.0;
-		float counter = 0.0;
+
+		float fpsCounter = 0.0;
+		float upsCounter = 0.0;
+
 		long long avgFpsCount = 0;
 		long secondsCount = 0;
 		unsigned int fpsCount = 0;
@@ -60,16 +69,36 @@ namespace gebase {
 		unsigned int minFps = 0;
 		unsigned int maxFps = 0;
 
+		unsigned int upsCount = 0;
+		unsigned int ups = 0;
+
 		while (m_Running)
 		{
 			delta = m_Timer.get();
 			m_Timer.set();
 
-			fpsCount++;
-			counter += (float)delta;
+			fpsCounter += (float)delta;
+			upsCounter += (float)delta;
 
-			if (counter >= 1000.0f) {
-				fps = (unsigned int)((double)fpsCount / (double)counter * 1000.0);
+			fpsCount++;
+
+			m_FrT = (float)delta;
+			window->Clear();
+
+			if (upsCounter >= updateTick)
+			{
+				OnUpdate(upsCounter);
+				upsCount++;
+				upsCounter = 0.0f;
+			}
+
+			OnRender();
+			window->Update();
+
+			if (fpsCounter >= statisticsInterval) {
+				fps = (unsigned int)((double)fpsCount / ((double)fpsCounter / 1000.0));
+				ups = (unsigned int)((double)upsCount / ((double)fpsCounter / 1000.0));
+
 				avgFpsCount += fps;
 				secondsCount++;
 
@@ -85,17 +114,13 @@ namespace gebase {
 					maxFps = fps;
 
 				fpsCount = 0;
-				counter = 0.0f;
+				upsCount = 0;
+				fpsCounter = 0.0f;
 
-				utils::LogUtil::WriteLine("INFO", "Render Stats || FrameTime: " + StringFormat::Float((float)delta) + "ms || FPS: " + std::to_string(fps) + " MIN: " + std::to_string(minFps) + " MAX: "  + std::to_string(maxFps) + " AVG: " + std::to_string(avgFps));
+				OnTick();
+
+				utils::LogUtil::WriteLine("INFO", "Render Stats || FrameTime: " + StringFormat::Float((float)delta) + "ms || UPS: " + std::to_string(ups) + " || FPS: " + std::to_string(fps) + " MIN: " + std::to_string(minFps) + " MAX: " + std::to_string(maxFps) + " AVG: " + std::to_string(avgFps));
 			}
-
-			m_FrT = (float)delta;
-			window->Clear();
-			OnUpdate((float)delta);
-			OnRender();
-			window->Update();
-			OnTick();
 
 			if (window->Closed())
 				m_Running = false;

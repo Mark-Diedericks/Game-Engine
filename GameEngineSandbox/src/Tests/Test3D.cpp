@@ -254,11 +254,13 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	}
 }
 
-void Test3D::OnUpdate(float delta)
+void Test3D::OnTick()
 {
 
-	Application& app = Application::getApplication();
-	//SP_INFO(app.getUPS(), " ups, ", app.getFPS(), " fps");
+}
+
+void Test3D::OnUpdate(float delta)
+{
 
  	TransformComponent* cubeTransform = m_Cube->getComponent<TransformComponent>();
  

@@ -25,8 +25,6 @@ namespace gebase { namespace debug {
 		graphics::Label* m_MemoryUsageLabel;
 		graphics::Label* m_FrametimeLabel;
 
-		float m_TotalDelta;
-
 		std::vector<graphics::Sprite*> m_TempSprites;
 	public:
 		DebugLayer();
@@ -34,6 +32,7 @@ namespace gebase { namespace debug {
 
 		void OnInit(graphics::Renderer2D& renderer, graphics::Material& material) override;
 
+		void OnTick() override;
 		void OnUpdate(float delta) override;
 		void OnRender(graphics::Renderer2D& renderer) override;
 

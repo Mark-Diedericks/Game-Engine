@@ -12,6 +12,7 @@ public:
 
 	void OnInit(gebase::graphics::Renderer2D& renderer, gebase::graphics::Material& material) override;
 
+	void OnTick() override;
 	void OnUpdate(float delta) override;
 	void OnRender(gebase::graphics::Renderer2D& renderer) override;
 

@@ -1,0 +1,169 @@
+[INFO] --------------------------
+[INFO]     SYSTEM INFORMATION    
+[INFO] --------------------------
+[INFO] Avaliable Physical Memory: 7.94GB
+[INFO] Total Physical Memory: 15.89GB
+[INFO] Avaliable Virtual Memory: 1.88GB
+[INFO] Total Virtual Memory: 2.00GB
+[INFO] -----------------------------------
+[INFO]                OPENGL              
+[INFO] 		4.5.13507 Compatibility Profile Context 23.20.15027.2002
+[INFO] 		ATI Technologies Inc.
+[INFO] 		Radeon RX 580 Series
+[INFO] -----------------------------------
+[INFO] [ImageUtil] LoadImage() - the width is; 3072 the height is; 4096 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1536 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 768 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 384 the height is; 512 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 192 the height is; 256 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 96 the height is; 128 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 48 the height is; 64 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 24 the height is; 32 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 12 the height is; 16 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 6 the height is; 8 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 3 the height is; 4 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 256 the height is; 256 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] Render Stats || FrameTime: 2.06ms || FPS: 355 MIN: 355 MAX: 355 AVG: 355
+[INFO] Render Stats || FrameTime: 2.19ms || FPS: 429 MIN: 355 MAX: 429 AVG: 392
+[INFO] Render Stats || FrameTime: 2.20ms || FPS: 409 MIN: 355 MAX: 429 AVG: 397
+[INFO] Render Stats || FrameTime: 2.06ms || FPS: 421 MIN: 355 MAX: 429 AVG: 403
+[INFO] Render Stats || FrameTime: 2.02ms || FPS: 446 MIN: 355 MAX: 446 AVG: 412
+[INFO] Render Stats || FrameTime: 2.26ms || FPS: 441 MIN: 355 MAX: 446 AVG: 416
+[INFO] Render Stats || FrameTime: 2.19ms || FPS: 352 MIN: 352 MAX: 446 AVG: 407
+[INFO] Render Stats || FrameTime: 2.36ms || FPS: 343 MIN: 343 MAX: 446 AVG: 399
+[INFO] Render Stats || FrameTime: 2.67ms || FPS: 371 MIN: 343 MAX: 446 AVG: 396
+[INFO] Render Stats || FrameTime: 2.46ms || FPS: 383 MIN: 343 MAX: 446 AVG: 395
+[INFO] Render Stats || FrameTime: 3.72ms || FPS: 391 MIN: 343 MAX: 446 AVG: 394
+[INFO] Render Stats || FrameTime: 3.58ms || FPS: 364 MIN: 343 MAX: 446 AVG: 392
+[INFO] Render Stats || FrameTime: 2.98ms || FPS: 379 MIN: 343 MAX: 446 AVG: 391
+[INFO] Render Stats || FrameTime: 2.30ms || FPS: 375 MIN: 343 MAX: 446 AVG: 389
+[INFO] Render Stats || FrameTime: 3.08ms || FPS: 386 MIN: 343 MAX: 446 AVG: 389
+[INFO] Render Stats || FrameTime: 2.89ms || FPS: 385 MIN: 343 MAX: 446 AVG: 389
+[INFO] Render Stats || FrameTime: 2.51ms || FPS: 389 MIN: 343 MAX: 446 AVG: 389
+[INFO] Render Stats || FrameTime: 2.57ms || FPS: 354 MIN: 343 MAX: 446 AVG: 387
+[INFO] Render Stats || FrameTime: 2.77ms || FPS: 347 MIN: 343 MAX: 446 AVG: 385
+[INFO] Render Stats || FrameTime: 3.34ms || FPS: 346 MIN: 343 MAX: 446 AVG: 383
+[INFO] Render Stats || FrameTime: 2.29ms || FPS: 347 MIN: 343 MAX: 446 AVG: 381
+[INFO] Render Stats || FrameTime: 2.62ms || FPS: 342 MIN: 342 MAX: 446 AVG: 379
+[INFO] Render Stats || FrameTime: 3.63ms || FPS: 329 MIN: 329 MAX: 446 AVG: 377
+[INFO] Render Stats || FrameTime: 3.91ms || FPS: 302 MIN: 302 MAX: 446 AVG: 374
+[INFO] Render Stats || FrameTime: 3.27ms || FPS: 310 MIN: 302 MAX: 446 AVG: 371
+[INFO] Render Stats || FrameTime: 2.29ms || FPS: 364 MIN: 302 MAX: 446 AVG: 371
+[INFO] Render Stats || FrameTime: 3.70ms || FPS: 306 MIN: 302 MAX: 446 AVG: 369
+[INFO] Render Stats || FrameTime: 3.34ms || FPS: 288 MIN: 288 MAX: 446 AVG: 366
+[INFO] Render Stats || FrameTime: 3.31ms || FPS: 318 MIN: 288 MAX: 446 AVG: 364
+[INFO] Render Stats || FrameTime: 2.30ms || FPS: 343 MIN: 288 MAX: 446 AVG: 363
+[INFO] Render Stats || FrameTime: 2.74ms || FPS: 323 MIN: 288 MAX: 446 AVG: 362
+[INFO] Render Stats || FrameTime: 2.42ms || FPS: 352 MIN: 288 MAX: 446 AVG: 362
+[INFO] Render Stats || FrameTime: 3.11ms || FPS: 298 MIN: 288 MAX: 446 AVG: 360
+[INFO] Render Stats || FrameTime: 2.22ms || FPS: 333 MIN: 288 MAX: 446 AVG: 359
+[INFO] Render Stats || FrameTime: 2.79ms || FPS: 375 MIN: 288 MAX: 446 AVG: 359
+[INFO] Render Stats || FrameTime: 2.37ms || FPS: 318 MIN: 288 MAX: 446 AVG: 358

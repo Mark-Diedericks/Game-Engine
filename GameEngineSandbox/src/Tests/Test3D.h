@@ -24,6 +24,7 @@ public:
 
 	void OnInit(gebase::graphics::Renderer3D& renderer, gebase::Scene& scene) override;
 
+	void OnTick() override;
 	void OnUpdate(float delta) override;
 	void OnEvent(gebase::events::Event& event) override;
 

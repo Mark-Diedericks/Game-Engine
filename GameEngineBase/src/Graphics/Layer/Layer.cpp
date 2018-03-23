@@ -20,6 +20,11 @@ namespace gebase { namespace graphics {
 
 	}
 
+	void Layer::OnTick()
+	{
+
+	}
+
 	void Layer::OnEvent(events::Event& event)
 	{
 		events::EventDispatcher dispatcher(event);

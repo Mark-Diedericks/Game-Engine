@@ -45,6 +45,7 @@ namespace gebase { namespace utils {
 			if (m_LogStreams[i]->GetIdentifyingTag() == identifyingTag)
 				return m_LogStreams[i];
 
+		std::cout << "[ERROR] [LogUtil] Get() - Could not locate stream: " << identifyingTag.c_str() << std::endl;
 		return nullptr;
 	}
 

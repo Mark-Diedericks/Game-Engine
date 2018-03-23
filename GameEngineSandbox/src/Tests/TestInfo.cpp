@@ -35,20 +35,15 @@ void TestInfo::OnInit(Renderer2D& renderer, Material& material)
 	Texture::setWrap(API::TextureWrap::CLAMP_TO_BORDER);
 }
 
-static float td = 0.0f;
-void TestInfo::OnUpdate(float delta)
+void TestInfo::OnTick()
 {
-	td += delta;
-
-	if (td < 1000.0f)
-		return;
-
-	td = 0.0f;
-
 	m_DebugInfo[2]->setText("Total Alloctions: " + StringFormat::ToString(MemoryManager::Get()->GetMemoryInfo().tAllocations));
 	m_DebugInfo[3]->setText("Total Allocated: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tAllocated));
 	m_DebugInfo[4]->setText("Total Freed: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tFreed));
+}
 
+void TestInfo::OnUpdate(float delta)
+{
 	String api = graphics::Context::getRenderAPI() == graphics::RenderAPI::D3D11 ? "Direct3D 11" : "OpenGL";
 	m_DebugInfo[5]->setText("Render API: " + api);
 }

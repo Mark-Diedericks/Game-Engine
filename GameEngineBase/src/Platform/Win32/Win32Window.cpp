@@ -150,7 +150,7 @@ namespace gebase {
 
 	void FocusCallback(gebase::Window* window, bool focused)
 	{
-		if (!focused)
+		if ((!focused) && (window->m_InputManager != nullptr))
 		{
 			window->m_InputManager->clearKeys();
 			window->m_InputManager->clearMouseButtons();

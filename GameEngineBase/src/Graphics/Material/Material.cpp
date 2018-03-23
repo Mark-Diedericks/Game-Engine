@@ -76,8 +76,14 @@ namespace gebase { namespace graphics {
 
 	void Material::AllocateStorage()
 	{
+		//if (m_VSUserUniformBuffer != nullptr)
+		//	gedel[] m_VSUserUniformBuffer;
+
 		m_VSUserUniformBuffer = nullptr;
 		m_VSUserUniformBufferSize = 0;
+
+		//if (m_FSUserUniformBuffer != nullptr)
+		//	gedel[] m_FSUserUniformBuffer;
 
 		m_FSUserUniformBuffer = nullptr;
 		m_FSUserUniformBufferSize = 0;
@@ -262,7 +268,7 @@ namespace gebase { namespace graphics {
 			for (API::ShaderUniformDeclaration* uniform : fs_uniforms)
 				setUniformData(uniform->getName(), fs_buffer + uniform->getOffset());
 
-		if (m_VSUserUniforms != nullptr)gedel[] vs_buffer;
+		if (m_VSUserUniforms != nullptr) gedel[] vs_buffer;
 		if (m_FSUserUniforms != nullptr) gedel[] fs_buffer;
 
 
@@ -284,8 +290,14 @@ namespace gebase { namespace graphics {
 
 	void MaterialInstance::AllocateStorage()
 	{
+		//if (m_VSUserUniformBuffer != nullptr)
+		//	gedel[] m_VSUserUniformBuffer;
+
 		m_VSUserUniformBuffer = nullptr;
 		m_VSUserUniformBufferSize = 0;
+
+		//if (m_FSUserUniformBuffer != nullptr)
+		//	gedel[] m_FSUserUniformBuffer;
 
 		m_FSUserUniformBuffer = nullptr;
 		m_FSUserUniformBufferSize = 0;

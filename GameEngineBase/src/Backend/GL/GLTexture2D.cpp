@@ -44,7 +44,7 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
 		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
 
-		if (pixels)
+		if (pixels != nullptr)
 			gedel[] pixels;
 
 		return handle;

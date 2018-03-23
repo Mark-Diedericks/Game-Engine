@@ -1,0 +1,77 @@
+[INFO] --------------------------
+[INFO]     SYSTEM INFORMATION    
+[INFO] --------------------------
+[INFO] Avaliable Physical Memory: 8.05GB
+[INFO] Total Physical Memory: 15.89GB
+[INFO] Avaliable Virtual Memory: 1.88GB
+[INFO] Total Virtual Memory: 2.00GB
+[INFO] -----------------------------------
+[INFO]                OPENGL              
+[INFO] 		4.5.13507 Compatibility Profile Context 23.20.15027.2002
+[INFO] 		ATI Technologies Inc.
+[INFO] 		Radeon RX 580 Series
+[INFO] -----------------------------------
+[INFO] [ImageUtil] LoadImage() - the width is; 3072 the height is; 4096 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1536 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 768 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 384 the height is; 512 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 192 the height is; 256 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 96 the height is; 128 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 48 the height is; 64 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 24 the height is; 32 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 12 the height is; 16 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 6 the height is; 8 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 3 the height is; 4 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 256 the height is; 256 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 2048 the height is; 2048 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] [ImageUtil] LoadImage() - the width is; 1024 the height is; 1024 the bit depth is; 32
+[INFO] Render Stats || FrameTime: 376923328.00ms || UPS: 0 || FPS: 0 MIN: 0 MAX: 0 AVG: 0
+[INFO] Render Stats || FrameTime: 1.48ms || UPS: 47 || FPS: 403 MIN: 403 MAX: 403 AVG: 201
+[INFO] Render Stats || FrameTime: 2.17ms || UPS: 54 || FPS: 400 MIN: 400 MAX: 403 AVG: 267
+[INFO] Render Stats || FrameTime: 2.35ms || UPS: 54 || FPS: 380 MIN: 380 MAX: 403 AVG: 295
+[INFO] Render Stats || FrameTime: 2.40ms || UPS: 56 || FPS: 399 MIN: 380 MAX: 403 AVG: 316
+[INFO] Render Stats || FrameTime: 1.59ms || UPS: 55 || FPS: 436 MIN: 380 MAX: 436 AVG: 336
+[INFO] Render Stats || FrameTime: 2.64ms || UPS: 55 || FPS: 408 MIN: 380 MAX: 436 AVG: 346
+[INFO] Render Stats || FrameTime: 2.32ms || UPS: 55 || FPS: 413 MIN: 380 MAX: 436 AVG: 354
+[INFO] Render Stats || FrameTime: 2.31ms || UPS: 55 || FPS: 401 MIN: 380 MAX: 436 AVG: 360
+[INFO] Render Stats || FrameTime: 3.03ms || UPS: 54 || FPS: 383 MIN: 380 MAX: 436 AVG: 362
+[INFO] Render Stats || FrameTime: 3.83ms || UPS: 55 || FPS: 393 MIN: 380 MAX: 436 AVG: 365
+[INFO] Render Stats || FrameTime: 2.32ms || UPS: 54 || FPS: 358 MIN: 358 MAX: 436 AVG: 364
+[INFO] Render Stats || FrameTime: 1.80ms || UPS: 55 || FPS: 403 MIN: 358 MAX: 436 AVG: 367
+[INFO] Render Stats || FrameTime: 2.08ms || UPS: 55 || FPS: 439 MIN: 358 MAX: 439 AVG: 372
+[INFO] Render Stats || FrameTime: 2.09ms || UPS: 55 || FPS: 447 MIN: 358 MAX: 447 AVG: 377
+[INFO] Render Stats || FrameTime: 1.84ms || UPS: 55 || FPS: 438 MIN: 358 MAX: 447 AVG: 381
+[INFO] Render Stats || FrameTime: 1.56ms || UPS: 55 || FPS: 456 MIN: 358 MAX: 456 AVG: 385
+[INFO] Render Stats || FrameTime: 1.62ms || UPS: 55 || FPS: 459 MIN: 358 MAX: 459 AVG: 389
+[INFO] Render Stats || FrameTime: 1.83ms || UPS: 56 || FPS: 459 MIN: 358 MAX: 459 AVG: 393
+[INFO] Render Stats || FrameTime: 1.97ms || UPS: 55 || FPS: 448 MIN: 358 MAX: 459 AVG: 396
+[INFO] Render Stats || FrameTime: 2.17ms || UPS: 55 || FPS: 464 MIN: 358 MAX: 464 AVG: 399
+[INFO] Render Stats || FrameTime: 2.50ms || UPS: 56 || FPS: 467 MIN: 358 MAX: 467 AVG: 402
+[INFO] -----------------------------------
+[INFO]               DIRECT3D             
+[INFO] 		Direct3D 11
+[INFO] 		R
+[INFO] 		VRAM: 3.00GB
+[INFO] -----------------------------------

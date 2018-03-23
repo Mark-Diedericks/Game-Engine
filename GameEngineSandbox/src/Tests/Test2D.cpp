@@ -44,15 +44,13 @@ void Test2D::OnInit(Renderer2D& renderer, Material& material)
 	setMask(mask);
 }
 
-static float td = 0.0f;
+void Test2D::OnTick()
+{
+
+}
+
 void Test2D::OnUpdate(float delta)
 {
-	td += delta;
-
-	if (td < 1000.0f)
-		return;
-
-	td = 0.0f;
 
 }
 
