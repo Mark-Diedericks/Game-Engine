@@ -27,11 +27,6 @@ namespace gebase { namespace graphics { namespace API {
 		return nullptr;
 	}
 
-	bool APIShader::TryCompileFromFile(const ShaderDeclaration& shader, const API::ShaderSource& source, String& error)
-	{
-		return TryCompile(source, error);
-	}
-
 	APIShader* APIShader::CreateFromSource(const ShaderDeclaration& shader, const API::ShaderSource& source)
 	{
 		switch (gebase::graphics::Context::getRenderAPI())

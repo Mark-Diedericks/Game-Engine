@@ -39,7 +39,7 @@ namespace gebase { namespace graphics {
 
 		API::ShaderSource source = { gl_src, "", dx11_src, "" };
 
-		return API::APIShader::TryCompileFromFile(shader, source, error);
+		return API::APIShader::TryCompile(source, error);
 	}
 
 	Shader::~Shader()
