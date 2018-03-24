@@ -91,7 +91,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	void GLContext::Present()
 	{
-		SwapBuffers(hDc);
+		GE_PERF(SwapBuffers(hDc))
 	}
 
 } } }

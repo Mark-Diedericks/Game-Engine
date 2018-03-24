@@ -124,7 +124,7 @@ namespace gebase {
 		}
 
 		m_InputManager->PlatformUpdate();
-		Renderer::Present();
+		GE_PERF(Renderer::Present())
 	}
 
 	void gebase::Window::setTitle(const String& title)
