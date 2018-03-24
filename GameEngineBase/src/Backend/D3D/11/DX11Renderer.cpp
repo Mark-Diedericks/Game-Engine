@@ -136,6 +136,13 @@ namespace gebase { namespace graphics { namespace API {
 			DX11Context::getDeviceContext()->ClearDepthStencilView(DX11Context::getDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	}
 
+	void DX11Renderer::ClearColorDepthInternal()
+	{
+		float color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+		DX11Context::getDeviceContext()->ClearRenderTargetView(DX11Context::getBackBuffer(), color);
+		DX11Context::getDeviceContext()->ClearDepthStencilView(DX11Context::getDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	}
+
 	void DX11Renderer::PresentInternal()
 	{
 		m_Context->Present();

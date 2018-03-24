@@ -27,6 +27,9 @@ namespace gebase { namespace graphics {
 		setUniform("u_UsingGlossMap", 0.0f);
 
 		setUniform("u_UsingNormalMap", 0.0f);
+
+		setUniform("u_DisplacementColor", 0.0f);
+		setUniform("u_UsingDisplacementMap", 0.0f);
 	}
 
 	PBRMaterial::~PBRMaterial()
@@ -100,6 +103,12 @@ namespace gebase { namespace graphics {
 		setUniform("u_UsingGlossMap", 0.0f);
 	}
 
+	void PBRMaterial::setDisplacement(float value)
+	{
+		setUniform("u_DisplacementColor", value);
+		setUniform("u_UsingDisplacementMap", 0.0f);
+	}
+
 	void PBRMaterial::setAlbedoMap(Texture2D* texture)
 	{
 		setTexture("u_AlbedoMap", texture);
@@ -122,6 +131,12 @@ namespace gebase { namespace graphics {
 	{
 		setTexture("u_GlossMap", texture);
 		setUniform("u_UsingGlossMap", 1.0f);
+	}
+
+	void PBRMaterial::setDisplacementMap(Texture2D* texture)
+	{
+		setTexture("u_DisplacementMap", texture);
+		setUniform("u_UsingDisplacementMap", 1.0f);
 	}
 
 	Texture* PBRMaterial::getMap(const String& name)
@@ -166,6 +181,11 @@ namespace gebase { namespace graphics {
 	Texture2D* PBRMaterial::getGlossMap()
 	{
 		return (Texture2D*)getMap("u_GlossMap");
+	}
+
+	Texture2D* PBRMaterial::getDisplacementMap()
+	{
+		return (Texture2D*)getMap("u_DisplacementMap");
 	}
 
 	//PBR MATERIAL INSTANCE START

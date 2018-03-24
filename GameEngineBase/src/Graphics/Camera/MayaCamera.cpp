@@ -32,15 +32,15 @@ namespace gebase {
 		{
 			if (Input::isKeyPressed(GE_KEY_ALT))
 			{
-				const math::Vector2f& mouse = Input::getMousePosition();
-				math::Vector2f& mDelta = mouse - m_InitialMousePosition;
+				float mDeltaX = Input::getMouseX() - m_InitialMouseX;
+				float mDeltaY = Input::getMouseY() - m_InitialMouseY;
 
 				if (Input::isMouseButtonPressed(GE_MOUSE_MIDDLE))
-					MousePan(mDelta, delta);
+					MousePan(mDeltaX, mDeltaY, delta);
 				if (Input::isMouseButtonPressed(GE_MOUSE_LEFT))
-					MouseRotate(mDelta, delta);
+					MouseRotate(mDeltaX, mDeltaY, delta);
 				if (Input::isMouseButtonPressed(GE_MOUSE_RIGHT))
-					MouseZoom(mDelta.y, delta);
+					MouseZoom(mDeltaY, delta);
 			}
 
 			m_Position = calculatePosition();
@@ -56,17 +56,17 @@ namespace gebase {
 		}
 
 
-		void MayaCamera::MousePan(const math::Vector2f& delta, float tDelta)
+		void MayaCamera::MousePan(const float deltaX, const float deltaY, float tDelta)
 		{
-			m_FocalPoint += (getRightDirection(getOrientation()) * -1.0f) * delta.x * (m_PanSpeed * tDelta) * m_Distance;
-			m_FocalPoint += getUpDirection(getOrientation()) * delta.y * (m_PanSpeed * tDelta) * m_Distance;
+			m_FocalPoint += (getRightDirection(getOrientation()) * -1.0f) * deltaX * (m_PanSpeed * tDelta) * m_Distance;
+			m_FocalPoint += getUpDirection(getOrientation()) * deltaY * (m_PanSpeed * tDelta) * m_Distance;
 		}
 
-		void MayaCamera::MouseRotate(const math::Vector2f& delta, float tDelta)
+		void MayaCamera::MouseRotate(const float deltaX, const float deltaY, float tDelta)
 		{
 			float yawSign = getUpDirection(getOrientation()).y < 0.0f ? -1.0f : 1.0f;
-			m_Pitch += delta.y * m_RotationSpeed;
-			m_Yaw += yawSign * delta.x * m_RotationSpeed;
+			m_Pitch += deltaY * m_RotationSpeed;
+			m_Yaw += yawSign * deltaX * m_RotationSpeed;
 		}
 
 		void MayaCamera::MouseZoom(float delta, float tDelta)

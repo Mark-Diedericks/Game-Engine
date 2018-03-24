@@ -4,6 +4,7 @@
 
 #include "Common.h"
 #include "Vector3f.h"
+#include "Utils.h"
 
 namespace gebase { namespace math {
 
@@ -21,6 +22,33 @@ namespace gebase { namespace math {
 		Vector4f normalize();
 		Vector4f lerp(const Vector4f& Vector4ff, const float& factor) const;
 		Vector4f refelect(const Vector4f& normal) const;
+
+		inline Vector4f* Floor()
+		{
+			this->x = floor(x);
+			this->y = floor(y);
+			this->z = floor(z);
+			this->w = floor(w);
+			return this;
+		}
+
+		inline Vector4f* Ceiling()
+		{
+			this->x = ceiling(x);
+			this->y = ceiling(y);
+			this->z = ceiling(z);
+			this->w = ceiling(w);
+			return this;
+		}
+
+		inline Vector4f* Round()
+		{
+			this->x = round(x);
+			this->y = round(y);
+			this->z = round(z);
+			this->w = round(w);
+			return this;
+		}
 
 		inline void operator =(const float& f) {
 			this->x = f;

@@ -31,7 +31,8 @@ namespace gebase {
 		bool m_MouseGrabbed;
 		int32 m_KeyModifiers;
 
-		math::Vector2f m_MousePosition;
+		long m_MouseX;
+		long m_MouseY;
 		WindowEventCallback m_EventCallback;
 	public:
 		InputManager();
@@ -44,8 +45,9 @@ namespace gebase {
 		bool isMouseButtonPressed(uint button) const;
 		bool isMouseButtonClicked(uint button) const;
 
-		const math::Vector2f& getMousePosition() const;
-		void setMousePosition(const math::Vector2f& position);
+		const long getMouseX() const;
+		const long getMouseY() const;
+		void setMousePosition(const long mx, const long my);
 
 		const bool isMouseGrabbed() const;
 		void setMouseGrabbed(bool grabbed);
@@ -65,7 +67,8 @@ namespace gebase {
 		inline static bool isMouseButtonPressed(uint button) { return s_InputManager->isMouseButtonPressed(button); }
 		inline static bool isMouseButtonClicked(uint button) { return s_InputManager->isMouseButtonClicked(button); }
 
-		inline static const math::Vector2f getMousePosition() { return s_InputManager->getMousePosition(); }
+		inline static const long getMouseX() { return s_InputManager->getMouseX(); }
+		inline static const long getMouseY() { return s_InputManager->getMouseY(); }
 		inline static InputManager* getInputManager() { return s_InputManager; }
 	};
 }

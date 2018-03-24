@@ -1,10 +1,11 @@
 #include "ge.h"
 #include "LogStream.h"
+#include "Timer.h"
 #include "System\FileSystem.h"
 
 namespace gebase { namespace utils {
 
-	LogStream::LogStream(const String& fileLocation, const String& identifyingTag) : m_FileStream(fileLocation), m_FileLocation(fileLocation), m_IdentifyingTag(identifyingTag)
+	LogStream::LogStream(const String& fileLocation, const String& identifyingTag, const bool printToConsole, const bool logPerformance) : m_FileStream(fileLocation), m_FileLocation(fileLocation), m_IdentifyingTag(identifyingTag), m_PrintConsole(printToConsole), m_LogPerformance(logPerformance)
 	{
 		if(m_FileStream.bad())
 			std::cout << "[ERROR] [LogStream] Write() - Cannot open file: " << m_FileLocation.c_str() << std::endl;
@@ -16,7 +17,7 @@ namespace gebase { namespace utils {
 			m_FileStream.close();
 	}
 
-	void LogStream::Write(const char* text)
+	void LogStream::WritePriv(const char* text)
 	{
 		if (m_FileStream.is_open())
 		{
@@ -28,10 +29,27 @@ namespace gebase { namespace utils {
 			std::cout << "[ERROR] [LogStream] Write() - Cannot write to file: " << m_FileLocation.c_str() << std::endl;
 		}
 
-		std::cout << "[" + m_IdentifyingTag + "] " + text;
+		if(m_PrintConsole)
+			std::cout << "[" + m_IdentifyingTag + "] " + text;
 	}
 
-	void LogStream::WriteLine(const char* text)
+	void LogStream::Write(const char* text)
+	{
+		if (m_LogPerformance)
+		{
+			gebase::Timer* timer = new gebase::Timer();
+			timer->Reset();
+			WritePriv(text);
+			std::cout << ("[PERFORMANCE] (LogStream) WriteLine(): " + StringFormat::Float(timer->ElapsedMillis()) + "ms").c_str() << std::endl;
+			delete timer;
+		}
+		else
+		{
+			WritePriv(text);
+		}
+	}
+
+	void LogStream::WriteLinePriv(const char* text)
 	{
 		if (m_FileStream.is_open())
 		{
@@ -43,7 +61,24 @@ namespace gebase { namespace utils {
 			std::cout << "[ERROR] [LogStream] Write() - Cannot write to file: " << m_FileLocation.c_str() << std::endl;
 		}
 
-		std::cout << "[" + m_IdentifyingTag + "] " + text << std::endl;
+		if (m_PrintConsole)
+			std::cout << "[" + m_IdentifyingTag + "] " + text << std::endl;
+	}
+
+	void LogStream::WriteLine(const char* text)
+	{
+		if (m_LogPerformance)
+		{
+			gebase::Timer* timer = new gebase::Timer();
+			timer->Reset();
+			WriteLinePriv(text); 
+			std::cout << ("[PERFORMANCE] (LogStream) WriteLine(): " + StringFormat::Float(timer->ElapsedMillis()) + "ms").c_str() << std::endl;
+			delete timer;
+		}
+		else
+		{
+			WriteLinePriv(text);
+		}
 	}
 
 } }

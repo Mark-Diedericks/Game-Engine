@@ -13,6 +13,8 @@ namespace gebase {
 	{
 		uint width;
 		uint height;
+		uint halfWidth;
+		uint halfHeight;
 		bool fullscreen;
 		bool vsync;
 	};
@@ -48,6 +50,8 @@ namespace gebase {
 		inline uint getWidth() { return m_Properties.width; }
 		inline uint getHeight() { return m_Properties.height; }
 
+		inline uint getCenterX() { return m_Properties.halfWidth; }
+		inline uint getCenterY() { return m_Properties.halfHeight; }
 
 		void setVSync(bool vsync);
 		inline bool isVSync() { return m_VSync; }

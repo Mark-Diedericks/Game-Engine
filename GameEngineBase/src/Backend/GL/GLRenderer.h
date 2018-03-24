@@ -15,6 +15,7 @@ namespace gebase { namespace graphics { namespace API {
 	protected:
 		void InitInternal() override;
 		void ClearInternal(uint buffer) override;
+		void ClearColorDepthInternal() override;
 		void PresentInternal() override;
 
 		void setDepthTestingInternal(bool enabled) override;

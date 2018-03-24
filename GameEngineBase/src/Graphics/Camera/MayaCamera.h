@@ -12,7 +12,9 @@ namespace gebase {
 			bool m_Panning;
 			bool m_Rotating;
 
-			math::Vector2f m_InitialMousePosition;
+			float m_InitialMouseX;
+			float m_InitialMouseY;
+
 			math::Vector3f m_InitialFocalPoint;
 			math::Vector3f m_IntialRotatoin;
 
@@ -31,8 +33,8 @@ namespace gebase {
 			inline math::Vector3f getUpDirection(const math::Quaternion& orientation) const { return math::Quaternion::Rotate(orientation, math::Vector3f(0.0f, 1.0f, 0.0f)); }
 			inline math::Vector3f getRightDirection(const math::Quaternion& orientation) const { return math::Quaternion::Rotate(orientation, math::Vector3f(1.0f, 0.0f, 0.0f)); }
 
-			void MousePan(const math::Vector2f& delta, float tDelta);
-			void MouseRotate(const math::Vector2f& delta, float tDelta);
+			void MousePan(const float mDeltaX, const float mDeltaY, float tDelta);
+			void MouseRotate(const float mDeltaX, const float mDeltaY, float tDelta);
 			void MouseZoom(float delta, float tDelta);
 		public:
 			MayaCamera(const math::Matrix4f& projectionMatrix);

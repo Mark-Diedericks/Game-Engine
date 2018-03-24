@@ -1,8 +1,8 @@
 #pragma once
 
 #include <math.h>
-
 #include "Common.h"
+#include "Utils.h"
 
 namespace gebase { namespace math {
 	
@@ -21,6 +21,27 @@ namespace gebase { namespace math {
 		Vector2f normalize();
 		Vector2f lerp(const Vector2f& vec2f, const float& factor) const;
 		Vector2f refelect(const Vector2f& normal) const;
+
+		inline Vector2f* Floor()
+		{
+			this->x = floor(x);
+			this->y = floor(y);
+			return this;
+		}
+
+		inline Vector2f* Ceiling()
+		{
+			this->x = ceiling(x);
+			this->y = ceiling(y);
+			return this;
+		}
+
+		inline Vector2f* Round()
+		{
+			this->x = round(x);
+			this->y = round(y);
+			return this;
+		}
 
 		inline void operator =(const float& f) {
 			this->x = f;

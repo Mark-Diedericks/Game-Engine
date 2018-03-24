@@ -20,18 +20,17 @@ namespace gebase {
 		GetCursorPos(&mouse);
 		ScreenToClient(hWnd, &mouse);
 
-		math::Vector2f mPos = math::Vector2f((float)mouse.x, (float)mouse.y);
-
-		if (!(mPos == m_MousePosition))
+		if (!(mouse.x == m_MouseX && mouse.y == m_MouseY))
 		{
-			m_EventCallback(MouseMovedEvent(mPos.x, mPos.y, m_MouseButtons[GE_MOUSE_LEFT]));
-			m_MousePosition = mPos;
+			m_EventCallback(MouseMovedEvent((float)mouse.x, (float)mouse.y, m_MouseButtons[GE_MOUSE_LEFT]));
+			m_MouseX = mouse.x;
+			m_MouseY = mouse.y;
 		}
 	}
 
-	void InputManager::setMousePosition(const math::Vector2f& pos)
+	void InputManager::setMousePosition(const long mx, const long my)
 	{
-		POINT p = { (LONG)pos.x, (LONG)pos.y };
+		POINT p = { mx, my };
 		ClientToScreen(hWnd, &p);
 		SetCursorPos(p.x, p.y);
 	}
@@ -121,8 +120,8 @@ namespace gebase {
 		}
 
 		inputManager->m_MouseButtons[button] = down;
-		inputManager->m_MousePosition.x = (float)x;
-		inputManager->m_MousePosition.y = (float)y;
+		inputManager->m_MouseX = (float)x;
+		inputManager->m_MouseY = (float)y;
 
 		if (down)
 			inputManager->m_EventCallback(MousePressedEvent(button, (float)x, (float)y));

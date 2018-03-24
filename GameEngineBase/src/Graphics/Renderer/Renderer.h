@@ -19,6 +19,7 @@ namespace gebase { namespace graphics {
 		static bool EmployRenderAPI(RenderAPI api);
 
 		inline static void Clear(uint buffer) { API::APIRenderer::Clear(buffer); }
+		inline static void ClearColorDepth() { API::APIRenderer::ClearColorDepth(); }
 		inline static void Present() { API::APIRenderer::Present(); }
 
 		inline static void setDepthTesting(bool enabled) { API::APIRenderer::setDepthTesting(enabled); }

@@ -15,6 +15,7 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 
 
 	GE_API Mesh* CreateCube(float size, MaterialInstance* material);
-	GE_API Mesh* CreatePlane(float width, float height, const math::Vector3f& normal, MaterialInstance* material);
+	GE_API Mesh* CreateTiledPlane(float width, float height, float wTess, float hTess, const math::Vector3f& normal, MaterialInstance* material);
+	GE_API inline Mesh* CreatePlane(float width, float height, const math::Vector3f& normal, MaterialInstance* material) { return CreateTiledPlane(width, height, 1.0f, 1.0f, normal, material); }
 
 } } }

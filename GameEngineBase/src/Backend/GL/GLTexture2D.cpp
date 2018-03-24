@@ -37,8 +37,8 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glBindTexture(GL_TEXTURE_2D, handle));
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_Parameters.filter == TextureFilter::LINEAR ? GL_LINEAR_MIPMAP_LINEAR : GL_NEAREST));
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_Parameters.filter == TextureFilter::LINEAR ? GL_LINEAR : GL_NEAREST));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GLConvert::TextureWrapToGL(s_WrapMode)));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GLConvert::TextureWrapToGL(s_WrapMode)));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GLConvert::TextureWrapToGL(m_Parameters.wrap)));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GLConvert::TextureWrapToGL(m_Parameters.wrap)));
 
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GLConvert::TextureFormatToGL(m_Parameters.format), m_Width, m_Height, 0, GLConvert::TextureFormatToGL(m_Parameters.format), GL_UNSIGNED_BYTE, pixels ? pixels : NULL));
 		GLCall(glGenerateMipmap(GL_TEXTURE_2D));

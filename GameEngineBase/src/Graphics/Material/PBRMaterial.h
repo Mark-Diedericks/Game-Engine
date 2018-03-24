@@ -24,18 +24,21 @@ namespace gebase { namespace graphics {
 		void setSpecular(const math::Vector3f& color);
 		void setNormal(bool value);
 		void setGloss(float value);
+		void setDisplacement(float value);
 
 		//MAPS
 		void setAlbedoMap(Texture2D* texture);
 		void setSpecularMap(Texture2D* texture);
 		void setNormalMap(Texture2D* texture);
 		void setGlossMap(Texture2D* texture);
+		void setDisplacementMap(Texture2D* texture);
 
 		//GET MAPS
 		Texture2D* getAlbedoMap();
 		Texture2D* getSpecularMap();
 		Texture2D* getNormalMap();
 		Texture2D* getGlossMap();
+		Texture2D* getDisplacementMap();
 	};
 
 	class GE_API PBRMaterialInstance : public MaterialInstance

@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "Common.h"
+#include "Utils.h"
 
 namespace gebase { namespace math {
 
@@ -25,6 +26,30 @@ namespace gebase { namespace math {
 		Vector3f rotate(const Vector3f& am_xis, const float& angle);
 		Vector3f lerp(const Vector3f& Vector3ff, const float& factor) const;
 		Vector3f refelect(const Vector3f& normal) const;
+
+		inline Vector3f* Floor()
+		{
+			this->x = floor(x);
+			this->y = floor(y);
+			this->z = floor(z);
+			return this;
+		}
+
+		inline Vector3f* Ceiling()
+		{
+			this->x = ceiling(x);
+			this->y = ceiling(y);
+			this->z = ceiling(z);
+			return this;
+		}
+
+		inline Vector3f* Round()
+		{
+			this->x = round(x);
+			this->y = round(y);
+			this->z = round(z);
+			return this;
+		}
 
 		inline void operator =(const float& f) {
 			this->x = f;

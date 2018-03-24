@@ -81,4 +81,19 @@ namespace gebase { namespace math {
 		return (value > minimum) ? (value < maximum) ? value : maximum : minimum;
 	}
 
+	GE_API inline float floor(float value)
+	{
+		return ::floorf(value);
+	}
+
+	GE_API inline float ceiling(float value)
+	{
+		return ::ceilf(value);
+	}
+
+	GE_API inline float round(float value)
+	{
+		return ::roundf(value);
+	}
+
 } }

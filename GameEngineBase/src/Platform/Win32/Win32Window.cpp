@@ -142,6 +142,10 @@ namespace gebase {
 	{
 		window->m_Properties.width = width;
 		window->m_Properties.height = height;
+
+		window->m_Properties.halfWidth = (uint)((float)width / 2.0f);
+		window->m_Properties.halfHeight = (uint)((float)height / 2.0f);
+
 		FontManager::setScale(math::Vector2f((float)width / 32.0f, (float)height / 18.0f));
 
 		if (window->m_EventCallback)

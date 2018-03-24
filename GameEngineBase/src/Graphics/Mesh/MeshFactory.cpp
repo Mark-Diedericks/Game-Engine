@@ -100,7 +100,7 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		return new Mesh(va, ib, material);
 	}
 
-	Mesh* CreatePlane(float width, float height, const math::Vector3f& normal, MaterialInstance* material)
+	Mesh* CreateTiledPlane(float width, float height, float wTile, float hTile, const math::Vector3f& normal, MaterialInstance* material)
 	{
 		using namespace math;
 
@@ -118,19 +118,19 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		
 		vertices[1].position = rotation * Vector3f(-width / 2.0f, 0.0f, height / 2.0f);
 		vertices[1].normal = normal;
-		vertices[1].uv = Vector2f(0.0f, 1.0f);
+		vertices[1].uv = Vector2f(0.0f, hTile);
 		vertices[1].binormal = Matrix4f::Rotate(90.0f, Vector3f(0, 1, 0)) * normal;
 		vertices[1].tangent = Matrix4f::Rotate(90.0f, Vector3f(0, 0, 1)) * normal;
 		
 		vertices[2].position = rotation * Vector3f(width / 2.0f, 0.0f, height / 2.0f);
 		vertices[2].normal = normal;
-		vertices[2].uv = Vector2f(1.0f, 1.0f);
+		vertices[2].uv = Vector2f(wTile, hTile);
 		vertices[2].binormal = Matrix4f::Rotate(90.0f, Vector3f(0, 1, 0)) * normal;
 		vertices[2].tangent = Matrix4f::Rotate(90.0f, Vector3f(0, 0, 1)) * normal;
 		
 		vertices[3].position = rotation * Vector3f(width / 2.0f, 0.0f, -height / 2.0f);
 		vertices[3].normal = normal;
-		vertices[3].uv = Vector2f(1.0f, 0.0f);
+		vertices[3].uv = Vector2f(wTile, 0.0f);
 		vertices[3].binormal = Matrix4f::Rotate(90.0f, Vector3f(0, 1, 0)) * normal;
 		vertices[3].tangent = Matrix4f::Rotate(90.0f, Vector3f(0, 0, 1)) * normal;
 

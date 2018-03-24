@@ -37,13 +37,14 @@ Shader* shadowPassShader;
 FramebufferDepth* g_DepthBuffer;
 TextureDepth* g_ShadowMap;
 
-String materialInputs[5] =
+String materialInputs[6] =
 {
 	"CastIron",
 	"WornWood",
 	"GunMetal",
 	"ABSRed",
-	"Custom"
+	"Custom",
+	"Ground"
 };
 
 enum Materials : uint
@@ -52,7 +53,8 @@ enum Materials : uint
 	WORN_WOOD,
 	GUN_METAL,
 	ABS_RED,
-	CUSTOM
+	CUSTOM,
+	GROUND
 };
 
 void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
@@ -158,6 +160,20 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	}
 	m_Materials.push_back(custom);
 
+	/*PBRMaterial* ground = genew PBRMaterial(pbrShader);
+	ground->setEnvironmentMap(environment);
+	{
+		String path = materialInputs[GROUND] + "/" + materialInputs[GROUND];
+
+		API::TextureParameters texParams(API::TextureFormat::RGBA, API::TextureFilter::LINEAR, API::TextureWrap::REPEAT);
+
+		ground->setAlbedoMap(Texture2D::CreateFromFile("/pbr/" + path + "_Albedo.jpg", texParams));
+		ground->setSpecularMap(Texture2D::CreateFromFile("/pbr/" + path + "_Specular.jpg", texParams));
+		ground->setGlossMap(Texture2D::CreateFromFile("/pbr/" + path + "_Gloss.jpg", texParams));
+		ground->setNormalMap(Texture2D::CreateFromFile("/pbr/" + path + "_Normal.jpg", texParams));
+	}
+	m_Materials.push_back(ground);*/
+
 	// Texture::SetLoadParameters(0);
 	m_DaggerMaterial = genew PBRMaterial(pbrShader);
 	m_DaggerMaterial->setEnvironmentMap(environment);
@@ -229,7 +245,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 		m_Scene->Add(sphere);
 	}
 
-	m_Plane = genew Entity(MeshFactory::CreatePlane(128, 128, Vector3f(0, 1, 0), genew PBRMaterialInstance(m_Materials[CUSTOM])));
+	m_Plane = genew Entity(MeshFactory::CreateTiledPlane(128.0f, 128.0f, 1.0f, 1.0f, Vector3f(0, 1, 0), genew PBRMaterialInstance(m_Materials[CUSTOM])));
 	m_Scene->Add(m_Plane);
 
 	LightSetup* lights = genew LightSetup();

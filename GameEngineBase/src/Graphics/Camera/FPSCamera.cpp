@@ -33,8 +33,8 @@ namespace gebase {
 
 		void FPSCamera::Update(float delta)
 		{
-			math::Vector2f windowSize = Application::getApplication().getWindowSize();
-			math::Vector2f windowCent = math::Vector2f((float)((int32)(windowSize.x / 2.0f)), (float)((int32)(windowSize.y / 2.0f)));
+			float wcx = (float)Application::getApplication().getWindowCenterX();
+			float wcy = (float)Application::getApplication().getWindowCenterY();
 
 			if (Input::isMouseButtonPressed(GE_MOUSE_RIGHT))
 			{
@@ -47,18 +47,17 @@ namespace gebase {
 
 			if (Input::getInputManager()->isMouseGrabbed())
 			{
-				math::Vector2f mPos = Input::getInputManager()->getMousePosition();
-				mPos.x -= windowCent.x;
-				mPos.y -= windowCent.y;
+				float mx = Input::getInputManager()->getMouseX() - wcx;
+				float my = Input::getInputManager()->getMouseY() - wcy;
 
 				if (m_MouseWasGrabbed)
 				{
-					m_Pitch += mPos.y * m_MouseSensitivity * delta;
-					m_Yaw += mPos.x * m_MouseSensitivity * delta;
+					m_Pitch += my * m_MouseSensitivity * delta;
+					m_Yaw += mx * m_MouseSensitivity * delta;
 				}
 
 				m_MouseWasGrabbed = true;
-				Input::getInputManager()->setMousePosition(windowCent);
+				Input::getInputManager()->setMousePosition((long)wcx, (long)wcy);
 
 				math::Quaternion orientation = getOrientation();
 				m_Rotation = orientation.ToEulerAngles() * (180.0f / GE_PI);

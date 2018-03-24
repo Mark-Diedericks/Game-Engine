@@ -26,6 +26,9 @@ namespace gebase {
 			return;
 		}
 
+		m_Properties.halfWidth = (uint)((float)m_Properties.width / 2.0f);
+		m_Properties.halfHeight = (uint)((float)m_Properties.height / 2.0f);
+
 		FontManager::setScale(math::Vector2f(m_Properties.width / 32.0f, m_Properties.height / 18.0f));
 		FontManager::Add(new Font("SourceSansPro", embedded::DEFAULT_FONT, embedded::DEFAULT_FONT_SIZE, 32));
 
@@ -58,7 +61,8 @@ namespace gebase {
 
 	void Window::Clear() const
 	{
-		Renderer::Clear(API::RendererBufferType::RENDERER_BUFFER_COLOR | API::RendererBufferType::RENDERER_BUFFER_DEPTH);
+		//Renderer::Clear(API::RendererBufferType::RENDERER_BUFFER_COLOR | API::RendererBufferType::RENDERER_BUFFER_DEPTH);
+		Renderer::ClearColorDepth();
 	}
 
 	void Window::Update()

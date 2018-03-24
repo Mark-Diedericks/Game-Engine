@@ -39,6 +39,11 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glClear(GLConvert::RendererBufferToGL(buffer)));
 	}
 
+	void GLRenderer::ClearColorDepthInternal()
+	{
+		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+	}
+
 	void GLRenderer::PresentInternal()
 	{
 		m_Context->Present();

@@ -67,9 +67,14 @@ namespace gebase {
 		return m_MouseClicked[button];
 	}
 
-	const math::Vector2f& InputManager::getMousePosition() const
+	const long InputManager::getMouseX() const
 	{
-		return m_MousePosition;
+		return m_MouseX;
+	}
+
+	const long InputManager::getMouseY() const
+	{
+		return m_MouseY;
 	}
 
 	const bool InputManager::isMouseGrabbed() const

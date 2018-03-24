@@ -38,6 +38,7 @@ namespace gebase { namespace graphics { namespace API {
 		virtual void InitInternal() = 0;
 
 		virtual void ClearInternal(uint buffer) = 0;
+		virtual void ClearColorDepthInternal() = 0;
 		virtual void PresentInternal() = 0;
 
 		virtual void setDepthTestingInternal(bool enabled) = 0;
@@ -52,6 +53,7 @@ namespace gebase { namespace graphics { namespace API {
 		static void Init();
 
 		inline static void Clear(uint buffer) { s_Instance->ClearInternal(buffer); }
+		inline static void ClearColorDepth() { s_Instance->ClearColorDepthInternal(); }
 		inline static void Present() { s_Instance->PresentInternal(); }
 
 		inline static void setDepthTesting(bool enabled) { s_Instance->setDepthTestingInternal(enabled); }
