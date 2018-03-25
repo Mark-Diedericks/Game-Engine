@@ -9,7 +9,7 @@
 
 #include <GL\glew.h>
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	static HDC hDc;
 	static HGLRC hrc;
@@ -94,4 +94,4 @@ namespace gebase { namespace graphics { namespace API {
 		GE_PERF(SwapBuffers(hDc))
 	}
 
-} } }
+} }

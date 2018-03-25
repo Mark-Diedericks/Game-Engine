@@ -11,13 +11,13 @@
 
 namespace gebase {
 	
-	byte* LoadImage(const char* filename, uint* width, uint* height, uint* bits, bool flipY) 
+	byte* GELoadImage(const char* filename, uint* width, uint* height, uint* bits, bool flipY) 
 	{
 		String actualPath;
 
 		if (!VirtualFileSystem::Get()->ResolveActualPath(filename, actualPath))
 		{
-			utils::LogUtil::WriteLine("ERROR", "[ImageUtil] LoadImage() - Could not resolve the actual path for the file; " + (String)filename);
+			utils::LogUtil::WriteLine("ERROR", "[ImageUtil] GELoadImage() - Could not resolve the actual path for the file; " + (String)filename);
 			return nullptr;
 		}
 
@@ -33,7 +33,7 @@ namespace gebase {
 
 		if (fif == FIF_UNKNOWN)
 		{
-			utils::LogUtil::WriteLine("ERROR", "[ImageUtil] LoadImage() - Could not find a compatiable fif in the file: " + (String)filename);
+			utils::LogUtil::WriteLine("ERROR", "[ImageUtil] GELoadImage() - Could not find a compatiable fif in the file: " + (String)filename);
 			return nullptr;
 		}
 
@@ -42,7 +42,7 @@ namespace gebase {
 
 		if (!fib)
 		{
-			utils::LogUtil::WriteLine("ERROR", "[ImageUtil] LoadImage() - Could not load image: " + (String)filename);
+			utils::LogUtil::WriteLine("ERROR", "[ImageUtil] GELoadImage() - Could not load image: " + (String)filename);
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -74,7 +74,7 @@ namespace gebase {
 		int32 size = w * h * (b / 8);
 		byte* result = genew byte[size];
 		
-		utils::LogUtil::WriteLine("INFO", "[ImageUtil] LoadImage() - the width is; " + std::to_string(w) + " the height is; " + std::to_string(h) + " the bit depth is; " + std::to_string(b));
+		utils::LogUtil::WriteLine("INFO", "[ImageUtil] GELoadImage() - the width is; " + std::to_string(w) + " the height is; " + std::to_string(h) + " the bit depth is; " + std::to_string(b));
 
 		memcpy(result, pixels, size);
 		FreeImage_Unload(bitmap);
@@ -82,9 +82,9 @@ namespace gebase {
 		return result;
 	}
 
-	byte* LoadImage(const String& filename, uint* width, uint* height, uint* bits, bool flipY) 
+	byte* GELoadImage(const String& filename, uint* width, uint* height, uint* bits, bool flipY)
 	{
-		return LoadImage(filename.c_str(), width, height, bits, flipY);
+		return GELoadImage(filename.c_str(), width, height, bits, flipY);
 	}
 
 }

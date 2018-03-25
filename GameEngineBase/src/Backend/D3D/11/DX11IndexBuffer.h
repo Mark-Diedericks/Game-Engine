@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Backend/API/APIIndexBuffer.h"
+#include "Graphics\Buffer\IndexBuffer.h"
 #include "DX11Common.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	class DX11IndexBuffer : public APIIndexBuffer
+	class DX11IndexBuffer : public IndexBuffer
 	{
 	private:
 		ID3D11Buffer* m_Handle;
@@ -24,4 +24,4 @@ namespace gebase { namespace graphics { namespace API {
 		inline uint getCount() const { return m_Count; }
 	};
 
-} } }
+} }

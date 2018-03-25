@@ -5,9 +5,9 @@
 
 #include <GL\glew.h>
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	GLIndexBuffer::GLIndexBuffer(uint16* data, uint count) : m_Count(count)
+	GLIndexBuffer::GLIndexBuffer(uint16* data, uint count) : IndexBuffer(0), m_Count(count)
 	{
 		GLCall(glGenBuffers(1, &m_Handle));
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Handle));
@@ -15,7 +15,7 @@ namespace gebase { namespace graphics { namespace API {
 		//gedel[] data;
 	}
 
-	GLIndexBuffer::GLIndexBuffer(uint* data, uint count) : m_Count(count)
+	GLIndexBuffer::GLIndexBuffer(uint* data, uint count) : IndexBuffer(1), m_Count(count)
 	{
 		GLCall(glGenBuffers(1, &m_Handle));
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Handle));
@@ -52,4 +52,4 @@ namespace gebase { namespace graphics { namespace API {
 		Unbind();
 	}
 
-} } }
+} }

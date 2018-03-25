@@ -8,7 +8,7 @@
 
 namespace gebase { namespace graphics {
 
-	class GE_API PostEffectsPass : public IRenderAPIDependant
+	class GE_API PostEffectsPass : public IRenderAPIDependantContainer
 	{
 	private:
 		Material* m_Material;

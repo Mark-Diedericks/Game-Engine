@@ -3,7 +3,7 @@
 #include "Backend/API/APIRenderer.h"
 #include "DX11Context.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 	
 	class DX11Renderer : public APIRenderer
 	{
@@ -36,4 +36,4 @@ namespace gebase { namespace graphics { namespace API {
 		DX11Renderer();
 	};
 
-} } }
+} }

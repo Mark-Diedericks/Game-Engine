@@ -9,7 +9,7 @@
 #include "Graphics/Context.h"
 #include "System/Memory.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	APIRenderer* APIRenderer::s_Instance = nullptr;
 
@@ -31,4 +31,4 @@ namespace gebase { namespace graphics { namespace API {
 		s_Instance->InitInternal();
 	}
 
-} } }
+} }

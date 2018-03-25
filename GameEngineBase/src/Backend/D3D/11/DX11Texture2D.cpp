@@ -10,14 +10,14 @@
 #include "Utils/ImageUtil.h"
 #include "System/Memory.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	DX11Texture2D::DX11Texture2D(uint width, uint height, TextureParameters parameters) : m_Filepath("NULL"), m_Width(width), m_Height(height), m_Parameters(parameters), m_BitsPerPixel(32)
+	DX11Texture2D::DX11Texture2D(uint width, uint height, TextureParameters parameters) : Texture2D(0), m_Filepath("NULL"), m_Width(width), m_Height(height), m_Parameters(parameters), m_BitsPerPixel(32)
 	{
 		Load(NULL, NULL);
 	}
 
-	DX11Texture2D::DX11Texture2D(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters) : m_Filepath(name), m_Width(width), m_Height(height), m_Parameters(parameters), m_BitsPerPixel(bits)
+	DX11Texture2D::DX11Texture2D(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters) : Texture2D(1), m_Filepath(name), m_Width(width), m_Height(height), m_Parameters(parameters), m_BitsPerPixel(bits)
 	{
 		Load(pixels, bits);
 	}
@@ -117,6 +117,13 @@ namespace gebase { namespace graphics { namespace API {
 
 		DXCall(DX11Context::getDevice()->CreateSamplerState(&m_SamplerDesc, &m_SamplerState));
 
+		if (bits != NULL)
+			m_BitsPerPixel = bits;
+		else
+			m_BitsPerPixel = m_Parameters.format == TextureFormat::RGB ? 24 : 32;
+
+		m_Mips = mipLvls;
+
 		if (data != nullptr)
 			gedel[] data;
 	}
@@ -166,4 +173,4 @@ namespace gebase { namespace graphics { namespace API {
 		return 0;
 	}
 
-} } }
+} }

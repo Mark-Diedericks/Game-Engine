@@ -7,14 +7,13 @@
 
 #include <GL\glew.h>
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	GLFramebufferDepth::GLFramebufferDepth(uint width, uint height) : m_Width(width), m_Height(height) { Init(); }
+	GLFramebufferDepth::GLFramebufferDepth(uint width, uint height) : FramebufferDepth(0), m_Width(width), m_Height(height) { Init(); }
 
 	GLFramebufferDepth::~GLFramebufferDepth()
 	{
 		GLCall(glDeleteFramebuffers(1, &m_FramebufferHandle));
-		gedel m_Texture->getInstance();
 		gedel m_Texture;
 	}
 
@@ -25,7 +24,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		m_Texture = TextureDepth::Create(m_Width, m_Height);
 
-		GLCall(glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, ((API::GLTextureDepth*)m_Texture->getInstance())->getHandle(), 0));
+		GLCall(glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, ((GLTextureDepth*)m_Texture)->getHandle(), 0));
 		GLCall(glDrawBuffer(GL_NONE));
 
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -65,4 +64,4 @@ namespace gebase { namespace graphics { namespace API {
 		m_Texture->setData(pixels);
 	}
 
-} } }
+} }

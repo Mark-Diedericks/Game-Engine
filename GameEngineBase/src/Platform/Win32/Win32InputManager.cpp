@@ -120,8 +120,8 @@ namespace gebase {
 		}
 
 		inputManager->m_MouseButtons[button] = down;
-		inputManager->m_MouseX = (float)x;
-		inputManager->m_MouseY = (float)y;
+		inputManager->m_MouseX = x;
+		inputManager->m_MouseY = y;
 
 		if (down)
 			inputManager->m_EventCallback(MousePressedEvent(button, (float)x, (float)y));

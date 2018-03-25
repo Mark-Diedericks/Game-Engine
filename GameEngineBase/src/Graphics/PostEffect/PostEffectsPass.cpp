@@ -10,7 +10,7 @@ namespace gebase { namespace graphics {
 		Texture* texture;
 	};
 
-	PostEffectsPass::PostEffectsPass(Shader* shader) : IRenderAPIDependant(RenderObjectType::Material)
+	PostEffectsPass::PostEffectsPass(Shader* shader) 
 	{
 		m_Material = genew Material(shader);
 	}

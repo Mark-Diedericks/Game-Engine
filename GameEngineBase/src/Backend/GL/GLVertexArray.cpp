@@ -2,9 +2,9 @@
 #include "Common.h"
 #include "GLVertexArray.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	GLVertexArray::GLVertexArray() 
+	GLVertexArray::GLVertexArray() : VertexArray(0)
 	{
 
 	}
@@ -29,9 +29,9 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, NULL));
 	}
 
-	void GLVertexArray::PushBuffer(gebase::graphics::VertexBuffer* buffer)
+	void GLVertexArray::PushBuffer(VertexBuffer* buffer)
 	{
 		m_Buffers.push_back(buffer);
 	}
 
-} } }
+} }

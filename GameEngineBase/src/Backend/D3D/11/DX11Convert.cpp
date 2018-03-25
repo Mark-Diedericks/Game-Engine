@@ -2,7 +2,7 @@
 #include "Common.h"
 #include "DX11Convert.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	uint DX11Convert::RendererBufferToDX(uint buffer) 
 	{
@@ -45,4 +45,4 @@ namespace gebase { namespace graphics { namespace API {
 	}
 
 
-} } }
+} }

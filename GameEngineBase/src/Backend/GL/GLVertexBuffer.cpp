@@ -6,9 +6,9 @@
 
 #include <GL\glew.h>
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	GLVertexBuffer::GLVertexBuffer(BufferUsage usage) : m_Usage(usage) 
+	GLVertexBuffer::GLVertexBuffer(BufferUsage usage) : VertexBuffer(0), m_Usage(usage) 
 	{
 		GLCall(glGenBuffers(1, &m_Handle)) 
 	}
@@ -26,7 +26,7 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glBufferData(GL_ARRAY_BUFFER, size, NULL, GLConvert::BufferUsageToGL(m_Usage)));
 	}
 
-	void GLVertexBuffer::setLayout(const APIBufferLayout& bufferLayout)
+	void GLVertexBuffer::setLayout(const BufferLayout& bufferLayout)
 	{
 		m_Layout = bufferLayout;
 		const std::vector<BufferElement>& layout = bufferLayout.getLayout();
@@ -75,4 +75,4 @@ namespace gebase { namespace graphics { namespace API {
 		Unbind();
 	}
 
-} } }
+} }

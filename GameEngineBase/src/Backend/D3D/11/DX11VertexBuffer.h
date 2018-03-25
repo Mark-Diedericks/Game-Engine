@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Backend/API/APIVertexBuffer.h"
+#include "Graphics\Buffer\VertexBuffer.h"
 #include "DX11Common.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	class DX11VertexBuffer : public APIVertexBuffer
+	class DX11VertexBuffer : public VertexBuffer
 	{
 	private:
 		D3D11_BUFFER_DESC m_BufferDesc;
@@ -14,7 +14,7 @@ namespace gebase { namespace graphics { namespace API {
 		ID3D11InputLayout* m_InputLayout;
 
 		BufferUsage m_Usage;
-		APIBufferLayout m_Layout;
+		BufferLayout m_Layout;
 		uint m_Size;
 	protected:
 		void* getPointerInternal() override;
@@ -26,14 +26,14 @@ namespace gebase { namespace graphics { namespace API {
 		void Unbind() override;
 
 		void Resize(uint size) override;
-		void setLayout(const APIBufferLayout& layout) override;
+		void setLayout(const BufferLayout& layout) override;
 		void setData(uint size, const void* data) override;
 
 		void getBufferData(void* data) override;
 		inline uint getSize() override { return m_Size; }
-		inline APIBufferLayout getBufferLayout() override { return m_Layout; }
+		inline BufferLayout getBufferLayout() override { return m_Layout; }
 
 		void ReleasePointer() override;
 	};
 
-} } }
+} }

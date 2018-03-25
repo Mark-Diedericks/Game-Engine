@@ -8,7 +8,7 @@
 #include "System/Memory.h"
 #include "System/VirtualFileSystem.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	enum class ShaderType
 	{
@@ -17,7 +17,7 @@ namespace gebase { namespace graphics { namespace API {
 		FRAGMENT
 	};
 
-	GLShader::GLShader(const String& name, const String& source) : m_Name(name), m_Source(source)
+	GLShader::GLShader(const ShaderDeclaration& declaration, const ShaderSource& source) : Shader(0), m_Declaration(declaration), m_Source(source)
 	{
 		Init();
 	}
@@ -33,7 +33,7 @@ namespace gebase { namespace graphics { namespace API {
 		m_FSUserUniformBuffer = nullptr;
 
 		String* shaders[2] = { &m_VertexSource, &m_FragmentSource };
-		Preprocess(m_Source, shaders);
+		Preprocess(m_Source.opengl, shaders);
 		Parse(m_VertexSource, m_FragmentSource);
 
 		GLShaderErrorInfo info;
@@ -41,7 +41,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		if (!m_Handle)
 		{
-			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + m_Name + "] Error: " + info.message[info.shader]);;
+			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] Error: " + info.message[info.shader]);;
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -62,12 +62,12 @@ namespace gebase { namespace graphics { namespace API {
 		GLsizei length;
 
 		glGetProgramiv(m_Handle, GL_ACTIVE_UNIFORMS, &count);
-		utils::LogUtil::WriteLine("DEBUG", "[GLShader: " + m_Name + "] - Active Uniforms: " + std::to_string(count));
+		utils::LogUtil::WriteLine("DEBUG", "[GLShader: " + getName() + "] - Active Uniforms: " + std::to_string(count));
 
 		for (i = 0; i < count; i++)
 		{
 			glGetActiveUniform(m_Handle, (GLuint)i, bufSize, &length, &size, &type, name);
-			utils::LogUtil::WriteLine("DEBUG", "    [GLShader: " + m_Name + "] - Active Uniform: " + std::to_string(i) + ", " + std::to_string(type) + ", " + (String)name);
+			utils::LogUtil::WriteLine("DEBUG", "    [GLShader: " + getName() + "] - Active Uniform: " + std::to_string(i) + ", " + std::to_string(type) + ", " + (String)name);
 		}
 #endif
 	}
@@ -303,7 +303,7 @@ namespace gebase { namespace graphics { namespace API {
 
 				if (!s)
 				{
-					utils::LogUtil::WriteLine("ERROR", "[GLShader: " + m_Name + "] ParseUniform() - Shader Struct parsing is not implemented");
+					utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] ParseUniform() - Shader Struct parsing is not implemented");
 #ifdef GE_DEBUG
 					__debugbreak();
 #endif
@@ -540,7 +540,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	void GLShader::ValidateUniforms()
 	{
-		utils::LogUtil::WriteLine("ERROR", "[GLShader: " + m_Name + "] ValidateUniforms() - Not implemented");
+		utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] ValidateUniforms() - Not implemented");
 	}
 
 	GLint GLShader::getUniformLocation(const String& name)
@@ -548,7 +548,7 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(GLint result = glGetUniformLocation(m_Handle, name.c_str()));
 
 		if (result == -1)
-			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + m_Name + "] getUniformLocation() - Could not find uniform: " + name);
+			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] getUniformLocation() - Could not find uniform: " + name);
 
 		return result;
 	}
@@ -608,7 +608,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		if (!(m_VSUniformBuffers.size() > slot))
 		{
-			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + m_Name + "] setVSSystemUniformBuffer() - Size is not greater than slot.");
+			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] setVSSystemUniformBuffer() - Size is not greater than slot.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -625,7 +625,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		if (!(m_FSUniformBuffers.size() > slot))
 		{
-			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + m_Name + "] setFSSystemUniformBuffer() - Size is not greater than slot.");
+			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] setFSSystemUniformBuffer() - Size is not greater than slot.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -695,7 +695,7 @@ namespace gebase { namespace graphics { namespace API {
 			break;
 		case GLShaderUniformDeclaration::UniformType::MAT3:
 			//TODO Implement    setUniformMat3(uniform->getLocation(), *(math::Matrix3f*)&data[offset]);
-			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + m_Name + "] ResolveAndSetUniform() - Cannot set MAT3 uniform type, unimplemented.");
+			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] ResolveAndSetUniform() - Cannot set MAT3 uniform type, unimplemented.");
 			break;
 		case GLShaderUniformDeclaration::UniformType::MAT4:
 			setUniformMat4(uniform->getLocation(), *(math::Matrix4f*)&data[offset]);
@@ -704,7 +704,7 @@ namespace gebase { namespace graphics { namespace API {
 			setUniformStruct(uniform, data, offset);
 			break;
 		default:
-			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + m_Name + "] ResolveAndSetUniform() - Unknown uniform type.");
+			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] ResolveAndSetUniform() - Unknown uniform type.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -733,7 +733,7 @@ namespace gebase { namespace graphics { namespace API {
 			break;
 		case GLShaderUniformDeclaration::UniformType::MAT3:
 			//TODO Implement    setUniformMat3(field.getLocation(), *(math::Matrix3f*)&data[offset]);
-			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + m_Name + "] ResolveAndSetUniformField() - Cannot set MAT3 uniform type, unimplemented.");
+			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] ResolveAndSetUniformField() - Cannot set MAT3 uniform type, unimplemented.");
 			break;
 		case GLShaderUniformDeclaration::UniformType::MAT4:
 			setUniformMat4(field.getLocation(), *(math::Matrix4f*)&data[offset]);
@@ -741,7 +741,7 @@ namespace gebase { namespace graphics { namespace API {
 		case GLShaderUniformDeclaration::UniformType::STRUCT:
 			break;
 		default:
-			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + m_Name + "] ResolveAndSetUniform() - Unknown uniform type.");
+			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] ResolveAndSetUniform() - Unknown uniform type.");
 #ifdef GE_DEBUG
 			__debugbreak();
 #endif
@@ -755,7 +755,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		if (!uniform)
 		{
-			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + m_Name + "] setUniform() - Could not find uniform declaration.");
+			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] setUniform() - Could not find uniform declaration.");
 			return;
 		}
 
@@ -842,4 +842,4 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glUniformMatrix4fv(location, 1, GL_TRUE, value.elements));
 	}
 
-} } }
+} }

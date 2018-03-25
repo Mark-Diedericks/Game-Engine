@@ -3,29 +3,52 @@
 #include "Graphics/Context.h"
 
 #include "System/Memory.h"
+#include "Application/Application.h"
+
+#include "Backend\GL\GLFramebufferDepth.h"
+#include "Backend\D3D\11\DX11FramebufferDepth.h"
 
 namespace gebase { namespace graphics {
+
+	std::map<FramebufferDepth*, FramebufferDepth*> FramebufferDepth::s_APIChangeMap;
 	
 	FramebufferDepth* FramebufferDepth::Create(uint width, uint height)
 	{
-		FramebufferDepth* thisFB = genew FramebufferDepth();
-		thisFB->m_Width = width;
-		thisFB->m_Height = height;
-		thisFB->m_Instance = API::APIFramebufferDepth::Create(width, height);
-		return thisFB;
+		switch (gebase::graphics::Context::getRenderAPI())
+		{
+		case RenderAPI::OPENGL: return genew GLFramebufferDepth(width, height);
+			//case RenderAPI::VULKAN: return genew VKFramebufferDepth(width, height);
+		case RenderAPI::D3D11: return genew DX11FramebufferDepth(width, height);
+			//case RenderAPI::D3D12: return genew DX12FramebufferDepth(width, height);
+		}
+
+		return nullptr;
 	}
 
-	bool FramebufferDepth::EmployRenderAPI(RenderAPI api)
+	FramebufferDepth* FramebufferDepth::ConvertRenderAPI(RenderAPI api, FramebufferDepth* original)
 	{
-		if (current == api)
-			return true;
+		if (HasRenderAPIChange(original))
+			return GetRenderAPIChange(original);
 
-		current = api;
+		if (original->current == api)
+			return original;
 
-		gedel this->m_Instance;
-		this->m_Instance = API::APIFramebufferDepth::Create(m_Width, m_Height);
+		FramebufferDepth* framebuffer = Create(original->getWidth(), original->getHeight());
 
-		return true;
+		AddRenderAPIChange(original, framebuffer);
+
+		return framebuffer;
+	}
+
+	void FramebufferDepth::FlushRenderAPIChange()
+	{
+		std::map<FramebufferDepth*, FramebufferDepth*>::iterator it;
+		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
+		{
+			gedel((FramebufferDepth*)it->first);
+		}
+
+		s_APIChangeMap.clear();
 	}
 
 } }

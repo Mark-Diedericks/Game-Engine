@@ -9,7 +9,7 @@
 #include "Graphics/Context.h"
 #include "System/Memory.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	APIContext* APIContext::s_Context = nullptr;
 
@@ -33,4 +33,4 @@ namespace gebase { namespace graphics { namespace API {
 		}
 	}
 
-} } }
+} }

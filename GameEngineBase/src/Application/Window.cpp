@@ -61,7 +61,7 @@ namespace gebase {
 
 	void Window::Clear() const
 	{
-		//Renderer::Clear(API::RendererBufferType::RENDERER_BUFFER_COLOR | API::RendererBufferType::RENDERER_BUFFER_DEPTH);
+		//Renderer::Clear(RendererBufferType::RENDERER_BUFFER_COLOR | RendererBufferType::RENDERER_BUFFER_DEPTH);
 		Renderer::ClearColorDepth();
 	}
 

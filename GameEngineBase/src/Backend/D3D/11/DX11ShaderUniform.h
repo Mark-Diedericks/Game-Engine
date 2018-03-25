@@ -5,9 +5,9 @@
 #include "CustomString.h"
 
 #include "DX11Common.h"
-#include "Backend/API/APIShaderUniform.h"
+#include "Graphics/Shader/ShaderUniform.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	class DX11ShaderUniformDeclaration : public ShaderUniformDeclaration
 	{
@@ -81,4 +81,4 @@ namespace gebase { namespace graphics { namespace API {
 		inline const ShaderUniformList& getUniformDeclarations() const override { return m_Uniforms; }
 	};
 
-} } }
+} }

@@ -4,51 +4,64 @@
 
 #include "Graphics/Context.h"
 #include "System/Memory.h"
+#include "Application/Application.h"
+
+#include "Backend/GL/GLVertexBuffer.h"
+#include "Backend/D3D/11/DX11VertexBuffer.h"
 
 namespace gebase { namespace graphics {
 
-	VertexBuffer* VertexBuffer::Create(API::BufferUsage usage)
+	std::map<VertexBuffer*, VertexBuffer*> VertexBuffer::s_APIChangeMap;
+
+	VertexBuffer* VertexBuffer::Create(BufferUsage usage)
 	{
-		VertexBuffer* thisVB = genew VertexBuffer();
-		thisVB->m_Usage = usage;
-		thisVB->m_Instance = API::APIVertexBuffer::Create(usage);
-		return thisVB;
+		switch (gebase::graphics::Context::getRenderAPI())
+		{
+		case RenderAPI::OPENGL: return genew GLVertexBuffer(usage);
+			//case RenderAPI::VULKAN: return genew VKVertexBuffer(usage);
+		case RenderAPI::D3D11: return genew DX11VertexBuffer(usage);
+			//case RenderAPI::D3D12: return genew DX12VertexBuffer(usage);
+		}
+
+		return nullptr;
 	}
 
-	void VertexBuffer::setData(uint size, const void* data)
+	VertexBuffer* VertexBuffer::ConvertRenderAPI(RenderAPI api, VertexBuffer* original)
 	{
-		m_Instance->setData(size, data);
-	}
+		if (HasRenderAPIChange(original))
+			return GetRenderAPIChange(original);
 
-	bool VertexBuffer::EmployRenderAPI(RenderAPI api)
-	{
-		if (current == api)
-			return true;
+		if (original->current == api)
+			return original;
 
-		current = api;
-
-		API::APIBufferLayout layout = this->m_Instance->getBufferLayout();
+		BufferLayout layout = original->getBufferLayout();
 		layout.EmployRenderAPI(api);
 
-		uint size = this->m_Instance->getSize();
+		uint size = original->getSize();
 		byte* data = genew byte[size];
-		this->m_Instance->getBufferData((void*)data);
+		original->getBufferData((void*)data);
 
-		API::APIVertexBuffer* inst = API::APIVertexBuffer::Create(m_Usage);
-		inst->setData(size, data);
-		inst->setLayout(layout);
+		VertexBuffer* buffer = Create(original->m_Usage);
+		buffer->setData(size, data);
+		buffer->setLayout(layout);
 
-		if(data)
+		if (data)
 			gedel[] data;
 
-		gedel this->m_Instance;
+		AddRenderAPIChange(original, buffer);
 
-		if (!inst)
-			return false;
+		return buffer;
+	}
 
-		this->m_Instance = inst;
+	void VertexBuffer::FlushRenderAPIChange()
+	{
+		std::map<VertexBuffer*, VertexBuffer*>::iterator it;
+		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
+		{
+			gedel((VertexBuffer*)it->first);
+		}
 
-		return true;
+		s_APIChangeMap.clear();
 	}
 
 } }

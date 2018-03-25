@@ -2,11 +2,11 @@
 
 #include "Common.h"
 #include "CustomString.h"
-#include "Backend/API/APIShaderResource.h"
+#include "Graphics/Shader/ShaderResource.h"
 #include "GLShaderUniform.h"
 #include "GLCommon.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	class GLShaderResourceDeclaration : public ShaderResourceDeclaration
 	{
@@ -38,4 +38,4 @@ namespace gebase { namespace graphics { namespace API {
 		static String TypeToString(ResourceType type);
 	};
 
-} } }
+} }

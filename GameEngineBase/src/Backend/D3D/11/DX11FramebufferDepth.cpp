@@ -4,9 +4,9 @@
 
 #include "System/Memory.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	DX11FramebufferDepth::DX11FramebufferDepth(uint width, uint height) : m_Width(width), m_Height(height) { Init(); }
+	DX11FramebufferDepth::DX11FramebufferDepth(uint width, uint height) : FramebufferDepth(0), m_Width(width), m_Height(height) { Init(); }
 
 	DX11FramebufferDepth::~DX11FramebufferDepth() { }
 
@@ -40,4 +40,4 @@ namespace gebase { namespace graphics { namespace API {
 
 	}
 
-} } }
+} } 

@@ -13,7 +13,7 @@ namespace ftgl
 
 namespace gebase { namespace graphics {
 
-	class GE_API Font : public IRenderAPIDependant
+	class GE_API Font : public IRenderAPIDependantContainer
 	{
 	private:
 		ftgl::texture_atlas_t* m_FTAtlas;

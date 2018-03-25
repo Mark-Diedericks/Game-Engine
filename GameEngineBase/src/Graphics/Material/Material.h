@@ -13,7 +13,7 @@
 
 namespace gebase { namespace graphics {
 
-	class GE_API Material : public IRenderAPIDependant
+	class GE_API Material : public IRenderAPIDependantContainer
 	{
 	public:
 		enum class RenderFlags
@@ -35,16 +35,16 @@ namespace gebase { namespace graphics {
 
 		std::vector<Texture*> m_Textures;
 
-		const API::ShaderUniformList* m_VSUserUniforms;
-		const API::ShaderUniformList* m_FSUserUniforms;
-		const API::ShaderResourceList* m_Resources;
+		const ShaderUniformList* m_VSUserUniforms;
+		const ShaderUniformList* m_FSUserUniforms;
+		const ShaderResourceList* m_Resources;
 
 		int m_RenderFlags;
 		bool m_isInstance;
 
 		void AllocateStorage();
-		API::ShaderUniformDeclaration* FindUniformDeclaration(const String& name, byte** outBuffer = nullptr);
-		API::ShaderResourceDeclaration* FindResourceDeclaration(const String& name);
+		ShaderUniformDeclaration* FindUniformDeclaration(const String& name, byte** outBuffer = nullptr);
+		ShaderResourceDeclaration* FindResourceDeclaration(const String& name);
 	public:
 		Material(Shader* shader);
 		~Material();
@@ -67,7 +67,7 @@ namespace gebase { namespace graphics {
 		void setUniform(const String& name, const T& data)
 		{
 			byte* buffer;
-			API::ShaderUniformDeclaration* declaration = FindUniformDeclaration(name, &buffer);
+			ShaderUniformDeclaration* declaration = FindUniformDeclaration(name, &buffer);
 
 			if (!declaration)
 			{
@@ -85,13 +85,13 @@ namespace gebase { namespace graphics {
 		}
 
 		template<typename T>
-		const T* getUniform(const API::ShaderUniformDeclaration* unfiorm) const
+		const T* getUniform(const ShaderUniformDeclaration* unfiorm) const
 		{
 			return (T*)&m_UniformData[uniform->getOffset()];
 		}
 	};
 
-	class GE_API MaterialInstance : public IRenderAPIDependant
+	class GE_API MaterialInstance : public IRenderAPIDependantContainer
 	{
 	private:
 		Material* m_Material;
@@ -104,15 +104,15 @@ namespace gebase { namespace graphics {
 
 		std::vector<Texture*> m_Textures;
 
-		const API::ShaderUniformList* m_VSUserUniforms;
-		const API::ShaderUniformList* m_FSUserUniforms;
-		const API::ShaderResourceList* m_Resources;
+		const ShaderUniformList* m_VSUserUniforms;
+		const ShaderUniformList* m_FSUserUniforms;
+		const ShaderResourceList* m_Resources;
 
 		int m_RenderFlags;
 
 		void AllocateStorage();
-		API::ShaderUniformDeclaration* FindUniformDeclaration(const String& name, byte** outBuffer = nullptr);
-		API::ShaderResourceDeclaration* FindResourceDeclaration(const String& name);
+		ShaderUniformDeclaration* FindUniformDeclaration(const String& name, byte** outBuffer = nullptr);
+		ShaderResourceDeclaration* FindResourceDeclaration(const String& name);
 	public:
 		MaterialInstance(Material* material);
 
@@ -135,7 +135,7 @@ namespace gebase { namespace graphics {
 		void setUniform(const String& name, const T& data)
 		{
 			byte* buffer;
-			API::ShaderUniformDeclaration* declaration = FindUniformDeclaration(name, &buffer);
+			ShaderUniformDeclaration* declaration = FindUniformDeclaration(name, &buffer);
 
 			if (!declaration)
 			{

@@ -12,14 +12,14 @@
 #include "GLShader.h"
 #include "System/Memory.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	GLTexture2D::GLTexture2D(uint width, uint height, TextureParameters parameters) : m_Filepath("NULL"), m_Width(width), m_Height(height), m_Parameters(parameters)
+	GLTexture2D::GLTexture2D(uint width, uint height, TextureParameters parameters) : Texture2D(0), m_Filepath("NULL"), m_Width(width), m_Height(height), m_Parameters(parameters)
 	{
 		m_Handle = Load(NULL, NULL);
 	}
 
-	GLTexture2D::GLTexture2D(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters) : m_Filepath(name), m_Width(width), m_Height(height), m_Parameters(parameters)
+	GLTexture2D::GLTexture2D(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters) : Texture2D(1), m_Filepath(name), m_Width(width), m_Height(height), m_Parameters(parameters)
 	{
 		m_Handle = Load(pixels, bits);
 	}
@@ -43,6 +43,11 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GLConvert::TextureFormatToGL(m_Parameters.format), m_Width, m_Height, 0, GLConvert::TextureFormatToGL(m_Parameters.format), GL_UNSIGNED_BYTE, pixels ? pixels : NULL));
 		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
 		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+
+		if (bits != NULL)
+			m_BitsPerPixel = bits;
+		else
+			m_BitsPerPixel = m_Parameters.format == TextureFormat::RGB ? 24 : 32;
 
 		if (pixels != nullptr)
 			gedel[] pixels;
@@ -106,4 +111,4 @@ namespace gebase { namespace graphics { namespace API {
 		return m_Width * m_Height * (m_Parameters.format == TextureFormat::RGB ? 3 : 4);
 	}
 
-} } }
+} }

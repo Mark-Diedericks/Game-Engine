@@ -9,7 +9,7 @@
 #include "Backend/D3D/D3DTypes.h"
 #include "Backend/VK/VKTypes.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	enum class GE_API BufferElementType
 	{
@@ -48,7 +48,7 @@ namespace gebase { namespace graphics { namespace API {
 		bool normalized;
 	};
 
-	class APIBufferLayout
+	class BufferLayout
 	{
 	private:
 		RenderAPI m_RenderAPI;
@@ -57,7 +57,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		void Push(const String& name, BufferElementType type, BufferElementCount count, bool normalized);
 	public:
-		APIBufferLayout();
+		BufferLayout();
 
 		void EmployRenderAPI(RenderAPI api);
 
@@ -167,4 +167,4 @@ namespace gebase { namespace graphics { namespace API {
 		}
 	};
 
-} } }
+} }

@@ -2,11 +2,17 @@
 #include "Common.h"
 #include "DX11TextureDepth.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	DX11TextureDepth::DX11TextureDepth(uint width, uint height) : m_Width(width), m_Height(height) { Init(); }
+	DX11TextureDepth::DX11TextureDepth(uint width, uint height) : TextureDepth(0), m_Width(width), m_Height(height), m_Parameters(), m_BitsPerPixel(16), m_Mips(0)
+	{ 
+		Init(); 
+	}
 	
-	DX11TextureDepth::~DX11TextureDepth() { }
+	DX11TextureDepth::~DX11TextureDepth() 
+	{
+		
+	}
 
 	void DX11TextureDepth::Init()
 	{
@@ -38,4 +44,4 @@ namespace gebase { namespace graphics { namespace API {
 		return 0;
 	}
 
-} } }
+} }

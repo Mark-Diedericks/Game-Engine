@@ -9,6 +9,8 @@
 #include "System/Memory.h"
 
 #include "Utils/LogUtil.h"
+#include "Graphics/IRenderAPIDependant.h"
+#include "Graphics/Framebuffer/FramebufferDepth.h"
 
 namespace gebase {
 	using namespace graphics;
@@ -85,6 +87,16 @@ namespace gebase {
 	{
 		if (!graphics::Context::EmployRenderAPI(api))
 			return false;
+
+		IndexBuffer::FlushRenderAPIChange();
+		VertexBuffer::FlushRenderAPIChange();
+		VertexArray::FlushRenderAPIChange();
+		Framebuffer2D::FlushRenderAPIChange();
+		FramebufferDepth::FlushRenderAPIChange();
+		Shader::FlushRenderAPIChange();
+		Texture2D::FlushRenderAPIChange();
+		TextureCube::FlushRenderAPIChange();
+		TextureDepth::FlushRenderAPIChange();
 
 		utils::LogUtil::WriteLine("INFO", "[Application] TrySetRenderAPI() - Render API Employment: Success!");
 

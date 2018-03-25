@@ -6,11 +6,11 @@
 
 #include <GL\glew.h>
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	GLRenderer::GLRenderer()
 	{
-		m_Context = API::GLContext::Get();
+		m_Context = GLContext::Get();
 	}
 
 	void GLRenderer::InitInternal()
@@ -90,4 +90,4 @@ namespace gebase { namespace graphics { namespace API {
 	{
 		GLCall(glViewport(x, y, width, height));
 	}
-} } }
+} }

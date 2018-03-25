@@ -10,13 +10,13 @@ namespace gebase { namespace graphics {
 
 	void Renderer::Init()
 	{
-		API::APIRenderer::Init();
+		APIRenderer::Init();
 		s_Instance = genew Renderer();
 	}
 
 	bool Renderer::EmployRenderAPI(RenderAPI api)
 	{
-		API::APIRenderer::Init();
+		APIRenderer::Init();
 		return true;
 	}
 

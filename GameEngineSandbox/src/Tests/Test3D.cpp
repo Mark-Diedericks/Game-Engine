@@ -79,7 +79,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 
 	TextureCube* environment = TextureCube::CreateFromVerticalCross(environmentFiles, 11);
 
-	API::ShaderDeclaration sd;
+	ShaderDeclaration sd;
 	sd.name = "Skybox";
 	sd.opengl = String("/shaders/Skybox") + ".shader";
 	sd.d3d11 = String("/shaders/Skybox") + ".hlsl";
@@ -94,7 +94,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	Entity* skyboxEntity = genew Entity(MeshFactory::CreateQuad(-1, -1, 2, 2, m_SkyboxMaterial));
 	m_Scene->Add(skyboxEntity);
 
-	API::ShaderDeclaration sdpbr;
+	ShaderDeclaration sdpbr;
 	sdpbr.name = "AdvancedLighting";
 	sdpbr.opengl = String("/shaders/AdvancedLighting") + ".shader";
 	sdpbr.d3d11 = String("/shaders/AdvancedLighting") + ".hlsl";
@@ -165,7 +165,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	{
 		String path = materialInputs[GROUND] + "/" + materialInputs[GROUND];
 
-		API::TextureParameters texParams(API::TextureFormat::RGBA, API::TextureFilter::LINEAR, API::TextureWrap::REPEAT);
+		TextureParameters texParams(TextureFormat::RGBA, TextureFilter::LINEAR, TextureWrap::REPEAT);
 
 		ground->setAlbedoMap(Texture2D::CreateFromFile("/pbr/" + path + "_Albedo.jpg", texParams));
 		ground->setSpecularMap(Texture2D::CreateFromFile("/pbr/" + path + "_Specular.jpg", texParams));
@@ -178,7 +178,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	m_DaggerMaterial = genew PBRMaterial(pbrShader);
 	m_DaggerMaterial->setEnvironmentMap(environment);
 	{
-		API::TextureLoadOptions options(false, true);
+		TextureLoadOptions options(false, true);
 		m_DaggerMaterial->setAlbedoMap(Texture2D::CreateFromFile("res/Dagger/Textures/Dagger_Albedo.tga", options));
 		m_DaggerMaterial->setSpecularMap(Texture2D::CreateFromFile("res/Dagger/Textures/Dagger_Specular.tga", options));
 		m_DaggerMaterial->setGlossMap(Texture2D::CreateFromFile("res/Dagger/Textures/Dagger_Gloss.tga", options));

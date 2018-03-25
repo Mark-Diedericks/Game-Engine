@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Math/Maths.h"
-#include "Backend/API/APIShader.h"
+#include "Graphics/Shader/Shader.h"
 #include "Graphics/Shader/ShaderManager.h"
 #include "GLCommon.h"
 #include "GLShaderUniform.h"
 #include "GLShaderResource.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	struct GLShaderErrorInfo
 	{
@@ -16,17 +16,15 @@ namespace gebase { namespace graphics { namespace API {
 		uint line[2];
 	};
 
-	class GLShader : public APIShader
+	class GLShader : public Shader
 	{
 	private:
-		friend class APIShader;
 		friend class Shader;
 		friend class ShaderManager;
 
 		uint m_Handle;
-		String m_Name;
-		String m_Path;
-		String m_Source;
+		const ShaderDeclaration m_Declaration;
+		const ShaderSource m_Source;
 		String m_VertexSource;
 		String m_FragmentSource;
 
@@ -81,8 +79,11 @@ namespace gebase { namespace graphics { namespace API {
 		void setUniform4f(uint location, math::Vector4f& value);
 		void setUniformMat4(uint location, math::Matrix4f& value);
 	public:
-		GLShader(const String& name, const String& source);
+		GLShader(const ShaderDeclaration& declaration, const ShaderSource& source);
 		~GLShader();
+
+		inline ShaderDeclaration getDeclaration() const override { return m_Declaration; }
+		inline ShaderSource getSource() const override { return m_Source; }
 
 		void Init();
 		void Shutdown();
@@ -99,8 +100,8 @@ namespace gebase { namespace graphics { namespace API {
 		void setUniform(const String& name, byte* data);
 		void ResolveAndSetUniformField(const GLShaderUniformDeclaration& field, byte* data, int32 offset);
 
-		inline const String& getName() const override { return m_Name; }
-		inline const String& getFilepath() const override { return m_Path; }
+		inline const String& getName() const override { return m_Declaration.name; }
+		inline const String& getFilepath() const override { return m_Declaration.opengl; }
 
 		inline const ShaderUniformBufferList& getVSSystemUniforms() const override { return m_VSUniformBuffers; }
 		inline const ShaderUniformBufferList& getFSSystemUniforms() const override { return m_FSUniformBuffers; }
@@ -113,4 +114,4 @@ namespace gebase { namespace graphics { namespace API {
 		static bool TryCompile(const String& source, String& error);
 	};
 
-} } }
+} }

@@ -1,17 +1,17 @@
 #pragma once
 
-#include "Backend/API/APIVertexBuffer.h"
+#include "Graphics\Buffer\VertexBuffer.h"
 #include "GLCommon.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics { 
 
-	class GLVertexBuffer : public APIVertexBuffer
+	class GLVertexBuffer : public VertexBuffer
 	{
 	private:
 		uint m_Handle;
 
 		BufferUsage m_Usage;
-		APIBufferLayout m_Layout;
+		BufferLayout m_Layout;
 		uint m_Size;
 	protected:
 		void* getPointerInternal() override;
@@ -23,14 +23,14 @@ namespace gebase { namespace graphics { namespace API {
 		void Unbind() override;
 
 		void Resize(uint size) override;
-		void setLayout(const APIBufferLayout& layout) override;
+		void setLayout(const BufferLayout& layout) override;
 		void setData(uint size, const void* data) override;
 
 		void getBufferData(void* data) override;
 		inline uint getSize() override { return m_Size; }
-		inline APIBufferLayout getBufferLayout() override { return m_Layout; }
+		inline BufferLayout getBufferLayout() override { return m_Layout; }
 
 		void ReleasePointer() override;
 	};
 
-} } }
+} }

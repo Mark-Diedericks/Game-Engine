@@ -1,35 +1,32 @@
 #pragma once
 
-#include "Backend/API/APIFramebuffer2D.h"
 #include "Framebuffer.h"
 
 namespace gebase { namespace graphics {
 
 	class GE_API Framebuffer2D : public Framebuffer
 	{
-	private:
-		API::APIFramebuffer2D* m_Instance;
+	protected:
+		math::Vector4f m_ClearColor;
 
-		uint m_Width;
-		uint m_Height;
-
-		Framebuffer2D() : Framebuffer() { }
+		Framebuffer2D(uint loadType) : Framebuffer(loadType) { }
 	public:
-		bool EmployRenderAPI(RenderAPI api);
-
-		inline void setClearColor(const math::Vector4f& color) { m_Instance->setClearColor(color); }
-		 
-		inline void Bind() const override { m_Instance->Bind(); }
-		inline void Unbind() const override { m_Instance->Unbind(); }
-		inline void Clear() override { m_Instance->Clear(); }
-
-		inline Texture* getTexture() const override { return m_Instance->getTexture(); }
-		inline uint getWidth() const override { return m_Instance->getWidth(); }
-		inline uint getHeight() const override { return m_Instance->getHeight(); }
-
-		inline API::APIFramebuffer* getInstance() override { return m_Instance; }
-
 		static Framebuffer2D* Create(uint width, uint height);
+
+		static Framebuffer2D* ConvertRenderAPI(RenderAPI api, Framebuffer2D* original);
+
+		virtual void setClearColor(const math::Vector4f& color) = 0;
+		virtual const math::Vector4f& getColor() const = 0;
+
+		virtual void getPixelData(byte* data) = 0;
+		virtual void setData(const byte* data) = 0;
+	private:
+		static std::map<Framebuffer2D*, Framebuffer2D*> s_APIChangeMap;
+	public:
+		static inline void AddRenderAPIChange(Framebuffer2D* old, Framebuffer2D* current) { s_APIChangeMap.insert_or_assign(old, current); }
+		static inline bool HasRenderAPIChange(Framebuffer2D* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
+		static inline Framebuffer2D* GetRenderAPIChange(Framebuffer2D* old) { return s_APIChangeMap.at(old); }
+		static void FlushRenderAPIChange();
 	};
 
 } }

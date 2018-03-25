@@ -2,43 +2,54 @@
 
 #include "ge.h"
 #include "Common.h"
-#include "Backend/API/APIBufferLayout.h"
-#include "Backend/API/APIVertexBuffer.h"
+#include "BufferLayout.h"
 #include "System/Memory.h"
 #include "Graphics/IRenderAPIDependant.h"
 
 namespace gebase { namespace graphics {
-	
+
+	enum class BufferUsage
+	{
+		STATIC,
+		DYNAMIC
+	};
+
 	class GE_API VertexBuffer : public IRenderAPIDependant
 	{
-	private:
-		API::APIVertexBuffer* m_Instance;
-
-		API::BufferUsage m_Usage;
-
-		VertexBuffer() : IRenderAPIDependant(RenderObjectType::Buffer) { }
+	protected:
+		BufferUsage m_Usage;
+		VertexBuffer(uint loadType) : IRenderAPIDependant(RenderObjectType::Buffer, loadType) { }
+		virtual void* getPointerInternal() = 0;
 	public:
-		bool EmployRenderAPI(RenderAPI api) override;
+		static VertexBuffer* Create(BufferUsage = BufferUsage::STATIC);
 
-		inline void Resize(uint size) { m_Instance->Resize(size); }
-		inline void setLayout(const API::APIBufferLayout& layout) { m_Instance->setLayout(layout); }
+		static VertexBuffer* ConvertRenderAPI(RenderAPI api, VertexBuffer* original);
 
-		void setData(uint size, const void* data);
+		virtual void Resize(uint size) = 0;
+		virtual void setLayout(const BufferLayout& layout) = 0;
+		virtual void setData(uint size, const void* data) = 0;
 
-		inline void ReleasePointer() { m_Instance->ReleasePointer(); }
+		virtual void ReleasePointer() = 0;
 
-		inline void Bind() { m_Instance->Bind(); }
-		inline void Unbind() { m_Instance->Unbind(); }
+		virtual void getBufferData(void* data) = 0;
+		virtual uint getSize() = 0;
+		virtual BufferLayout getBufferLayout() = 0;
 
-		inline API::APIVertexBuffer* getInstance() const { return m_Instance; }
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
 
 		template <typename T>
 		T* getPointer()
 		{
-			return (T*)m_Instance->getPointer<T>();
+			return (T*)getPointerInternal();
 		}
-
-		static VertexBuffer* Create(API::BufferUsage = API::BufferUsage::STATIC);
+	private:
+		static std::map<VertexBuffer*, VertexBuffer*> s_APIChangeMap;
+	public:
+		static inline void AddRenderAPIChange(VertexBuffer* old, VertexBuffer* current) { s_APIChangeMap.insert_or_assign(old, current); }
+		static inline bool HasRenderAPIChange(VertexBuffer* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
+		static inline VertexBuffer* GetRenderAPIChange(VertexBuffer* old) { return s_APIChangeMap.at(old); }
+		static void FlushRenderAPIChange();
 	};
 
 } }

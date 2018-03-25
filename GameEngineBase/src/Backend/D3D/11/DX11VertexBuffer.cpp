@@ -8,9 +8,9 @@
 
 #include "Backend/API/APIConvert.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	DX11VertexBuffer::DX11VertexBuffer(BufferUsage usage) : m_Usage(usage), m_Size(0)
+	DX11VertexBuffer::DX11VertexBuffer(BufferUsage usage) : VertexBuffer(0), m_Usage(usage), m_Size(0)
 	{
 		ZeroMemory(&m_BufferDesc, sizeof(D3D11_BUFFER_DESC));
 		m_BufferDesc.Usage = (D3D11_USAGE)DX11Convert::BufferUsageToDX(usage);
@@ -30,7 +30,7 @@ namespace gebase { namespace graphics { namespace API {
 		DXCall(DX11Context::getDevice()->CreateBuffer(&m_BufferDesc, NULL, &m_Handle));
 	}
 
-	void DX11VertexBuffer::setLayout(const APIBufferLayout& bufferLayout)
+	void DX11VertexBuffer::setLayout(const BufferLayout& bufferLayout)
 	{
 		m_Layout = bufferLayout;
 		const std::vector<BufferElement>& layout = bufferLayout.getLayout();
@@ -96,4 +96,4 @@ namespace gebase { namespace graphics { namespace API {
 		data = nullptr;
 	}
 
-} } }
+} }

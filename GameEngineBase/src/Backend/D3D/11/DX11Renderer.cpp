@@ -4,7 +4,7 @@
 #include "DX11Common.h"
 #include "System/MemoryManager.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	std::vector<ID3D11BlendState*> DX11Renderer::s_BlendStates;
 	std::vector<ID3D11DepthStencilState*> DX11Renderer::s_DepthStencilStates;
@@ -173,4 +173,4 @@ namespace gebase { namespace graphics { namespace API {
 
 	}
 
-} } }
+} } 

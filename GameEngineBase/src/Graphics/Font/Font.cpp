@@ -6,12 +6,12 @@
 
 namespace gebase { namespace graphics {
 
-	Font::Font(const String& name, const String& filepath, float size) : IRenderAPIDependant(RenderObjectType::Texture), m_Name(name), m_Filepath(filepath), m_Size(size), m_Scale(math::Vector2f(1.0f, 1.0f)), m_Texture(nullptr)
+	Font::Font(const String& name, const String& filepath, float size) : m_Name(name), m_Filepath(filepath), m_Size(size), m_Scale(math::Vector2f(1.0f, 1.0f)), m_Texture(nullptr)
 	{
 		m_FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
 		m_FTFont = ftgl::texture_font_new_from_file(m_FTAtlas, size, filepath.c_str());
 
-		API::TextureParameters params = { API::TextureFormat::LUMINANCE_ALPHA, API::TextureFilter::LINEAR, API::TextureWrap::CLAMP_TO_EDGE };
+		TextureParameters params = { TextureFormat::LUMINANCE_ALPHA, TextureFilter::LINEAR, TextureWrap::CLAMP_TO_EDGE };
 		m_Texture = Texture2D::Create(512, 512, params);
 		m_Texture->setData(m_FTAtlas->data);
 
@@ -24,12 +24,12 @@ namespace gebase { namespace graphics {
 		}
 	}
 
-	Font::Font(const String& name, const byte* data, uint datasize, float size) : IRenderAPIDependant(RenderObjectType::Texture), m_Name(name), m_Filepath("NULL"), m_Size(size), m_Scale(math::Vector2f(1.0f, 1.0f)), m_Texture(nullptr)
+	Font::Font(const String& name, const byte* data, uint datasize, float size) : m_Name(name), m_Filepath("NULL"), m_Size(size), m_Scale(math::Vector2f(1.0f, 1.0f)), m_Texture(nullptr)
 	{
 		m_FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
 		m_FTFont = ftgl::texture_font_new_from_memory(m_FTAtlas, size, data, datasize);
 
-		API::TextureParameters parameters = { API::TextureFormat::LUMINANCE_ALPHA, API::TextureFilter::LINEAR, API::TextureWrap::CLAMP_TO_EDGE };
+		TextureParameters parameters = { TextureFormat::LUMINANCE_ALPHA, TextureFilter::LINEAR, TextureWrap::CLAMP_TO_EDGE };
 		m_Texture = Texture2D::Create(512, 512, parameters);
 		m_Texture->setData(m_FTAtlas->data);
 
@@ -44,8 +44,7 @@ namespace gebase { namespace graphics {
 
 	bool Font::EmployRenderAPI(RenderAPI api)
 	{
-		if (!m_Texture->EmployRenderAPI(api))
-			return false;
+		m_Texture = Texture2D::ConvertRenderAPI(api, m_Texture);
 
 		return true;
 	}

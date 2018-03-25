@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Backend/API/APIFramebuffer2D.h"
+#include "Graphics/Framebuffer/Framebuffer2D.h"
 #include "Graphics/Texture/Texture2D.h"
 #include "GLTexture2D.h"
 #include "Math/Maths.h"
 #include "GLCommon.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	class GLFramebuffer2D : public APIFramebuffer2D
+	class GLFramebuffer2D : public Framebuffer2D
 	{
 	private:
 		uint m_FramebufferHandle;
@@ -40,4 +40,4 @@ namespace gebase { namespace graphics { namespace API {
 		inline Texture* getTexture() const override { return m_Texture; }
 	};
 
-} } }
+} }

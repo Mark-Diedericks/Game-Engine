@@ -2,29 +2,34 @@
 
 #include "ge.h"
 #include "Common.h"
-#include "Backend/API/APIVertexArray.h"
+#include "VertexBuffer.h"
 #include "Graphics/IRenderAPIDependant.h"
 
 namespace gebase { namespace graphics {
 
 	class GE_API VertexArray : public IRenderAPIDependant
 	{
-	private:
-		API::APIVertexArray* m_Instance;
-
-		VertexArray() : IRenderAPIDependant(RenderObjectType::Buffer) { }
+	protected:
+		VertexArray(uint loadType) : IRenderAPIDependant(RenderObjectType::Buffer, loadType) { }
 	public:
-		bool EmployRenderAPI(RenderAPI api) override;
-
-		inline VertexBuffer* getBuffer(uint index = 0) { return m_Instance->getBuffer(index); }
-		inline std::vector<gebase::graphics::VertexBuffer*>& getBuffers() { return m_Instance->getBuffers(); }
-		inline void PushBuffer(VertexBuffer* buffer) { m_Instance->PushBuffer(buffer); }
-
-		inline void Bind() const { m_Instance->Bind(); }
-		inline void Unbind() const { m_Instance->Unbind(); }
-		inline void Draw(uint count) const { m_Instance->Draw(count); }
-
 		static VertexArray* Create();
+
+		static VertexArray* ConvertRenderAPI(RenderAPI api, VertexArray* original);
+
+		virtual VertexBuffer* getBuffer(uint index = 0) = 0;
+		virtual std::vector<VertexBuffer*>& getBuffers() = 0;
+		virtual void PushBuffer(VertexBuffer* buffer) = 0;
+
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
+		virtual void Draw(uint count) const = 0;
+	private:
+		static std::map<VertexArray*, VertexArray*> s_APIChangeMap;
+	public:
+		static inline void AddRenderAPIChange(VertexArray* old, VertexArray* current) { s_APIChangeMap.insert_or_assign(old, current); }
+		static inline bool HasRenderAPIChange(VertexArray* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
+		static inline VertexArray* GetRenderAPIChange(VertexArray* old) { return s_APIChangeMap.at(old); }
+		static void FlushRenderAPIChange();
 	};
 
 } }

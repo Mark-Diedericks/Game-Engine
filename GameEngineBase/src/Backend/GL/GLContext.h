@@ -3,7 +3,7 @@
 #include "Backend/API/APIContext.h"
 #include "GLCommon.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	class GLContext : public APIContext
 	{
@@ -16,4 +16,4 @@ namespace gebase { namespace graphics { namespace API {
 		inline static GLContext* Get() { return (GLContext*)s_Context; }
 	};
 
-} } }
+} }

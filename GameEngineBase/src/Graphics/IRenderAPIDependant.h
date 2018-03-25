@@ -11,18 +11,28 @@ namespace gebase { namespace graphics {
 		Shader = 0,
 		Texture,
 		Framebuffer,
-		Material,
 		Buffer
 	};
 
 	class GE_API IRenderAPIDependant
 	{
 	public:
-		virtual bool EmployRenderAPI(RenderAPI api) = 0;
 		RenderObjectType type;
 		RenderAPI current;
 	protected:
-		IRenderAPIDependant(RenderObjectType t) { type = t; current = Context::getRenderAPI(); }
+		uint m_LoadType;
+
+		IRenderAPIDependant(RenderObjectType t, uint loadType) { type = t; current = Context::getRenderAPI(); m_LoadType = loadType; }
+		inline uint getLoadType() const { return m_LoadType; }
+	};
+
+	class GE_API IRenderAPIDependantContainer
+	{
+	public:
+		RenderAPI current;
+		virtual bool EmployRenderAPI(RenderAPI api) = 0;
+	protected:
+		IRenderAPIDependantContainer() { }
 	};
 
 } }

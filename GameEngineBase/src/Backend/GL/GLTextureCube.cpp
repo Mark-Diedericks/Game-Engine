@@ -12,9 +12,9 @@
 
 #include "GLTexture2D.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	GLTextureCube::GLTextureCube(const String& name, const byte* pixels, uint width, uint height, uint bits) : m_Name(name), m_Bits(bits)
+	GLTextureCube::GLTextureCube(const String& name, const byte* pixels, uint width, uint height, uint bits) : TextureCube(0), m_Name(name), m_BitsPerPixel(bits)
 	{
 		m_File = name;
 		m_Width[0] = width;
@@ -23,7 +23,7 @@ namespace gebase { namespace graphics { namespace API {
 		m_Handle = LoadFromSingleFile(pixels, bits);
 	}
 
-	GLTextureCube::GLTextureCube(const String& name, const byte** sides, uint width, uint height, uint bits) : m_Name(name), m_Bits(bits)
+	GLTextureCube::GLTextureCube(const String& name, const byte** sides, uint width, uint height, uint bits) : TextureCube(1), m_Name(name), m_BitsPerPixel(bits)
 	{
 		m_File = name;
 		m_Width[0] = width;
@@ -32,7 +32,7 @@ namespace gebase { namespace graphics { namespace API {
 		m_Handle = LoadFromMultipleFiles(sides, bits);
 	}
 
-	GLTextureCube::GLTextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : m_Name(name), m_Width(width), m_Height(height), m_Bits(bits)
+	GLTextureCube::GLTextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_Width(width), m_Height(height), m_BitsPerPixel(bits)
 	{
 		m_File = name;
 
@@ -40,7 +40,7 @@ namespace gebase { namespace graphics { namespace API {
 			m_Handle = LoadFromVerticalCross(sides, width, height, bits, mips);
 	}
 
-	GLTextureCube::GLTextureCube(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits, InputFormat format) : m_Name(name), m_Width(faceWidths), m_Height(faceHeights), m_Bits(bits)
+	GLTextureCube::GLTextureCube(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_Width(faceWidths), m_Height(faceHeights), m_BitsPerPixel(bits)
 	{
 		m_File = name;
 
@@ -245,7 +245,7 @@ namespace gebase { namespace graphics { namespace API {
 
 		m_FaceWidths = faceWidths;
 		m_FaceHeights = faceHeights;
-		m_Bits = bits;
+		m_BitsPerPixel = bits;
 		m_Mips = mips;
 
 		GLCall(glGenTextures(1, &handle));
@@ -308,7 +308,7 @@ namespace gebase { namespace graphics { namespace API {
 
 	uint GLTextureCube::getSize() const
 	{
-		return m_Bits;
+		return m_BitsPerPixel;
 	}
 
-} } }
+} }

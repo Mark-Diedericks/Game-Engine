@@ -1,63 +1,90 @@
 #include "ge.h"
 #include "Common.h"
 #include "Shader.h"
+#include "ShaderManager.h"
 
 #include "Graphics/Context.h"
 #include "System/Memory.h"
-#include "ShaderManager.h"
+#include "Application/Application.h"
+
+#include "Backend/GL/GLShader.h"
+#include "Backend/D3D/11/DX11Shader.h"
 
 namespace gebase { namespace graphics {
 
-	Shader* Shader::CreateFromFile(const API::ShaderDeclaration& shader, void* address)
-	{
-		Shader* thisS = address != nullptr ? new(address) Shader() : genew Shader();
+	std::map<Shader*, Shader*> Shader::s_APIChangeMap;
 
-		String gl_src = VirtualFileSystem::Get()->ReadFileString(shader.opengl);
-		String dx11_src = VirtualFileSystem::Get()->ReadFileString(shader.d3d11);
+	const Shader* Shader::s_CurrentlyBound = nullptr;
 
-		API::ShaderSource source = { gl_src, "", dx11_src, "" };
-
-		thisS->m_Declaration = shader;
-		thisS->m_Source = source;
-		thisS->m_Instance = API::APIShader::CreateFromSource(shader, source);
-		return thisS;
-	}
-
-	Shader* Shader::CreateFromSource(const API::ShaderDeclaration& shader, const API::ShaderSource& source)
-	{
-		Shader* thisS = genew Shader();
-		thisS->m_Declaration = shader;
-		thisS->m_Source = source;
-		thisS->m_Instance = API::APIShader::CreateFromSource(shader, source);
-		return thisS;
-	}
-
-	bool Shader::TryCompileFromFile(const API::ShaderDeclaration& shader, String& error)
+	Shader* Shader::CreateFromFile(const ShaderDeclaration& shader, void* address)
 	{
 		String gl_src = VirtualFileSystem::Get()->ReadFileString(shader.opengl);
 		String dx11_src = VirtualFileSystem::Get()->ReadFileString(shader.d3d11);
 
-		API::ShaderSource source = { gl_src, "", dx11_src, "" };
-
-		return API::APIShader::TryCompile(source, error);
+		ShaderSource source = { gl_src, "", dx11_src, "" };
+		return CreateFromSource(shader, source, address);
 	}
 
-	Shader::~Shader()
+	bool Shader::TryCompileFromFile(const ShaderDeclaration& shader, String& error)
 	{
-		gedel this->m_Instance;
+		String gl_src = VirtualFileSystem::Get()->ReadFileString(shader.opengl);
+		String dx11_src = VirtualFileSystem::Get()->ReadFileString(shader.d3d11);
+
+		ShaderSource source = { gl_src, "", dx11_src, "" };
+
+		return TryCompile(source, error);
 	}
 
-	bool Shader::EmployRenderAPI(RenderAPI api)
+	bool Shader::TryCompile(const ShaderSource& source, String& error)
 	{
-		if (current == api)
-			return true;
+		switch (gebase::graphics::Context::getRenderAPI())
+		{
+		case RenderAPI::OPENGL: return GLShader::TryCompile(source.opengl, error);
+			//case RenderAPI::VULKAN: return VKShader::TryCompile(source, error);
+		case RenderAPI::D3D11: return DX11Shader::TryCompile(source.d3d11, error);
+			//case RenderAPI::D3D12: return DX12Shader::TryCompile(source, error);
+		}
 
-		current = api;
+		return nullptr;
+	}
 
-		gedel this->m_Instance;
-		this->m_Instance = API::APIShader::CreateFromSource(m_Declaration, m_Source);
+	Shader* Shader::CreateFromSource(const ShaderDeclaration& shader, const ShaderSource& source, void* address)
+	{
+		switch (gebase::graphics::Context::getRenderAPI())
+		{
+		case RenderAPI::OPENGL: return (address != nullptr) ? new(address) GLShader(shader, source) : genew GLShader(shader, source);
+			//case RenderAPI::VULKAN: return genew VKShader(shader.name, source);
+		case RenderAPI::D3D11: return (address != nullptr) ? new(address) DX11Shader(shader, source) : genew DX11Shader(shader, source);
+			//case RenderAPI::D3D12: return genew DX12Shader(shader.name, source);
+		}
 
-		return true;
+		return nullptr;
+	}
+
+	Shader* Shader::ConvertRenderAPI(RenderAPI api, Shader* original)
+	{
+		if (HasRenderAPIChange(original))
+			return GetRenderAPIChange(original);
+
+		if (original->current == api)
+			return original;
+
+		Shader* shader = CreateFromSource(original->getDeclaration(), original->getSource());
+
+		AddRenderAPIChange(original, shader);
+
+		return shader;
+	}
+
+	void Shader::FlushRenderAPIChange()
+	{
+		std::map<Shader*, Shader*>::iterator it;
+		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
+		{
+			gedel ((Shader*)it->first);
+		}
+
+		s_APIChangeMap.clear();
 	}
 
 } }

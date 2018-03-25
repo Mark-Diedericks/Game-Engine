@@ -1,15 +1,20 @@
 #pragma once
 
-#include "Backend/API/APITextureDepth.h"
+#include "Graphics/Texture/TextureDepth.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	class DX11TextureDepth : public APITextureDepth
+	class DX11TextureDepth : public TextureDepth
 	{
 	private:
 		String m_Name;
 		uint m_Width;
 		uint m_Height;
+
+		uint m_BitsPerPixel;
+		uint m_Mips;
+		
+		TextureParameters m_Parameters;
 	protected:
 		void Init();
 	public:
@@ -28,6 +33,11 @@ namespace gebase { namespace graphics { namespace API {
 
 		inline uint getWidth() const override { return m_Width; }
 		inline uint getHeight() const override { return m_Height; }
+
+		inline uint getBitsPerPixel() const override { return m_BitsPerPixel; }
+		inline uint getMips() const override { return m_Mips; }
+
+		inline TextureParameters getParameters() const override { return m_Parameters; }
 	};
 
-} } }
+} }

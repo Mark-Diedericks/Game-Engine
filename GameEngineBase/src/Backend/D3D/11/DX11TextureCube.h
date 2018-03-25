@@ -1,19 +1,22 @@
 #pragma once
 
-#include "Backend/API/APITextureCube.h"
+#include "Graphics/Texture/TextureCube.h"
 #include "DX11Common.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	class DX11TextureCube : public APITextureCube
+	class DX11TextureCube : public TextureCube
 	{
 	private:
 		String m_Name;
 		String m_File;
 		uint* m_Width;
 		uint* m_Height;
-		uint m_Bits;
+
+		uint m_BitsPerPixel;
 		uint m_Mips;
+
+		TextureParameters m_Parameters;
 
 		uint* m_FaceWidths;
 		uint* m_FaceHeights;
@@ -45,8 +48,17 @@ namespace gebase { namespace graphics { namespace API {
 
 		inline const String& getName() const override { return m_Name; }
 		inline const String& getFilepath() const override { return m_File; }
+
 		inline uint getWidth() const override { return m_Width[0]; }
 		inline uint getHeight() const override { return m_Height[0]; }
+
+		inline uint getWidth(uint index) const override { return m_Width[index]; }
+		inline uint getHeight(uint index) const override { return m_Height[index]; }
+
+		inline uint getBitsPerPixel() const override { return m_BitsPerPixel; }
+		inline uint getMips() const override { return m_Mips; }
+
+		inline TextureParameters getParameters() const override { return m_Parameters; }
 	};
 
-} } }
+} } 

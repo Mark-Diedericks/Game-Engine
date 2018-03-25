@@ -5,12 +5,12 @@
 #include "GLContext.h"
 #include "GLCommon.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	class GLRenderer : public APIRenderer
 	{
 	private:
-		API::GLContext* m_Context;
+		GLContext* m_Context;
 		String m_RendererTitle;
 	protected:
 		void InitInternal() override;
@@ -30,4 +30,4 @@ namespace gebase { namespace graphics { namespace API {
 		GLRenderer();
 	};
 
-} } }
+} }

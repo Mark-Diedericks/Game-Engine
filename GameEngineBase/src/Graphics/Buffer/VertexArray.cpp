@@ -4,38 +4,60 @@
 
 #include "Graphics/Context.h"
 #include "System/Memory.h"
+#include "Application/Application.h"
+
+#include "Backend\GL\GLVertexArray.h"
+#include "Backend\D3D\11\DX11VertexArray.h"
 
 namespace gebase { namespace graphics {
 
+	std::map<VertexArray*, VertexArray*> VertexArray::s_APIChangeMap;
+
 	VertexArray* VertexArray::Create()
 	{
-		VertexArray* thisVA = genew VertexArray();
-		thisVA->m_Instance = API::APIVertexArray::Create();
-		return thisVA;
+		switch (gebase::graphics::Context::getRenderAPI())
+		{
+		case RenderAPI::OPENGL: return genew GLVertexArray();
+			//case RenderAPI::VULKAN: return genew VKVertexArray();
+		case RenderAPI::D3D11: return genew DX11VertexArray();
+			//case RenderAPI::D3D12: return genew DX12VertexArray();
+		}
+
+		return nullptr;
 	}
 
-	bool VertexArray::EmployRenderAPI(RenderAPI api)
+	VertexArray* VertexArray::ConvertRenderAPI(RenderAPI api, VertexArray* original)
 	{
-		if (current == api)
-			return true;
+		if (HasRenderAPIChange(original))
+			return GetRenderAPIChange(original);
 
-		current = api;
+		if (original->current == api)
+			return original;
 
-		std::vector<VertexBuffer*> buffers(m_Instance->getBuffers());
-
-		for (uint i = 0; i < buffers.size(); i++)
-			if (!buffers[i]->EmployRenderAPI(api))
-				return false;
-
-		API::APIVertexArray* inst = API::APIVertexArray::Create();
+		std::vector<VertexBuffer*> buffers(original->getBuffers());
 
 		for (uint i = 0; i < buffers.size(); i++)
-			inst->PushBuffer(buffers[i]);
+			buffers[i] = VertexBuffer::ConvertRenderAPI(api, buffers[i]);
 
-		gedel this->m_Instance;
-		this->m_Instance = inst;
+		VertexArray* buffer = Create();
+		
+		for (uint i = 0; i < buffers.size(); i++)
+			buffer->PushBuffer(buffers[i]);
 
-		return true;
+		AddRenderAPIChange(original, buffer);
+
+		return buffer;
+	}
+
+	void VertexArray::FlushRenderAPIChange()
+	{
+		std::map<VertexArray*, VertexArray*>::iterator it;
+		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
+		{
+			gedel((VertexArray*)it->first);
+		}
+
+		s_APIChangeMap.clear();
 	}
 
 } }

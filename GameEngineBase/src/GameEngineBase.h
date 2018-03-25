@@ -67,7 +67,7 @@
 #include "Graphics/Shader/ShaderFactory.h"
 #include "Graphics/Shader/ShaderManager.h"
 
-#include "Backend/API/APIShaderUniform.h"
+#include "Graphics/Shader/ShaderUniform.h"
 
 #include "Graphics/Texture/Texture.h"
 #include "Graphics/Texture/Texture2D.h"

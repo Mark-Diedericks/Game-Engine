@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Backend/API/APIFramebufferDepth.h"
+#include "Graphics/Framebuffer/FramebufferDepth.h"
 #include "Graphics/Texture/TextureDepth.h"
 #include "GLTextureDepth.h"
 #include "GLCommon.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	class GLFramebufferDepth : public APIFramebufferDepth
+	class GLFramebufferDepth : public FramebufferDepth
 	{
 	private:
 		uint m_FramebufferHandle;
@@ -34,4 +34,4 @@ namespace gebase { namespace graphics { namespace API {
 		inline Texture* getTexture() const override { return m_Texture; }
 	};
 
-} } }
+} }

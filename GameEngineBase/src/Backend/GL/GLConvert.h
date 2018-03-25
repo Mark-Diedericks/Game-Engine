@@ -1,11 +1,11 @@
 #pragma once
 
 #include "GLCommon.h"
-#include "Backend/API/APIVertexBuffer.h"
-#include "Backend/API/APITexture2D.h"
+#include "Graphics/Buffer/VertexBuffer.h"
+#include "Graphics/Texture/Texture2D.h"
 #include "Backend/API/APIRenderer.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	class GLConvert
 	{
@@ -19,4 +19,4 @@ namespace gebase { namespace graphics { namespace API {
 		static uint BufferUsageToGL(BufferUsage usage);
 	};
 
-} } }
+} }

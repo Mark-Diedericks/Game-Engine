@@ -2,7 +2,7 @@
 #include "Backend/API/APIContext.h"
 #include "DX11Common.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	class DX11Context : public APIContext
 	{
@@ -48,4 +48,4 @@ namespace gebase { namespace graphics { namespace API {
 		inline static ID3D11RenderTargetView* getBackBuffer() { return Get()->m_RenderTargetView; }
 	};
 
-} } }
+} }

@@ -4,9 +4,9 @@
 #include "GLTextureDepth.h"
 #include "System/Memory.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	GLTextureDepth::GLTextureDepth(uint width, uint height) : m_Width(width), m_Height(height)
+	GLTextureDepth::GLTextureDepth(uint width, uint height) : TextureDepth(0), m_Width(width), m_Height(height), m_Parameters(), m_BitsPerPixel(16), m_Mips(0)
 	{ 
 		m_Handle = Init(); 
 	}
@@ -66,4 +66,4 @@ namespace gebase { namespace graphics { namespace API {
 		return m_Width * m_Height * 1;
 	}
 
-} } }
+} }

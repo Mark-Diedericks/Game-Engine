@@ -27,8 +27,8 @@ void Test2D::OnInit(Renderer2D& renderer, Material& material)
 	//renderer.AddPostEffectsPass(new PostEffectsPass(Shader::CreateFromFile("Horizontal Blur", "shaders/postfx.shader")));
 	//renderer.SetPostEffects(false);
 
-	API::TextureParameters params;
-	params.filter = API::TextureFilter::NEAREST;
+	TextureParameters params;
+	params.filter = TextureFilter::NEAREST;
 	Add(genew Sprite(4.0f, 4.0f, 4, 4, Texture2D::CreateFromFile("Tex", "res/tb.png", params)));
 	Add(genew Sprite(-5.0f, -5.0f, 3, 3, 0xffff00ff));
 
@@ -38,7 +38,7 @@ void Test2D::OnInit(Renderer2D& renderer, Material& material)
 	Add(genew Label("Consolas", -15.5f, -1.0f, FontManager::Get("Consolas"), 0xffffffff));
 	Add(genew Label("Brush Script", -15.5f, 1.0f, FontManager::Get("Brush Script"), 0xffffffff));
 
-	Texture::setWrap(API::TextureWrap::CLAMP_TO_BORDER);
+	Texture::setWrap(TextureWrap::CLAMP_TO_BORDER);
 	Mask* mask = genew Mask(Texture2D::CreateFromFile("Mask", "res/mask.png"));
 	mask->transform = Matrix4f::Translation(Vector3f(-16.0f, -9.0f, 0.0f)) * Matrix4f::Scale(32, 18, 1);
 	setMask(mask);

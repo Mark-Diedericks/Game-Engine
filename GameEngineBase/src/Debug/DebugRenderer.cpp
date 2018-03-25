@@ -32,11 +32,11 @@ namespace gebase { namespace debug {
 		s_Camera = nullptr;
 		s_Shader = ShaderFactory::DebugShader();
 
-		VertexBuffer* vb = VertexBuffer::Create(API::BufferUsage::DYNAMIC);
+		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::DYNAMIC);
 		vb->Bind();
 		vb->Resize(RENDERER_BUFFER_SIZE);
 
-		API::APIBufferLayout layout;
+		BufferLayout layout;
 		layout.Push<Vector3f>("position");
 		layout.Push<byte>("color", 4, true);
 		vb->setLayout(layout);

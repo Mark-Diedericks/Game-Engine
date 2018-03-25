@@ -7,7 +7,7 @@
 #include "Graphics/Buffer/VertexArray.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Buffer/IndexBuffer.h"
-#include "Backend/API/APIBufferLayout.h"
+#include "Graphics/Buffer/BufferLayout.h"
 
 #include "Renderer.h"
 #include "Backend/API/APIRenderer.h"
@@ -67,8 +67,7 @@ namespace gebase { namespace graphics {
 	bool Renderer2D::EmployRenderAPI(RenderAPI api)
 	{
 		if (m_Shader)
-			if (!m_Shader->EmployRenderAPI(api))
-				return false;
+			m_Shader = Shader::ConvertRenderAPI(api, m_Shader);
 
 		if (m_Shader)
 			m_Shader->Bind();
@@ -86,28 +85,22 @@ namespace gebase { namespace graphics {
 				return false;
 
 		if (m_Framebuffer)
-			if (!m_Framebuffer->EmployRenderAPI(api))
-				return false;
+			m_Framebuffer = Framebuffer2D::ConvertRenderAPI(api, m_Framebuffer);
 
 		if (m_PostEffectsFramebuffer)
-			if (!m_PostEffectsFramebuffer->EmployRenderAPI(api))
-				return false;
+			m_PostEffectsFramebuffer = Framebuffer2D::ConvertRenderAPI(api, m_PostEffectsFramebuffer);
 
 		if (m_ScreenQuad)
-			if (!m_ScreenQuad->EmployRenderAPI(api))
-				return false;
+			m_ScreenQuad = VertexArray::ConvertRenderAPI(api, m_ScreenQuad);
 
 		if (m_VertexArray)
-			if (!m_VertexArray->EmployRenderAPI(api))
-				return false;
+			m_VertexArray = VertexArray::ConvertRenderAPI(api, m_VertexArray);
 
 		if (m_IndexBuffer)
-			if (!m_IndexBuffer->EmployRenderAPI(api))
-				return false;
+			m_IndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_IndexBuffer);
 
 		if (m_LineIndexBuffer)
-			if (!m_LineIndexBuffer->EmployRenderAPI(api))
-				return false;
+			m_LineIndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_LineIndexBuffer);
 
 		return true;
 	}
@@ -122,7 +115,7 @@ namespace gebase { namespace graphics {
 		m_SystemUniforms.resize(g_RequiredSystemUniformsCount);
 		
 		m_Shader = ShaderFactory::BatchRendererShader();
-		const API::ShaderUniformBufferList& vssu = m_Shader->getVSSystemUniforms();
+		const ShaderUniformBufferList& vssu = m_Shader->getVSSystemUniforms();
 
 		if (!vssu.size())
 		{
@@ -134,11 +127,11 @@ namespace gebase { namespace graphics {
 
 		for (uint i = 0; i < vssu.size(); i++)
 		{
-			API::ShaderUniformBufferDeclaration* ub = vssu[i];
+			ShaderUniformBufferDeclaration* ub = vssu[i];
 			UniformBuffer buffer(genew byte[ub->getSize()], ub->getSize());
 			m_SystemUniformBuffers.push_back(buffer);
 
-			for (API::ShaderUniformDeclaration* decl : ub->getUniformDeclarations())
+			for (ShaderUniformDeclaration* decl : ub->getUniformDeclarations())
 			{
 				for (uint j = 0; j < g_RequiredSystemUniformsCount; j++)
 				{
@@ -151,10 +144,10 @@ namespace gebase { namespace graphics {
 		setCamera(genew Camera(math::Matrix4f::Orthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f)));
 		m_Shader->Bind();
 
-		VertexBuffer* vb = VertexBuffer::Create(API::BufferUsage::DYNAMIC);
+		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::DYNAMIC);
 		vb->Resize(RENDERER_BUFFER_SIZE);
 
-		API::APIBufferLayout layout;
+		BufferLayout layout;
 		layout.Push<math::Vector3f>("POSITION");
 		layout.Push<math::Vector2f>("TEXCOORD");
 		layout.Push<math::Vector2f>("MASKUV");

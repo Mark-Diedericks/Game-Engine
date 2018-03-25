@@ -4,9 +4,9 @@
 #include "CustomString.h"
 
 #include "DX11Common.h"
-#include "Backend/API/APIShaderResource.h"
+#include "Graphics/Shader/ShaderResource.h"
 
-namespace gebase { namespace graphics { namespace API { 
+namespace gebase { namespace graphics {
 
 	class DX11ShaderResourceDeclaration : public ShaderResourceDeclaration
 	{
@@ -38,4 +38,4 @@ namespace gebase { namespace graphics { namespace API {
 		static String TypeToString(ResourceType type);
 	};
 
-} } }
+} }

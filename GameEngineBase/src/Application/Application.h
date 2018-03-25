@@ -13,6 +13,10 @@ namespace gebase {
 		class DebugLayer;
 	}
 
+	namespace graphics {
+		class IRenderDependant;
+	}
+
 	class GE_API Application
 	{
 	private:

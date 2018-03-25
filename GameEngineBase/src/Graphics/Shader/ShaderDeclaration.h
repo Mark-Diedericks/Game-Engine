@@ -2,7 +2,7 @@
 
 #include "CustomString.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	struct GE_API ShaderDeclaration
 	{
@@ -21,4 +21,4 @@ namespace gebase { namespace graphics { namespace API {
 		String d3d12;
 	};
 
-} } }
+} }

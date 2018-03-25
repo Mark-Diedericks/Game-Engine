@@ -27,10 +27,10 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		vertices[3].position = Vector3f(x, y + height, 0);
 		vertices[3].uv = Vector2f(1, 1);
 
-		VertexBuffer* vb = VertexBuffer::Create(API::BufferUsage::STATIC);
+		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::STATIC);
 		vb->setData(sizeof(QuadVertex) * 4, vertices);
 
-		API::APIBufferLayout layout;
+		BufferLayout layout;
 		layout.Push<Vector3f>("POSITION");
 		layout.Push<Vector2f>("TEXCOORD");
 		vb->setLayout(layout);
@@ -74,10 +74,10 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		vertices[6].normal = Vector3f(1.0f, 1.0f, -1.0f);
 		vertices[7].normal = Vector3f(-1.0f, 1.0f, -1.0f);
 
-		VertexBuffer* vb = VertexBuffer::Create(API::BufferUsage::STATIC);
+		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::STATIC);
 		vb->setData(sizeof(Vertex) * 8, vertices);
 
-		API::APIBufferLayout layout;
+		BufferLayout layout;
 		layout.Push<Vector3f>("position");
 		layout.Push<Vector3f>("normal");
 		layout.Push<Vector2f>("uv");
@@ -136,10 +136,10 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 
 		material->Bind();
 
-		VertexBuffer* vb = VertexBuffer::Create(API::BufferUsage::STATIC);
+		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::STATIC);
 		vb->setData(sizeof(Vertex) * 8, vertices);
 
-		API::APIBufferLayout layout;
+		BufferLayout layout;
 		layout.Push<math::Vector3f>("POSITION");
 		layout.Push<math::Vector3f>("NORMAL");
 		layout.Push<math::Vector2f>("TEXCOORD");

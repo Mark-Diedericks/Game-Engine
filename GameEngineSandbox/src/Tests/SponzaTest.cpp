@@ -40,7 +40,7 @@ void SponzaTest::OnInit(Renderer3D& renderer, Scene& scene)
 	TextureCube* environment = TextureCube::CreateFromVerticalCross(environmentFiles, 11);
 
 	//SKYPLANE
-	API::ShaderDeclaration sd;
+	ShaderDeclaration sd;
 	sd.name = "Skybox";
 	sd.opengl = String("/shaders/Skybox") + ".shader";
 	sd.d3d11 = String("/shaders/Skybox") + ".hlsl";
@@ -56,7 +56,7 @@ void SponzaTest::OnInit(Renderer3D& renderer, Scene& scene)
 	m_Scene->Add(skyboxEntity);
 
 	//PBR SHADER	
-	API::ShaderDeclaration sdpbr;
+	ShaderDeclaration sdpbr;
 	sdpbr.name = "AdvancedLighting";
 	sdpbr.opengl = String("/shaders/AdvancedLighting") + ".shader";
 	sdpbr.d3d11 = String("/shaders/AdvancedLighting") + ".hlsl";
@@ -69,13 +69,13 @@ void SponzaTest::OnInit(Renderer3D& renderer, Scene& scene)
 	std::vector<std::string> models = { "arch", "backplate", "walls1", "walls2", "walls3", "ceiling", "column1", "column2", "column3", "curtain_blue", "curtain_green", "curtain_red", "details",
 										"fabric_blue", "fabric_green", "fabric_red", "floor", "floor2", "chain", "lion", "pole", "roof", "vase", "vase_round", "vase_hanging","flower", "flower2" };
 	//Set texture Wrap to work on OpenGL (or there are texture glitches when texture is repeating)
-	Texture::setWrap(API::TextureWrap::REPEAT);
+	Texture::setWrap(TextureWrap::REPEAT);
 	//Loop
 	for (uint i = 0; i < models.size(); i++) {
 		PBRMaterial* material = genew PBRMaterial(pbrShader);
 		material->setEnvironmentMap(environment);
 		{
-			API::TextureLoadOptions options(false, true);
+			TextureLoadOptions options(false, true);
 			material->setAlbedoMap(Texture2D::CreateFromFile("res/Sponza/" + models[i] + "/albedo.tga", options));
 			material->setSpecularMap(Texture2D::CreateFromFile("res/Sponza/" + models[i] + "/specular.tga", options));
 			material->setGlossMap(Texture2D::CreateFromFile("res/Sponza/" + models[i] + "/gloss.tga", options));
@@ -87,7 +87,7 @@ void SponzaTest::OnInit(Renderer3D& renderer, Scene& scene)
 		m_Scene->Add(entity);
 	}
 	//Reset it
-	Texture::setWrap(API::TextureWrap::CLAMP);
+	Texture::setWrap(TextureWrap::CLAMP);
 
 	//LIGHT(S)
 	LightSetup* lights = genew LightSetup();

@@ -90,49 +90,10 @@
     <ClCompile Include="src\ge.cpp">
       <Filter>src\ge</Filter>
     </ClCompile>
-    <ClCompile Include="src\Backend\API\APIBufferLayout.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
     <ClCompile Include="src\Backend\API\APIContext.cpp">
       <Filter>src\ge\backend\api</Filter>
     </ClCompile>
-    <ClCompile Include="src\Backend\API\APIFramebuffer.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APIFramebuffer2D.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APIFramebufferDepth.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APIIndexBuffer.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
     <ClCompile Include="src\Backend\API\APIRenderer.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APIShader.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APIShaderUniform.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APITexture.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APITexture2D.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APITextureCube.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APITextureDepth.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APIVertexArray.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APIVertexBuffer.cpp">
       <Filter>src\ge\backend\api</Filter>
     </ClCompile>
     <ClCompile Include="src\Backend\D3D\11\DX11Context.cpp">
@@ -494,6 +455,12 @@
     <ClCompile Include="src\Utils\LogUtil.cpp" />
     <ClCompile Include="src\Utils\LogStream.cpp" />
     <ClCompile Include="src\Platform\Win32\Win32Timer.cpp" />
+    <ClCompile Include="src\Graphics\Buffer\BufferLayout.cpp">
+      <Filter>src\ge\backend\api</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Shader\ShaderUniform.cpp">
+      <Filter>src\ge\backend\api</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ge.h">
@@ -505,55 +472,10 @@
     <ClInclude Include="src\Types.h">
       <Filter>src\ge</Filter>
     </ClInclude>
-    <ClInclude Include="src\Backend\API\APIVertexBuffer.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APIBufferLayout.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
     <ClInclude Include="src\Backend\API\APIContext.h">
       <Filter>src\ge\backend\api</Filter>
     </ClInclude>
-    <ClInclude Include="src\Backend\API\APIFramebuffer.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APIFramebuffer2D.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APIFramebufferDepth.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APIIndexBuffer.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
     <ClInclude Include="src\Backend\API\APIRenderer.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APIShader.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APIShaderDeclaration.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APIShaderResource.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APIShaderUniform.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APITexture.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APITexture2D.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APITextureCube.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APITextureDepth.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APIVertexArray.h">
       <Filter>src\ge\backend\api</Filter>
     </ClInclude>
     <ClInclude Include="src\Backend\D3D\11\DX11Common.h">
@@ -953,6 +875,18 @@
     <ClInclude Include="src\Utils\LogStream.h" />
     <ClInclude Include="src\Utils\LogUtil.h" />
     <ClInclude Include="src\Utils\Timer.h" />
+    <ClInclude Include="src\Graphics\Buffer\BufferLayout.h">
+      <Filter>src\ge\backend\api</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Shader\ShaderDeclaration.h">
+      <Filter>src\ge\backend\api</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Shader\ShaderResource.h">
+      <Filter>src\ge\backend\api</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Shader\ShaderUniform.h">
+      <Filter>src\ge\backend\api</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Graphics\Shader\default\BasicLight.shader">

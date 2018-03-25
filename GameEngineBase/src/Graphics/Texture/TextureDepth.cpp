@@ -2,42 +2,60 @@
 #include "TextureDepth.h"
 #include "Graphics/Context.h"
 #include "System/Memory.h"
+#include "Application/Application.h"
+
+#include "Backend/GL/GLTextureDepth.h"
+#include "Backend/D3D/11/DX11TextureDepth.h"
 
 namespace gebase { namespace graphics {
 
+	std::map<TextureDepth*, TextureDepth*> TextureDepth::s_APIChangeMap;
+
 	TextureDepth* TextureDepth::Create(uint width, uint height)
 	{
-		TextureDepth* thisTD = genew TextureDepth();
-		thisTD->m_Width = width;
-		thisTD->m_Height = height;
-		thisTD->m_Instance = API::APITextureDepth::Create(width, height);
-		return thisTD;
+		switch (gebase::graphics::Context::getRenderAPI())
+		{
+		case RenderAPI::OPENGL: return genew GLTextureDepth(width, height);
+			//case RenderAPI::VULKAN: return genew VKTextureDepth(width, height);
+		case RenderAPI::D3D11: return genew DX11TextureDepth(width, height);
+			//case RenderAPI::D3D12: return genew DX12TextureDepth(width, height);
+		}
+
+		return nullptr;
 	}
 
-	bool TextureDepth::EmployRenderAPI(RenderAPI api)
+	TextureDepth* TextureDepth::ConvertRenderAPI(RenderAPI api, TextureDepth* original)
 	{
-		if (current == api)
-			return true;
+		if (HasRenderAPIChange(original))
+			return GetRenderAPIChange(original);
 
-		current = api;
+		if (original->current == api)
+			return original;
 
-		uint16* pixels = genew uint16[this->m_Instance->getSize()];
-		this->m_Instance->getPixelData(pixels);
+		uint16* data = genew uint16[original->getSize()];
+		original->getPixelData(data);
 
-		API::APITextureDepth* inst = API::APITextureDepth::Create(m_Width, m_Height);
-		inst->setData(pixels);
+		TextureDepth* texture = Create(original->getWidth(), original->getHeight());
+		texture->setData(data);
 
-		if(pixels)
-			gedel[] pixels;
+		//if (data)
+		//	gedel[] data;
 
-		gedel this->m_Instance;
+		texture->setResourceName(original->getResourceName());
+		AddRenderAPIChange(original, texture);
 
-		if (!inst)
-			return false;
+		return texture;
+	}
 
-		this->m_Instance = inst;
+	void TextureDepth::FlushRenderAPIChange()
+	{
+		std::map<TextureDepth*, TextureDepth*>::iterator it;
+		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
+		{
+			gedel((TextureDepth*)it->first);
+		}
 
-		return true;
+		s_APIChangeMap.clear();
 	}
 
 } }

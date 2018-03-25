@@ -3,14 +3,14 @@
 #include "Common.h"
 #include "Application/Window.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	class APIContext
 	{
 	protected:
-		static API::APIContext* s_Context;
+		static APIContext* s_Context;
 	public:
 		static void Create(WindowProperties properties, void* deviceContext);
 	};
 
-} } }
+} }

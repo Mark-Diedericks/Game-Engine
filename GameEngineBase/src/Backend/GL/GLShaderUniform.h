@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Common.h"
-#include "Backend/API/APIShaderUniform.h"
+#include "Graphics/Shader/ShaderUniform.h"
 #include "GLCommon.h"
 #include "Utils\LogUtil.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	class GLShaderUniformDeclaration : public ShaderUniformDeclaration
 	{
@@ -97,4 +97,4 @@ namespace gebase { namespace graphics { namespace API {
 		inline const ShaderUniformList& getUniformDeclarations() const override { return m_Uniforms; }
 	};
 
-} } }
+} }

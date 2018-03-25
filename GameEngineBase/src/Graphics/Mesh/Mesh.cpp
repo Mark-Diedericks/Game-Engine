@@ -65,12 +65,10 @@ namespace gebase { namespace graphics {
 			m_MaterialInstance->getMaterial()->getShader()->Bind();
 
 		if (m_VertexArray)
-			if (!m_VertexArray->EmployRenderAPI(api))
-				return false;
+			m_VertexArray = VertexArray::ConvertRenderAPI(api, m_VertexArray);
 
 		if (m_IndexBuffer)
-			if (!m_IndexBuffer->EmployRenderAPI(api))
-				return false;
+			m_IndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_IndexBuffer);
 
 		return true;
 	}

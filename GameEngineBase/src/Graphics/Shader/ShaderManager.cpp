@@ -34,7 +34,7 @@ namespace gebase { namespace graphics {
 		{
 			if (s_Shaders[i]->getName() == name)
 			{
-				API::ShaderDeclaration path = s_Shaders[i]->getDeclaration();
+				ShaderDeclaration path = s_Shaders[i]->getDeclaration();
 				String error;
 
 				if (!Shader::TryCompileFromFile(path, error))

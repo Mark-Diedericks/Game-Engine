@@ -18,19 +18,19 @@ namespace gebase { namespace graphics {
 
 		static bool EmployRenderAPI(RenderAPI api);
 
-		inline static void Clear(uint buffer) { API::APIRenderer::Clear(buffer); }
-		inline static void ClearColorDepth() { API::APIRenderer::ClearColorDepth(); }
-		inline static void Present() { API::APIRenderer::Present(); }
+		inline static void Clear(uint buffer) { APIRenderer::Clear(buffer); }
+		inline static void ClearColorDepth() { APIRenderer::ClearColorDepth(); }
+		inline static void Present() { APIRenderer::Present(); }
 
-		inline static void setDepthTesting(bool enabled) { API::APIRenderer::setDepthTesting(enabled); }
-		inline static void setBlend(bool enabled) { API::APIRenderer::setBlend(enabled); }
-		inline static void setViewport(uint x, uint y, uint width, uint height) { API::APIRenderer::setViewport(x, y, width, height); }
+		inline static void setDepthTesting(bool enabled) { APIRenderer::setDepthTesting(enabled); }
+		inline static void setBlend(bool enabled) { APIRenderer::setBlend(enabled); }
+		inline static void setViewport(uint x, uint y, uint width, uint height) { APIRenderer::setViewport(x, y, width, height); }
 
-		inline static void setBlendFunction(API::RendererBlendFunction source, API::RendererBlendFunction destination) { API::APIRenderer::setBlendFunction(source, destination); }
-		inline static void setBlendEquation(API::RendererBlendEquation blendEquation) { API::APIRenderer::setBlendEquation(blendEquation); }
+		inline static void setBlendFunction(RendererBlendFunction source, RendererBlendFunction destination) { APIRenderer::setBlendFunction(source, destination); }
+		inline static void setBlendEquation(RendererBlendEquation blendEquation) { APIRenderer::setBlendEquation(blendEquation); }
 
-		inline static const String& getTitle() { return API::APIRenderer::getTitle(); }
-		inline static API::APIRenderer* getRenderer() { return API::APIRenderer::getRenderer(); }
+		inline static const String& getTitle() { return APIRenderer::getTitle(); }
+		inline static APIRenderer* getRenderer() { return APIRenderer::getRenderer(); }
 	};
 
 } }

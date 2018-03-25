@@ -6,9 +6,9 @@
 #include "DX11Context.h"
 #include "DX11VertexBuffer.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	DX11VertexArray::DX11VertexArray()
+	DX11VertexArray::DX11VertexArray() : VertexArray(0)
 	{
 
 	}
@@ -48,4 +48,4 @@ namespace gebase { namespace graphics { namespace API {
 		}
 	}
 
-} } }
+} }

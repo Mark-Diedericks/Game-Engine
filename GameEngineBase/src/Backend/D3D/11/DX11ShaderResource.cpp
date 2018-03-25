@@ -1,7 +1,7 @@
 #include "ge.h"
 #include "DX11ShaderResource.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	DX11ShaderResourceDeclaration::DX11ShaderResourceDeclaration(ResourceType type, const String& name, uint count) : m_Type(type), m_Name(name), m_Count(count) { }
 
@@ -26,4 +26,4 @@ namespace gebase { namespace graphics { namespace API {
 		return "";
 	}
 
-} } }
+} }

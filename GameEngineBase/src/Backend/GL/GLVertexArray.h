@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Backend/API/APIVertexArray.h"
+#include "Graphics\Buffer\VertexArray.h"
 #include "GLCommon.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	class GLVertexArray : public APIVertexArray
+	class GLVertexArray : public VertexArray
 	{
 	private:
 		uint m_Handle;
-		std::vector<gebase::graphics::VertexBuffer*> m_Buffers;
+		std::vector<VertexBuffer*> m_Buffers;
 	public:
 		GLVertexArray();
 		~GLVertexArray();
@@ -18,9 +18,9 @@ namespace gebase { namespace graphics { namespace API {
 		void Unbind() const override;
 		void Draw(uint count) const override;
 
-		void PushBuffer(gebase::graphics::VertexBuffer* buffer);
-		inline gebase::graphics::VertexBuffer* getBuffer(uint index = 0) override { return m_Buffers[index]; }
-		inline std::vector<gebase::graphics::VertexBuffer*>& getBuffers() override { return m_Buffers; }
+		void PushBuffer(VertexBuffer* buffer);
+		inline VertexBuffer* getBuffer(uint index = 0) override { return m_Buffers[index]; }
+		inline std::vector<VertexBuffer*>& getBuffers() override { return m_Buffers; }
 	};
 
-} } }
+} }

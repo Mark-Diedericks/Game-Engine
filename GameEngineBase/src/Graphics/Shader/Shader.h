@@ -7,53 +7,67 @@
 #include "System/VirtualFileSystem.h"
 #include "Graphics/IRenderAPIDependant.h"
 
-#include "Backend/API/APIShaderUniform.h"
-#include "Backend/API/APIShaderResource.h"
-#include "Backend/API/APIShader.h"
-#include "Backend/API/APIShaderDeclaration.h"
+#include "ShaderUniform.h"
+#include "ShaderResource.h"
+#include "ShaderDeclaration.h"
 
 namespace gebase { namespace graphics {
 
+#define SHADER_VERTEX_INDEX		0
+#define SHADER_UV_INDEX			1
+#define SHADER_MASK_US_INDEX	2
+#define SHADER_TID_INDEX		3
+#define SHADER_MID_INDEX		4
+#define SHADER_COLOR_INDEX		5
+
+#define SHADER_UNIFORM_PROJ_MATRIX_NAME		"sys_ProjectionMatrix"
+#define SHADER_UNIFORM_VIEW_MATRIX_NAME		"sys_ViewMatrix"
+#define SHADER_UNIFORM_MODEL_MATRIX_NAME	"sys_ModelMatrix"
+
 	class GE_API Shader : public IRenderAPIDependant
 	{
-	private:
-		API::APIShader* m_Instance;
-
-		API::ShaderDeclaration m_Declaration;
-		API::ShaderSource m_Source;
-
-		Shader() : IRenderAPIDependant(RenderObjectType::Shader) { }
+	protected:
+		Shader(uint loadType) : IRenderAPIDependant(RenderObjectType::Shader, loadType) { }
 	public:
-		~Shader();
-		bool EmployRenderAPI(RenderAPI api) override;
+		static Shader* CreateFromFile(const ShaderDeclaration& shader, void* address = nullptr);
+		static Shader* CreateFromSource(const ShaderDeclaration& shader, const ShaderSource& source, void* adress = nullptr);
 
-		inline API::ShaderDeclaration getDeclaration() const { return m_Declaration; }
+		static Shader* ConvertRenderAPI(RenderAPI api, Shader* original);
 
-		inline void Bind() const { m_Instance->Bind(); }
-		inline void Unbind() const { m_Instance->Unbind(); }
+		virtual ShaderDeclaration getDeclaration() const = 0;
+		virtual ShaderSource getSource() const = 0;
 
-		inline void setVSSystemUniformBuffer(byte* data, uint size, uint slot = 0) { m_Instance->setVSSystemUniformBuffer(data, size, slot); }
-		inline void setFSSystemUniformBuffer(byte* data, uint size, uint slot = 0) { m_Instance->setFSSystemUniformBuffer(data, size, slot); }
+		static const Shader* s_CurrentlyBound;
 
-		inline void setVSUserUniformBuffer(byte* data, uint size) { m_Instance->setVSUserUniformBuffer(data, size); }
-		inline void setFSUserUniformBuffer(byte* data, uint size) { m_Instance->setFSUserUniformBuffer(data, size); }
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
 
-		inline const String& getName() const { return m_Instance->getName(); }
-		inline const String& getFilepath() const { return m_Instance->getFilepath(); }
+		virtual void setVSSystemUniformBuffer(byte* data, uint size, uint slot = 0) = 0;
+		virtual void setFSSystemUniformBuffer(byte* data, uint size, uint slot = 0) = 0;
 
-		inline const API::ShaderResourceList& getResources() { return m_Instance->getResources(); }
+		virtual void setVSUserUniformBuffer(byte* data, uint size) = 0;
+		virtual void setFSUserUniformBuffer(byte* data, uint size) = 0;
 
-		inline const API::ShaderUniformBufferList& getVSSystemUniforms() { return m_Instance->getVSSystemUniforms(); }
-		inline const API::ShaderUniformBufferList& getFSSystemUniforms() { return m_Instance->getFSSystemUniforms(); }
+		virtual const String& getName() const = 0;
+		virtual const String& getFilepath() const = 0;
 
-		inline const API::ShaderUniformBufferDeclaration* getVSUserUniformBuffer() { return m_Instance->getVSUserUniformBuffer(); }
-		inline const API::ShaderUniformBufferDeclaration* getFSUserUniformBuffer() { return m_Instance->getFSUserUniformBuffer(); }
+		virtual const ShaderResourceList& getResources() const = 0;
 
-		inline static bool TryCompile(const API::ShaderSource& source, String& error) { return API::APIShader::TryCompile(source, error); }
-		static bool TryCompileFromFile(const API::ShaderDeclaration& shader, String& error);
+		virtual const ShaderUniformBufferList& getVSSystemUniforms() const = 0;
+		virtual const ShaderUniformBufferList& getFSSystemUniforms() const = 0;
 
-		static Shader* CreateFromFile(const API::ShaderDeclaration& shader, void* address = nullptr);
-		static Shader* CreateFromSource(const API::ShaderDeclaration& shader, const API::ShaderSource& source);
+		virtual const ShaderUniformBufferDeclaration* getVSUserUniformBuffer() const = 0;
+		virtual const ShaderUniformBufferDeclaration* getFSUserUniformBuffer() const = 0;
+
+		static bool TryCompileFromFile(const ShaderDeclaration& shader, String& error);
+		static bool TryCompile(const ShaderSource& source, String& error);
+	private:
+		static std::map<Shader*, Shader*> s_APIChangeMap;
+	public:
+		static inline void AddRenderAPIChange(Shader* old, Shader* current) { s_APIChangeMap.insert_or_assign(old, current); }
+		static inline bool HasRenderAPIChange(Shader* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
+		static inline Shader* GetRenderAPIChange(Shader* old) { return s_APIChangeMap.at(old); }
+		static void FlushRenderAPIChange();
 	};
 
 } }

@@ -1,13 +1,13 @@
 #pragma once
 
 #include "CustomString.h"
-#include "Backend/API/APIShader.h"
+#include "Graphics/Shader/Shader.h"
 
 #include "DX11Common.h"
 #include "DX11ShaderResource.h"
 #include "DX11ShaderUniform.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	struct DX11ShaderErrorInfo
 	{
@@ -15,10 +15,9 @@ namespace gebase { namespace graphics { namespace API {
 		String message;
 	};
 
-	class DX11Shader : public APIShader
+	class DX11Shader : public Shader
 	{
 	private:
-		friend class APIShader;
 		friend class Shader;
 		friend class ShaderManager;
 		
@@ -32,8 +31,8 @@ namespace gebase { namespace graphics { namespace API {
 
 		static const DX11Shader* s_CurrentlyBound;
 
-		String m_Name;
-		String m_Filepath;
+		const ShaderDeclaration m_Declaration;
+		const ShaderSource m_Source;
 		mutable Data m_Data;
 
 		ShaderUniformBufferList m_VSUniformBuffers;
@@ -63,10 +62,13 @@ namespace gebase { namespace graphics { namespace API {
 		void CreateBuffers();
 		ShaderStruct* FindStruct(const String& name);
 	public:
-		DX11Shader(const String& name, const String& source);
+		DX11Shader(const ShaderDeclaration& declaration, const ShaderSource& source);
 		~DX11Shader();
 
 		inline Data& getData() const { return m_Data; }
+		
+		inline ShaderDeclaration getDeclaration() const override { return m_Declaration; }
+		inline ShaderSource getSource() const override { return m_Source; }
 
 		void Bind() const;
 		void Unbind() const;
@@ -85,11 +87,11 @@ namespace gebase { namespace graphics { namespace API {
 
 		inline const ShaderResourceList& getResources() const override { return m_Resources; }
 
-		inline const String& getName() const override { return m_Name; }
-		inline const String& getFilepath() const override { return m_Filepath; }
+		inline const String& getName() const override { return m_Declaration.name; }
+		inline const String& getFilepath() const override { return m_Declaration.d3d11; }
 
 		static bool TryCompile(const String& source, String& error);
 		static const DX11Shader* CurrentlyBound() { return s_CurrentlyBound; }
 	};
 
-} } }
+} }

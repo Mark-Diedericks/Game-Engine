@@ -32,7 +32,7 @@ void TestInfo::OnInit(Renderer2D& renderer, Material& material)
 	Add(m_DebugInfo[4] = genew Label("", -15.5f, 4.5f, 0xffffffff));
 	Add(m_DebugInfo[5] = genew Label("", -15.5f, 3.5f, 0xffffffff));
 
-	Texture::setWrap(API::TextureWrap::CLAMP_TO_BORDER);
+	Texture::setWrap(TextureWrap::CLAMP_TO_BORDER);
 }
 
 void TestInfo::OnTick()

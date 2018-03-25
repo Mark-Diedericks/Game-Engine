@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Backend/API/APITexture2D.h"
+#include "Graphics/Texture/Texture2D.h"
 #include "DX11Common.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	class DX11Texture2D : public APITexture2D
+	class DX11Texture2D : public Texture2D
 	{
 	private:
 		String m_Name;
@@ -13,7 +13,9 @@ namespace gebase { namespace graphics { namespace API {
 		uint m_Handle;
 		uint m_Width;
 		uint m_Height;
+
 		uint m_BitsPerPixel;
+		uint m_Mips;
 
 		TextureParameters m_Parameters;
 		TextureLoadOptions m_LoadOptions;
@@ -44,6 +46,11 @@ namespace gebase { namespace graphics { namespace API {
 
 		inline const String& getName() const { return m_Name; }
 		inline const String& getFilepath() const { return m_Filepath; }
+
+		inline uint getBitsPerPixel() const override { return m_BitsPerPixel; }
+		inline uint getMips() const override { return m_Mips; }
+
+		inline TextureParameters getParameters() const override { return m_Parameters; }
 	};
 
-} } }
+} }

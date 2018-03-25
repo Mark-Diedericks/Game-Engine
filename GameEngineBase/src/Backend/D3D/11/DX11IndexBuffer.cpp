@@ -1,12 +1,14 @@
 #include "ge.h"
 #include "Common.h"
-#include "DX11IndexBuffer.h"
 
+#include "System\Memory.h"
+
+#include "DX11IndexBuffer.h"
 #include "DX11Context.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	DX11IndexBuffer::DX11IndexBuffer(uint16* data, uint count) : m_Count(count)
+	DX11IndexBuffer::DX11IndexBuffer(uint16* data, uint count) : IndexBuffer(0), m_Count(count)
 	{
 		D3D11_BUFFER_DESC ibd;
 		ZeroMemory(&ibd, sizeof(D3D11_BUFFER_DESC));
@@ -24,7 +26,7 @@ namespace gebase { namespace graphics { namespace API {
 		gedel[] data;
 	}
 
-	DX11IndexBuffer::DX11IndexBuffer(uint* data, uint count) : m_Count(count)
+	DX11IndexBuffer::DX11IndexBuffer(uint* data, uint count) : IndexBuffer(0), m_Count(count)
 	{
 		D3D11_BUFFER_DESC ibd;
 		ZeroMemory(&ibd, sizeof(D3D11_BUFFER_DESC));
@@ -68,4 +70,4 @@ namespace gebase { namespace graphics { namespace API {
 		data = nullptr;
 	}
 
-} } }
+} }

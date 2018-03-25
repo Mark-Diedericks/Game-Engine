@@ -4,16 +4,13 @@
 #include "GLFramebuffer2D.h"
 #include "System/Memory.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	using namespace API;
-
-	GLFramebuffer2D::GLFramebuffer2D(uint width, uint height) : m_Width(width), m_Height(height) { Init(); }
+	GLFramebuffer2D::GLFramebuffer2D(uint width, uint height) : Framebuffer2D(0), m_Width(width), m_Height(height) { Init(); }
 
 	GLFramebuffer2D::~GLFramebuffer2D()
 	{
 		GLCall(glDeleteFramebuffers(1, &m_FramebufferHandle));
-		gedel m_Texture->getInstance();
 		gedel m_Texture;
 	}
 
@@ -29,7 +26,7 @@ namespace gebase { namespace graphics { namespace API {
 		GLCall(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, m_Width, m_Height));
 
 		GLCall(glBindFramebuffer(GL_FRAMEBUFFER, m_FramebufferHandle));
-		GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ((API::GLTexture2D*)m_Texture->getInstance())->getHandle(), 0));
+		GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ((GLTexture2D*)m_Texture)->getHandle(), 0));
 		GLCall(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_DepthbufferHandle));
 		GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 	}
@@ -61,4 +58,4 @@ namespace gebase { namespace graphics { namespace API {
 		m_Texture->setData(pixels);
 	}
 
-} } }
+} } 

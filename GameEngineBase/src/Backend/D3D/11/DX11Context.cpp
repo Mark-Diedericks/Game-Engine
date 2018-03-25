@@ -5,7 +5,7 @@
 #include <Windows.h>
 #include <d3d11.h>
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 #define ReleaseCOM(x)	\
 	if (x)				\
@@ -181,4 +181,4 @@ namespace gebase { namespace graphics { namespace API {
 		return "Unknown version.";
 	}
 
-} } }
+} }

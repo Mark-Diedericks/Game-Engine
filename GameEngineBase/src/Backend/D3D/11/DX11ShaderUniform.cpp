@@ -3,7 +3,7 @@
 
 #include "DX11ShaderUniform.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 #define BUFFER_ALIGNMENT 16
 
@@ -92,4 +92,4 @@ namespace gebase { namespace graphics { namespace API {
 		return nullptr;
 	}
 
-} } }
+} }

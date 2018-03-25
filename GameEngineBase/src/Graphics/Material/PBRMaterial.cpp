@@ -2,8 +2,8 @@
 #include "PBRMaterial.h"
 
 #include "System/Memory.h"
-#include "Backend/API/APIShaderResource.h"
-#include "Utils\LogUtil.h"
+#include "Graphics/Shader/ShaderResource.h"
+#include "Utils/LogUtil.h"
 
 namespace gebase { namespace graphics {
 
@@ -40,8 +40,7 @@ namespace gebase { namespace graphics {
 	bool PBRMaterial::EmployRenderAPI(RenderAPI api)
 	{
 		if (m_Shader)
-			if (!m_Shader->EmployRenderAPI(api))
-				return false;
+			m_Shader = Shader::ConvertRenderAPI(api, m_Shader);
 
 		if (!Material::EmployRenderAPI(api))
 			return false;
@@ -49,28 +48,22 @@ namespace gebase { namespace graphics {
 		if (m_Shader)
 			m_Shader->Bind();
 
-		if (!s_PreintegratedFG->EmployRenderAPI(api))
-			return false;
+		s_PreintegratedFG = Texture2D::ConvertRenderAPI(api, s_PreintegratedFG);
 
 		if (getAlbedoMap())
-			if (!getAlbedoMap()->EmployRenderAPI(api))
-				return false;
+			setAlbedoMap(Texture2D::ConvertRenderAPI(api, getAlbedoMap()));
 
 		if (getNormalMap())
-			if (!getNormalMap()->EmployRenderAPI(api))
-				return false;
+			setNormalMap(Texture2D::ConvertRenderAPI(api, getNormalMap()));
 
 		if (getSpecularMap())
-			if (!getSpecularMap()->EmployRenderAPI(api))
-				return false;
+			setSpecularMap(Texture2D::ConvertRenderAPI(api, getSpecularMap()));
 
 		if (getGlossMap())
-			if (!getGlossMap()->EmployRenderAPI(api))
-				return false;
+			setGlossMap(Texture2D::ConvertRenderAPI(api, getGlossMap()));
 
 		if (getEnvironmentMap())
-			if (!getEnvironmentMap()->EmployRenderAPI(api))
-				return false;
+			setEnvironmentMap(TextureCube::ConvertRenderAPI(api, getEnvironmentMap()));
 
 		return true;
 	}
@@ -141,7 +134,7 @@ namespace gebase { namespace graphics {
 
 	Texture* PBRMaterial::getMap(const String& name)
 	{
-		API::ShaderResourceDeclaration* declaration = FindResourceDeclaration(name);
+		ShaderResourceDeclaration* declaration = FindResourceDeclaration(name);
 
 		if (!declaration)
 		{
@@ -152,9 +145,6 @@ namespace gebase { namespace graphics {
 		}
 
 		uint slot = declaration->getRegister();
-
-		utils::LogUtil::WriteLine("DEBUG", "Texture Map Retrieval: " + name + " || Size vs Slot: " + std::to_string(m_Textures.size()) + " " + std::to_string(slot));
-
 		return m_Textures.size() > slot ? m_Textures[slot] : nullptr;
 	}
 

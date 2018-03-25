@@ -155,10 +155,10 @@ namespace gebase { namespace graphics {
 
 		ShaderManager::Get("AdvancedLighting")->Bind();
 
-		VertexBuffer* vb = VertexBuffer::Create(API::BufferUsage::STATIC);
+		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::STATIC);
 		vb->setData(format.vertexBufferSize, format.vertexData);
 
-		API::APIBufferLayout layout;
+		BufferLayout layout;
 		layout.Push<math::Vector3f>("POSITION");
 		layout.Push<math::Vector3f>("NORMAL");
 		layout.Push<math::Vector2f>("TEXCOORD");

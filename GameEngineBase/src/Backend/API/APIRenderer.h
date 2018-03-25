@@ -3,7 +3,7 @@
 #include "Common.h"
 #include "CustomString.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	enum GE_API RendererBufferType
 	{
@@ -67,4 +67,4 @@ namespace gebase { namespace graphics { namespace API {
 		inline static APIRenderer* getRenderer() { return s_Instance; }
 	};
 
-} } }
+} }

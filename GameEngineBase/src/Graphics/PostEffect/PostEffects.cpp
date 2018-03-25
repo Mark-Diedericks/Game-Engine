@@ -3,7 +3,7 @@
 
 namespace gebase { namespace graphics {
 
-	PostEffects::PostEffects() : IRenderAPIDependant(RenderObjectType::Material)
+	PostEffects::PostEffects()
 	{
 
 	}

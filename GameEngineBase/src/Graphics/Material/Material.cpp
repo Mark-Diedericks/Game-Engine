@@ -3,14 +3,14 @@
 
 #include "Graphics/Texture/Texture2D.h"
 #include "System/Memory.h"
-#include "Backend/API/APIShaderResource.h"
-#include "Utils\LogUtil.h"
+#include "Graphics/Shader/ShaderResource.h"
+#include "Utils/LogUtil.h"
 
 #include <sstream>
 
 namespace gebase { namespace graphics {
 
-	Material::Material(Shader* shader) : IRenderAPIDependant(RenderObjectType::Material), m_Shader(shader), m_isInstance(false)
+	Material::Material(Shader* shader) : m_Shader(shader), m_isInstance(false)
 	{
 		AllocateStorage();
 		m_Resources = &shader->getResources();
@@ -29,11 +29,10 @@ namespace gebase { namespace graphics {
 		
 		current = api;
 
-		if (!m_Shader->EmployRenderAPI(api))
-			return false;
+		m_Shader = Shader::ConvertRenderAPI(api, m_Shader);
 
-		API::ShaderUniformList vs_uniforms;
-		API::ShaderUniformList fs_uniforms;
+		ShaderUniformList vs_uniforms;
+		ShaderUniformList fs_uniforms;
 
 		byte* vs_buffer;
 		byte* fs_buffer;
@@ -48,11 +47,11 @@ namespace gebase { namespace graphics {
 		m_Resources = &m_Shader->getResources();
 
 		if (m_VSUserUniforms != nullptr)
-			for (API::ShaderUniformDeclaration* uniform : vs_uniforms)
+			for (ShaderUniformDeclaration* uniform : vs_uniforms)
 				setUniformData(uniform->getName(), vs_buffer + uniform->getOffset());
 
 		if (m_FSUserUniforms != nullptr)
-			for (API::ShaderUniformDeclaration* uniform : fs_uniforms)
+			for (ShaderUniformDeclaration* uniform : fs_uniforms)
 				setUniformData(uniform->getName(), fs_buffer + uniform->getOffset());
 
 		if (m_VSUserUniforms != nullptr) gedel[] vs_buffer;
@@ -61,13 +60,12 @@ namespace gebase { namespace graphics {
 		m_Shader->Bind();
 
 		std::vector<Texture*> textures(m_Textures);
-		m_Textures.erase(m_Textures.begin(), m_Textures.end());
+		m_Textures.clear();
+		m_Textures.resize(0);
 
 		for (uint i = 0; i < textures.size(); i++)
 		{
-			if (!textures[i]->EmployRenderAPI(api))
-				return false;
-
+			textures[i] = Texture::ConvertRenderAPI(api, textures[i]);
 			setTexture(textures[i]->getResourceName(), textures[i]);
 		}
 
@@ -85,7 +83,7 @@ namespace gebase { namespace graphics {
 		m_VSUserUniforms = nullptr;
 		m_FSUserUniforms = nullptr;
 		
-		const API::ShaderUniformBufferDeclaration* vsBuffer = m_Shader->getVSUserUniformBuffer();
+		const ShaderUniformBufferDeclaration* vsBuffer = m_Shader->getVSUserUniformBuffer();
 		if (vsBuffer)
 		{
 			m_VSUserUniformBufferSize = vsBuffer->getSize();
@@ -94,7 +92,7 @@ namespace gebase { namespace graphics {
 			m_VSUserUniforms = &vsBuffer->getUniformDeclarations();
 		}
 
-		const API::ShaderUniformBufferDeclaration* fsBuffer = m_Shader->getFSUserUniformBuffer();
+		const ShaderUniformBufferDeclaration* fsBuffer = m_Shader->getFSUserUniformBuffer();
 		if (fsBuffer)
 		{
 			m_FSUserUniformBufferSize = fsBuffer->getSize();
@@ -138,7 +136,7 @@ namespace gebase { namespace graphics {
 	void Material::setUniformData(const String& uniform, byte* data)
 	{
 		byte* buffer;
-		API::ShaderUniformDeclaration* declaration = FindUniformDeclaration(uniform, &buffer);
+		ShaderUniformDeclaration* declaration = FindUniformDeclaration(uniform, &buffer);
 
 		if (!buffer)
 		{
@@ -153,7 +151,7 @@ namespace gebase { namespace graphics {
 
 	void Material::setTexture(const String& name, Texture* texture)
 	{
-		API::ShaderResourceDeclaration* declaration = FindResourceDeclaration(name);
+		ShaderResourceDeclaration* declaration = FindResourceDeclaration(name);
 
 		if (!declaration)
 		{
@@ -172,11 +170,11 @@ namespace gebase { namespace graphics {
 		m_Textures[slot] = texture;
 	}
 
-	API::ShaderUniformDeclaration* Material::FindUniformDeclaration(const String& name, byte** outBuffer)
+	ShaderUniformDeclaration* Material::FindUniformDeclaration(const String& name, byte** outBuffer)
 	{
 		if (m_VSUserUniforms)
 		{
-			for (API::ShaderUniformDeclaration* uniform : *m_VSUserUniforms)
+			for (ShaderUniformDeclaration* uniform : *m_VSUserUniforms)
 			{
 				if (uniform->getName() == name)
 				{
@@ -188,7 +186,7 @@ namespace gebase { namespace graphics {
 
 		if (m_FSUserUniforms)
 		{
-			for (API::ShaderUniformDeclaration* uniform : *m_FSUserUniforms)
+			for (ShaderUniformDeclaration* uniform : *m_FSUserUniforms)
 			{
 				if (uniform->getName() == name)
 				{
@@ -201,9 +199,9 @@ namespace gebase { namespace graphics {
 		return nullptr;
 	}
 
-	API::ShaderResourceDeclaration* Material::FindResourceDeclaration(const String& name)
+	ShaderResourceDeclaration* Material::FindResourceDeclaration(const String& name)
 	{
-		for (API::ShaderResourceDeclaration* resource : *m_Resources)
+		for (ShaderResourceDeclaration* resource : *m_Resources)
 		{
 			if (resource->getName() == name)
 				return resource;
@@ -213,7 +211,7 @@ namespace gebase { namespace graphics {
 	}
 
 	//MATERIAL INSTANCE START
-	MaterialInstance::MaterialInstance(Material* material) : IRenderAPIDependant(RenderObjectType::Material), m_Material(material)
+	MaterialInstance::MaterialInstance(Material* material) : IRenderAPIDependantContainer(), m_Material(material)
 	{
 		AllocateStorage();
 
@@ -235,8 +233,8 @@ namespace gebase { namespace graphics {
 		if (!m_Material->EmployRenderAPI(api))
 			return false;
 
-		API::ShaderUniformList vs_uniforms;
-		API::ShaderUniformList fs_uniforms;
+		ShaderUniformList vs_uniforms;
+		ShaderUniformList fs_uniforms;
 
 		byte* vs_buffer;
 		byte* fs_buffer;
@@ -255,11 +253,11 @@ namespace gebase { namespace graphics {
 		m_Resources = &m_Material->getShader()->getResources();
 
 		if (m_VSUserUniforms != nullptr)
-			for (API::ShaderUniformDeclaration* uniform : vs_uniforms)
+			for (ShaderUniformDeclaration* uniform : vs_uniforms)
 				setUniformData(uniform->getName(), vs_buffer + uniform->getOffset());
 
 		if (m_FSUserUniforms != nullptr)
-			for (API::ShaderUniformDeclaration* uniform : fs_uniforms)
+			for (ShaderUniformDeclaration* uniform : fs_uniforms)
 				setUniformData(uniform->getName(), fs_buffer + uniform->getOffset());
 
 		if (m_VSUserUniforms != nullptr) gedel[] vs_buffer;
@@ -269,13 +267,12 @@ namespace gebase { namespace graphics {
 		m_Material->getShader()->Bind();
 
 		std::vector<Texture*> textures(m_Textures);
-		m_Textures.erase(m_Textures.begin(), m_Textures.end());
+		m_Textures.clear();
+		m_Textures.resize(0);
 
 		for (uint i = 0; i < textures.size(); i++)
 		{
-			if (!textures[i]->EmployRenderAPI(api))
-				return false;
-
+			textures[i] = Texture::ConvertRenderAPI(api, textures[i]);
 			setTexture(textures[i]->getResourceName(), textures[i]);
 		}
 
@@ -293,7 +290,7 @@ namespace gebase { namespace graphics {
 		m_VSUserUniforms = nullptr;
 		m_FSUserUniforms = nullptr;
 
-		const API::ShaderUniformBufferDeclaration* vsBuffer = m_Material->m_Shader->getVSUserUniformBuffer();
+		const ShaderUniformBufferDeclaration* vsBuffer = m_Material->m_Shader->getVSUserUniformBuffer();
 		if (vsBuffer)
 		{
 			m_VSUserUniformBufferSize = vsBuffer->getSize();
@@ -302,7 +299,7 @@ namespace gebase { namespace graphics {
 			m_VSUserUniforms = &vsBuffer->getUniformDeclarations();
 		}
 
-		const API::ShaderUniformBufferDeclaration* fsBuffer = m_Material->m_Shader->getFSUserUniformBuffer();
+		const ShaderUniformBufferDeclaration* fsBuffer = m_Material->m_Shader->getFSUserUniformBuffer();
 		if (fsBuffer)
 		{
 			m_FSUserUniformBufferSize = fsBuffer->getSize();
@@ -344,7 +341,7 @@ namespace gebase { namespace graphics {
 	void MaterialInstance::setUniformData(const String& uniform, byte* data)
 	{
 		byte* buffer;
-		API::ShaderUniformDeclaration* declaration = FindUniformDeclaration(uniform, &buffer);
+		ShaderUniformDeclaration* declaration = FindUniformDeclaration(uniform, &buffer);
 
 		if (!buffer)
 		{
@@ -359,7 +356,7 @@ namespace gebase { namespace graphics {
 	
 	void MaterialInstance::setTexture(const String& name, Texture* texture)
 	{
-		API::ShaderResourceDeclaration* declaration = FindResourceDeclaration(name);
+		ShaderResourceDeclaration* declaration = FindResourceDeclaration(name);
 
 		if (!declaration)
 		{
@@ -378,11 +375,11 @@ namespace gebase { namespace graphics {
 		m_Textures[slot] = texture;
 	}
 
-	API::ShaderUniformDeclaration* MaterialInstance::FindUniformDeclaration(const String& name, byte** outBuffer)
+	ShaderUniformDeclaration* MaterialInstance::FindUniformDeclaration(const String& name, byte** outBuffer)
 	{
 		if (m_VSUserUniforms)
 		{
-			for (API::ShaderUniformDeclaration* uniform : *m_VSUserUniforms)
+			for (ShaderUniformDeclaration* uniform : *m_VSUserUniforms)
 			{
 				if (uniform->getName() == name)
 				{
@@ -394,7 +391,7 @@ namespace gebase { namespace graphics {
 
 		if (m_FSUserUniforms)
 		{
-			for (API::ShaderUniformDeclaration* uniform : *m_FSUserUniforms)
+			for (ShaderUniformDeclaration* uniform : *m_FSUserUniforms)
 			{
 				if (uniform->getName() == name)
 				{
@@ -407,9 +404,9 @@ namespace gebase { namespace graphics {
 		return nullptr;
 	}
 
-	API::ShaderResourceDeclaration* MaterialInstance::FindResourceDeclaration(const String& name)
+	ShaderResourceDeclaration* MaterialInstance::FindResourceDeclaration(const String& name)
 	{
-		for (API::ShaderResourceDeclaration* resource : *m_Resources)
+		for (ShaderResourceDeclaration* resource : *m_Resources)
 		{
 			if (resource->getName() == name)
 				return resource;

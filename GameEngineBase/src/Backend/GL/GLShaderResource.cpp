@@ -1,7 +1,7 @@
 #include "ge.h"
 #include "GLShaderResource.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	GLShaderResourceDeclaration::GLShaderResourceDeclaration(ResourceType type, const String& name, uint count) : m_Type(type), m_Name(name), m_Count(count) { }
 
@@ -25,4 +25,4 @@ namespace gebase { namespace graphics { namespace API {
 		return "Invalid Type";
 	}
 
-} } }
+} }

@@ -22,7 +22,7 @@ namespace gebase { namespace graphics {
 	{
 		s_Properties = properties;
 		s_DeviceContext = deviceContext;
-		API::APIContext::Create(properties, deviceContext);
+		APIContext::Create(properties, deviceContext);
 	}
 
 	bool Context::EmployRenderAPI(RenderAPI api)
@@ -33,7 +33,7 @@ namespace gebase { namespace graphics {
 			if (!s_RendererObjects[i]->PreEmployRenderAPI())
 				return false;
 
-		API::APIContext::Create(s_Properties, s_DeviceContext);
+		APIContext::Create(s_Properties, s_DeviceContext);
 
 		if (!Renderer::EmployRenderAPI(api))
 			return false;

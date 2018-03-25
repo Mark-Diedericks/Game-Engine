@@ -1,7 +1,7 @@
 #include "ge.h"
 #include "GLConvert.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	uint GLConvert::RendererBufferToGL(uint buffer)
 	{
@@ -71,4 +71,4 @@ namespace gebase { namespace graphics { namespace API {
 		return 0;
 	}
 
-} } }
+} }

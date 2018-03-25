@@ -1,8 +1,8 @@
 #include "ge.h"
 #include "GLShaderUniform.h"
-#include "Backend/API/APIShader.h"
+#include "Graphics/Shader/Shader.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	GLShaderUniformDeclaration::GLShaderUniformDeclaration(UniformType type, const String& name, uint count) : m_Type(type), m_Name(name), m_Count(count) { m_Size = SizeOfUniformType(type) * count; }
 
@@ -20,13 +20,13 @@ namespace gebase { namespace graphics { namespace API {
 	{
 		switch (type)
 		{
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::FLOAT32:	return 4 * 1 * 1; //Bytes for a float multiplied by the count in two dimensions
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::INT32:		return 4 * 1 * 1; //Bytes for a int32 multiplied by the count in two dimensions
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::VEC2:		return 4 * 2 * 1; //Bytes for a float multiplied by the count in two dimensions
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::VEC3:		return 4 * 3 * 1; //Bytes for a float multiplied by the count in two dimensions
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::VEC4:		return 4 * 4 * 1; //Bytes for a float multiplied by the count in two dimensions
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::MAT3:		return 4 * 3 * 3; //Bytes for a float multiplied by the count in two dimensions
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::MAT4:		return 4 * 4 * 4; //Bytes for a float multiplied by the count in two dimensions
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::FLOAT32:	return 4 * 1 * 1; //Bytes for a float multiplied by the count in two dimensions
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::INT32:		return 4 * 1 * 1; //Bytes for a int32 multiplied by the count in two dimensions
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::VEC2:		return 4 * 2 * 1; //Bytes for a float multiplied by the count in two dimensions
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::VEC3:		return 4 * 3 * 1; //Bytes for a float multiplied by the count in two dimensions
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::VEC4:		return 4 * 4 * 1; //Bytes for a float multiplied by the count in two dimensions
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::MAT3:		return 4 * 3 * 3; //Bytes for a float multiplied by the count in two dimensions
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::MAT4:		return 4 * 4 * 4; //Bytes for a float multiplied by the count in two dimensions
 		}
 
 		return 0;
@@ -49,13 +49,13 @@ namespace gebase { namespace graphics { namespace API {
 	{
 		switch (type)
 		{
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::FLOAT32:	return "float";
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::INT32:		return "in32";
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::VEC2:		return "vec2";
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::VEC3:		return "vec3";
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::VEC4:		return "vec4";
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::MAT3:		return "mat3";
-		case gebase::graphics::API::GLShaderUniformDeclaration::UniformType::MAT4:		return "mat4";
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::FLOAT32:	return "float";
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::INT32:		return "in32";
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::VEC2:		return "vec2";
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::VEC3:		return "vec3";
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::VEC4:		return "vec4";
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::MAT3:		return "mat3";
+		case gebase::graphics::GLShaderUniformDeclaration::UniformType::MAT4:		return "mat4";
 		}
 
 		return "Invalid Type";
@@ -89,4 +89,4 @@ namespace gebase { namespace graphics { namespace API {
 		return nullptr;
 	}
 
-} } }
+} }

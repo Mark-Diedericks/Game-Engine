@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Backend/API/APIFramebuffer2D.h"
+#include "Graphics/Framebuffer/Framebuffer2D.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	class DX11Framebuffer2D : public APIFramebuffer2D
+	class DX11Framebuffer2D : public Framebuffer2D
 	{
 	private:
 		uint m_Width;
@@ -30,4 +30,4 @@ namespace gebase { namespace graphics { namespace API {
 		inline const math::Vector4f& getColor() const { return m_ClearColor; }
 	};
 
-} } }
+} }

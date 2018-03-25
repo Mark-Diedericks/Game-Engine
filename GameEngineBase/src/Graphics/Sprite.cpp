@@ -41,8 +41,7 @@ namespace gebase { namespace graphics {
 	bool Sprite::EmployRenderAPI(RenderAPI api)
 	{
 		if (m_Texture)
-			if (!m_Texture->EmployRenderAPI(api))
-				return false;
+			m_Texture = Texture::ConvertRenderAPI(api, m_Texture);
 
 		return true;
 	}

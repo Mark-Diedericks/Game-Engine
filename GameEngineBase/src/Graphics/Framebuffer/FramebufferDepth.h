@@ -1,33 +1,27 @@
 #pragma once
 
-#include "Backend/API/APIFramebufferDepth.h"
 #include "Framebuffer.h"
 
 namespace gebase { namespace graphics {
 
 	class GE_API FramebufferDepth : public Framebuffer
 	{
-	private:
-		API::APIFramebufferDepth* m_Instance;
-
-		uint m_Width;
-		uint m_Height;
-
-		FramebufferDepth() : Framebuffer() { }
+	protected:
+		FramebufferDepth(uint loadType) : Framebuffer(loadType) { }
 	public:
 		static FramebufferDepth* Create(uint width, uint height);
 
-		bool EmployRenderAPI(RenderAPI api);
+		static FramebufferDepth* ConvertRenderAPI(RenderAPI api, FramebufferDepth* original);
 
-		inline void Bind() const override { m_Instance->Bind(); }
-		inline void Unbind() const override { m_Instance->Unbind(); }
-		inline void Clear() override { m_Instance->Clear(); }
-
-		inline Texture* getTexture() const override { return m_Instance->getTexture(); }
-		inline uint getWidth() const override { return m_Instance->getWidth(); }
-		inline uint getHeight() const override { return m_Instance->getHeight(); }
-
-		inline API::APIFramebuffer* getInstance() override { return m_Instance; }
+		virtual void getPixelData(uint16* data) = 0;
+		virtual void setData(const uint16* data) = 0;
+	private:
+		static std::map<FramebufferDepth*, FramebufferDepth*> s_APIChangeMap;
+	public:
+		static inline void AddRenderAPIChange(FramebufferDepth* old, FramebufferDepth* current) { s_APIChangeMap.insert_or_assign(old, current); }
+		static inline bool HasRenderAPIChange(FramebufferDepth* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
+		static inline FramebufferDepth* GetRenderAPIChange(FramebufferDepth* old) { return s_APIChangeMap.at(old); }
+		static void FlushRenderAPIChange();
 	};
 
 } }

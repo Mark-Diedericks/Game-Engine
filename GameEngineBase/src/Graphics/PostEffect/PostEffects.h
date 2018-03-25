@@ -10,7 +10,7 @@
 
 namespace gebase { namespace graphics {
 
-	class GE_API PostEffects : public IRenderAPIDependant
+	class GE_API PostEffects : public IRenderAPIDependantContainer
 	{
 	private:
 		std::vector<PostEffectsPass*> m_Passes;

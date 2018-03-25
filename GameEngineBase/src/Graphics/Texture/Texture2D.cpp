@@ -1,106 +1,119 @@
 #include "ge.h"
 #include "Texture2D.h"
+#include "Application/Application.h"
 
 #include "Graphics/Context.h"
 #include "System/Memory.h"
 #include "Utils/ImageUtil.h"
 #include "Utils\LogUtil.h"
 
+#include "Backend/GL/GLTexture2D.h"
+#include "Backend/D3D/11/DX11Texture2D.h"
+
 namespace gebase { namespace graphics {
 
-	Texture2D* Texture2D::Create(uint width, uint height, API::TextureParameters parameters, API::TextureLoadOptions loadOptions)
-	{
-		Texture2D* thisT2 = genew Texture2D();
-		thisT2->m_LoadType = 0;
-		thisT2->m_BitsPerPixel = parameters.format == API::TextureFormat::RGB ? 24 : 32;
-		thisT2->m_Width = width;
-		thisT2->m_Height = height;
-		thisT2->m_Parameters = parameters;
-		thisT2->m_Name = StringFormat::ToString(width) + StringFormat::ToString(height);
-		thisT2->m_Instance = API::APITexture2D::Create(width, height, parameters);
-		return thisT2;
-	}
-
-	Texture2D* Texture2D::CreateFromFile(const String& filepath, API::TextureParameters parameters, API::TextureLoadOptions loadOptions)
+	std::map<Texture2D*, Texture2D*> Texture2D::s_APIChangeMap;
+	
+	Texture2D* Texture2D::CreateFromFile(const String& filepath, TextureParameters parameters, TextureLoadOptions loadOptions)
 	{
 		return CreateFromFile(filepath, filepath, parameters, loadOptions);
 	}
 
-	Texture2D* Texture2D::CreateFromFile(const String& filepath, API::TextureLoadOptions loadOptions)
+	Texture2D* Texture2D::CreateFromFile(const String& filepath, TextureLoadOptions loadOptions)
 	{
-		return CreateFromFile(filepath, API::TextureParameters(), loadOptions);
+		return CreateFromFile(filepath, filepath, TextureParameters(), loadOptions);
 	}
 
-	Texture2D* Texture2D::CreateFromFile(const String& name, const String& filepath, API::TextureParameters parameters, API::TextureLoadOptions loadOptions)
+	Texture2D* Texture2D::CreateFromFile(const String& name, const String& filepath, TextureParameters parameters, TextureLoadOptions loadOptions)
 	{
-		Texture2D* thisT2 = genew Texture2D();
-		thisT2->m_BitsPerPixel = parameters.format == API::TextureFormat::RGB ? 24 : 32;
-
 		uint bits;
 		uint width;
 		uint height;
-		byte* pixels = LoadImage(filepath.c_str(), &width, &height, &bits, !loadOptions.flipY); //FreeImage loads from the bottom up to the top
+		byte* pixels = GELoadImage(filepath.c_str(), &width, &height, &bits, !loadOptions.flipY); //FreeImage loads from the bottom up to the top
 
 		if (bits != 24 && bits != 32)
 			utils::LogUtil::WriteLine("ERROR", "[Texture2D] Unsupported image bit-depth: " + std::to_string(bits) + " in file: " + filepath);
 
-		parameters.format = bits == 24 ? API::TextureFormat::RGB : API::TextureFormat::RGBA;
+		parameters.format = bits == 24 ? TextureFormat::RGB : TextureFormat::RGBA;
 
-		thisT2->m_LoadType = 1;
-		thisT2->m_BitsPerPixel = bits;
-		thisT2->m_Width = width;
-		thisT2->m_Height = height;
-		thisT2->m_Name = name;
-		thisT2->m_Parameters = parameters;
+		return CreateFromFile(name, pixels, width, height, bits, parameters);
+	}	
+	
+	Texture2D* Texture2D::Create(uint width, uint height, TextureParameters parameters)
+	{
+		switch (gebase::graphics::Context::getRenderAPI())
+		{
+		case RenderAPI::OPENGL: return genew GLTexture2D(width, height, parameters);
+			//case RenderVULKAN: return genew VKTexture2D(width, height, parameters);
+		case RenderAPI::D3D11: return genew DX11Texture2D(width, height, parameters);
+			//case RenderD3D12: return genew DX12Texture2D(width, height, parameters);
+		}
 
-		thisT2->m_Instance = API::APITexture2D::CreateFromFile(name, pixels, width, height, bits, parameters);
-		return thisT2;
+		return nullptr;
 	}
 
-	Texture2D* Texture2D::CreateFromFile(const String& name, const String& filepath, API::TextureLoadOptions loadOptions)
+	Texture2D* Texture2D::CreateFromFile(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters)
 	{
-		return CreateFromFile(name, filepath, API::TextureParameters(), loadOptions);
+		switch (gebase::graphics::Context::getRenderAPI())
+		{
+		case RenderAPI::OPENGL: return genew GLTexture2D(name, pixels, width, height, bits, parameters);
+			//case RenderVULKAN: return genew VKTexture2D(name, pixels, width, height, bits, parameters);
+		case RenderAPI::D3D11: return genew DX11Texture2D(name, pixels, width, height, bits, parameters);
+			//case RenderD3D12: return genew DX12Texture2D(name, pixels, width, height, bits, parameters);
+		}
+
+		return nullptr;
 	}
 
-	bool Texture2D::EmployRenderAPI(RenderAPI api)
+	Texture2D* Texture2D::ConvertRenderAPI(RenderAPI api, Texture2D* original)
 	{
-		if (current == api)
-			return true;
+		if (HasRenderAPIChange(original))
+			return GetRenderAPIChange(original);
 
-		current = api;
+		if (original->current == api)
+			return original;
 
-		byte* pixels = genew byte[this->m_Instance->getSize()];
-		this->m_Instance->getPixelData(pixels);
+		byte* data = genew byte[original->getSize()];
+		original->getPixelData(data);
 
-		API::APITexture2D* inst;
+		Texture2D* texture;
 
-		switch (m_LoadType)
+		switch (original->getLoadType())
 		{
 		case 0:
-			inst = API::APITexture2D::Create(m_Width, m_Height, m_Parameters);
-			inst->setData(pixels);
+		{
+			texture = Create(original->getWidth(), original->getHeight(), original->getParameters());
+			texture->setData(data);
 
-			if (pixels)
-				gedel[] pixels;
+			if (data)
+				gedel[] data;
+		}
 			break;
 		case 1:
-			inst = API::APITexture2D::CreateFromFile(m_Name, pixels, m_Width, m_Height, m_BitsPerPixel, m_Parameters);
+		{
+			texture = CreateFromFile(original->getName(), data, original->getWidth(), original->getHeight(), original->getBitsPerPixel(), original->getParameters());
+		}
 			break;
 		}
 
-		gedel this->m_Instance;
+		//if (data)
+		//	gedel[] data;
 
-		if (!inst)
-			return false;
+		texture->setResourceName(original->getResourceName());
+		AddRenderAPIChange(original, texture);
 
-		this->m_Instance = inst;
-
-		return true;
+		return texture;
 	}
 
-	void Texture2D::setData(uint color)
+	void Texture2D::FlushRenderAPIChange()
 	{
-		m_Instance->setData(color);
+		std::map<Texture2D*, Texture2D*>::iterator it;
+		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
+		{
+			gedel((Texture2D*)it->first);
+		}
+
+		s_APIChangeMap.clear();
 	}
 
 } }

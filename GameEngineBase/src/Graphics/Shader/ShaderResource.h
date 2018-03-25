@@ -3,7 +3,7 @@
 #include "Common.h"
 #include "CustomString.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	class ShaderResourceDeclaration
 	{
@@ -15,4 +15,4 @@ namespace gebase { namespace graphics { namespace API {
 
 	typedef std::vector<ShaderResourceDeclaration*> ShaderResourceList;
 
-} } }
+} }

@@ -4,29 +4,29 @@
 #include "DX11Context.h"
 #include "System/Memory.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
-	DX11TextureCube::DX11TextureCube(const String& name, const byte* pixels, uint width, uint height, uint bits) : m_Name(name), m_File(name), m_Bits(bits)
+	DX11TextureCube::DX11TextureCube(const String& name, const byte* pixels, uint width, uint height, uint bits) : TextureCube(0), m_Name(name), m_File(name), m_BitsPerPixel(bits)
 	{
 		m_Width[0] = width;
 		m_Height[0] = height;
 		LoadFromSingleFile(pixels, bits);
 	}
 
-	DX11TextureCube::DX11TextureCube(const String& name, const byte** sides, uint width, uint height, uint bits) : m_Name(name), m_File(name), m_Bits(bits)
+	DX11TextureCube::DX11TextureCube(const String& name, const byte** sides, uint width, uint height, uint bits) : TextureCube(1), m_Name(name), m_File(name), m_BitsPerPixel(bits)
 	{
 		m_Width[0] = width;
 		m_Height[0] = height;
 		LoadFromMultipleFiles(sides, bits);
 	}
 
-	DX11TextureCube::DX11TextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : m_Name(name), m_File(name), m_Width(width), m_Height(height), m_Bits(bits), m_Format(format)
+	DX11TextureCube::DX11TextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_File(name), m_Width(width), m_Height(height), m_BitsPerPixel(bits), m_Format(format)
 	{
 		if (format == InputFormat::VERTICAL_CROSS)
 			LoadFromVerticalCross(sides, width, height, bits, mips);
 	}
 
-	DX11TextureCube::DX11TextureCube(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits, InputFormat format) : m_Name(name), m_File(name), m_Width(faceWidths), m_Height(faceHeights), m_Bits(bits), m_Format(format)
+	DX11TextureCube::DX11TextureCube(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_File(name), m_Width(faceWidths), m_Height(faceHeights), m_BitsPerPixel(bits), m_Format(format)
 	{
 		if (format == InputFormat::VERTICAL_CROSS)
 			LoadFromVerticalCross(faces, faceWidths, faceHeights, bits, mips);
@@ -198,8 +198,11 @@ namespace gebase { namespace graphics { namespace API {
 	{
 		m_FaceWidths = faceWidths;
 		m_FaceHeights = faceHeights;
-		m_Bits = bits;
+		m_BitsPerPixel = bits;
 		m_Mips = mips;
+
+		m_Parameters = TextureParameters();
+		m_Parameters.format = bits == 24 ? TextureFormat::RGB : TextureFormat::RGBA;
 
 		D3D11_TEXTURE2D_DESC td;
 		td.Width = m_FaceWidths[0];
@@ -289,4 +292,4 @@ namespace gebase { namespace graphics { namespace API {
 		return 0;
 	}
 
-} } }
+} }

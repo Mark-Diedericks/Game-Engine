@@ -3,7 +3,7 @@
 #include "Common.h"
 #include "CustomString.h"
 
-namespace gebase { namespace graphics { namespace API {
+namespace gebase { namespace graphics {
 
 	class ShaderUniformDeclaration
 	{
@@ -77,4 +77,4 @@ namespace gebase { namespace graphics { namespace API {
 
 	typedef std::vector<ShaderStruct*> ShaderStructList;
 
-} } }
+} }
