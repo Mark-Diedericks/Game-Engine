@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Graphics\Buffer\VertexBuffer.h"
+#include "Graphics/Buffer/VertexBuffer.h"
+#include "Graphics/Mesh/Mesh.h"
 #include "DX11Common.h"
 
 namespace gebase { namespace graphics {
@@ -27,7 +28,10 @@ namespace gebase { namespace graphics {
 
 		void Resize(uint size) override;
 		void setLayout(const BufferLayout& layout) override;
-		void setData(uint size, const void* data) override;
+
+		void setData(uint size, byte* data) override;
+		void setData(uint size, Vertex* data) override;
+		void setData(uint size, QuadVertex* data) override;
 
 		void getBufferData(void* data) override;
 		inline uint getSize() override { return m_Size; }

@@ -1,6 +1,7 @@
 #include "ge.h"
 #include "Common.h"
 #include "DX11TextureDepth.h"
+#include "System/Memory.h"
 
 namespace gebase { namespace graphics {
 
@@ -31,7 +32,8 @@ namespace gebase { namespace graphics {
 
 	void DX11TextureDepth::setData(const uint16* pixels)
 	{
-
+		if (pixels != nullptr)
+			gedel[] pixels;
 	}
 
 	void DX11TextureDepth::getPixelData(uint16* data)

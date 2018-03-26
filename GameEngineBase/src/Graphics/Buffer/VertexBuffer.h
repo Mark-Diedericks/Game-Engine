@@ -5,7 +5,6 @@
 #include "BufferLayout.h"
 #include "System/Memory.h"
 #include "Graphics/IRenderAPIDependant.h"
-
 namespace gebase { namespace graphics {
 
 	enum class BufferUsage
@@ -13,6 +12,9 @@ namespace gebase { namespace graphics {
 		STATIC,
 		DYNAMIC
 	};
+
+	struct Vertex;
+	struct QuadVertex;
 
 	class GE_API VertexBuffer : public IRenderAPIDependant
 	{
@@ -27,7 +29,10 @@ namespace gebase { namespace graphics {
 
 		virtual void Resize(uint size) = 0;
 		virtual void setLayout(const BufferLayout& layout) = 0;
-		virtual void setData(uint size, const void* data) = 0;
+
+		virtual void setData(uint size, byte* data) = 0;
+		virtual void setData(uint size, Vertex* data) = 0;
+		virtual void setData(uint size, QuadVertex* data) = 0;
 
 		virtual void ReleasePointer() = 0;
 
@@ -49,7 +54,7 @@ namespace gebase { namespace graphics {
 		static inline void AddRenderAPIChange(VertexBuffer* old, VertexBuffer* current) { s_APIChangeMap.insert_or_assign(old, current); }
 		static inline bool HasRenderAPIChange(VertexBuffer* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
 		static inline VertexBuffer* GetRenderAPIChange(VertexBuffer* old) { return s_APIChangeMap.at(old); }
-		static void FlushRenderAPIChange();
+		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};
 
 } }

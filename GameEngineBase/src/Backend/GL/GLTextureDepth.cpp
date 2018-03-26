@@ -52,6 +52,9 @@ namespace gebase { namespace graphics {
 	{
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_Handle));
 		GLCall(glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_Width, m_Height, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, pixels));
+
+		if (pixels != nullptr)
+			gedel[] pixels;
 	}
 
 	void GLTextureDepth::getPixelData(uint16* pixels)

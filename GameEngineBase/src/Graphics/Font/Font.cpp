@@ -13,7 +13,7 @@ namespace gebase { namespace graphics {
 
 		TextureParameters params = { TextureFormat::LUMINANCE_ALPHA, TextureFilter::LINEAR, TextureWrap::CLAMP_TO_EDGE };
 		m_Texture = Texture2D::Create(512, 512, params);
-		m_Texture->setData(m_FTAtlas->data);
+		m_Texture->setData(m_FTAtlas->data, false);
 
 		if (!m_FTFont)
 		{
@@ -31,7 +31,7 @@ namespace gebase { namespace graphics {
 
 		TextureParameters parameters = { TextureFormat::LUMINANCE_ALPHA, TextureFilter::LINEAR, TextureWrap::CLAMP_TO_EDGE };
 		m_Texture = Texture2D::Create(512, 512, parameters);
-		m_Texture->setData(m_FTAtlas->data);
+		m_Texture->setData(m_FTAtlas->data, false);
 
 		if (!m_FTFont)
 		{
@@ -59,7 +59,7 @@ namespace gebase { namespace graphics {
 	{
 		if (m_FTAtlas->dirty)
 		{
-			m_Texture->setData(m_FTAtlas->data);
+			m_Texture->setData(m_FTAtlas->data, false);
 			m_FTAtlas->dirty = (int)false;
 		}
 	}

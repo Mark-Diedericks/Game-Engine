@@ -57,7 +57,30 @@ namespace gebase { namespace graphics {
 		gedel desc;
 	}
 
-	void DX11VertexBuffer::setData(uint size, const void* data)
+	void DX11VertexBuffer::setData(uint size, byte* data)
+	{
+		if (m_Size < size)
+			Resize(size);
+
+		getPointerInternal();
+		memcpy(m_MappedSubresource.pData, data, size);
+		ReleasePointer();
+
+		if (data != nullptr)
+			gedel[] data;
+	}
+
+	void DX11VertexBuffer::setData(uint size, Vertex* data)
+	{
+		if (m_Size < size)
+			Resize(size);
+
+		getPointerInternal();
+		memcpy(m_MappedSubresource.pData, data, size);
+		ReleasePointer();
+	}
+
+	void DX11VertexBuffer::setData(uint size, QuadVertex* data)
 	{
 		if (m_Size < size)
 			Resize(size);

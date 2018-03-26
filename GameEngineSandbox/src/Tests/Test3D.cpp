@@ -40,21 +40,21 @@ TextureDepth* g_ShadowMap;
 String materialInputs[6] =
 {
 	"CastIron",
-	"WornWood",
-	"GunMetal",
-	"ABSRed",
 	"Custom",
-	"Ground"
+	//"WornWood",
+	//"GunMetal",
+	//"ABSRed",
+	//"Ground"
 };
 
 enum Materials : uint
 {
 	CAST_IRON = 0,
-	WORN_WOOD,
-	GUN_METAL,
-	ABS_RED,
 	CUSTOM,
-	GROUND
+	//WORN_WOOD,
+	//GUN_METAL,
+	//ABS_RED,
+	//GROUND
 };
 
 void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
@@ -115,7 +115,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	}
 	m_Materials.push_back(castIron);
 
-	PBRMaterial* wornWood = genew PBRMaterial(pbrShader);
+	/*PBRMaterial* wornWood = genew PBRMaterial(pbrShader);
 	wornWood->setEnvironmentMap(environment);
 	{
 		String path = materialInputs[WORN_WOOD] + "/" + materialInputs[WORN_WOOD];
@@ -124,9 +124,9 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 		wornWood->setGlossMap(Texture2D::CreateFromFile("/pbr/" + path + "_Gloss.tga"));
 		wornWood->setNormalMap(Texture2D::CreateFromFile("/pbr/" + path + "_Normal.tga"));
 	}
-	m_Materials.push_back(wornWood);
+	m_Materials.push_back(wornWood);*/
 
-	PBRMaterial* gunMetal = genew PBRMaterial(pbrShader);
+	/*PBRMaterial* gunMetal = genew PBRMaterial(pbrShader);
 	gunMetal->setEnvironmentMap(environment);
 	{
 		String path = materialInputs[GUN_METAL] + "/" + materialInputs[GUN_METAL];
@@ -135,10 +135,10 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 		gunMetal->setGlossMap(Texture2D::CreateFromFile("/pbr/" + path + "_Gloss.tga"));
 		gunMetal->setNormalMap(Texture2D::CreateFromFile("/pbr/" + path + "_Normal.tga"));
 	}
-	m_Materials.push_back(gunMetal);
+	m_Materials.push_back(gunMetal);*/
 
 
-	PBRMaterial* absRed = genew PBRMaterial(pbrShader);
+	/*PBRMaterial* absRed = genew PBRMaterial(pbrShader);
 	absRed->setEnvironmentMap(environment);
 	{
 		String path = materialInputs[ABS_RED] + "/" + materialInputs[ABS_RED];
@@ -147,7 +147,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 		absRed->setGlossMap(Texture2D::CreateFromFile("/pbr/" + path + "_Gloss.tga"));
 		absRed->setNormalMap(Texture2D::CreateFromFile("/pbr/" + path + "_Normal.tga"));
 	}
-	m_Materials.push_back(absRed);
+	m_Materials.push_back(absRed);*/
 
 	PBRMaterial* custom = genew PBRMaterial(pbrShader);
 	custom->setEnvironmentMap(environment);

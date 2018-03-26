@@ -86,7 +86,6 @@ namespace gebase { namespace graphics {
 		inline ShaderSource getSource() const override { return m_Source; }
 
 		void Init();
-		void Shutdown();
 
 		void Bind() const override;
 		void Unbind() const override;

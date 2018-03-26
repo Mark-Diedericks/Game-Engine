@@ -23,7 +23,7 @@ namespace gebase { namespace graphics {
 		virtual void getPixelData(byte* pixels) = 0;
 		virtual uint getSize() const = 0;
 
-		virtual void setData(const byte* pixels) = 0;
+		virtual void setData(const byte* pixels, const bool del = true) = 0;
 		virtual void setData(uint color) = 0;
 
 		virtual uint getWidth() const = 0;
@@ -34,7 +34,7 @@ namespace gebase { namespace graphics {
 		static inline void AddRenderAPIChange(Texture2D* old, Texture2D* current) { s_APIChangeMap.insert_or_assign(old, current); }
 		static inline bool HasRenderAPIChange(Texture2D* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
 		static inline Texture2D* GetRenderAPIChange(Texture2D* old) { return s_APIChangeMap.at(old); }
-		static inline void FlushRenderAPIChange();
+		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};
 
 } }

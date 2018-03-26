@@ -50,6 +50,7 @@ namespace gebase { namespace graphics {
 		uint m_Offset;
 	public:
 		ShaderStruct(const String& name) : m_Name(name), m_Size(0), m_Offset(0) {}
+		~ShaderStruct();
 
 		void AddField(ShaderUniformDeclaration* field)
 		{

@@ -39,26 +39,33 @@ namespace gebase { namespace graphics {
 
 		uint size = original->getSize();
 		byte* data = genew byte[size];
-		original->getBufferData((void*)data);
+		original->getBufferData(data);
 
 		VertexBuffer* buffer = Create(original->m_Usage);
 		buffer->setData(size, data);
 		buffer->setLayout(layout);
 
-		if (data)
-			gedel[] data;
+		//if (data)
+		//	gedel[] data;
 
 		AddRenderAPIChange(original, buffer);
 
 		return buffer;
 	}
 
-	void VertexBuffer::FlushRenderAPIChange()
+	void VertexBuffer::FlushRenderAPIChange(RenderAPI prevApi)
 	{
 		std::map<VertexBuffer*, VertexBuffer*>::iterator it;
 		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
 		{
-			gedel((VertexBuffer*)it->first);
+			//gedel ((VertexBuffer*)it->first);
+			switch (prevApi)
+			{
+			case RenderAPI::OPENGL: gedel((GLVertexBuffer*)it->first); break;
+				//case RenderAPI::VULKAN: gedel (VKTextureDepth*)it->first); break;
+			case RenderAPI::D3D11: gedel((DX11VertexBuffer*)it->first); break;
+				//case RenderAPI::D3D12: gedel ((DX12TextureDepth*)it->first); break;
+			}
 		}
 
 		s_APIChangeMap.clear();

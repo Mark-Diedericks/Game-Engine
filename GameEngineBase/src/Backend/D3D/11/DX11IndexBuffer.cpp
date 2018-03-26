@@ -23,7 +23,9 @@ namespace gebase { namespace graphics {
 		ibid.pSysMem = data;
 
 		HRESULT hr = DX11Context::getDevice()->CreateBuffer(&ibd, &ibid, &m_Handle);
-		gedel[] data;
+
+		if (data != nullptr)
+			gedel[] data;
 	}
 
 	DX11IndexBuffer::DX11IndexBuffer(uint* data, uint count) : IndexBuffer(0), m_Count(count)
@@ -41,7 +43,9 @@ namespace gebase { namespace graphics {
 		ibid.pSysMem = data;
 
 		HRESULT hr = DX11Context::getDevice()->CreateBuffer(&ibd, &ibid, &m_Handle);
-		gedel[] data;
+
+		if(data != nullptr)
+			gedel[] data;
 	}
 
 	DX11IndexBuffer::~DX11IndexBuffer()

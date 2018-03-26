@@ -26,6 +26,8 @@ namespace gebase { namespace graphics {
 
 		void setRenderTargets(ID3D11RenderTargetView* target, ID3D11DepthStencilView* view);
 		String getD3DVersionStringInternal() const;
+	protected:
+		void DestroyInternal() override;
 	public:
 		IDXGISwapChain* swapchain;
 		ID3D11Device* device;

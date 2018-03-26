@@ -1,12 +1,25 @@
 #include "ge.h"
 #include "GLShaderUniform.h"
+
 #include "Graphics/Shader/Shader.h"
+#include "System/Memory.h"
 
 namespace gebase { namespace graphics {
 
-	GLShaderUniformDeclaration::GLShaderUniformDeclaration(UniformType type, const String& name, uint count) : m_Type(type), m_Name(name), m_Count(count) { m_Size = SizeOfUniformType(type) * count; }
+	GLShaderUniformDeclaration::GLShaderUniformDeclaration(UniformType type, const String& name, uint count) : m_Type(type), m_Name(name), m_Count(count) 
+	{ 
+		m_Size = SizeOfUniformType(type) * count;
+	}
 
-	GLShaderUniformDeclaration::GLShaderUniformDeclaration(ShaderStruct* uniformStruct, const String& name, uint count) : m_Type(UniformType::STRUCT), m_Struct(uniformStruct), m_Name(name), m_Count(count) { m_Size = m_Struct->getSize() * count; }
+	GLShaderUniformDeclaration::GLShaderUniformDeclaration(ShaderStruct* uniformStruct, const String& name, uint count) : m_Type(UniformType::STRUCT), m_Struct(uniformStruct), m_Name(name), m_Count(count) 
+	{ 
+		m_Size = m_Struct->getSize() * count; 
+	}
+
+	GLShaderUniformDeclaration::~GLShaderUniformDeclaration()
+	{
+		gedel m_Struct;
+	}
 
 	void GLShaderUniformDeclaration::setOffset(uint offset)
 	{
@@ -61,7 +74,16 @@ namespace gebase { namespace graphics {
 		return "Invalid Type";
 	}
 
-	GLShaderUniformBufferDeclaration::GLShaderUniformBufferDeclaration(const String& name, uint shaderType) : m_Name(name), m_ShaderType(shaderType), m_Size(0), m_Register(0) {}
+	GLShaderUniformBufferDeclaration::GLShaderUniformBufferDeclaration(const String& name, uint shaderType) : m_Name(name), m_ShaderType(shaderType), m_Size(0), m_Register(0) 
+	{
+		
+	}
+
+	GLShaderUniformBufferDeclaration::~GLShaderUniformBufferDeclaration()
+	{
+		for (uint i = 0; i < m_Uniforms.size(); i++)
+			gedel (GLShaderUniformDeclaration*)m_Uniforms[i];
+	}
 
 	void GLShaderUniformBufferDeclaration::PushUniform(GLShaderUniformDeclaration* uniform)
 	{

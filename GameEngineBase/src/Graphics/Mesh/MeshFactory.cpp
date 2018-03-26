@@ -7,12 +7,6 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 	{
 		using namespace math;
 
-		struct QuadVertex
-		{
-			math::Vector3f position;
-			math::Vector2f uv;
-		};
-
 		QuadVertex vertices[4];
 
 		vertices[0].position = Vector3f(x, y, 0);

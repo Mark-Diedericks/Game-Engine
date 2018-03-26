@@ -76,12 +76,19 @@ namespace gebase { namespace graphics {
 		return shader;
 	}
 
-	void Shader::FlushRenderAPIChange()
+	void Shader::FlushRenderAPIChange(RenderAPI prevApi)
 	{
 		std::map<Shader*, Shader*>::iterator it;
 		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
 		{
-			gedel ((Shader*)it->first);
+			//gedel ((Shader*)it->first);
+			switch (prevApi)
+			{
+			case RenderAPI::OPENGL: gedel((GLShader*)it->first); break;
+				//case RenderAPI::VULKAN: gedel (VKShader*)it->first); break;
+			case RenderAPI::D3D11: gedel((DX11Shader*)it->first); break;
+				//case RenderAPI::D3D12: gedel ((DX12Shader*)it->first); break;
+			}
 		}
 
 		s_APIChangeMap.clear();

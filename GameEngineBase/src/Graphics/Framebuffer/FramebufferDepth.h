@@ -21,7 +21,7 @@ namespace gebase { namespace graphics {
 		static inline void AddRenderAPIChange(FramebufferDepth* old, FramebufferDepth* current) { s_APIChangeMap.insert_or_assign(old, current); }
 		static inline bool HasRenderAPIChange(FramebufferDepth* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
 		static inline FramebufferDepth* GetRenderAPIChange(FramebufferDepth* old) { return s_APIChangeMap.at(old); }
-		static void FlushRenderAPIChange();
+		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};
 
 } }

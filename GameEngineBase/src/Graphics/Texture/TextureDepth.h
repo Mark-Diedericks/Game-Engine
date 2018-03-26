@@ -23,7 +23,7 @@ namespace gebase { namespace graphics {
 		static inline void AddRenderAPIChange(TextureDepth* old, TextureDepth* current) { s_APIChangeMap.insert_or_assign(old, current); }
 		static inline bool HasRenderAPIChange(TextureDepth* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
 		static inline TextureDepth* GetRenderAPIChange(TextureDepth* old) { return s_APIChangeMap.at(old); }
-		static void FlushRenderAPIChange();
+		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};
 
 } }

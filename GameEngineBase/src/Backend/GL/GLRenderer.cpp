@@ -34,6 +34,11 @@ namespace gebase { namespace graphics {
 		m_RendererTitle = "OpenGL";
 	}
 
+	void GLRenderer::DestroyInternal()
+	{
+
+	}
+
 	void GLRenderer::ClearInternal(uint buffer)
 	{
 		GLCall(glClear(GLConvert::RendererBufferToGL(buffer)));

@@ -55,10 +55,13 @@ namespace gebase { namespace graphics {
 		return handle;
 	}
 
-	void GLTexture2D::setData(const byte* pixels)
+	void GLTexture2D::setData(const byte* pixels, const bool del)
 	{
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_Handle));
 		GLCall(glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_Width, m_Height, GLConvert::TextureFormatToGL(m_Parameters.format), GL_UNSIGNED_BYTE, pixels));
+		
+		if (pixels != nullptr && del)
+			gedel[] pixels;
 	}
 
 	void GLTexture2D::setData(uint color)
@@ -84,7 +87,6 @@ namespace gebase { namespace graphics {
 		__debugbreak();
 #endif
 #endif // 0
-
 	}
 
 	void GLTexture2D::Bind(uint slot) const

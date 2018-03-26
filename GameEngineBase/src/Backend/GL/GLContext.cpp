@@ -53,17 +53,6 @@ namespace gebase { namespace graphics {
 	GLContext::~GLContext()
 	{
 		//TODO end glew
-
-		HGLRC hgrlc;
-		HDC hdc;
-
-		if (hgrlc = wglGetCurrentContext())
-		{
-			hdc = wglGetCurrentDC();
-			wglMakeCurrent(NULL, NULL);
-			ReleaseDC(hWnd, hdc);
-			wglDeleteContext(hgrlc);
-		}
 	}
 
 	void GLContext::setVSync(bool enabled)
@@ -92,6 +81,20 @@ namespace gebase { namespace graphics {
 	void GLContext::Present()
 	{
 		GE_PERF(SwapBuffers(hDc))
+	}
+
+	void GLContext::DestroyInternal()
+	{
+		HGLRC hgrlc;
+		HDC hdc;
+
+		if (hgrlc = wglGetCurrentContext())
+		{
+			hdc = wglGetCurrentDC();
+			wglMakeCurrent(NULL, NULL);
+			ReleaseDC(hWnd, hdc);
+			wglDeleteContext(hgrlc);
+		}
 	}
 
 } }

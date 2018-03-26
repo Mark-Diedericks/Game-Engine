@@ -49,12 +49,19 @@ namespace gebase { namespace graphics {
 		return buffer;
 	}
 
-	void VertexArray::FlushRenderAPIChange()
+	void VertexArray::FlushRenderAPIChange(RenderAPI prevApi)
 	{
 		std::map<VertexArray*, VertexArray*>::iterator it;
 		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
 		{
-			gedel((VertexArray*)it->first);
+			//gedel ((VertexArray*)it->first);
+			switch (prevApi)
+			{
+			case RenderAPI::OPENGL: gedel((GLVertexArray*)it->first); break;
+				//case RenderAPI::VULKAN: gedel (VKTextureDepth*)it->first); break;
+			case RenderAPI::D3D11: gedel((DX11VertexArray*)it->first); break;
+				//case RenderAPI::D3D12: gedel ((DX12TextureDepth*)it->first); break;
+			}
 		}
 
 		s_APIChangeMap.clear();

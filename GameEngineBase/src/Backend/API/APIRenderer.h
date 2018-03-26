@@ -36,6 +36,7 @@ namespace gebase { namespace graphics {
 		static APIRenderer* s_Instance;
 	protected:
 		virtual void InitInternal() = 0;
+		virtual void DestroyInternal() = 0;
 
 		virtual void ClearInternal(uint buffer) = 0;
 		virtual void ClearColorDepthInternal() = 0;
@@ -51,6 +52,8 @@ namespace gebase { namespace graphics {
 		virtual const String& getTitleInternal() const = 0;
 	public:
 		static void Init();
+
+		inline static void Destroy() { s_Instance->DestroyInternal(); }
 
 		inline static void Clear(uint buffer) { s_Instance->ClearInternal(buffer); }
 		inline static void ClearColorDepth() { s_Instance->ClearColorDepthInternal(); }

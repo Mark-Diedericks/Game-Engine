@@ -37,7 +37,7 @@ namespace gebase { namespace graphics {
 		static inline void AddRenderAPIChange(TextureCube* old, TextureCube* current) { s_APIChangeMap.insert_or_assign(old, current); }
 		static inline bool HasRenderAPIChange(TextureCube* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
 		static inline TextureCube* GetRenderAPIChange(TextureCube* old) { return s_APIChangeMap.at(old); }
-		static inline void FlushRenderAPIChange();
+		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};
 
 } } 

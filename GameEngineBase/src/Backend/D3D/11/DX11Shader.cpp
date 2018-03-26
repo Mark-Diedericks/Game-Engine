@@ -44,6 +44,18 @@ namespace gebase { namespace graphics {
 		m_Data.vertexShader->Release();
 		m_Data.pixelShader->Release();
 
+		//for (uint i = 0; i < m_Structs.size(); i++)
+		//	gedel m_Structs[i];
+
+		for (uint i = 0; i < m_Resources.size(); i++)
+			gedel(DX11ShaderResourceDeclaration*)m_Resources[i];
+
+		for (uint i = 0; i < m_VSUniformBuffers.size(); i++)
+			gedel(DX11ShaderUniformBufferDeclaration*)m_VSUniformBuffers[i];
+
+		for (uint i = 0; i < m_FSUniformBuffers.size(); i++)
+			gedel(DX11ShaderUniformBufferDeclaration*)m_FSUniformBuffers[i];
+
 		gedel m_VSUserUniformBuffer;
 		gedel m_FSUserUniformBuffer;
 

@@ -5,7 +5,7 @@
 
 namespace gebase {
 
-	Application::Application(const String& name, const WindowProperties& properties, graphics::RenderAPI api, const String& logDirectory) : m_Name(name), m_Properties(properties), m_FrT(0.0f), m_LogDirectory(logDirectory)
+	Application::Application(const String& name, const WindowProperties& properties, graphics::RenderAPI api, const String& logDirectory) : m_Name(name), m_Properties(properties), m_FrT(0.0f), m_LogDirectory(logDirectory), m_PrevAPI(api)
 	{
 		s_Instance = this;
 		graphics::Context::setRenderAPI(api);

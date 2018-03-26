@@ -85,8 +85,8 @@ namespace gebase { namespace graphics {
 			texture = Create(original->getWidth(), original->getHeight(), original->getParameters());
 			texture->setData(data);
 
-			if (data)
-				gedel[] data;
+			//if (data)
+			//	gedel[] data;
 		}
 			break;
 		case 1:
@@ -105,12 +105,19 @@ namespace gebase { namespace graphics {
 		return texture;
 	}
 
-	void Texture2D::FlushRenderAPIChange()
+	void Texture2D::FlushRenderAPIChange(RenderAPI prevApi)
 	{
 		std::map<Texture2D*, Texture2D*>::iterator it;
 		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
 		{
-			gedel((Texture2D*)it->first);
+			//gedel ((Texture2D*)it->first);
+			switch (prevApi)
+			{
+			case RenderAPI::OPENGL: gedel((GLTexture2D*)it->first); break;
+				//case RenderAPI::VULKAN: gedel (VKTexture2D*)it->first); break;
+			case RenderAPI::D3D11: gedel((DX11Texture2D*)it->first); break;
+				//case RenderAPI::D3D12: gedel ((DX12Texture2D*)it->first); break;
+			}
 		}
 
 		s_APIChangeMap.clear();

@@ -140,7 +140,7 @@ namespace gebase { namespace graphics {
 		DX11Context::getDeviceContext()->PSSetShaderResources(slot, 1, &srv);
 	}
 
-	void DX11Texture2D::setData(const byte* pixels)
+	void DX11Texture2D::setData(const byte* pixels, const bool del)
 	{
 		D3D11_MAPPED_SUBRESOURCE msr;
 		memset(&msr, 0, sizeof(D3D11_MAPPED_SUBRESOURCE));
@@ -156,6 +156,9 @@ namespace gebase { namespace graphics {
 		}
 
 		DX11Context::getDeviceContext()->Unmap(m_Texture, NULL);
+
+		if (pixels != nullptr && del)
+			gedel[] pixels;
 	}
 
 	void DX11Texture2D::setData(uint color)

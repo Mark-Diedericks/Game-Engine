@@ -33,6 +33,8 @@ namespace gebase {
 		uint m_FPS;
 		float m_FrT;
 
+		graphics::RenderAPI m_PrevAPI;
+
 		String m_LogDirectory;
 
 		String m_Name;
@@ -54,6 +56,7 @@ namespace gebase {
 		graphics::Layer* PopOverlay(graphics::Layer* layer);
 
 		bool TrySetRenderAPI(graphics::RenderAPI api);
+		inline graphics::RenderAPI GetPreviousRenderAPI() { return m_PrevAPI; }
 
 		void Start();
 		void Stop();

@@ -118,11 +118,16 @@ namespace gebase { namespace graphics {
 		utils::LogUtil::WriteLine("INFO", "-----------------------------------");
 		utils::LogUtil::WriteLine("INFO", "              DIRECT3D             ");
 		utils::LogUtil::WriteLine("INFO", "		Direct3D " + DX11Context::getDXVersionString());
-		utils::LogUtil::WriteLine("INFO", "		" + (String)(char*)(desc.Description));
+		utils::LogUtil::WriteLine("INFO", "		DESC: " + (String)(char*)(desc.Description));
 		utils::LogUtil::WriteLine("INFO", "		VRAM: " + MemoryManager::BytesToString(desc.DedicatedVideoMemory));
 		utils::LogUtil::WriteLine("INFO", "-----------------------------------");
 
 		m_RendererTitle = "Direct3D " + DX11Context::getDXVersionString();
+	}
+
+	void DX11Renderer::DestroyInternal()
+	{
+
 	}
 
 	void DX11Renderer::ClearInternal(uint buffer)

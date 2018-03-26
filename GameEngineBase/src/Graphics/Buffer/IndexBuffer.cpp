@@ -79,12 +79,19 @@ namespace gebase { namespace graphics {
 		return buffer;
 	}
 
-	void IndexBuffer::FlushRenderAPIChange()
+	void IndexBuffer::FlushRenderAPIChange(RenderAPI prevApi)
 	{
 		std::map<IndexBuffer*, IndexBuffer*>::iterator it;
 		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
 		{
-			gedel((IndexBuffer*)it->first);
+			//gedel ((IndexBuffer*)it->first);
+			switch (prevApi)
+			{
+			case RenderAPI::OPENGL: gedel((GLIndexBuffer*)it->first); break;
+				//case RenderAPI::VULKAN: gedel (VKIndexBuffer*)it->first); break;
+			case RenderAPI::D3D11: gedel((DX11IndexBuffer*)it->first); break;
+				//case RenderAPI::D3D12: gedel ((DX12IndexBuffer*)it->first); break;
+			}
 		}
 
 		s_APIChangeMap.clear();

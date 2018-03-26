@@ -85,18 +85,21 @@ namespace gebase {
 
 	bool Application::TrySetRenderAPI(graphics::RenderAPI api)
 	{
+		m_PrevAPI = Context::getRenderAPI();
+
 		if (!graphics::Context::EmployRenderAPI(api))
 			return false;
 
-		IndexBuffer::FlushRenderAPIChange();
-		VertexBuffer::FlushRenderAPIChange();
-		VertexArray::FlushRenderAPIChange();
-		Framebuffer2D::FlushRenderAPIChange();
-		FramebufferDepth::FlushRenderAPIChange();
-		Shader::FlushRenderAPIChange();
-		Texture2D::FlushRenderAPIChange();
-		TextureCube::FlushRenderAPIChange();
-		TextureDepth::FlushRenderAPIChange();
+		IndexBuffer::FlushRenderAPIChange(m_PrevAPI);
+		VertexBuffer::FlushRenderAPIChange(m_PrevAPI);
+		VertexArray::FlushRenderAPIChange(m_PrevAPI);
+		Framebuffer2D::FlushRenderAPIChange(m_PrevAPI);
+		FramebufferDepth::FlushRenderAPIChange(m_PrevAPI);
+		Shader::FlushRenderAPIChange(m_PrevAPI);
+		Texture2D::FlushRenderAPIChange(m_PrevAPI);
+		TextureCube::FlushRenderAPIChange(m_PrevAPI);
+		TextureDepth::FlushRenderAPIChange(m_PrevAPI);
+		Context::FlushRenderAPIChange(m_PrevAPI);
 
 		utils::LogUtil::WriteLine("INFO", "[Application] TrySetRenderAPI() - Render API Employment: Success!");
 

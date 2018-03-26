@@ -19,6 +19,12 @@ namespace gebase { namespace graphics {
 		math::Vector3f tangent;
 	};
 
+	struct GE_API QuadVertex
+	{
+		math::Vector3f position;
+		math::Vector2f uv;
+	};
+
 	class GE_API Mesh : public IRenderable
 	{
 	private:

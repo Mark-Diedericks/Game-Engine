@@ -39,12 +39,29 @@ namespace gebase { namespace graphics {
 		}
 	}
 
-	void GLVertexBuffer::setData(uint size, const void* data)
+	void GLVertexBuffer::setData(uint size, byte* data)
+	{
+		m_Size = size;
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
+		GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GLConvert::BufferUsageToGL(m_Usage)));
+
+		if (data != nullptr)
+			gedel[] data;
+	}
+
+	void GLVertexBuffer::setData(uint size, Vertex* data)
 	{
 		m_Size = size;
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
 		GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GLConvert::BufferUsageToGL(m_Usage)));
 	}
+
+	void GLVertexBuffer::setData(uint size, QuadVertex* data)
+	{
+		m_Size = size;
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
+		GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GLConvert::BufferUsageToGL(m_Usage)));
+	} 
 
 	void GLVertexBuffer::Bind()
 	{

@@ -39,6 +39,7 @@ namespace gebase { namespace graphics {
 	public:
 		GLShaderUniformDeclaration(UniformType type, const String& name, uint count = 1);
 		GLShaderUniformDeclaration(ShaderStruct* uniformStruct, const String& name, uint count = 1);
+		~GLShaderUniformDeclaration();
 
 		inline const String& getName() const override { return m_Name; }
 		inline uint getSize() const override { return m_Size; }
@@ -86,6 +87,7 @@ namespace gebase { namespace graphics {
 		uint m_ShaderType; //TODO: Enum - Vertex Shader (0), Fragment Shader (1)
 	public:
 		GLShaderUniformBufferDeclaration(const String& name, uint shaderType);
+		~GLShaderUniformBufferDeclaration();
 
 		void PushUniform(GLShaderUniformDeclaration* uniform);
 		ShaderUniformDeclaration* FindUniform(const String& name);

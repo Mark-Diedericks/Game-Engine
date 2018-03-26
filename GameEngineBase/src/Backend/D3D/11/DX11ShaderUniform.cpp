@@ -2,6 +2,7 @@
 #include "Common.h"
 
 #include "DX11ShaderUniform.h"
+#include "System/Memory.h"
 
 namespace gebase { namespace graphics {
 
@@ -15,6 +16,11 @@ namespace gebase { namespace graphics {
 	DX11ShaderUniformDeclaration::DX11ShaderUniformDeclaration(ShaderStruct* shaderStruct, const String& name, uint count) : m_Type(UniformType::NONE), m_Count(count), m_Name(name), m_Offset(0), m_Struct(shaderStruct)
 	{
 		m_Size = m_Struct->getSize();
+	}
+
+	DX11ShaderUniformDeclaration::~DX11ShaderUniformDeclaration()
+	{
+		gedel m_Struct;
 	}
 
 	DX11ShaderUniformDeclaration::UniformType DX11ShaderUniformDeclaration::StringToType(const String& type)
@@ -62,7 +68,18 @@ namespace gebase { namespace graphics {
 		return 0;
 	}
 
-	DX11ShaderUniformBufferDeclaration::DX11ShaderUniformBufferDeclaration(const String& name, uint bufferRegister, uint shaderType) : m_Name(name), m_Register(bufferRegister), m_ShaderType(shaderType), m_Size(0) { }
+	DX11ShaderUniformBufferDeclaration::DX11ShaderUniformBufferDeclaration(const String& name, uint bufferRegister, uint shaderType) : m_Name(name), m_Register(bufferRegister), m_ShaderType(shaderType), m_Size(0) 
+	{
+		
+	}
+
+	DX11ShaderUniformBufferDeclaration::~DX11ShaderUniformBufferDeclaration()
+	{
+		for (uint i = 0; i < m_Uniforms.size(); i++)
+		{
+			gedel (DX11ShaderUniformDeclaration*)m_Uniforms[i];
+		}
+	}
 
 	void DX11ShaderUniformBufferDeclaration::PushUniform(DX11ShaderUniformDeclaration* uniform)
 	{

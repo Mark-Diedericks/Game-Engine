@@ -40,12 +40,19 @@ namespace gebase { namespace graphics {
 		return framebuffer;
 	}
 
-	void Framebuffer2D::FlushRenderAPIChange()
+	void Framebuffer2D::FlushRenderAPIChange(RenderAPI prevApi)
 	{
 		std::map<Framebuffer2D*, Framebuffer2D*>::iterator it;
 		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
 		{
-			gedel((Framebuffer2D*)it->first);
+			//gedel ((Framebuffer2D*)it->first);
+			switch (prevApi)
+			{
+			case RenderAPI::OPENGL: gedel((GLFramebuffer2D*)it->first); break;
+				//case RenderAPI::VULKAN: gedel (VKFramebuffer2D*)it->first); break;
+			case RenderAPI::D3D11: gedel((DX11Framebuffer2D*)it->first); break;
+				//case RenderAPI::D3D12: gedel ((DX12Framebuffer2D*)it->first); break;
+			}
 		}
 
 		s_APIChangeMap.clear();

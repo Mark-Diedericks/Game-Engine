@@ -20,10 +20,10 @@ namespace gebase { namespace graphics {
 		LoadFromMultipleFiles(sides, bits);
 	}
 
-	DX11TextureCube::DX11TextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_File(name), m_Width(width), m_Height(height), m_BitsPerPixel(bits), m_Format(format)
+	DX11TextureCube::DX11TextureCube(const String& name, const byte** miptextures, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_File(name), m_Width(width), m_Height(height), m_BitsPerPixel(bits), m_Format(format)
 	{
 		if (format == InputFormat::VERTICAL_CROSS)
-			LoadFromVerticalCross(sides, width, height, bits, mips);
+			LoadFromVerticalCross(miptextures, width, height, bits, mips);
 	}
 
 	DX11TextureCube::DX11TextureCube(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_File(name), m_Width(faceWidths), m_Height(faceHeights), m_BitsPerPixel(bits), m_Format(format)
@@ -43,16 +43,29 @@ namespace gebase { namespace graphics {
 	uint DX11TextureCube::LoadFromSingleFile(const byte* pixels, uint mbits)
 	{
 		//TODO: Implement
+
+		if (pixels != nullptr)
+			gedel[] pixels;
+
 		return 0;
 	}
 
 	uint DX11TextureCube::LoadFromMultipleFiles(const byte** sides, uint mbits)
 	{
 		//TODO: Implement
+
+		if (sides != nullptr)
+		{
+			for (uint i = 0; i < 6; i++)
+				gedel[] sides[i];
+
+			gedel[] sides;
+		}
+
 		return 0;
 	}
 
-	uint DX11TextureCube::LoadFromVerticalCross(const byte** sides, uint* width, uint* height, uint mbits, uint mips)
+	uint DX11TextureCube::LoadFromVerticalCross(const byte** miptextures, uint* width, uint* height, uint mbits, uint mips)
 	{
 		uint srcWidth = m_Width[0];
 		uint srcHeight = m_Height[0];
@@ -69,7 +82,7 @@ namespace gebase { namespace graphics {
 
 		for (uint m = 0; m < mips; m++)
 		{
-			const byte* data = sides[m];
+			const byte* data = miptextures[m];
 			srcWidth = width[m];
 			srcHeight = height[m];
 

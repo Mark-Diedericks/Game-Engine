@@ -169,6 +169,18 @@ namespace gebase { namespace graphics {
 		swapchain->Present(m_Properties.vsync, 0);
 	}
 
+	void DX11Context::DestroyInternal()
+	{
+		if (swapchain)
+			swapchain->Release();
+
+		if (deviceContext)
+			deviceContext->Release();
+
+		if(device)
+			device->Release();
+	}
+
 	String DX11Context::getD3DVersionStringInternal() const
 	{
 		switch (m_D3DFeatureLevel)

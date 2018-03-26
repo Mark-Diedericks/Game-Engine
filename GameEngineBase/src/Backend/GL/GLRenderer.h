@@ -14,6 +14,8 @@ namespace gebase { namespace graphics {
 		String m_RendererTitle;
 	protected:
 		void InitInternal() override;
+		void DestroyInternal() override;
+
 		void ClearInternal(uint buffer) override;
 		void ClearColorDepthInternal() override;
 		void PresentInternal() override;

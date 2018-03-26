@@ -28,7 +28,7 @@ namespace gebase { namespace graphics {
 		static inline void AddRenderAPIChange(IndexBuffer* old, IndexBuffer* current) { s_APIChangeMap.insert_or_assign(old, current); }
 		static inline bool HasRenderAPIChange(IndexBuffer* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
 		static inline IndexBuffer* GetRenderAPIChange(IndexBuffer* old) { return s_APIChangeMap.at(old); }
-		static void FlushRenderAPIChange();
+		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};
 
 } }

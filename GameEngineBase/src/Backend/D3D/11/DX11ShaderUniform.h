@@ -41,6 +41,7 @@ namespace gebase { namespace graphics {
 	public:
 		DX11ShaderUniformDeclaration(UniformType type, const String& name, uint count = 1);
 		DX11ShaderUniformDeclaration(ShaderStruct* shaderStruct, const String& name, uint count = 1);
+		~DX11ShaderUniformDeclaration();
 
 		inline const String& getName() const override { return m_Name; }
 		inline uint getSize() const override { return m_Size; }
@@ -68,6 +69,7 @@ namespace gebase { namespace graphics {
 		uint m_ShaderType;
 	public:
 		DX11ShaderUniformBufferDeclaration(const String& name, uint bufferRegister, uint shaderType);
+		~DX11ShaderUniformBufferDeclaration();
 
 		void PushUniform(DX11ShaderUniformDeclaration* uniform);
 		void Align();

@@ -32,12 +32,12 @@ namespace gebase { namespace graphics {
 		m_Handle = LoadFromMultipleFiles(sides, bits);
 	}
 
-	GLTextureCube::GLTextureCube(const String& name, const byte** sides, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_Width(width), m_Height(height), m_BitsPerPixel(bits)
+	GLTextureCube::GLTextureCube(const String& name, const byte** miptextures, int32 mips, uint* width, uint* height, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_Width(width), m_Height(height), m_BitsPerPixel(bits)
 	{
 		m_File = name;
 
 		if (format == InputFormat::VERTICAL_CROSS)
-			m_Handle = LoadFromVerticalCross(sides, width, height, bits, mips);
+			m_Handle = LoadFromVerticalCross(miptextures, width, height, bits, mips);
 	}
 
 	GLTextureCube::GLTextureCube(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_Width(faceWidths), m_Height(faceHeights), m_BitsPerPixel(bits)
@@ -77,6 +77,9 @@ namespace gebase { namespace graphics {
 #ifdef GE_DEBUG
 		__debugbreak();
 #endif
+
+		if (pixels != nullptr)
+			gedel[] pixels;
 
 		return 0;
 	}
@@ -121,10 +124,18 @@ namespace gebase { namespace graphics {
 
 		GLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, 0));
 
+		if (sides != nullptr)
+		{
+			for (uint i = 0; i < 6; i++)
+				gedel[] sides[i];
+
+			gedel[] sides;
+		}
+
 		return handle;
 	}
 
-	uint GLTextureCube::LoadFromVerticalCross(const byte** sides, uint* width, uint* height, uint mbits, uint mips)
+	uint GLTextureCube::LoadFromVerticalCross(const byte** miptextures, uint* width, uint* height, uint mbits, uint mips)
 	{
 		uint srcWidth = width[0];
 		uint srcHeight = height[0];
@@ -143,7 +154,7 @@ namespace gebase { namespace graphics {
 
 		for (uint i = 0; i < mips; i++)
 		{
-			const byte* data = sides[i];
+			const byte* data = miptextures[i];
 			srcWidth = width[i];
 			srcHeight = height[i];
 

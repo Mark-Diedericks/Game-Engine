@@ -32,7 +32,7 @@ namespace gebase { namespace graphics {
 		void getPixelData(byte* pixels) override;
 		uint getSize() const override;
 
-		void setData(const byte* pixels) override;
+		void setData(const byte* pixels, const bool del = true) override;
 		void setData(uint color) override;
 
 		uint getHandle() const { return m_Handle; }

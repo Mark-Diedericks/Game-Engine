@@ -40,6 +40,7 @@ namespace gebase { namespace graphics {
 
 		static bool EmployRenderAPI(RenderAPI api);
 		static bool RevertRenderAPI();
+		static void FlushRenderAPIChange(RenderAPI prevApi);
 
 		static void Add(IRenderer* object);
 		static void Remove(IRenderer* object);

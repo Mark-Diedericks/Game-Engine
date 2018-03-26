@@ -24,7 +24,22 @@ namespace gebase { namespace graphics {
 
 	GLShader::~GLShader()
 	{
-		Shutdown();
+		GLCall(glDeleteProgram(m_Handle));
+
+		//for (uint i = 0; i < m_Structs.size(); i++)
+		//	gedel m_Structs[i];
+
+		for (uint i = 0; i < m_Resources.size(); i++)
+			gedel(GLShaderResourceDeclaration*)m_Resources[i];
+
+		for (uint i = 0; i < m_VSUniformBuffers.size(); i++)
+			gedel(GLShaderUniformBufferDeclaration*)m_VSUniformBuffers[i];
+
+		for (uint i = 0; i < m_FSUniformBuffers.size(); i++)
+			gedel(GLShaderUniformBufferDeclaration*)m_FSUniformBuffers[i];
+
+		gedel m_VSUserUniformBuffer;
+		gedel m_FSUserUniformBuffer;
 	}
 
 	void GLShader::Init()
@@ -70,13 +85,6 @@ namespace gebase { namespace graphics {
 			utils::LogUtil::WriteLine("DEBUG", "    [GLShader: " + getName() + "] - Active Uniform: " + std::to_string(i) + ", " + std::to_string(type) + ", " + (String)name);
 		}
 #endif
-	}
-
-	void GLShader::Shutdown()
-	{
-		GLCall(glDeleteProgram(m_Handle));
-		gedel m_VSUserUniformBuffer;
-		gedel m_FSUserUniformBuffer;
 	}
 
 	void GLShader::Preprocess(const String& source, String** shaders)

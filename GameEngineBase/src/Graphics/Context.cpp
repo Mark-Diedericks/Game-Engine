@@ -5,6 +5,7 @@
 #include "IRenderableBase.h"
 #include "Renderer/IRenderer.h"
 #include "System/Memory.h"
+#include "Application/Application.h"
 
 namespace gebase { namespace graphics {
 
@@ -54,6 +55,12 @@ namespace gebase { namespace graphics {
 	bool Context::RevertRenderAPI()
 	{
 		return EmployRenderAPI(s_PreviousRenderAPI != RenderAPI::NONE ? s_PreviousRenderAPI : s_DefaultRenderAPI);
+	}
+
+	void Context::FlushRenderAPIChange(RenderAPI prevApi)
+	{
+		APIRenderer::Destroy();
+		APIContext::DestroyPrevious();
 	}
 
 	void Context::Add(IRenderer* object)

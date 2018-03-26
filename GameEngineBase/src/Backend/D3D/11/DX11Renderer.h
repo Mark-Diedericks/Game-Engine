@@ -18,6 +18,7 @@ namespace gebase { namespace graphics {
 		void CreateDepthStencilStates();
 	protected:
 		void InitInternal() override;
+		void DestroyInternal() override;
 
 		void ClearInternal(uint buffer) override;
 		void ClearColorDepthInternal() override;
