@@ -49,11 +49,13 @@ namespace gebase { namespace graphics {
 			return (T*)getPointerInternal();
 		}
 	private:
+		static std::vector<VertexBuffer*> s_Current;
 		static std::map<VertexBuffer*, VertexBuffer*> s_APIChangeMap;
 	public:
 		static inline void AddRenderAPIChange(VertexBuffer* old, VertexBuffer* current) { s_APIChangeMap.insert_or_assign(old, current); }
 		static inline bool HasRenderAPIChange(VertexBuffer* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
 		static inline VertexBuffer* GetRenderAPIChange(VertexBuffer* old) { return s_APIChangeMap.at(old); }
+		static void PrepareRenderAPIChange(RenderAPI newApi);
 		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};
 

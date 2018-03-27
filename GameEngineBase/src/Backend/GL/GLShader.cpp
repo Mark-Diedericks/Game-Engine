@@ -297,7 +297,7 @@ namespace gebase { namespace graphics {
 
 		if (isTypeStringResource(typeString))
 		{
-			ShaderResourceDeclaration* declaration = new GLShaderResourceDeclaration(GLShaderResourceDeclaration::StringToType(typeString), name, count);
+			ShaderResourceDeclaration* declaration = genew GLShaderResourceDeclaration(GLShaderResourceDeclaration::StringToType(typeString), name, count);
 			m_Resources.push_back(declaration);
 		}
 		else
@@ -316,11 +316,11 @@ namespace gebase { namespace graphics {
 					__debugbreak();
 #endif
 				}
-				declaration = new GLShaderUniformDeclaration(s, name, count);
+				declaration = genew GLShaderUniformDeclaration(s, name, count);
 			}
 			else
 			{
-				declaration = new GLShaderUniformDeclaration(t, name, count);
+				declaration = genew GLShaderUniformDeclaration(t, name, count);
 			}
 
 			if (StartsWith(name, "sys_"))
@@ -335,14 +335,14 @@ namespace gebase { namespace graphics {
 				if (shaderType == 0)
 				{
 					if (m_VSUserUniformBuffer == nullptr)
-						m_VSUserUniformBuffer = new GLShaderUniformBufferDeclaration("", 0);
+						m_VSUserUniformBuffer = genew GLShaderUniformBufferDeclaration("", 0);
 
 					m_VSUserUniformBuffer->PushUniform(declaration);
 				}
 				else if (shaderType == 1)
 				{
 					if (m_FSUserUniformBuffer == nullptr)
-						m_FSUserUniformBuffer = new GLShaderUniformBufferDeclaration("", 0);
+						m_FSUserUniformBuffer = genew GLShaderUniformBufferDeclaration("", 0);
 
 					m_FSUserUniformBuffer->PushUniform(declaration);
 				}

@@ -12,6 +12,7 @@
 namespace gebase { namespace graphics {
 
 	std::map<VertexBuffer*, VertexBuffer*> VertexBuffer::s_APIChangeMap;
+	std::vector<VertexBuffer*> VertexBuffer::s_Current;
 
 	VertexBuffer* VertexBuffer::Create(BufferUsage usage)
 	{
@@ -51,6 +52,10 @@ namespace gebase { namespace graphics {
 		AddRenderAPIChange(original, buffer);
 
 		return buffer;
+	}
+
+	void VertexBuffer::PrepareRenderAPIChange(RenderAPI newApi)
+	{
 	}
 
 	void VertexBuffer::FlushRenderAPIChange(RenderAPI prevApi)

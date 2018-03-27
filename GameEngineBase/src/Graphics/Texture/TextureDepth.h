@@ -18,11 +18,13 @@ namespace gebase { namespace graphics {
 
 		virtual void setData(const uint16* data) = 0;
 	private:
+		static std::vector<TextureDepth*> s_Current;
 		static std::map<TextureDepth*, TextureDepth*> s_APIChangeMap;
 	public:
 		static inline void AddRenderAPIChange(TextureDepth* old, TextureDepth* current) { s_APIChangeMap.insert_or_assign(old, current); }
 		static inline bool HasRenderAPIChange(TextureDepth* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
 		static inline TextureDepth* GetRenderAPIChange(TextureDepth* old) { return s_APIChangeMap.at(old); }
+		static void PrepareRenderAPIChange(RenderAPI newApi);
 		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};
 

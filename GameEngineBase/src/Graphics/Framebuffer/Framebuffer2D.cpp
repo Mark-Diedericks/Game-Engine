@@ -11,6 +11,7 @@
 namespace gebase { namespace graphics {
 
 	std::map<Framebuffer2D*, Framebuffer2D*> Framebuffer2D::s_APIChangeMap;
+	std::vector<Framebuffer2D*> Framebuffer2D::s_Current;
 
 	Framebuffer2D* Framebuffer2D::Create(uint width, uint height)
 	{
@@ -38,6 +39,10 @@ namespace gebase { namespace graphics {
 		AddRenderAPIChange(original, framebuffer);
 
 		return framebuffer;
+	}
+
+	void Framebuffer2D::PrepareRenderAPIChange(RenderAPI newApi)
+	{
 	}
 
 	void Framebuffer2D::FlushRenderAPIChange(RenderAPI prevApi)

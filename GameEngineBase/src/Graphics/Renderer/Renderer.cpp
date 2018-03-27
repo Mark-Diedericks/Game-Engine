@@ -16,7 +16,6 @@ namespace gebase { namespace graphics {
 
 	bool Renderer::EmployRenderAPI(RenderAPI api)
 	{
-		APIRenderer::Destroy();
 		APIRenderer::Init();
 		return true;
 	}

@@ -19,7 +19,7 @@ namespace gebase { namespace graphics {
 	{
 		hWnd = (HWND)deviceContext;
 		hDc = GetDC(hWnd);
-		HGLRC hrc = wglCreateContext(hDc);
+		hrc = wglCreateContext(hDc);
 
 		if (hrc)
 		{
@@ -85,15 +85,12 @@ namespace gebase { namespace graphics {
 
 	void GLContext::DestroyInternal()
 	{
-		HGLRC hgrlc;
-		HDC hdc;
-
-		if (hgrlc = wglGetCurrentContext())
+		if (hrc)
 		{
-			hdc = wglGetCurrentDC();
+			hDc = wglGetCurrentDC();
 			wglMakeCurrent(NULL, NULL);
-			ReleaseDC(hWnd, hdc);
-			wglDeleteContext(hgrlc);
+			ReleaseDC(hWnd, hDc);
+			wglDeleteContext(hrc);
 		}
 	}
 

@@ -10,6 +10,7 @@
 namespace gebase { namespace graphics {
 
 	std::map<TextureDepth*, TextureDepth*> TextureDepth::s_APIChangeMap;
+	std::vector<TextureDepth*> TextureDepth::s_Current;
 
 	TextureDepth* TextureDepth::Create(uint width, uint height)
 	{
@@ -45,6 +46,10 @@ namespace gebase { namespace graphics {
 		AddRenderAPIChange(original, texture);
 
 		return texture;
+	}
+
+	void TextureDepth::PrepareRenderAPIChange(RenderAPI newApi)
+	{
 	}
 
 	void TextureDepth::FlushRenderAPIChange(RenderAPI prevApi)

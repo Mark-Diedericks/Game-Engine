@@ -12,6 +12,7 @@
 namespace gebase { namespace graphics {
 
 	std::map<VertexArray*, VertexArray*> VertexArray::s_APIChangeMap;
+	std::vector<VertexArray*> VertexArray::s_Current;
 
 	VertexArray* VertexArray::Create()
 	{
@@ -47,6 +48,10 @@ namespace gebase { namespace graphics {
 		AddRenderAPIChange(original, buffer);
 
 		return buffer;
+	}
+
+	void VertexArray::PrepareRenderAPIChange(RenderAPI newApi)
+	{
 	}
 
 	void VertexArray::FlushRenderAPIChange(RenderAPI prevApi)

@@ -62,11 +62,13 @@ namespace gebase { namespace graphics {
 		static bool TryCompileFromFile(const ShaderDeclaration& shader, String& error);
 		static bool TryCompile(const ShaderSource& source, String& error);
 	private:
+		static std::vector<Shader*> s_Current;
 		static std::map<Shader*, Shader*> s_APIChangeMap;
 	public:
 		static inline void AddRenderAPIChange(Shader* old, Shader* current) { s_APIChangeMap.insert_or_assign(old, current); }
 		static inline bool HasRenderAPIChange(Shader* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
 		static inline Shader* GetRenderAPIChange(Shader* old) { return s_APIChangeMap.at(old); }
+		static void PrepareRenderAPIChange(RenderAPI newApi);
 		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};
 

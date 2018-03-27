@@ -157,7 +157,8 @@ namespace gebase { namespace graphics {
 
 		DX11Context::getDeviceContext()->Unmap(m_Texture, NULL);
 
-		if (pixels != nullptr && del)
+		//if (pixels != nullptr && del)
+		if(del)
 			gedel[] pixels;
 	}
 

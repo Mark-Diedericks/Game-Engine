@@ -13,6 +13,7 @@
 namespace gebase { namespace graphics {
 
 	std::map<Shader*, Shader*> Shader::s_APIChangeMap;
+	std::vector<Shader*> Shader::s_Current;
 
 	const Shader* Shader::s_CurrentlyBound = nullptr;
 
@@ -74,6 +75,10 @@ namespace gebase { namespace graphics {
 		AddRenderAPIChange(original, shader);
 
 		return shader;
+	}
+
+	void Shader::PrepareRenderAPIChange(RenderAPI newApi)
+	{
 	}
 
 	void Shader::FlushRenderAPIChange(RenderAPI prevApi)

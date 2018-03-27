@@ -44,7 +44,7 @@ namespace gebase { namespace debug {
 		s_VertexArray = VertexArray::Create();
 		s_VertexArray->PushBuffer(vb);
 
-		uint* indices = new uint[RENDERER_INDICES_SIZE];
+		uint* indices = genew uint[RENDERER_INDICES_SIZE];
 
 		for (int32 i = 0; i < RENDERER_INDICES_SIZE; i++)
 			indices[i] = i;

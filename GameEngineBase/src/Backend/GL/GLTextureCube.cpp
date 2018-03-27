@@ -239,6 +239,8 @@ namespace gebase { namespace graphics {
 
 		GLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, 0));
 
+		gedel[] miptextures;
+
 		for (uint i = 0; i < mips; i++)
 		{
 			for (uint j = 0; j < 6; j++)

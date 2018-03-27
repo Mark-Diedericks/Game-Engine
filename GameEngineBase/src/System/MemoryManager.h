@@ -16,11 +16,12 @@ namespace gebase {
 	struct GE_API MemoryInfo {
 		int64 tAllocated;
 		int64 tFreed;
-
 		int64 cUsed;
-		int64 tAllocations;
 
-		MemoryInfo() : tAllocated(0), tFreed(0), cUsed(0), tAllocations(0) {}
+		int64 tAllocations;
+		int64 tDeallocations;
+
+		MemoryInfo() : tAllocated(0), tFreed(0), cUsed(0), tAllocations(0), tDeallocations(0) {  }
 	};
 
 	class GE_API MemoryManager {

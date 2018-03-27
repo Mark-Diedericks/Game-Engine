@@ -24,11 +24,11 @@ namespace gebase { namespace graphics {
 
 		HRESULT hr = DX11Context::getDevice()->CreateBuffer(&ibd, &ibid, &m_Handle);
 
-		if (data != nullptr)
+		//if (data != nullptr)
 			gedel[] data;
 	}
 
-	DX11IndexBuffer::DX11IndexBuffer(uint* data, uint count) : IndexBuffer(0), m_Count(count)
+	DX11IndexBuffer::DX11IndexBuffer(uint* data, uint count) : IndexBuffer(1), m_Count(count)
 	{
 		D3D11_BUFFER_DESC ibd;
 		ZeroMemory(&ibd, sizeof(D3D11_BUFFER_DESC));

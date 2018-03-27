@@ -40,6 +40,7 @@ namespace gebase { namespace utils {
 		Add("WARNING", dir + "warning.txt", true, false);
 		Add("INFO", dir + "info.txt", true, false);
 		Add("PERFORMANCE", dir + "performance.txt", false, false);
+		Add("MEMORY", dir + "memory.txt", false, false);
 		Add("DEBUG", dir + "debug.txt", true, false);
 #endif
 	}

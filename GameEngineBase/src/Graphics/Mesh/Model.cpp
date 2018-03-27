@@ -100,7 +100,7 @@ namespace gebase { namespace graphics {
 
 		//THREE
 		{
-			format.name = new char[format.nameLength + 1];
+			format.name = genew char[format.nameLength + 1];
 			ReadBytes(f, (byte*)format.name, format.nameLength);
 			format.name[format.nameLength] = '\0';
 		}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Common.h"
+#include "String"
 
 namespace gebase {
 	class GE_API Allocator {

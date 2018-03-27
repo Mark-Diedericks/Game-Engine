@@ -24,11 +24,13 @@ namespace gebase { namespace graphics {
 		virtual void Unbind() const = 0;
 		virtual void Draw(uint count) const = 0;
 	private:
+		static std::vector<VertexArray*> s_Current;
 		static std::map<VertexArray*, VertexArray*> s_APIChangeMap;
 	public:
 		static inline void AddRenderAPIChange(VertexArray* old, VertexArray* current) { s_APIChangeMap.insert_or_assign(old, current); }
 		static inline bool HasRenderAPIChange(VertexArray* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
 		static inline VertexArray* GetRenderAPIChange(VertexArray* old) { return s_APIChangeMap.at(old); }
+		static void PrepareRenderAPIChange(RenderAPI newApi);
 		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};
 

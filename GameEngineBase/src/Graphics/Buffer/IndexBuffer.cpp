@@ -11,6 +11,7 @@
 namespace gebase { namespace graphics {
 
 	std::map<IndexBuffer*, IndexBuffer*> IndexBuffer::s_APIChangeMap;
+	std::vector<IndexBuffer*> IndexBuffer::s_Current;
 
 	IndexBuffer* IndexBuffer::Create(uint16* data, uint count)
 	{
@@ -77,6 +78,10 @@ namespace gebase { namespace graphics {
 		AddRenderAPIChange(original, buffer);
 
 		return buffer;
+	}
+
+	void IndexBuffer::PrepareRenderAPIChange(RenderAPI newApi)
+	{
 	}
 
 	void IndexBuffer::FlushRenderAPIChange(RenderAPI prevApi)

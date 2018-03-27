@@ -13,6 +13,7 @@
 namespace gebase { namespace graphics {
 
 	std::map<Texture2D*, Texture2D*> Texture2D::s_APIChangeMap;
+	std::vector<Texture2D*> Texture2D::s_Current;
 	
 	Texture2D* Texture2D::CreateFromFile(const String& filepath, TextureParameters parameters, TextureLoadOptions loadOptions)
 	{
@@ -103,6 +104,10 @@ namespace gebase { namespace graphics {
 		AddRenderAPIChange(original, texture);
 
 		return texture;
+	}
+
+	void Texture2D::PrepareRenderAPIChange(RenderAPI newApi)
+	{
 	}
 
 	void Texture2D::FlushRenderAPIChange(RenderAPI prevApi)

@@ -16,7 +16,7 @@ namespace gebase { namespace graphics {
 
 		virtual bool OnResize(uint width, uint height) override;
 	public:
-		Layer3D(Scene* scene, Renderer3D* renderer = new ForwardRenderer());
+		Layer3D(Scene* scene, Renderer3D* renderer = genew ForwardRenderer());
 		~Layer3D();
 
 		virtual void Init();

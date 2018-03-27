@@ -1,8 +1,10 @@
 #include "ge.h"
 #include "Common.h"
+#include "CustomString.h"
 
 #include "Allocator.h"
 #include "MemoryManager.h"
+#include "Utils/LogUtil.h"
 #include <malloc.h>
 
 #define GE_MEMORY_ALIGNMENT 16
@@ -34,7 +36,7 @@ namespace gebase {
 	void Allocator::Free(void* block) {
 		byte* mem = ((byte*)block) - sizeof(size_t);
 		size_t size = *(size_t*)mem;
-
+		gebase::MemoryManager::Get()->m_MemoryInfo.tDeallocations++;
 
 		gebase::MemoryManager::Get()->m_MemoryInfo.tFreed += size;
 		gebase::MemoryManager::Get()->m_MemoryInfo.cUsed -= size;

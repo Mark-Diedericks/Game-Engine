@@ -12,11 +12,12 @@
 namespace gebase { namespace graphics {
 
 	APIRenderer* APIRenderer::s_Instance = nullptr;
+	APIRenderer* APIRenderer::s_PreviousInstance = nullptr;
 
 	void APIRenderer::Init()
 	{
 		if (s_Instance != nullptr)
-			gedel s_Instance;
+			s_PreviousInstance = s_Instance;
 
 		s_Instance = nullptr;
 

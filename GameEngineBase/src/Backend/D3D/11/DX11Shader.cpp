@@ -267,7 +267,7 @@ namespace gebase { namespace graphics {
 
 			if (buffer == nullptr)
 			{
-				buffer = new DX11ShaderUniformBufferDeclaration(bufferName, reg, shaderType);
+				buffer = genew DX11ShaderUniformBufferDeclaration(bufferName, reg, shaderType);
 
 				if (StartsWith(name, "sys_"))
 				{
@@ -324,11 +324,11 @@ namespace gebase { namespace graphics {
 #endif
 				}
 
-				declaration = new DX11ShaderUniformDeclaration(s, name);
+				declaration = genew DX11ShaderUniformDeclaration(s, name);
 			}
 			else
 			{
-				declaration = new DX11ShaderUniformDeclaration(t, name);
+				declaration = genew DX11ShaderUniformDeclaration(t, name);
 			}
 
 			buffer->PushUniform(declaration);
@@ -390,7 +390,7 @@ namespace gebase { namespace graphics {
 	{
 		//Vertex Shader
 		m_VSConstantBuffersCount = m_VSUniformBuffers.size() + (m_VSUserUniformBuffer ? 1 : 0);
-		m_VSConstantBuffers = new ID3D11Buffer*[m_VSConstantBuffersCount];
+		m_VSConstantBuffers = genew ID3D11Buffer*[m_VSConstantBuffersCount];
 
 		for (uint i = 0; i < m_VSUniformBuffers.size(); i++)
 		{
@@ -404,7 +404,7 @@ namespace gebase { namespace graphics {
 			desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
 			D3D11_SUBRESOURCE_DATA sd;
-			sd.pSysMem = new byte[desc.ByteWidth];
+			sd.pSysMem = genew byte[desc.ByteWidth];
 			sd.SysMemPitch = 0;
 			sd.SysMemSlicePitch = 0;
 
@@ -423,7 +423,7 @@ namespace gebase { namespace graphics {
 			desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
 			D3D11_SUBRESOURCE_DATA sd;
-			sd.pSysMem = new byte[desc.ByteWidth];
+			sd.pSysMem = genew byte[desc.ByteWidth];
 			sd.SysMemPitch = 0;
 			sd.SysMemSlicePitch = 0;
 
@@ -432,7 +432,7 @@ namespace gebase { namespace graphics {
 
 		//Pixel Shader
 		m_FSConstantBuffersCount = m_FSUniformBuffers.size() + (m_FSUserUniformBuffer ? 1 : 0);
-		m_FSConstantBuffers = new ID3D11Buffer*[m_FSConstantBuffersCount];
+		m_FSConstantBuffers = genew ID3D11Buffer*[m_FSConstantBuffersCount];
 
 		for (uint i = 0; i < m_FSUniformBuffers.size(); i++)
 		{
@@ -446,7 +446,7 @@ namespace gebase { namespace graphics {
 			desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
 			D3D11_SUBRESOURCE_DATA sd;
-			sd.pSysMem = new byte[desc.ByteWidth];
+			sd.pSysMem = genew byte[desc.ByteWidth];
 			sd.SysMemPitch = 0;
 			sd.SysMemSlicePitch = 0;
 
@@ -465,7 +465,7 @@ namespace gebase { namespace graphics {
 			desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
 			D3D11_SUBRESOURCE_DATA sd;
-			sd.pSysMem = new byte[desc.ByteWidth];
+			sd.pSysMem = genew byte[desc.ByteWidth];
 			sd.SysMemPitch = 0;
 			sd.SysMemSlicePitch = 0;
 

@@ -12,6 +12,7 @@
 namespace gebase { namespace graphics {
 
 	std::map<TextureCube*, TextureCube*> TextureCube::s_APIChangeMap;
+	std::vector<TextureCube*> TextureCube::s_Current;
 
 	TextureCube* TextureCube::CreateFromFile(const String& filepath)
 	{
@@ -176,6 +177,10 @@ namespace gebase { namespace graphics {
 		AddRenderAPIChange(original, texture);
 
 		return texture;
+	}
+
+	void TextureCube::PrepareRenderAPIChange(RenderAPI newApi)
+	{
 	}
 
 	void TextureCube::FlushRenderAPIChange(RenderAPI prevApi)

@@ -38,7 +38,7 @@ namespace gebase {
 		if (!entity->getComponent<entity::component::TransformComponent>())
 		{
 			utils::LogUtil::WriteLine("ERROR", "[Scene] Add() - Entity does not have a transform component");
-			entity->AddComponent(new entity::component::TransformComponent(math::Matrix4f::Identity()));
+			entity->AddComponent(genew entity::component::TransformComponent(math::Matrix4f::Identity()));
 		}
 	}
 

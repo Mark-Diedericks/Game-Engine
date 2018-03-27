@@ -2,8 +2,13 @@
 
 #include "Allocator.h"
 
+#ifdef GE_DEBUG
 #define genew new(__FILE__, __LINE__)
 #define gedel delete
+#else
+#define genew new
+#define gedel delete
+#endif
 
 #pragma warning(disable : 4595)
 

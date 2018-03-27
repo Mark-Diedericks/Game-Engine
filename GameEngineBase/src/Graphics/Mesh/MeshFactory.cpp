@@ -32,10 +32,10 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		VertexArray* va = VertexArray::Create();
 		va->PushBuffer(vb);
 
-		uint* indices = new uint[6]{ 0, 1, 2, 2, 3, 0 };
+		uint* indices = genew uint[6]{ 0, 1, 2, 2, 3, 0 };
 		IndexBuffer* ib = IndexBuffer::Create(indices, 6);
 
-		return new Mesh(va, ib, material);
+		return genew Mesh(va, ib, material);
 	}
 
 	Mesh* CreateQuad(const math::Vector2f& position, const math::Vector2f& size, MaterialInstance* material)
@@ -80,7 +80,7 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		VertexArray* va = VertexArray::Create();
 		va->PushBuffer(vb);
 
-		uint* indices = new uint[36]
+		uint* indices = genew uint[36]
 		{
 			0, 1, 2, 2, 3, 0,
 			3, 2, 6, 6, 7, 3,
@@ -91,7 +91,7 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		};
 		IndexBuffer* ib = IndexBuffer::Create(indices, 36);
 
-		return new Mesh(va, ib, material);
+		return genew Mesh(va, ib, material);
 	}
 
 	Mesh* CreateTiledPlane(float width, float height, float wTile, float hTile, const math::Vector3f& normal, MaterialInstance* material)
@@ -144,10 +144,10 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		VertexArray* va = VertexArray::Create();
 		va->PushBuffer(vb);
 
-		uint* indices = new uint[6]{ 0, 1, 2, 2, 3, 0 };
+		uint* indices = genew uint[6]{ 0, 1, 2, 2, 3, 0 };
 		IndexBuffer* ib = IndexBuffer::Create(indices, 6);
 
-		return new Mesh(va, ib, material);
+		return genew Mesh(va, ib, material);
 	}
 
 } } }

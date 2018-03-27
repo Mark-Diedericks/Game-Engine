@@ -2,6 +2,7 @@
 
 #include "Common.h"
 #include "CustomString.h"
+#include "System/Memory.h"
 
 namespace gebase { namespace graphics {
 
@@ -34,6 +35,7 @@ namespace gebase { namespace graphics {
 	{
 	private:
 		static APIRenderer* s_Instance;
+		static APIRenderer* s_PreviousInstance;
 	protected:
 		virtual void InitInternal() = 0;
 		virtual void DestroyInternal() = 0;
@@ -53,7 +55,20 @@ namespace gebase { namespace graphics {
 	public:
 		static void Init();
 
-		inline static void Destroy() { s_Instance->DestroyInternal(); }
+		inline static void Destroy() 
+		{ 
+			s_Instance->DestroyInternal(); 
+			gedel s_Instance;
+		}
+
+		inline static void DestroyPrevious()
+		{
+			if (s_PreviousInstance != nullptr)
+			{
+				s_PreviousInstance->DestroyInternal();
+				gedel s_PreviousInstance;
+			}
+		}
 
 		inline static void Clear(uint buffer) { s_Instance->ClearInternal(buffer); }
 		inline static void ClearColorDepth() { s_Instance->ClearColorDepthInternal(); }

@@ -18,7 +18,7 @@ namespace gebase {
 
 	void Application::PlatformInit()
 	{
-		window = new Window(m_Name, m_Properties);
+		window = genew Window(m_Name, m_Properties);
 		window->setEventCallback(METHOD(&Application::OnEvent));
 	}
 
@@ -51,7 +51,7 @@ namespace gebase {
 		//Update: Update Tick (60 times per second)
 		//Tick: Once per second
 
-		m_Timer = new Timer();
+		m_Timer = genew Timer();
 
 		const float updateInterval = 1000.0f / 60.0f;
 		const float tickInterval = 1000.0f / updateInterval;
