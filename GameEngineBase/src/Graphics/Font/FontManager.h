@@ -18,8 +18,15 @@ namespace gebase { namespace graphics {
 		static void setScale(const math::Vector2f& scale);
 		static inline const math::Vector2f& getScale() { return s_Scale; }
 
-		bool PreEmployRenderAPI() override;
-		bool EmployRenderAPI(RenderAPI api) override;
+		bool EmployRenderAPIShader(RenderAPI api) override;
+		bool EmployRenderAPITexture2D(RenderAPI api) override;
+		bool EmployRenderAPITextureCube(RenderAPI api) override;
+		bool EmployRenderAPITextureDepth(RenderAPI api) override;
+		bool EmployRenderAPIFramebuffer2D(RenderAPI api) override;
+		bool EmployRenderAPIFramebufferDepth(RenderAPI api) override;
+		bool EmployRenderAPIIndexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexArray(RenderAPI api) override;
 
 		static void Clean();
 		static void Add(Font* font);

@@ -19,6 +19,7 @@ namespace gebase { namespace graphics {
 		for (Shader* shader : s_Shaders)
 			if (shader->getName() == name)
 				return shader;
+
 		return nullptr;
 	}
 

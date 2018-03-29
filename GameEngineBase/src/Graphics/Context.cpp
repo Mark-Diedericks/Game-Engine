@@ -20,6 +20,8 @@
 #include "Texture/TextureDepth.h"
 #include "Texture/TextureCube.h"
 
+#include "Debug/DebugRenderer.h"
+
 namespace gebase { namespace graphics {
 
 	RenderAPI Context::s_RenderAPI = RenderAPI::NONE;
@@ -41,7 +43,6 @@ namespace gebase { namespace graphics {
 
 	bool Context::EmployRenderAPI(RenderAPI api)
 	{
-		RenderAPI prevAPI = getRenderAPI();
 		setRenderAPI(api);
 
 		for (uint i = 0; i < s_RendererObjects.size(); i++)
@@ -60,35 +61,34 @@ namespace gebase { namespace graphics {
 		**  THE SWAPOVER WOULD OCCUR HERE, WHEN THE NEW CONTEXT AND RENDERER ARE AVAILABLE
 		*/ 
 
-		IndexBuffer::PrepareRenderAPIChange(api);
-		VertexBuffer::PrepareRenderAPIChange(api);
-		VertexArray::PrepareRenderAPIChange(api);
-		Framebuffer2D::PrepareRenderAPIChange(api);
-		FramebufferDepth::PrepareRenderAPIChange(api);
-		Shader::PrepareRenderAPIChange(api);
-		Texture2D::PrepareRenderAPIChange(api);
-		TextureCube::PrepareRenderAPIChange(api);
-		TextureDepth::PrepareRenderAPIChange(api);
+		const uint RendererObjectsSize = s_RendererObjects.size();
+		const uint RenderableObjectsSize = s_RenderableObjects.size();
+		const uint MAX_SIZE = RendererObjectsSize > RenderableObjectsSize ? RendererObjectsSize : RenderableObjectsSize;
 
-		for (uint i = 0; i < s_RendererObjects.size(); i++)
+		EmployRenderAPIShader(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
+
+		EmployRenderAPITexture2D(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
+		EmployRenderAPITextureCube(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
+		EmployRenderAPITextureDepth(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
+
+		EmployRenderAPIFramebuffer2D(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
+		EmployRenderAPIFramebufferDepth(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
+
+		EmployRenderAPIIndexBuffer(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
+		EmployRenderAPIVertexBuffer(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
+		EmployRenderAPIVertexArray(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
+
+		/*for (uint i = 0; i < s_RendererObjects.size(); i++)
 			if(s_RendererObjects[i])
-			if (!s_RendererObjects[i]->EmployRenderAPI(api))
-				return false;
+				if (!s_RendererObjects[i]->EmployRenderAPI(api))
+					return false;
 
 		for (uint i = 0; i < s_RenderableObjects.size(); i++)
 			if(s_RenderableObjects[i])
 				if (!s_RenderableObjects[i]->EmployRenderAPI(api))
-					return false;
+					return false;*/
 
-		IndexBuffer::FlushRenderAPIChange(prevAPI);
-		VertexBuffer::FlushRenderAPIChange(prevAPI);
-		VertexArray::FlushRenderAPIChange(prevAPI);
-		Framebuffer2D::FlushRenderAPIChange(prevAPI);
-		FramebufferDepth::FlushRenderAPIChange(prevAPI);
-		Shader::FlushRenderAPIChange(prevAPI);
-		Texture2D::FlushRenderAPIChange(prevAPI);
-		TextureCube::FlushRenderAPIChange(prevAPI);
-		TextureDepth::FlushRenderAPIChange(prevAPI);
+		//debug::DebugRenderer::EmployRenderAPI(api);
 
 		return true;
 	}
@@ -126,6 +126,236 @@ namespace gebase { namespace graphics {
 		for (uint i = 0; i < s_RenderableObjects.size(); i++)
 			if (s_RenderableObjects[i] == object)
 				s_RenderableObjects.erase(s_RenderableObjects.begin() + i);
+	}
+
+	bool Context::EmployRenderAPIShader(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize)
+	{
+		Shader::PrepareRenderAPIChange(api);
+
+		for (uint i = 0; i < MAX_SIZE; i++)
+		{
+			if (i < RendererObjectsSize)
+			{
+				if (s_RendererObjects[i])
+					if (!s_RendererObjects[i]->EmployRenderAPIShader(api))
+						return false;
+			}
+
+			if (i < RenderableObjectsSize)
+			{
+				if (s_RenderableObjects[i])
+					if (!s_RenderableObjects[i]->EmployRenderAPIShader(api))
+						return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool Context::EmployRenderAPITexture2D(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize)
+	{
+		Texture2D::PrepareRenderAPIChange(api);
+
+		for (uint i = 0; i < MAX_SIZE; i++)
+		{
+			if (i < RendererObjectsSize)
+			{
+				if (s_RendererObjects[i])
+					if (!s_RendererObjects[i]->EmployRenderAPITexture2D(api))
+						return false;
+			}
+
+			if (i < RenderableObjectsSize)
+			{
+				if (s_RenderableObjects[i])
+					if (!s_RenderableObjects[i]->EmployRenderAPITexture2D(api))
+						return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool Context::EmployRenderAPITextureCube(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize)
+	{
+		TextureCube::PrepareRenderAPIChange(api);
+
+		for (uint i = 0; i < MAX_SIZE; i++)
+		{
+			if (i < RendererObjectsSize)
+			{
+				if (s_RendererObjects[i])
+					if (!s_RendererObjects[i]->EmployRenderAPITextureCube(api))
+						return false;
+			}
+
+			if (i < RenderableObjectsSize)
+			{
+				if (s_RenderableObjects[i])
+					if (!s_RenderableObjects[i]->EmployRenderAPITextureCube(api))
+						return false;
+			}
+		}
+		
+		return true;
+	}
+
+	bool Context::EmployRenderAPITextureDepth(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize)
+	{
+		TextureDepth::PrepareRenderAPIChange(api);
+
+		for (uint i = 0; i < MAX_SIZE; i++)
+		{
+			if (i < RendererObjectsSize)
+			{
+				if (s_RendererObjects[i])
+					if (!s_RendererObjects[i]->EmployRenderAPITextureDepth(api))
+						return false;
+			}
+
+			if (i < RenderableObjectsSize)
+			{
+				if (s_RenderableObjects[i])
+					if (!s_RenderableObjects[i]->EmployRenderAPITextureDepth(api))
+						return false;
+			}
+		}
+
+		TextureDepth::FlushRenderAPIChange(s_PreviousRenderAPI);
+		TextureCube::FlushRenderAPIChange(s_PreviousRenderAPI);
+		Texture2D::FlushRenderAPIChange(s_PreviousRenderAPI);
+
+		return true;
+	}
+
+	bool Context::EmployRenderAPIFramebuffer2D(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize)
+	{
+		Framebuffer2D::PrepareRenderAPIChange(api);
+
+		for (uint i = 0; i < MAX_SIZE; i++)
+		{
+			if (i < RendererObjectsSize)
+			{
+				if (s_RendererObjects[i])
+					if (!s_RendererObjects[i]->EmployRenderAPIFramebuffer2D(api))
+						return false;
+			}
+
+			if (i < RenderableObjectsSize)
+			{
+				if (s_RenderableObjects[i])
+					if (!s_RenderableObjects[i]->EmployRenderAPIFramebuffer2D(api))
+						return false;
+			}
+		}
+
+		Framebuffer2D::FlushRenderAPIChange(s_PreviousRenderAPI);
+
+		return true;
+	}
+
+	bool Context::EmployRenderAPIFramebufferDepth(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize)
+	{
+		FramebufferDepth::PrepareRenderAPIChange(api);
+
+		for (uint i = 0; i < MAX_SIZE; i++)
+		{
+			if (i < RendererObjectsSize)
+			{
+				if (s_RendererObjects[i])
+					if (!s_RendererObjects[i]->EmployRenderAPIFramebufferDepth(api))
+						return false;
+			}
+
+			if (i < RenderableObjectsSize)
+			{
+				if (s_RenderableObjects[i])
+					if (!s_RenderableObjects[i]->EmployRenderAPIFramebufferDepth(api))
+						return false;
+			}
+		}
+
+		FramebufferDepth::FlushRenderAPIChange(s_PreviousRenderAPI);
+
+		return true;
+	}
+
+	bool Context::EmployRenderAPIIndexBuffer(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize)
+	{
+		IndexBuffer::PrepareRenderAPIChange(api);
+
+		for (uint i = 0; i < MAX_SIZE; i++)
+		{
+			if (i < RendererObjectsSize)
+			{
+				if (s_RendererObjects[i])
+					if (!s_RendererObjects[i]->EmployRenderAPIIndexBuffer(api))
+						return false;
+			}
+
+			if (i < RenderableObjectsSize)
+			{
+				if (s_RenderableObjects[i])
+					if (!s_RenderableObjects[i]->EmployRenderAPIIndexBuffer(api))
+						return false;
+			}
+		}
+
+		IndexBuffer::FlushRenderAPIChange(s_PreviousRenderAPI);
+
+		return true;
+	}
+
+	bool Context::EmployRenderAPIVertexBuffer(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize)
+	{
+		VertexBuffer::PrepareRenderAPIChange(api);
+		VertexArray::PrepareRenderAPIChange(api);
+
+		for (uint i = 0; i < MAX_SIZE; i++)
+		{
+			if (i < RendererObjectsSize)
+			{
+				if (s_RendererObjects[i])
+					if (!s_RendererObjects[i]->EmployRenderAPIVertexBuffer(api))
+						return false;
+			}
+
+			if (i < RenderableObjectsSize)
+			{
+				if (s_RenderableObjects[i])
+					if (!s_RenderableObjects[i]->EmployRenderAPIVertexBuffer(api))
+						return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool Context::EmployRenderAPIVertexArray(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize)
+	{
+
+		for (uint i = 0; i < MAX_SIZE; i++)
+		{
+			if (i < RendererObjectsSize)
+			{
+				if (s_RendererObjects[i])
+					if (!s_RendererObjects[i]->EmployRenderAPIVertexArray(api))
+						return false;
+			}
+
+			if (i < RenderableObjectsSize)
+			{
+				if (s_RenderableObjects[i])
+					if (!s_RenderableObjects[i]->EmployRenderAPIVertexArray(api))
+						return false;
+			}
+		}
+
+		VertexBuffer::FlushRenderAPIChange(s_PreviousRenderAPI);
+		VertexArray::FlushRenderAPIChange(s_PreviousRenderAPI);
+		Shader::FlushRenderAPIChange(s_PreviousRenderAPI);
+
+		return true;
 	}
 
 } }

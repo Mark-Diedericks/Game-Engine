@@ -21,13 +21,15 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		vertices[3].position = Vector3f(x, y + height, 0);
 		vertices[3].uv = Vector2f(1, 1);
 
+		material->Bind();
+
 		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::STATIC);
 		vb->setData(sizeof(QuadVertex) * 4, vertices);
 
 		BufferLayout layout;
 		layout.Push<Vector3f>("POSITION");
 		layout.Push<Vector2f>("TEXCOORD");
-		vb->setLayout(layout);
+		vb->setLayout(layout, material->getMaterial()->getShader());
 
 		VertexArray* va = VertexArray::Create();
 		va->PushBuffer(vb);
@@ -68,6 +70,8 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		vertices[6].normal = Vector3f(1.0f, 1.0f, -1.0f);
 		vertices[7].normal = Vector3f(-1.0f, 1.0f, -1.0f);
 
+		material->Bind();
+
 		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::STATIC);
 		vb->setData(sizeof(Vertex) * 8, vertices);
 
@@ -75,7 +79,7 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		layout.Push<Vector3f>("position");
 		layout.Push<Vector3f>("normal");
 		layout.Push<Vector2f>("uv");
-		vb->setLayout(layout);
+		vb->setLayout(layout, material->getMaterial()->getShader());
 
 		VertexArray* va = VertexArray::Create();
 		va->PushBuffer(vb);
@@ -139,7 +143,7 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		layout.Push<math::Vector2f>("TEXCOORD");
 		layout.Push<math::Vector3f>("BINORMAL");
 		layout.Push<math::Vector3f>("TANGENT");
-		vb->setLayout(layout);
+		vb->setLayout(layout, material->getMaterial()->getShader());
 
 		VertexArray* va = VertexArray::Create();
 		va->PushBuffer(vb);

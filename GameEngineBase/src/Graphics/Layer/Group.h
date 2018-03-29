@@ -17,9 +17,6 @@ namespace gebase { namespace graphics {
 		void Add(Renderable2D* renderable);
 		void Submit(Renderer2D* renderer) const override;
 
-		bool PreEmployRenderAPI() override;
-		bool EmployRenderAPI(RenderAPI api) override;
-
 		math::Matrix4f& getTransformationMatrix() { return m_TransformationMatrix; }
 	};
 

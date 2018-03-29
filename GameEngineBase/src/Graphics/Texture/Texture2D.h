@@ -29,12 +29,12 @@ namespace gebase { namespace graphics {
 		virtual uint getWidth() const = 0;
 		virtual uint getHeight() const = 0;
 	private:
-		static std::vector<Texture2D*> s_Current;
-		static std::map<Texture2D*, Texture2D*> s_APIChangeMap;
+		static std::vector<Texture2D*> s_CurrentTexture2D;
+		static std::map<Texture2D*, Texture2D*> s_APIChangeMapTexture2D;
 	public:
-		static inline void AddRenderAPIChange(Texture2D* old, Texture2D* current) { s_APIChangeMap.insert_or_assign(old, current); }
-		static inline bool HasRenderAPIChange(Texture2D* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
-		static inline Texture2D* GetRenderAPIChange(Texture2D* old) { return s_APIChangeMap.at(old); }
+		static inline void AddRenderAPIChange(Texture2D* old, Texture2D* current) { s_APIChangeMapTexture2D.insert_or_assign(old, current); }
+		static inline bool HasRenderAPIChange(Texture2D* old) { return s_APIChangeMapTexture2D.find(old) != s_APIChangeMapTexture2D.end(); }
+		static inline Texture2D* GetRenderAPIChange(Texture2D* old) { return s_APIChangeMapTexture2D.at(old); }
 		static void PrepareRenderAPIChange(RenderAPI newApi);
 		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};

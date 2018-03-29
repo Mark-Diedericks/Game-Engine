@@ -12,8 +12,8 @@
 
 namespace gebase { namespace graphics {
 
-	std::map<Texture2D*, Texture2D*> Texture2D::s_APIChangeMap;
-	std::vector<Texture2D*> Texture2D::s_Current;
+	std::map<Texture2D*, Texture2D*> Texture2D::s_APIChangeMapTexture2D;
+	std::vector<Texture2D*> Texture2D::s_CurrentTexture2D;
 	
 	Texture2D* Texture2D::CreateFromFile(const String& filepath, TextureParameters parameters, TextureLoadOptions loadOptions)
 	{
@@ -42,32 +42,41 @@ namespace gebase { namespace graphics {
 	
 	Texture2D* Texture2D::Create(uint width, uint height, TextureParameters parameters)
 	{
+		Texture2D* result;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
-		case RenderAPI::OPENGL: return genew GLTexture2D(width, height, parameters);
-			//case RenderVULKAN: return genew VKTexture2D(width, height, parameters);
-		case RenderAPI::D3D11: return genew DX11Texture2D(width, height, parameters);
-			//case RenderD3D12: return genew DX12Texture2D(width, height, parameters);
+		case RenderAPI::OPENGL: result = genew GLTexture2D(width, height, parameters); break;
+		case RenderAPI::D3D11: result = genew DX11Texture2D(width, height, parameters); break;
 		}
 
-		return nullptr;
+		if (result != nullptr)
+			s_CurrentTexture2D.push_back(result);
+
+		return result;
 	}
 
 	Texture2D* Texture2D::CreateFromFile(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters)
 	{
+		Texture2D* result;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
-		case RenderAPI::OPENGL: return genew GLTexture2D(name, pixels, width, height, bits, parameters);
-			//case RenderVULKAN: return genew VKTexture2D(name, pixels, width, height, bits, parameters);
-		case RenderAPI::D3D11: return genew DX11Texture2D(name, pixels, width, height, bits, parameters);
-			//case RenderD3D12: return genew DX12Texture2D(name, pixels, width, height, bits, parameters);
+		case RenderAPI::OPENGL: result = genew GLTexture2D(name, pixels, width, height, bits, parameters); break;
+		case RenderAPI::D3D11: result = genew DX11Texture2D(name, pixels, width, height, bits, parameters); break;
 		}
 
-		return nullptr;
+		if (result != nullptr)
+			s_CurrentTexture2D.push_back(result);
+
+		return result;
 	}
 
 	Texture2D* Texture2D::ConvertRenderAPI(RenderAPI api, Texture2D* original)
 	{
+		if (original == nullptr)
+			return nullptr;
+
 		if (HasRenderAPIChange(original))
 			return GetRenderAPIChange(original);
 
@@ -108,24 +117,30 @@ namespace gebase { namespace graphics {
 
 	void Texture2D::PrepareRenderAPIChange(RenderAPI newApi)
 	{
+		std::vector<Texture2D*> temp(s_CurrentTexture2D);
+		s_CurrentTexture2D.clear();
+		s_CurrentTexture2D.shrink_to_fit();
+
+		for (uint i = 0; i < temp.size(); i++)
+			ConvertRenderAPI(newApi, temp[i]);
+
+		temp.clear();
+		temp.shrink_to_fit();
 	}
 
 	void Texture2D::FlushRenderAPIChange(RenderAPI prevApi)
 	{
 		std::map<Texture2D*, Texture2D*>::iterator it;
-		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
+		for (it = s_APIChangeMapTexture2D.begin(); it != s_APIChangeMapTexture2D.end(); it++)
 		{
-			//gedel ((Texture2D*)it->first);
 			switch (prevApi)
 			{
 			case RenderAPI::OPENGL: gedel((GLTexture2D*)it->first); break;
-				//case RenderAPI::VULKAN: gedel (VKTexture2D*)it->first); break;
 			case RenderAPI::D3D11: gedel((DX11Texture2D*)it->first); break;
-				//case RenderAPI::D3D12: gedel ((DX12Texture2D*)it->first); break;
 			}
 		}
 
-		s_APIChangeMap.clear();
+		s_APIChangeMapTexture2D.clear();
 	}
 
 } }

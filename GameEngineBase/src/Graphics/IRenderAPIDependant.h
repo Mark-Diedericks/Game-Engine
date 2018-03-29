@@ -3,6 +3,7 @@
 #include "Common.h"
 #include "Context.h"
 #include "Utils\Timer.h"
+#include "IRenderAPIEmployable.h"
 
 namespace gebase { namespace graphics {
 
@@ -26,11 +27,10 @@ namespace gebase { namespace graphics {
 		inline uint getLoadType() const { return m_LoadType; }
 	};
 
-	class GE_API IRenderAPIDependantContainer
+	class GE_API IRenderAPIDependantContainer : public IRenderAPIEmployable
 	{
 	public:
 		RenderAPI current;
-		virtual bool EmployRenderAPI(RenderAPI api) = 0;
 	protected:
 		IRenderAPIDependantContainer() { }
 	};

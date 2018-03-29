@@ -11,24 +11,30 @@
 
 namespace gebase { namespace graphics {
 
-	std::map<VertexArray*, VertexArray*> VertexArray::s_APIChangeMap;
-	std::vector<VertexArray*> VertexArray::s_Current;
+	std::map<VertexArray*, VertexArray*> VertexArray::s_APIChangeMapVertexArray;
+	std::vector<VertexArray*> VertexArray::s_CurrentVertexArray;
 
 	VertexArray* VertexArray::Create()
 	{
+		VertexArray* result;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
-		case RenderAPI::OPENGL: return genew GLVertexArray();
-			//case RenderAPI::VULKAN: return genew VKVertexArray();
-		case RenderAPI::D3D11: return genew DX11VertexArray();
-			//case RenderAPI::D3D12: return genew DX12VertexArray();
+		case RenderAPI::OPENGL: result = genew GLVertexArray(); break;
+		case RenderAPI::D3D11: result = genew DX11VertexArray(); break;
 		}
 
-		return nullptr;
+		if (result != nullptr)
+			s_CurrentVertexArray.push_back(result);
+
+		return result;
 	}
 
 	VertexArray* VertexArray::ConvertRenderAPI(RenderAPI api, VertexArray* original)
 	{
+		if (original == nullptr)
+			return nullptr;
+
 		if (HasRenderAPIChange(original))
 			return GetRenderAPIChange(original);
 
@@ -52,24 +58,30 @@ namespace gebase { namespace graphics {
 
 	void VertexArray::PrepareRenderAPIChange(RenderAPI newApi)
 	{
+		std::vector<VertexArray*> temp(s_CurrentVertexArray);
+		s_CurrentVertexArray.clear();
+		s_CurrentVertexArray.shrink_to_fit();
+
+		for (uint i = 0; i < temp.size(); i++)
+			ConvertRenderAPI(newApi, temp[i]);
+
+		temp.clear();
+		temp.shrink_to_fit();
 	}
 
 	void VertexArray::FlushRenderAPIChange(RenderAPI prevApi)
 	{
 		std::map<VertexArray*, VertexArray*>::iterator it;
-		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
+		for (it = s_APIChangeMapVertexArray.begin(); it != s_APIChangeMapVertexArray.end(); it++)
 		{
-			//gedel ((VertexArray*)it->first);
 			switch (prevApi)
 			{
 			case RenderAPI::OPENGL: gedel((GLVertexArray*)it->first); break;
-				//case RenderAPI::VULKAN: gedel (VKTextureDepth*)it->first); break;
 			case RenderAPI::D3D11: gedel((DX11VertexArray*)it->first); break;
-				//case RenderAPI::D3D12: gedel ((DX12TextureDepth*)it->first); break;
 			}
 		}
 
-		s_APIChangeMap.clear();
+		s_APIChangeMapVertexArray.clear();
 	}
 
 } }

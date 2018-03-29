@@ -11,8 +11,8 @@
 
 namespace gebase { namespace graphics {
 
-	std::map<TextureCube*, TextureCube*> TextureCube::s_APIChangeMap;
-	std::vector<TextureCube*> TextureCube::s_Current;
+	std::map<TextureCube*, TextureCube*> TextureCube::s_APIChangeMapTextureCube;
+	std::vector<TextureCube*> TextureCube::s_CurrentTextureCube;
 
 	TextureCube* TextureCube::CreateFromFile(const String& filepath)
 	{
@@ -63,58 +63,73 @@ namespace gebase { namespace graphics {
 
 	TextureCube* TextureCube::CreateFromFile(const String& name, const byte* pixels, uint width, uint height, uint bits)
 	{
+		TextureCube* result;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
-		case RenderAPI::OPENGL: return genew GLTextureCube(name, pixels, width, height, bits);
-			//case RenderAPI::VULKAN: return genew VKTextureCube(name, pixels, width, height, bits);
-		case RenderAPI::D3D11: return genew DX11TextureCube(name, pixels, width, height, bits);
-			//case RenderAPI::D3D12: return genew DX12TextureCube(name, pixels, width, height, bits);
+		case RenderAPI::OPENGL: result = genew GLTextureCube(name, pixels, width, height, bits); break;
+		case RenderAPI::D3D11: result = genew DX11TextureCube(name, pixels, width, height, bits); break;
 		}
 
-		return nullptr;
+		if (result != nullptr)
+			s_CurrentTextureCube.push_back(result);
+
+		return result;
 	}
 
 	TextureCube* TextureCube::CreateFromFiles(const String& name, const byte** sides, uint width, uint height, uint bits)
 	{
+		TextureCube* result;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
-		case RenderAPI::OPENGL: return genew GLTextureCube(name, sides, width, height, bits);
-			//case RenderAPI::VULKAN: return genew VKTextureCube(name, sides, width, height, bits);
-		case RenderAPI::D3D11: return genew DX11TextureCube(name, sides, width, height, bits);
-			//case RenderAPI::D3D12: return genew DX12TextureCube(name, sides, width, height, bits);
+		case RenderAPI::OPENGL: result = genew GLTextureCube(name, sides, width, height, bits); break;
+		case RenderAPI::D3D11: result = genew DX11TextureCube(name, sides, width, height, bits); break;
 		}
 
-		return nullptr;
+		if (result != nullptr)
+			s_CurrentTextureCube.push_back(result);
+
+		return result;
 	}
 
 	TextureCube* TextureCube::CreateFromVerticalCross(const String& name, const byte** miptextures, int32 mips, uint* width, uint* height, uint bits)
 	{
+		TextureCube* result;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
-		case RenderAPI::OPENGL: return genew GLTextureCube(name, miptextures, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
-			//case RenderAPI::VULKAN: return genew VKTextureCube(name, sides, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
-		case RenderAPI::D3D11: return genew DX11TextureCube(name, miptextures, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
-			//case RenderAPI::D3D12: return genew DX12TextureCube(name, sides, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
+		case RenderAPI::OPENGL: result = genew GLTextureCube(name, miptextures, mips, width, height, bits, InputFormat::VERTICAL_CROSS); break;
+		case RenderAPI::D3D11: result = genew DX11TextureCube(name, miptextures, mips, width, height, bits, InputFormat::VERTICAL_CROSS); break;
 		}
 
-		return nullptr;
+		if (result != nullptr)
+			s_CurrentTextureCube.push_back(result);
+
+		return result;
 	}
 
 	TextureCube* TextureCube::CreateFromVerticalCross(const String& name, const byte*** faces, int32 mips, uint* width, uint* height, uint bits)
 	{
+		TextureCube* result;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
-		case RenderAPI::OPENGL: return genew GLTextureCube(name, faces, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
-			//case RenderAPI::VULKAN: return genew VKTextureCube(name, sides, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
-		case RenderAPI::D3D11: return genew DX11TextureCube(name, faces, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
-			//case RenderAPI::D3D12: return genew DX12TextureCube(name, sides, mips, width, height, bits, InputFormat::VERTICAL_CROSS);
+		case RenderAPI::OPENGL: result = genew GLTextureCube(name, faces, mips, width, height, bits, InputFormat::VERTICAL_CROSS); break;
+		case RenderAPI::D3D11: result = genew DX11TextureCube(name, faces, mips, width, height, bits, InputFormat::VERTICAL_CROSS); break;
 		}
 
-		return nullptr;
+		if (result != nullptr)
+			s_CurrentTextureCube.push_back(result);
+
+		return result;
 	}
 
 	TextureCube* TextureCube::ConvertRenderAPI(RenderAPI api, TextureCube* original)
 	{
+		if (original == nullptr)
+			return nullptr;
+
 		if (HasRenderAPIChange(original))
 			return GetRenderAPIChange(original);
 
@@ -181,24 +196,30 @@ namespace gebase { namespace graphics {
 
 	void TextureCube::PrepareRenderAPIChange(RenderAPI newApi)
 	{
+		std::vector<TextureCube*> temp(s_CurrentTextureCube);
+		s_CurrentTextureCube.clear();
+		s_CurrentTextureCube.shrink_to_fit();
+
+		for (uint i = 0; i < temp.size(); i++)
+			ConvertRenderAPI(newApi, temp[i]);
+
+		temp.clear();
+		temp.shrink_to_fit();
 	}
 
 	void TextureCube::FlushRenderAPIChange(RenderAPI prevApi)
 	{
 		std::map<TextureCube*, TextureCube*>::iterator it;
-		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
+		for (it = s_APIChangeMapTextureCube.begin(); it != s_APIChangeMapTextureCube.end(); it++)
 		{
-			//gedel ((TextureCube*)it->first);
 			switch (prevApi)
 			{
 			case RenderAPI::OPENGL: gedel((GLTextureCube*)it->first); break;
-				//case RenderAPI::VULKAN: gedel (VKTextureCube*)it->first); break;
 			case RenderAPI::D3D11: gedel((DX11TextureCube*)it->first); break;
-				//case RenderAPI::D3D12: gedel ((DX12TextureCube*)it->first); break;
 			}
 		}
 
-		s_APIChangeMap.clear();
+		s_APIChangeMapTextureCube.clear();
 	}
 
 } }

@@ -21,12 +21,12 @@ namespace gebase { namespace graphics {
 		virtual void getPixelData(byte* data) = 0;
 		virtual void setData(const byte* data) = 0;
 	private:
-		static std::vector<Framebuffer2D*> s_Current;
-		static std::map<Framebuffer2D*, Framebuffer2D*> s_APIChangeMap;
+		static std::vector<Framebuffer2D*> s_CurrentFramebuffer2D;
+		static std::map<Framebuffer2D*, Framebuffer2D*> s_APIChangeMapFramebuffer2D;
 	public:
-		static inline void AddRenderAPIChange(Framebuffer2D* old, Framebuffer2D* current) { s_APIChangeMap.insert_or_assign(old, current); }
-		static inline bool HasRenderAPIChange(Framebuffer2D* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
-		static inline Framebuffer2D* GetRenderAPIChange(Framebuffer2D* old) { return s_APIChangeMap.at(old); }
+		static inline void AddRenderAPIChange(Framebuffer2D* old, Framebuffer2D* current) { s_APIChangeMapFramebuffer2D.insert_or_assign(old, current); }
+		static inline bool HasRenderAPIChange(Framebuffer2D* old) { return s_APIChangeMapFramebuffer2D.find(old) != s_APIChangeMapFramebuffer2D.end(); }
+		static inline Framebuffer2D* GetRenderAPIChange(Framebuffer2D* old) { return s_APIChangeMapFramebuffer2D.at(old); }
 		static void PrepareRenderAPIChange(RenderAPI newApi);
 		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};

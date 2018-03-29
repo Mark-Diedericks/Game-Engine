@@ -39,18 +39,13 @@ namespace gebase { namespace graphics {
 		ValidateFont(font, size);
 	}
 
-	bool Label::PreEmployRenderAPI()
-	{
-		return true;
-	}
-
-	bool Label::EmployRenderAPI(RenderAPI api)
+	bool Label::EmployRenderAPITexture2D(RenderAPI api)
 	{
 		if (m_Font)
-			if (!m_Font->EmployRenderAPI(api))
+			if (!m_Font->EmployRenderAPITexture2D(api))
 				return false;
 
-		return Sprite::EmployRenderAPI(api);
+		return Sprite::EmployRenderAPITexture2D(api);
 	}
 
 	void Label::Submit(Renderer2D* renderer) const

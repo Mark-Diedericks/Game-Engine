@@ -26,9 +26,49 @@ namespace gebase { namespace graphics {
 		m_Material->Bind();
 	}
 
-	bool PostEffectsPass::EmployRenderAPI(RenderAPI api)
+	bool PostEffectsPass::EmployRenderAPIShader(RenderAPI api)
 	{
-		return m_Material->EmployRenderAPI(api);
+		return m_Material->EmployRenderAPIShader(api);
+	}
+
+	bool PostEffectsPass::EmployRenderAPITexture2D(RenderAPI api)
+	{
+		return m_Material->EmployRenderAPITexture2D(api);
+	}
+
+	bool PostEffectsPass::EmployRenderAPITextureCube(RenderAPI api)
+	{
+		return m_Material->EmployRenderAPITextureCube(api);
+	}
+
+	bool PostEffectsPass::EmployRenderAPITextureDepth(RenderAPI api)
+	{
+		return m_Material->EmployRenderAPITextureDepth(api);
+	}
+
+	bool PostEffectsPass::EmployRenderAPIFramebuffer2D(RenderAPI api)
+	{
+		return m_Material->EmployRenderAPIFramebuffer2D(api);
+	}
+
+	bool PostEffectsPass::EmployRenderAPIFramebufferDepth(RenderAPI api)
+	{
+		return m_Material->EmployRenderAPIFramebufferDepth(api);
+	}
+
+	bool PostEffectsPass::EmployRenderAPIIndexBuffer(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool PostEffectsPass::EmployRenderAPIVertexBuffer(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool PostEffectsPass::EmployRenderAPIVertexArray(RenderAPI api)
+	{
+		return true;
 	}
 
 } }

@@ -5,6 +5,7 @@
 #include "Graphics/Shader/Shader.h"
 #include "Graphics/Mesh/Mesh.h"
 #include "Graphics/Camera/Camera.h"
+#include "Graphics/Context.h"
 
 #include "Math/Maths.h"
 
@@ -33,6 +34,7 @@ namespace gebase { namespace debug {
 		GE_DEBUG_METHOD_V(static void DrawMesh(const graphics::Mesh* mesh, DebugRenderMeshFlags flags, const math::Matrix4f& transform = math::Matrix4f::Identity()))
 
 		GE_DEBUG_METHOD_V(static void setCamera(graphics::Camera* camera))
+		GE_DEBUG_METHOD_V(static bool EmployRenderAPI(graphics::RenderAPI api))
 	};
 
 } }

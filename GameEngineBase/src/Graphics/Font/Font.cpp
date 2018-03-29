@@ -42,13 +42,6 @@ namespace gebase { namespace graphics {
 		}
 	}
 
-	bool Font::EmployRenderAPI(RenderAPI api)
-	{
-		m_Texture = Texture2D::ConvertRenderAPI(api, m_Texture);
-
-		return true;
-	}
-
 	Texture2D* Font::getTexture() const
 	{
 		UpdateAtlas();
@@ -177,6 +170,52 @@ namespace gebase { namespace graphics {
 	math::Rectangle Font::getBounds(const String& text) const
 	{
 		return math::Rectangle(0.0f, 0.0f, getWidth(text), getHeight(text));
+	}
+
+	bool Font::EmployRenderAPIShader(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Font::EmployRenderAPITexture2D(RenderAPI api)
+	{
+		m_Texture = Texture2D::ConvertRenderAPI(api, m_Texture);
+		return true;
+	}
+
+	bool Font::EmployRenderAPITextureCube(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Font::EmployRenderAPITextureDepth(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Font::EmployRenderAPIFramebuffer2D(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Font::EmployRenderAPIFramebufferDepth(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Font::EmployRenderAPIIndexBuffer(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Font::EmployRenderAPIVertexBuffer(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Font::EmployRenderAPIVertexArray(RenderAPI api)
+	{
+		return true;
 	}
 
 } }

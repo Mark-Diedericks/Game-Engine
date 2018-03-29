@@ -30,7 +30,7 @@ namespace gebase { namespace graphics {
 		DXCall(DX11Context::getDevice()->CreateBuffer(&m_BufferDesc, NULL, &m_Handle));
 	}
 
-	void DX11VertexBuffer::setLayout(const BufferLayout& bufferLayout)
+	void DX11VertexBuffer::setLayout(const BufferLayout& bufferLayout, const Shader* shader)
 	{
 		m_Layout = bufferLayout;
 		const std::vector<BufferElement>& layout = bufferLayout.getLayout();
@@ -42,9 +42,11 @@ namespace gebase { namespace graphics {
 			desc[i] = { element.name.c_str(), 0, (DXGI_FORMAT)APIConvert::BufferElementTypeToDX(element.type), 0, element.offset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
 		}
 
-		const DX11Shader* shader = DX11Shader::CurrentlyBound();
+		//const DX11Shader* shader = DX11Shader::CurrentlyBound();
+		if (shader != nullptr)
+			m_Shader = (DX11Shader*)shader;
 
-		if (!shader)
+		if (!m_Shader)
 		{
 			utils::LogUtil::WriteLine("ERROR", "[DX11VertexBuffer] setLayout() - Shader assertion failed");
 #ifdef GE_DEBUG
@@ -53,7 +55,7 @@ namespace gebase { namespace graphics {
 			return;
 		}
 
-		DXCall(DX11Context::getDevice()->CreateInputLayout(desc, layout.size(), shader->getData().vs->GetBufferPointer(), shader->getData().vs->GetBufferSize(), &m_InputLayout));
+		DXCall(DX11Context::getDevice()->CreateInputLayout(desc, layout.size(), m_Shader->getData().vs->GetBufferPointer(), m_Shader->getData().vs->GetBufferSize(), &m_InputLayout));
 		gedel desc;
 	}
 

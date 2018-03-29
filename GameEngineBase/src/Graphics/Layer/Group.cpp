@@ -30,14 +30,4 @@ namespace gebase { namespace graphics {
 		renderer->Pop();
 	}
 
-	bool Group::PreEmployRenderAPI()
-	{
-		return true;
-	}
-
-	bool Group::EmployRenderAPI(RenderAPI api)
-	{
-		return true;
-	}
-
 } }

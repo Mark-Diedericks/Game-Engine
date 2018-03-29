@@ -50,30 +50,6 @@ namespace gebase { namespace graphics {
 		m_MaterialInstance->Unbind();
 	}
 
-	bool Mesh::PreEmployRenderAPI()
-	{
-		return true;
-	}
-
-	bool Mesh::EmployRenderAPI(RenderAPI api)
-	{
-		if (m_MaterialInstance)
-			if (!m_MaterialInstance->EmployRenderAPI(api))
-				return false;
-
-		if (m_MaterialInstance)
-			m_MaterialInstance->getMaterial()->getShader()->Bind();
-
-		if (m_VertexArray)
-			m_VertexArray = VertexArray::ConvertRenderAPI(api, m_VertexArray);
-
-		if (m_IndexBuffer)
-			m_IndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_IndexBuffer);
-
-		return true;
-	}
-
-
 #ifdef GE_DEBUG
 	void Mesh::DebugRender(const math::Matrix4f& transform)
 	{
@@ -83,5 +59,85 @@ namespace gebase { namespace graphics {
 		debug::DebugRenderer::DrawMesh(this, debug::DebugRenderMeshFlags::NONE, transform);
 	}
 #endif
+
+	bool Mesh::EmployRenderAPIShader(RenderAPI api)
+	{
+		if (m_MaterialInstance)
+			if (!m_MaterialInstance->EmployRenderAPIShader(api))
+				return false;
+
+		return true;
+	}
+
+	bool Mesh::EmployRenderAPITexture2D(RenderAPI api)
+	{
+		if (m_MaterialInstance)
+			if (!m_MaterialInstance->EmployRenderAPITexture2D(api))
+				return false;
+
+		return true;
+	}
+
+	bool Mesh::EmployRenderAPITextureCube(RenderAPI api)
+	{
+		if (m_MaterialInstance)
+			if (!m_MaterialInstance->EmployRenderAPITextureCube(api))
+				return false;
+
+		return true;
+	}
+
+	bool Mesh::EmployRenderAPITextureDepth(RenderAPI api)
+	{
+		if (m_MaterialInstance)
+			if (!m_MaterialInstance->EmployRenderAPITextureDepth(api))
+				return false;
+
+		return true;
+	}
+
+	bool Mesh::EmployRenderAPIFramebuffer2D(RenderAPI api)
+	{
+		if (m_MaterialInstance)
+			if (!m_MaterialInstance->EmployRenderAPIFramebuffer2D(api))
+				return false;
+
+		return true;
+	}
+
+	bool Mesh::EmployRenderAPIFramebufferDepth(RenderAPI api) 
+	{
+		if (m_MaterialInstance)
+			if (!m_MaterialInstance->EmployRenderAPIFramebufferDepth(api))
+				return false;
+
+		return true;
+	}
+
+	bool Mesh::EmployRenderAPIIndexBuffer(RenderAPI api)
+	{
+		if (m_IndexBuffer)
+			m_IndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_IndexBuffer);
+
+		return true;
+	}
+
+	bool Mesh::EmployRenderAPIVertexBuffer(RenderAPI api)
+	{
+		if (m_VertexArray)
+			for (uint i = 0; i < m_VertexArray->getBuffers().size(); i++)
+				VertexBuffer::ConvertRenderAPI(api, m_VertexArray->getBuffer(i));
+
+		return true;
+	}
+
+	bool Mesh::EmployRenderAPIVertexArray(RenderAPI api) 
+	{
+		if (m_VertexArray)
+			m_VertexArray = VertexArray::ConvertRenderAPI(api, m_VertexArray);
+
+		return true;
+	}
+
 
 } }

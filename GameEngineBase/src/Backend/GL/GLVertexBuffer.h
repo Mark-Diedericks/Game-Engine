@@ -3,9 +3,9 @@
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Mesh/Mesh.h"
 #include "GLCommon.h"
+#include "GLShader.h"
 
 namespace gebase { namespace graphics { 
-
 	class GLVertexBuffer : public VertexBuffer
 	{
 	private:
@@ -14,6 +14,8 @@ namespace gebase { namespace graphics {
 		BufferUsage m_Usage;
 		BufferLayout m_Layout;
 		uint m_Size;
+
+		GLShader* m_Shader;
 	protected:
 		void* getPointerInternal() override;
 	public:
@@ -24,13 +26,14 @@ namespace gebase { namespace graphics {
 		void Unbind() override;
 
 		void Resize(uint size) override;
-		void setLayout(const BufferLayout& layout) override;
+		void setLayout(const BufferLayout& layout, const Shader* shader) override;
 
 		void setData(uint size, byte* data) override;
 		void setData(uint size, Vertex* data) override;
 		void setData(uint size, QuadVertex* data) override;
 
 		void getBufferData(void* data) override;
+		inline Shader* getShader() const override { return m_Shader; }
 		inline uint getSize() override { return m_Size; }
 		inline BufferLayout getBufferLayout() override { return m_Layout; }
 

@@ -26,46 +26,14 @@ namespace gebase { namespace graphics {
 		setUniform("u_GlossColor", 0.8f);
 		setUniform("u_UsingGlossMap", 0.0f);
 
-		setUniform("u_UsingNormalMap", 0.0f);
-
 		setUniform("u_DisplacementColor", 0.0f);
 		setUniform("u_UsingDisplacementMap", 0.0f);
+		
 	}
 
 	PBRMaterial::~PBRMaterial()
 	{
 		gedel m_Shader;
-	}
-
-	bool PBRMaterial::EmployRenderAPI(RenderAPI api)
-	{
-		if (m_Shader)
-			m_Shader = Shader::ConvertRenderAPI(api, m_Shader);
-
-		if (!Material::EmployRenderAPI(api))
-			return false;
-
-		if (m_Shader)
-			m_Shader->Bind();
-
-		s_PreintegratedFG = Texture2D::ConvertRenderAPI(api, s_PreintegratedFG);
-
-		if (getAlbedoMap())
-			setAlbedoMap(Texture2D::ConvertRenderAPI(api, getAlbedoMap()));
-
-		if (getNormalMap())
-			setNormalMap(Texture2D::ConvertRenderAPI(api, getNormalMap()));
-
-		if (getSpecularMap())
-			setSpecularMap(Texture2D::ConvertRenderAPI(api, getSpecularMap()));
-
-		if (getGlossMap())
-			setGlossMap(Texture2D::ConvertRenderAPI(api, getGlossMap()));
-
-		if (getEnvironmentMap())
-			setEnvironmentMap(TextureCube::ConvertRenderAPI(api, getEnvironmentMap()));
-
-		return true;
 	}
 
 	void PBRMaterial::setEnvironmentMap(TextureCube* texture)
@@ -139,9 +107,10 @@ namespace gebase { namespace graphics {
 		if (!declaration)
 		{
 			utils::LogUtil::WriteLine("ERROR", "[PBRMaterial] getMap() - Declaration is null, " + name);
-#ifdef GE_DEBUG
+#ifdef GE_DEBUG0
 			__debugbreak();
 #endif
+			return nullptr;
 		}
 
 		uint slot = declaration->getRegister();
@@ -178,19 +147,94 @@ namespace gebase { namespace graphics {
 		return (Texture2D*)getMap("u_DisplacementMap");
 	}
 
+	bool PBRMaterial::EmployRenderAPIShader(RenderAPI api)
+	{
+		if (m_Shader)
+			m_Shader = Shader::ConvertRenderAPI(api, m_Shader);
+
+		if (!Material::EmployRenderAPIShader(api))
+			return false;		
+
+		return true;
+	}
+
+	bool PBRMaterial::EmployRenderAPITexture2D(RenderAPI api)
+	{
+		m_Shader->Bind();
+
+		if (!Material::EmployRenderAPITexture2D(api))
+			return false;
+
+		m_Shader->Bind();
+
+		s_PreintegratedFG = Texture2D::ConvertRenderAPI(api, s_PreintegratedFG);
+		setTexture("u_PreintegratedFG", s_PreintegratedFG);
+
+		return true;
+	}
+
+	bool PBRMaterial::EmployRenderAPITextureCube(RenderAPI api)
+	{
+		if (!Material::EmployRenderAPITextureCube(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterial::EmployRenderAPITextureDepth(RenderAPI api)
+	{
+		if (!Material::EmployRenderAPITextureDepth(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterial::EmployRenderAPIFramebuffer2D(RenderAPI api)
+	{
+		if (!Material::EmployRenderAPIFramebuffer2D(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterial::EmployRenderAPIFramebufferDepth(RenderAPI api)
+	{
+		if (!Material::EmployRenderAPIFramebufferDepth(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterial::EmployRenderAPIIndexBuffer(RenderAPI api)
+	{
+		if (!Material::EmployRenderAPIIndexBuffer(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterial::EmployRenderAPIVertexBuffer(RenderAPI api)
+	{
+		if (!Material::EmployRenderAPIVertexBuffer(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterial::EmployRenderAPIVertexArray(RenderAPI api)
+	{
+		if (!Material::EmployRenderAPIVertexArray(api))
+			return false;
+
+		return true;
+	}
+
+
 	//PBR MATERIAL INSTANCE START
 
 	PBRMaterialInstance::PBRMaterialInstance(PBRMaterial* material) : MaterialInstance(material)
 	{
 
-	}
-
-	bool PBRMaterialInstance::EmployRenderAPI(RenderAPI api)
-	{
-		if (!MaterialInstance::EmployRenderAPI(api))
-			return false;
-
-		return true;
 	}
 
 	void PBRMaterialInstance::setEnvironmentMap(TextureCube* texture)
@@ -244,5 +288,78 @@ namespace gebase { namespace graphics {
 		setTexture("u_GlossMap", texture);
 		setUniform("u_UsingGlossMap", 1.0f);
 	}
+
+	bool PBRMaterialInstance::EmployRenderAPIShader(RenderAPI api)
+	{
+		if (!MaterialInstance::EmployRenderAPIShader(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterialInstance::EmployRenderAPITexture2D(RenderAPI api)
+	{
+		if (!MaterialInstance::EmployRenderAPITexture2D(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterialInstance::EmployRenderAPITextureCube(RenderAPI api)
+	{
+		if (!MaterialInstance::EmployRenderAPITextureCube(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterialInstance::EmployRenderAPITextureDepth(RenderAPI api)
+	{
+		if (!MaterialInstance::EmployRenderAPITextureDepth(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterialInstance::EmployRenderAPIFramebuffer2D(RenderAPI api)
+	{
+		if (!MaterialInstance::EmployRenderAPIFramebuffer2D(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterialInstance::EmployRenderAPIFramebufferDepth(RenderAPI api)
+	{
+		if (!MaterialInstance::EmployRenderAPIFramebufferDepth(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterialInstance::EmployRenderAPIIndexBuffer(RenderAPI api)
+	{
+		if (!MaterialInstance::EmployRenderAPIIndexBuffer(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterialInstance::EmployRenderAPIVertexBuffer(RenderAPI api)
+	{
+		if (!MaterialInstance::EmployRenderAPIVertexBuffer(api))
+			return false;
+
+		return true;
+	}
+
+	bool PBRMaterialInstance::EmployRenderAPIVertexArray(RenderAPI api)
+	{
+		if (!MaterialInstance::EmployRenderAPIVertexArray(api))
+			return false;
+
+		return true;
+	}
+
 
 } }

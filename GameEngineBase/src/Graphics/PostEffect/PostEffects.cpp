@@ -13,15 +13,6 @@ namespace gebase { namespace graphics {
 
 	}
 
-	bool PostEffects::EmployRenderAPI(RenderAPI api)
-	{
-		for (uint i = 0; i < m_Passes.size(); i++)
-			if(!m_Passes[i]->EmployRenderAPI(api))
-				return false;
-
-		return true;
-	}
-
 	void PostEffects::Push(PostEffectsPass* pass)
 	{
 		m_Passes.push_back(pass);
@@ -46,4 +37,74 @@ namespace gebase { namespace graphics {
 		indicies->Unbind();
 		quad->Unbind();
 	}
+
+	bool PostEffects::EmployRenderAPIShader(RenderAPI api)
+	{
+		for (uint i = 0; i < m_Passes.size(); i++)
+			if (!m_Passes[i]->EmployRenderAPIShader(api))
+				return false;
+
+		return true;
+	}
+
+	bool PostEffects::EmployRenderAPITexture2D(RenderAPI api)
+	{
+		for (uint i = 0; i < m_Passes.size(); i++)
+			if (!m_Passes[i]->EmployRenderAPITexture2D(api))
+				return false;
+
+		return true;
+	}
+
+	bool PostEffects::EmployRenderAPITextureCube(RenderAPI api)
+	{
+		for (uint i = 0; i < m_Passes.size(); i++)
+			if (!m_Passes[i]->EmployRenderAPITextureCube(api))
+				return false;
+
+		return true;
+	}
+
+	bool PostEffects::EmployRenderAPITextureDepth(RenderAPI api)
+	{
+		for (uint i = 0; i < m_Passes.size(); i++)
+			if (!m_Passes[i]->EmployRenderAPITextureDepth(api))
+				return false;
+
+		return true;
+	}
+
+	bool PostEffects::EmployRenderAPIFramebuffer2D(RenderAPI api)
+	{
+		for (uint i = 0; i < m_Passes.size(); i++)
+			if (!m_Passes[i]->EmployRenderAPIFramebuffer2D(api))
+				return false;
+
+		return true;
+	}
+
+	bool PostEffects::EmployRenderAPIFramebufferDepth(RenderAPI api)
+	{
+		for (uint i = 0; i < m_Passes.size(); i++)
+			if (!m_Passes[i]->EmployRenderAPIFramebufferDepth(api))
+				return false;
+
+		return true;
+	}
+
+	bool PostEffects::EmployRenderAPIIndexBuffer(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool PostEffects::EmployRenderAPIVertexBuffer(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool PostEffects::EmployRenderAPIVertexArray(RenderAPI api)
+	{
+		return true;
+	}
+
 } }

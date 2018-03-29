@@ -32,12 +32,12 @@ namespace gebase { namespace graphics {
 		virtual void getPixelData(byte*** pixels) = 0;
 		virtual uint getSize() const = 0;
 	private:
-		static std::vector<TextureCube*> s_Current;
-		static std::map<TextureCube*, TextureCube*> s_APIChangeMap;
+		static std::vector<TextureCube*> s_CurrentTextureCube;
+		static std::map<TextureCube*, TextureCube*> s_APIChangeMapTextureCube;
 	public:
-		static inline void AddRenderAPIChange(TextureCube* old, TextureCube* current) { s_APIChangeMap.insert_or_assign(old, current); }
-		static inline bool HasRenderAPIChange(TextureCube* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
-		static inline TextureCube* GetRenderAPIChange(TextureCube* old) { return s_APIChangeMap.at(old); }
+		static inline void AddRenderAPIChange(TextureCube* old, TextureCube* current) { s_APIChangeMapTextureCube.insert_or_assign(old, current); }
+		static inline bool HasRenderAPIChange(TextureCube* old) { return s_APIChangeMapTextureCube.find(old) != s_APIChangeMapTextureCube.end(); }
+		static inline TextureCube* GetRenderAPIChange(TextureCube* old) { return s_APIChangeMapTextureCube.at(old); }
 		static void PrepareRenderAPIChange(RenderAPI newApi);
 		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};

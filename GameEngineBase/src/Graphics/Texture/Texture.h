@@ -79,6 +79,8 @@ namespace gebase { namespace graphics {
 		inline const String& getResourceName() const { return m_ResourceName; }
 		inline void setResourceName(const String& resourceName) { m_ResourceName = resourceName; }
 
+		inline const TextureType getTextureType() const { return m_Type; }
+
 		virtual void Bind(uint slot = 0) const = 0;
 		virtual void Unbind(uint slot = 0) const = 0;
 

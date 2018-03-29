@@ -29,8 +29,16 @@ namespace gebase { namespace graphics {
 		Label(const String& text, float x, float y, const String& font, uint color, Alignment alignment = Alignment::LEFT);
 		Label(const String& text, float x, float y, const String& font, uint size, uint color, Alignment alignment = Alignment::LEFT);
 
-		bool PreEmployRenderAPI() override;
-		bool EmployRenderAPI(RenderAPI api) override;
+
+		inline bool EmployRenderAPIShader(RenderAPI api) override { return Sprite::EmployRenderAPIShader(api); }
+		bool EmployRenderAPITexture2D(RenderAPI api) override;
+		inline bool EmployRenderAPITextureCube(RenderAPI api) override { return Sprite::EmployRenderAPITextureCube(api); }
+		inline bool EmployRenderAPITextureDepth(RenderAPI api) override { return Sprite::EmployRenderAPITextureDepth(api); }
+		inline bool EmployRenderAPIFramebuffer2D(RenderAPI api) override { return Sprite::EmployRenderAPIFramebuffer2D(api); }
+		inline bool EmployRenderAPIFramebufferDepth(RenderAPI api) override { return Sprite::EmployRenderAPIFramebufferDepth(api); }
+		inline bool EmployRenderAPIIndexBuffer(RenderAPI api) override { return Sprite::EmployRenderAPIIndexBuffer(api); }
+		inline bool EmployRenderAPIVertexBuffer(RenderAPI api) override { return Sprite::EmployRenderAPIVertexBuffer(api); }
+		inline bool EmployRenderAPIVertexArray(RenderAPI api) override { return Sprite::EmployRenderAPIVertexArray(api); }
 
 		void Submit(Renderer2D* renderer) const override;
 		void ValidateFont(const String& name, int32 size = -1);

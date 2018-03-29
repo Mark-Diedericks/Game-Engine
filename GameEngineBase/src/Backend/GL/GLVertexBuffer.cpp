@@ -26,10 +26,13 @@ namespace gebase { namespace graphics {
 		GLCall(glBufferData(GL_ARRAY_BUFFER, size, NULL, GLConvert::BufferUsageToGL(m_Usage)));
 	}
 
-	void GLVertexBuffer::setLayout(const BufferLayout& bufferLayout)
+	void GLVertexBuffer::setLayout(const BufferLayout& bufferLayout, const Shader* shader)
 	{
 		m_Layout = bufferLayout;
 		const std::vector<BufferElement>& layout = bufferLayout.getLayout();
+
+		if (shader != nullptr)
+			m_Shader = (GLShader*)shader;
 
 		for (uint i = 0; i < layout.size(); i++)
 		{
@@ -66,7 +69,7 @@ namespace gebase { namespace graphics {
 	void GLVertexBuffer::Bind()
 	{
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
-		setLayout(m_Layout);
+		setLayout(m_Layout, nullptr);
 	}
 
 	void GLVertexBuffer::Unbind()

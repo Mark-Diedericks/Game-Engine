@@ -5,6 +5,8 @@
 #include "BufferLayout.h"
 #include "System/Memory.h"
 #include "Graphics/IRenderAPIDependant.h"
+#include "Graphics/Shader/Shader.h"
+
 namespace gebase { namespace graphics {
 
 	enum class BufferUsage
@@ -28,7 +30,7 @@ namespace gebase { namespace graphics {
 		static VertexBuffer* ConvertRenderAPI(RenderAPI api, VertexBuffer* original);
 
 		virtual void Resize(uint size) = 0;
-		virtual void setLayout(const BufferLayout& layout) = 0;
+		virtual void setLayout(const BufferLayout& layout, const Shader* shader) = 0;
 
 		virtual void setData(uint size, byte* data) = 0;
 		virtual void setData(uint size, Vertex* data) = 0;
@@ -37,6 +39,7 @@ namespace gebase { namespace graphics {
 		virtual void ReleasePointer() = 0;
 
 		virtual void getBufferData(void* data) = 0;
+		virtual Shader* getShader() const = 0;
 		virtual uint getSize() = 0;
 		virtual BufferLayout getBufferLayout() = 0;
 
@@ -49,12 +52,12 @@ namespace gebase { namespace graphics {
 			return (T*)getPointerInternal();
 		}
 	private:
-		static std::vector<VertexBuffer*> s_Current;
-		static std::map<VertexBuffer*, VertexBuffer*> s_APIChangeMap;
+		static std::vector<VertexBuffer*> s_CurrentVertexBuffer;
+		static std::map<VertexBuffer*, VertexBuffer*> s_APIChangeMapVertexBuffer;
 	public:
-		static inline void AddRenderAPIChange(VertexBuffer* old, VertexBuffer* current) { s_APIChangeMap.insert_or_assign(old, current); }
-		static inline bool HasRenderAPIChange(VertexBuffer* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
-		static inline VertexBuffer* GetRenderAPIChange(VertexBuffer* old) { return s_APIChangeMap.at(old); }
+		static inline void AddRenderAPIChange(VertexBuffer* old, VertexBuffer* current) { s_APIChangeMapVertexBuffer.insert_or_assign(old, current); }
+		static inline bool HasRenderAPIChange(VertexBuffer* old) { return s_APIChangeMapVertexBuffer.find(old) != s_APIChangeMapVertexBuffer.end(); }
+		static inline VertexBuffer* GetRenderAPIChange(VertexBuffer* old) { return s_APIChangeMapVertexBuffer.at(old); }
 		static void PrepareRenderAPIChange(RenderAPI newApi);
 		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};

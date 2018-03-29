@@ -19,7 +19,7 @@ namespace gebase { namespace graphics {
 		m_Handle = Load(NULL, NULL);
 	}
 
-	GLTexture2D::GLTexture2D(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters) : Texture2D(1), m_Filepath(name), m_Width(width), m_Height(height), m_Parameters(parameters)
+	GLTexture2D::GLTexture2D(const String& name, const byte* pixels, uint width, uint height, uint bits, TextureParameters parameters) : Texture2D(1), m_Filepath(name), m_Name(name), m_Width(width), m_Height(height), m_Parameters(parameters)
 	{
 		m_Handle = Load(pixels, bits);
 	}

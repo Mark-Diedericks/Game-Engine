@@ -22,56 +22,6 @@ namespace gebase { namespace graphics {
 		gedel[] m_FSUserUniformBuffer;
 	}
 
-	bool Material::EmployRenderAPI(RenderAPI api)
-	{
-		if (current == api)
-			return true;
-		
-		current = api;
-
-		m_Shader = Shader::ConvertRenderAPI(api, m_Shader);
-
-		ShaderUniformList vs_uniforms;
-		ShaderUniformList fs_uniforms;
-
-		byte* vs_buffer;
-		byte* fs_buffer;
-
-		if (m_VSUserUniforms != nullptr) vs_uniforms = *m_VSUserUniforms;
-		if (m_FSUserUniforms != nullptr) fs_uniforms = *m_FSUserUniforms;
-
-		if (m_VSUserUniforms != nullptr) vs_buffer = m_VSUserUniformBuffer;
-		if (m_FSUserUniforms != nullptr) fs_buffer = m_FSUserUniformBuffer;
-
-		AllocateStorage();
-		m_Resources = &m_Shader->getResources();
-
-		if (m_VSUserUniforms != nullptr)
-			for (ShaderUniformDeclaration* uniform : vs_uniforms)
-				setUniformData(uniform->getName(), vs_buffer + uniform->getOffset());
-
-		if (m_FSUserUniforms != nullptr)
-			for (ShaderUniformDeclaration* uniform : fs_uniforms)
-				setUniformData(uniform->getName(), fs_buffer + uniform->getOffset());
-
-		if (m_VSUserUniforms != nullptr) gedel[] vs_buffer;
-		if (m_FSUserUniforms != nullptr) gedel[] fs_buffer;
-		
-		m_Shader->Bind();
-
-		std::vector<Texture*> textures(m_Textures);
-		m_Textures.clear();
-		m_Textures.resize(0);
-
-		for (uint i = 0; i < textures.size(); i++)
-		{
-			textures[i] = Texture::ConvertRenderAPI(api, textures[i]);
-			setTexture(textures[i]->getResourceName(), textures[i]);
-		}
-
-		return true;
-	}
-
 	void Material::AllocateStorage()
 	{
 		m_VSUserUniformBuffer = nullptr;
@@ -210,28 +160,14 @@ namespace gebase { namespace graphics {
 		return nullptr;
 	}
 
-	//MATERIAL INSTANCE START
-	MaterialInstance::MaterialInstance(Material* material) : IRenderAPIDependantContainer(), m_Material(material)
-	{
-		AllocateStorage();
-
-		memcpy(m_VSUserUniformBuffer, m_Material->m_VSUserUniformBuffer, m_VSUserUniformBufferSize);
-		memcpy(m_FSUserUniformBuffer, m_Material->m_FSUserUniformBuffer, m_FSUserUniformBufferSize);
-
-		m_Resources = &m_Material->getShader()->getResources();
-		m_RenderFlags = material->m_RenderFlags;
-		m_Material->m_isInstance = true;
-	}
-
-	bool MaterialInstance::EmployRenderAPI(RenderAPI api)
+	bool Material::EmployRenderAPIShader(RenderAPI api)
 	{
 		if (current == api)
 			return true;
 
 		current = api;
 
-		if (!m_Material->EmployRenderAPI(api))
-			return false;
+		m_Shader = Shader::ConvertRenderAPI(api, m_Shader);
 
 		ShaderUniformList vs_uniforms;
 		ShaderUniformList fs_uniforms;
@@ -246,11 +182,7 @@ namespace gebase { namespace graphics {
 		if (m_FSUserUniforms != nullptr) fs_buffer = m_FSUserUniformBuffer;
 
 		AllocateStorage();
-
-		memcpy(m_VSUserUniformBuffer, m_Material->m_VSUserUniformBuffer, m_VSUserUniformBufferSize);
-		memcpy(m_FSUserUniformBuffer, m_Material->m_FSUserUniformBuffer, m_FSUserUniformBufferSize);
-
-		m_Resources = &m_Material->getShader()->getResources();
+		m_Resources = &m_Shader->getResources();
 
 		if (m_VSUserUniforms != nullptr)
 			for (ShaderUniformDeclaration* uniform : vs_uniforms)
@@ -262,21 +194,114 @@ namespace gebase { namespace graphics {
 
 		if (m_VSUserUniforms != nullptr) gedel[] vs_buffer;
 		if (m_FSUserUniforms != nullptr) gedel[] fs_buffer;
+		
+		m_TempTextures = std::list<Texture*>();
 
+		for (uint i = 0; i < m_Textures.size(); i++)
+			m_TempTextures.push_back(m_Textures[i]);
 
-		m_Material->getShader()->Bind();
-
-		std::vector<Texture*> textures(m_Textures);
 		m_Textures.clear();
-		m_Textures.resize(0);
+		m_Textures.shrink_to_fit();
 
-		for (uint i = 0; i < textures.size(); i++)
+		return true;
+	}
+
+	bool Material::EmployRenderAPITexture2D(RenderAPI api)
+	{
+		m_Shader->Bind();
+
+		for (Texture* tex : m_TempTextures)
 		{
-			textures[i] = Texture::ConvertRenderAPI(api, textures[i]);
-			setTexture(textures[i]->getResourceName(), textures[i]);
+			if (tex == nullptr)
+				continue;
+
+			if (tex->getTextureType() == TextureType::TEX2D)
+			{
+				Texture2D* tex2d  = Texture2D::ConvertRenderAPI(api, (Texture2D*)tex);
+				setTexture(tex2d->getResourceName(), tex2d);
+			}
 		}
 
 		return true;
+	}
+
+	bool Material::EmployRenderAPITextureCube(RenderAPI api)
+	{
+		m_Shader->Bind();
+		for (uint i = 0; i < m_TempTextures.size(); i++)
+		{
+			if (m_TempTextures[i] == nullptr)
+				continue;
+
+			if (m_TempTextures[i]->getTextureType() == TextureType::TEXCUBE)
+			{
+				m_TempTextures[i] = Texture::ConvertRenderAPI(api, m_TempTextures[i]);
+				setTexture(m_TempTextures[i]->getResourceName(), m_TempTextures[i]);
+			}
+		}
+
+		return true;
+	}
+
+	bool Material::EmployRenderAPITextureDepth(RenderAPI api)
+	{
+		m_Shader->Bind();
+		for (uint i = 0; i < m_TempTextures.size(); i++)
+		{
+			if (m_TempTextures.[i] == nullptr)
+				continue;
+
+			if (m_TempTextures[i]->getTextureType() == TextureType::TEXDEPTH)
+			{
+				m_TempTextures[i] = Texture::ConvertRenderAPI(api, m_TempTextures[i]);
+				setTexture(m_TempTextures[i]->getResourceName(), m_TempTextures[i]);
+			}
+		}
+
+		//m_TempTextures.clear();
+		//m_TempTextures.shrink_to_fit();
+		m_TempTextures.~vector();
+
+		return true;
+	}
+
+	bool Material::EmployRenderAPIFramebuffer2D(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Material::EmployRenderAPIFramebufferDepth(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Material::EmployRenderAPIIndexBuffer(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Material::EmployRenderAPIVertexBuffer(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Material::EmployRenderAPIVertexArray(RenderAPI api)
+	{
+		return true;
+	}
+
+
+	//MATERIAL INSTANCE START
+	MaterialInstance::MaterialInstance(Material* material) : IRenderAPIDependantContainer(), m_Material(material)
+	{
+		AllocateStorage();
+
+		memcpy(m_VSUserUniformBuffer, m_Material->m_VSUserUniformBuffer, m_VSUserUniformBufferSize);
+		memcpy(m_FSUserUniformBuffer, m_Material->m_FSUserUniformBuffer, m_FSUserUniformBufferSize);
+
+		m_Resources = &m_Material->getShader()->getResources();
+		m_RenderFlags = material->m_RenderFlags;
+		m_Material->m_isInstance = true;
 	}
 
 	void MaterialInstance::AllocateStorage()
@@ -414,5 +439,165 @@ namespace gebase { namespace graphics {
 
 		return nullptr;
 	}
+
+	bool MaterialInstance::EmployRenderAPIShader(RenderAPI api)
+	{
+		if (current == api)
+			return true;
+
+		current = api;
+
+		if (!m_Material->EmployRenderAPIShader(api))
+			return false;
+
+		ShaderUniformList vs_uniforms;
+		ShaderUniformList fs_uniforms;
+
+		byte* vs_buffer;
+		byte* fs_buffer;
+
+		if (m_VSUserUniforms != nullptr) vs_uniforms = *m_VSUserUniforms;
+		if (m_FSUserUniforms != nullptr) fs_uniforms = *m_FSUserUniforms;
+
+		if (m_VSUserUniforms != nullptr) vs_buffer = m_VSUserUniformBuffer;
+		if (m_FSUserUniforms != nullptr) fs_buffer = m_FSUserUniformBuffer;
+
+		AllocateStorage();
+
+		memcpy(m_VSUserUniformBuffer, m_Material->m_VSUserUniformBuffer, m_VSUserUniformBufferSize);
+		memcpy(m_FSUserUniformBuffer, m_Material->m_FSUserUniformBuffer, m_FSUserUniformBufferSize);
+
+		m_Resources = &m_Material->getShader()->getResources();
+
+		if (m_VSUserUniforms != nullptr)
+			for (ShaderUniformDeclaration* uniform : vs_uniforms)
+				setUniformData(uniform->getName(), vs_buffer + uniform->getOffset());
+
+		if (m_FSUserUniforms != nullptr)
+			for (ShaderUniformDeclaration* uniform : fs_uniforms)
+				setUniformData(uniform->getName(), fs_buffer + uniform->getOffset());
+
+		if (m_VSUserUniforms != nullptr) gedel[] vs_buffer;
+		if (m_FSUserUniforms != nullptr) gedel[] fs_buffer;
+
+		m_TempTextures = std::list<Texture*>();
+
+		for (uint i = 0; i < m_Textures.size(); i++)
+			m_TempTextures.push_back(m_Textures[i]);
+
+		m_Textures.clear();
+		m_Textures.shrink_to_fit();
+
+		return true;
+	}
+
+	bool MaterialInstance::EmployRenderAPITexture2D(RenderAPI api)
+	{
+		if (!m_Material->EmployRenderAPITexture2D(api))
+			return false;
+
+		m_Material->m_Shader->Bind();
+
+		for (Texture* tex : m_TempTextures)
+		{
+			if (tex == nullptr)
+				continue;
+
+			if (tex->getTextureType() == TextureType::TEX2D)
+			{
+				Texture2D* tex2d = Texture2D::ConvertRenderAPI(api, (Texture2D*)tex);
+				setTexture(tex2d->getResourceName(), tex2d);
+			}
+		}
+
+		return true;
+	}
+
+	bool MaterialInstance::EmployRenderAPITextureCube(RenderAPI api)
+	{
+		if (!m_Material->EmployRenderAPITextureCube(api))
+			return false;
+
+		m_Material->m_Shader->Bind();
+		for (uint i = 0; i < m_TempTextures.size(); i++)
+		{
+			if (m_TempTextures[i] == nullptr)
+				continue;
+
+			if (m_TempTextures[i]->getTextureType() == TextureType::TEXCUBE)
+			{
+				m_TempTextures[i] = Texture::ConvertRenderAPI(api, m_TempTextures[i]);
+				setTexture(m_TempTextures[i]->getResourceName(), m_TempTextures[i]);
+			}
+		}
+
+		return true;
+	}
+
+	bool MaterialInstance::EmployRenderAPITextureDepth(RenderAPI api)
+	{
+		if (!m_Material->EmployRenderAPITextureDepth(api))
+			return false;
+
+		m_Material->m_Shader->Bind();
+		for (uint i = 0; i < m_TempTextures.size(); i++)
+		{
+			if (m_TempTextures[i] == nullptr)
+				continue;
+
+			if (m_TempTextures[i]->getTextureType() == TextureType::TEXDEPTH)
+			{
+				m_TempTextures[i] = Texture::ConvertRenderAPI(api, m_TempTextures[i]);
+				setTexture(m_TempTextures[i]->getResourceName(), m_TempTextures[i]);
+			}
+		}
+
+		//m_TempTextures.clear();
+		//m_TempTextures.shrink_to_fit();
+		m_TempTextures.~vector();
+
+		return true;
+	}
+
+	bool MaterialInstance::EmployRenderAPIFramebuffer2D(RenderAPI api)
+	{
+		if (!m_Material->EmployRenderAPIFramebuffer2D(api))
+			return false;
+
+		return true;
+	}
+
+	bool MaterialInstance::EmployRenderAPIFramebufferDepth(RenderAPI api)
+	{
+		if (!m_Material->EmployRenderAPIFramebufferDepth(api))
+			return false;
+
+		return true;
+	}
+
+	bool MaterialInstance::EmployRenderAPIIndexBuffer(RenderAPI api)
+	{
+		if (!m_Material->EmployRenderAPIIndexBuffer(api))
+			return false;
+
+		return true;
+	}
+
+	bool MaterialInstance::EmployRenderAPIVertexBuffer(RenderAPI api)
+	{
+		if (!m_Material->EmployRenderAPIVertexBuffer(api))
+			return false;
+
+		return true;
+	}
+
+	bool MaterialInstance::EmployRenderAPIVertexArray(RenderAPI api)
+	{
+		if (!m_Material->EmployRenderAPIVertexArray(api))
+			return false;
+
+		return true;
+	}
+
 
 } }

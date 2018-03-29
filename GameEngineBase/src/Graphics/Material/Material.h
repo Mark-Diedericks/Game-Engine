@@ -34,6 +34,7 @@ namespace gebase { namespace graphics {
 		uint m_FSUserUniformBufferSize;
 
 		std::vector<Texture*> m_Textures;
+		std::list<Texture*> m_TempTextures;
 
 		const ShaderUniformList* m_VSUserUniforms;
 		const ShaderUniformList* m_FSUserUniforms;
@@ -49,7 +50,15 @@ namespace gebase { namespace graphics {
 		Material(Shader* shader);
 		~Material();
 
-		bool EmployRenderAPI(RenderAPI api) override;
+		bool EmployRenderAPIShader(RenderAPI api) override;
+		bool EmployRenderAPITexture2D(RenderAPI api) override;
+		bool EmployRenderAPITextureCube(RenderAPI api) override;
+		bool EmployRenderAPITextureDepth(RenderAPI api) override;
+		bool EmployRenderAPIFramebuffer2D(RenderAPI api) override;
+		bool EmployRenderAPIFramebufferDepth(RenderAPI api) override;
+		bool EmployRenderAPIIndexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexArray(RenderAPI api) override;
 
 		void Bind();
 		void Unbind();
@@ -71,7 +80,7 @@ namespace gebase { namespace graphics {
 
 			if (!declaration)
 			{
-				utils::LogUtil::WriteLine("ERROR", "[Material] setUniform() - Declaration is null.");
+				utils::LogUtil::WriteLine("ERROR", "[Material] setUniform() - Declaration is null, " + name);
 				return;
 			}
 
@@ -103,6 +112,7 @@ namespace gebase { namespace graphics {
 		uint m_FSUserUniformBufferSize;
 
 		std::vector<Texture*> m_Textures;
+		std::list<Texture*> m_TempTextures;
 
 		const ShaderUniformList* m_VSUserUniforms;
 		const ShaderUniformList* m_FSUserUniforms;
@@ -116,7 +126,15 @@ namespace gebase { namespace graphics {
 	public:
 		MaterialInstance(Material* material);
 
-		bool EmployRenderAPI(RenderAPI api) override;
+		bool EmployRenderAPIShader(RenderAPI api) override;
+		bool EmployRenderAPITexture2D(RenderAPI api) override;
+		bool EmployRenderAPITextureCube(RenderAPI api) override;
+		bool EmployRenderAPITextureDepth(RenderAPI api) override;
+		bool EmployRenderAPIFramebuffer2D(RenderAPI api) override;
+		bool EmployRenderAPIFramebufferDepth(RenderAPI api) override;
+		bool EmployRenderAPIIndexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexArray(RenderAPI api) override;
 
 		inline Material* getMaterial() const { return m_Material; }
 
@@ -139,7 +157,7 @@ namespace gebase { namespace graphics {
 
 			if (!declaration)
 			{
-				utils::LogUtil::WriteLine("ERROR", "[Material] setUniform() - Declaration is null.");
+				utils::LogUtil::WriteLine("ERROR", "[Material] setUniform() - Declaration is null, " + name);
 				return;
 			}
 

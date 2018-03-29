@@ -91,7 +91,16 @@ namespace gebase { namespace graphics {
 		~Renderer2D();
 
 		bool PreEmployRenderAPI() override;
-		bool EmployRenderAPI(RenderAPI api) override;
+
+		bool EmployRenderAPIShader(RenderAPI api) override;
+		bool EmployRenderAPITexture2D(RenderAPI api) override;
+		bool EmployRenderAPITextureCube(RenderAPI api) override;
+		bool EmployRenderAPITextureDepth(RenderAPI api) override;
+		bool EmployRenderAPIFramebuffer2D(RenderAPI api) override;
+		bool EmployRenderAPIFramebufferDepth(RenderAPI api) override;
+		bool EmployRenderAPIIndexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexArray(RenderAPI api) override;
 
 		void Push(const math::Matrix4f& matrix, bool override = false);
 		void Pop();

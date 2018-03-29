@@ -13,7 +13,6 @@ namespace gebase { namespace graphics {
 		IRenderable() : IRenderableBase() { }
 	private:
 		virtual void Render(Renderer3D& renderer) = 0;
-		virtual bool EmployRenderAPI(RenderAPI api) = 0;
 	};
 
 } }

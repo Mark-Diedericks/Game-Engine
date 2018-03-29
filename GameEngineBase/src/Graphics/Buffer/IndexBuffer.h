@@ -23,12 +23,12 @@ namespace gebase { namespace graphics {
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 	private:
-		static std::vector<IndexBuffer*> s_Current;
-		static std::map<IndexBuffer*, IndexBuffer*> s_APIChangeMap;
+		static std::vector<IndexBuffer*> s_CurrentIndexBuffer;
+		static std::map<IndexBuffer*, IndexBuffer*> s_APIChangeMapIndexBuffer;
 	public:
-		static inline void AddRenderAPIChange(IndexBuffer* old, IndexBuffer* current) { s_APIChangeMap.insert_or_assign(old, current); }
-		static inline bool HasRenderAPIChange(IndexBuffer* old) { return s_APIChangeMap.find(old) != s_APIChangeMap.end(); }
-		static inline IndexBuffer* GetRenderAPIChange(IndexBuffer* old) { return s_APIChangeMap.at(old); }
+		static inline void AddRenderAPIChange(IndexBuffer* old, IndexBuffer* current) { s_APIChangeMapIndexBuffer.insert_or_assign(old, current); }
+		static inline bool HasRenderAPIChange(IndexBuffer* old) { return s_APIChangeMapIndexBuffer.find(old) != s_APIChangeMapIndexBuffer.end(); }
+		static inline IndexBuffer* GetRenderAPIChange(IndexBuffer* old) { return s_APIChangeMapIndexBuffer.at(old); }
 		static void PrepareRenderAPIChange(RenderAPI newApi);
 		static void FlushRenderAPIChange(RenderAPI prevApi);
 	};

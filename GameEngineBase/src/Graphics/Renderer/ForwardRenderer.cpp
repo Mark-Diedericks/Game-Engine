@@ -43,11 +43,6 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-	bool ForwardRenderer::EmployRenderAPI(RenderAPI api)
-	{
-		return true;
-	}
-
 	void ForwardRenderer::Init()
 	{
 		m_CommandQue.reserve(1000);
@@ -146,6 +141,9 @@ namespace gebase { namespace graphics {
 
 	void ForwardRenderer::setSystemUniforms(Shader* shader)
 	{
+		if (!shader)
+			return;
+
 		shader->setVSSystemUniformBuffer(m_VSSystemUniformBuffer, m_VSSystemUniformBufferSize, 0);
 		shader->setFSSystemUniformBuffer(m_FSSystemUniformBuffer, m_FSSystemUniformBufferSize, 0);
 	}

@@ -32,7 +32,15 @@ namespace gebase { namespace graphics {
 		Font(const String& name, const String& filepath, float size);
 		Font(const String& name, const byte* data, uint datasize, float size);
 
-		bool EmployRenderAPI(RenderAPI api) override;
+		bool EmployRenderAPIShader(RenderAPI api) override;
+		bool EmployRenderAPITexture2D(RenderAPI api) override;
+		bool EmployRenderAPITextureCube(RenderAPI api) override;
+		bool EmployRenderAPITextureDepth(RenderAPI api) override;
+		bool EmployRenderAPIFramebuffer2D(RenderAPI api) override;
+		bool EmployRenderAPIFramebufferDepth(RenderAPI api) override;
+		bool EmployRenderAPIIndexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexArray(RenderAPI api) override;
 
 		inline void setScale(float x, float y) { m_Scale = math::Vector2f(x, y); }
 		inline void setScale(const math::Vector2f& scale) { m_Scale = scale; }

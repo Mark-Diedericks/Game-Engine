@@ -33,12 +33,17 @@ namespace gebase { namespace graphics {
 		m_Texture = texture;
 	}
 
-	bool Sprite::PreEmployRenderAPI()
+	void Sprite::setUV(const std::vector<math::Vector2f>& UVs)
+	{
+		m_UVs = UVs;
+	}
+
+	bool Sprite::EmployRenderAPIShader(RenderAPI api)
 	{
 		return true;
 	}
 
-	bool Sprite::EmployRenderAPI(RenderAPI api)
+	bool Sprite::EmployRenderAPITexture2D(RenderAPI api)
 	{
 		if (m_Texture)
 			m_Texture = Texture::ConvertRenderAPI(api, m_Texture);
@@ -46,9 +51,40 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-
-	void Sprite::setUV(const std::vector<math::Vector2f>& UVs)
+	bool Sprite::EmployRenderAPITextureCube(RenderAPI api)
 	{
-		m_UVs = UVs;
+		return true;
 	}
+
+	bool Sprite::EmployRenderAPITextureDepth(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Sprite::EmployRenderAPIFramebuffer2D(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Sprite::EmployRenderAPIFramebufferDepth(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Sprite::EmployRenderAPIIndexBuffer(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Sprite::EmployRenderAPIVertexBuffer(RenderAPI api)
+	{
+		return true;
+	}
+
+	bool Sprite::EmployRenderAPIVertexArray(RenderAPI api)
+	{
+		return true;
+	}
+
+
 } }

@@ -64,47 +64,6 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-	bool Renderer2D::EmployRenderAPI(RenderAPI api)
-	{
-		if (m_Shader)
-			m_Shader = Shader::ConvertRenderAPI(api, m_Shader);
-
-		if (m_Shader)
-			m_Shader->Bind();
-
-		if (m_PostEffects)
-			if (!m_PostEffects->EmployRenderAPI(api))
-				return false;
-
-		if (m_Mask)
-			if (!m_Mask->EmployRenderAPI(api))
-				return false;
-
-		if (m_FramebufferMaterial)
-			if (!m_FramebufferMaterial->EmployRenderAPI(api))
-				return false;
-
-		if (m_Framebuffer)
-			m_Framebuffer = Framebuffer2D::ConvertRenderAPI(api, m_Framebuffer);
-
-		if (m_PostEffectsFramebuffer)
-			m_PostEffectsFramebuffer = Framebuffer2D::ConvertRenderAPI(api, m_PostEffectsFramebuffer);
-
-		if (m_ScreenQuad)
-			m_ScreenQuad = VertexArray::ConvertRenderAPI(api, m_ScreenQuad);
-
-		if (m_VertexArray)
-			m_VertexArray = VertexArray::ConvertRenderAPI(api, m_VertexArray);
-
-		if (m_IndexBuffer)
-			m_IndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_IndexBuffer);
-
-		if (m_LineIndexBuffer)
-			m_LineIndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_LineIndexBuffer);
-
-		return true;
-	}
-
 	void Renderer2D::Init()
 	{
 		m_TransformationStack.push_back(math::Matrix4f::Identity());
@@ -154,7 +113,7 @@ namespace gebase { namespace graphics {
 		layout.Push<float>("ID");
 		layout.Push<float>("MASKID");
 		layout.Push<byte>("COLOR", 4, true);
-		vb->setLayout(layout);
+		vb->setLayout(layout, m_Shader);
 
 		m_VertexArray = VertexArray::Create();
 		m_VertexArray->PushBuffer(vb);
@@ -334,6 +293,9 @@ namespace gebase { namespace graphics {
 
 	void Renderer2D::Present()
 	{
+		if (m_IndexCount <= 0)
+			return;
+
 		Renderer::setDepthTesting(false);
 
 		m_Shader->Bind();
@@ -584,5 +546,132 @@ namespace gebase { namespace graphics {
 	{
 		FillRect(rect.getMinimumBound(), rect.size * 2.0f, color);
 	}
+
+	bool Renderer2D::EmployRenderAPIShader(RenderAPI api)
+	{
+		if (m_Shader)
+			m_Shader = Shader::ConvertRenderAPI(api, m_Shader);
+
+		if (m_PostEffects)
+			if (!m_PostEffects->EmployRenderAPIShader(api))
+				return false;
+
+		if (m_FramebufferMaterial)
+			if (!m_FramebufferMaterial->EmployRenderAPIShader(api))
+				return false;
+
+		return true;
+	}
+
+	bool Renderer2D::EmployRenderAPITexture2D(RenderAPI api)
+	{
+		if (m_PostEffects)
+			if (!m_PostEffects->EmployRenderAPITexture2D(api))
+				return false;
+
+		if (m_Mask)
+			if (!m_Mask->EmployRenderAPITexture2D(api))
+				return false;
+
+		if (m_FramebufferMaterial)
+			if (!m_FramebufferMaterial->EmployRenderAPITexture2D(api))
+				return false;
+
+		return true;
+	}
+
+	bool Renderer2D::EmployRenderAPITextureCube(RenderAPI api)
+	{
+		if (m_PostEffects)
+			if (!m_PostEffects->EmployRenderAPITextureCube(api))
+				return false;
+
+		if (m_FramebufferMaterial)
+			if (!m_FramebufferMaterial->EmployRenderAPITextureCube(api))
+				return false;
+
+		return true;
+	}
+
+	bool Renderer2D::EmployRenderAPITextureDepth(RenderAPI api)
+	{
+		if (m_PostEffects)
+			if (!m_PostEffects->EmployRenderAPITextureDepth(api))
+				return false;
+
+		if (m_FramebufferMaterial)
+			if (!m_FramebufferMaterial->EmployRenderAPITextureDepth(api))
+				return false;
+
+		return true;
+	}
+
+	bool Renderer2D::EmployRenderAPIFramebuffer2D(RenderAPI api)
+	{
+		if (m_PostEffects)
+			if (!m_PostEffects->EmployRenderAPIFramebuffer2D(api))
+				return false;
+
+		if (m_FramebufferMaterial)
+			if (!m_FramebufferMaterial->EmployRenderAPIFramebuffer2D(api))
+				return false;
+
+		if (m_Framebuffer)
+			m_Framebuffer = Framebuffer2D::ConvertRenderAPI(api, m_Framebuffer);
+
+		if (m_PostEffectsFramebuffer)
+			m_PostEffectsFramebuffer = Framebuffer2D::ConvertRenderAPI(api, m_PostEffectsFramebuffer);
+
+		return true;
+	}
+
+	bool Renderer2D::EmployRenderAPIFramebufferDepth(RenderAPI api)
+	{
+		if (m_PostEffects)
+			if (!m_PostEffects->EmployRenderAPIFramebufferDepth(api))
+				return false;
+
+		if (m_FramebufferMaterial)
+			if (!m_FramebufferMaterial->EmployRenderAPIFramebufferDepth(api))
+				return false;
+
+		return true;
+	}
+
+	bool Renderer2D::EmployRenderAPIIndexBuffer(RenderAPI api)
+	{
+		if (m_IndexBuffer)
+			m_IndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_IndexBuffer);
+
+		if (m_LineIndexBuffer)
+			m_LineIndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_LineIndexBuffer);
+
+		return true;
+	}
+
+	bool Renderer2D::EmployRenderAPIVertexBuffer(RenderAPI api)
+	{
+		if (m_ScreenQuad)
+			for (uint i = 0; i < m_ScreenQuad->getBuffers().size(); i++)
+				VertexBuffer::ConvertRenderAPI(api, m_ScreenQuad->getBuffer(i));
+
+		if (m_VertexArray)
+			for (uint i = 0; i < m_VertexArray->getBuffers().size(); i++)
+				VertexBuffer::ConvertRenderAPI(api, m_VertexArray->getBuffer(i));
+
+		return true;
+	}
+
+	bool Renderer2D::EmployRenderAPIVertexArray(RenderAPI api)
+	{
+		if (m_ScreenQuad)
+			m_ScreenQuad = VertexArray::ConvertRenderAPI(api, m_ScreenQuad);
+
+		if (m_VertexArray)
+			m_VertexArray = VertexArray::ConvertRenderAPI(api, m_VertexArray);
+
+		return true;
+	}
+
 
 } }

@@ -10,24 +10,30 @@
 
 namespace gebase { namespace graphics {
 
-	std::map<FramebufferDepth*, FramebufferDepth*> FramebufferDepth::s_APIChangeMap;
-	std::vector<FramebufferDepth*> FramebufferDepth::s_Current;
+	std::map<FramebufferDepth*, FramebufferDepth*> FramebufferDepth::s_APIChangeMapFramebufferDepth;
+	std::vector<FramebufferDepth*> FramebufferDepth::s_CurrentFramebufferDepth;
 	
 	FramebufferDepth* FramebufferDepth::Create(uint width, uint height)
 	{
+		FramebufferDepth* result;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
-		case RenderAPI::OPENGL: return genew GLFramebufferDepth(width, height);
-			//case RenderAPI::VULKAN: return genew VKFramebufferDepth(width, height);
-		case RenderAPI::D3D11: return genew DX11FramebufferDepth(width, height);
-			//case RenderAPI::D3D12: return genew DX12FramebufferDepth(width, height);
+		case RenderAPI::OPENGL: result =  genew GLFramebufferDepth(width, height); break;
+		case RenderAPI::D3D11: result = genew DX11FramebufferDepth(width, height); break;
 		}
 
-		return nullptr;
+		if (result != nullptr)
+			s_CurrentFramebufferDepth.push_back(result);
+
+		return result;
 	}
 
 	FramebufferDepth* FramebufferDepth::ConvertRenderAPI(RenderAPI api, FramebufferDepth* original)
 	{
+		if (original == nullptr)
+			return nullptr;
+
 		if (HasRenderAPIChange(original))
 			return GetRenderAPIChange(original);
 
@@ -43,24 +49,30 @@ namespace gebase { namespace graphics {
 
 	void FramebufferDepth::PrepareRenderAPIChange(RenderAPI newApi)
 	{
+		std::vector<FramebufferDepth*> temp(s_CurrentFramebufferDepth);
+		s_CurrentFramebufferDepth.clear();
+		s_CurrentFramebufferDepth.shrink_to_fit();
+
+		for (uint i = 0; i < temp.size(); i++)
+			ConvertRenderAPI(newApi, temp[i]);
+
+		temp.clear();
+		temp.shrink_to_fit();
 	}
 
 	void FramebufferDepth::FlushRenderAPIChange(RenderAPI prevApi)
 	{
 		std::map<FramebufferDepth*, FramebufferDepth*>::iterator it;
-		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
+		for (it = s_APIChangeMapFramebufferDepth.begin(); it != s_APIChangeMapFramebufferDepth.end(); it++)
 		{
-			//gedel ((FramebufferDepth*)it->first);
 			switch (prevApi)
 			{
 			case RenderAPI::OPENGL: gedel((GLFramebufferDepth*)it->first); break;
-				//case RenderAPI::VULKAN: gedel (VKFramebufferDepth*)it->first); break;
 			case RenderAPI::D3D11: gedel((DX11FramebufferDepth*)it->first); break;
-				//case RenderAPI::D3D12: gedel ((DX12FramebufferDepth*)it->first); break;
 			}
 		}
 
-		s_APIChangeMap.clear();
+		s_APIChangeMapFramebufferDepth.clear();
 	}
 
 } }

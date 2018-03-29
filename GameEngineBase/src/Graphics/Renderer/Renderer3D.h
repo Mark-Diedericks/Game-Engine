@@ -24,9 +24,6 @@ namespace gebase { namespace graphics {
 	public:
 		virtual ~Renderer3D() {}
 
-		virtual bool PreEmployRenderAPI() = 0;
-		virtual bool EmployRenderAPI(RenderAPI api) = 0;
-
 		virtual void Init() = 0;
 		
 		virtual void Begin() = 0;

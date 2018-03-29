@@ -192,6 +192,7 @@
     <ClCompile Include="src\Backend\API\APIContext.cpp" />
     <ClCompile Include="src\Backend\API\APIConvert.cpp" />
     <ClCompile Include="src\Backend\API\APIRenderer.cpp" />
+    <ClCompile Include="src\Graphics\IRenderAPIEmployable.cpp" />
     <ClCompile Include="src\Graphics\Shader\ShaderUniform.cpp" />
     <ClCompile Include="src\Backend\D3D\11\DX11Context.cpp" />
     <ClCompile Include="src\Backend\D3D\11\DX11Convert.cpp" />
@@ -322,6 +323,7 @@
     <ClInclude Include="src\Backend\API\APIContext.h" />
     <ClInclude Include="src\Backend\API\APIConvert.h" />
     <ClInclude Include="src\Backend\API\APIRenderer.h" />
+    <ClInclude Include="src\Graphics\IRenderAPIEmployable.h" />
     <ClInclude Include="src\Graphics\Shader\ShaderDeclaration.h" />
     <ClInclude Include="src\Graphics\Shader\ShaderResource.h" />
     <ClInclude Include="src\Graphics\Shader\ShaderUniform.h" />

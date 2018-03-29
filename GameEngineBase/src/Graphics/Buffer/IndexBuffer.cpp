@@ -10,37 +10,46 @@
 
 namespace gebase { namespace graphics {
 
-	std::map<IndexBuffer*, IndexBuffer*> IndexBuffer::s_APIChangeMap;
-	std::vector<IndexBuffer*> IndexBuffer::s_Current;
+	std::map<IndexBuffer*, IndexBuffer*> IndexBuffer::s_APIChangeMapIndexBuffer;
+	std::vector<IndexBuffer*> IndexBuffer::s_CurrentIndexBuffer;
 
 	IndexBuffer* IndexBuffer::Create(uint16* data, uint count)
 	{
+		IndexBuffer* result;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
-		case RenderAPI::OPENGL: return genew GLIndexBuffer(data, count);
-			//case RenderAPI::VULKAN: return genew VKIndexBuffer(data, count);
-		case RenderAPI::D3D11: return genew DX11IndexBuffer(data, count);
-			//case RenderAPI::D3D12: return genew DX12IndexBuffer(data, count);
+		case RenderAPI::OPENGL: result = genew GLIndexBuffer(data, count); break;
+		case RenderAPI::D3D11: result = genew DX11IndexBuffer(data, count); break;
 		}
 
-		return nullptr;
+		if (result != nullptr)
+			s_CurrentIndexBuffer.push_back(result);
+
+		return result;
 	}
 
 	IndexBuffer* IndexBuffer::Create(uint* data, uint count)
 	{
+		IndexBuffer* result;
+
 		switch (gebase::graphics::Context::getRenderAPI())
 		{
-		case RenderAPI::OPENGL: return genew GLIndexBuffer(data, count);
-			//case RenderAPI::VULKAN: return genew VKIndexBuffer(data, count);
-		case RenderAPI::D3D11: return genew DX11IndexBuffer(data, count);
-			//case RenderAPI::D3D12: return genew DX12IndexBuffer(data, count);
+		case RenderAPI::OPENGL: result = genew GLIndexBuffer(data, count); break;
+		case RenderAPI::D3D11: result = genew DX11IndexBuffer(data, count); break;
 		}
 
-		return nullptr;
+		if (result != nullptr)
+			s_CurrentIndexBuffer.push_back(result);
+
+		return result;
 	}
 
 	IndexBuffer* IndexBuffer::ConvertRenderAPI(RenderAPI api, IndexBuffer* original)
 	{
+		if (original == nullptr)
+			return nullptr;
+
 		if (HasRenderAPIChange(original))
 			return GetRenderAPIChange(original);
 
@@ -82,24 +91,30 @@ namespace gebase { namespace graphics {
 
 	void IndexBuffer::PrepareRenderAPIChange(RenderAPI newApi)
 	{
+		std::vector<IndexBuffer*> temp(s_CurrentIndexBuffer);
+		s_CurrentIndexBuffer.clear();
+		s_CurrentIndexBuffer.shrink_to_fit();
+
+		for (uint i = 0; i < temp.size(); i++)
+			ConvertRenderAPI(newApi, temp[i]);
+
+		temp.clear();
+		temp.shrink_to_fit();
 	}
 
 	void IndexBuffer::FlushRenderAPIChange(RenderAPI prevApi)
 	{
 		std::map<IndexBuffer*, IndexBuffer*>::iterator it;
-		for (it = s_APIChangeMap.begin(); it != s_APIChangeMap.end(); it++)
+		for (it = s_APIChangeMapIndexBuffer.begin(); it != s_APIChangeMapIndexBuffer.end(); it++)
 		{
-			//gedel ((IndexBuffer*)it->first);
 			switch (prevApi)
 			{
 			case RenderAPI::OPENGL: gedel((GLIndexBuffer*)it->first); break;
-				//case RenderAPI::VULKAN: gedel (VKIndexBuffer*)it->first); break;
 			case RenderAPI::D3D11: gedel((DX11IndexBuffer*)it->first); break;
-				//case RenderAPI::D3D12: gedel ((DX12IndexBuffer*)it->first); break;
 			}
 		}
 
-		s_APIChangeMap.clear();
+		s_APIChangeMapIndexBuffer.clear();
 	}
 
 } }

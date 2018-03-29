@@ -42,20 +42,6 @@ namespace gebase { namespace graphics {
 		m_Mesh->Render(renderer);
 	}
 
-	bool Model::PreEmployRenderAPI()
-	{
-		return m_Mesh->PreEmployRenderAPI();
-	}
-
-	bool Model::EmployRenderAPI(RenderAPI api)
-	{
-		if (m_Mesh)
-			if (!m_Mesh->EmployRenderAPI(api))
-				return false;
-
-		return true;
-	}
-
 	byte* ReadBytes(FILE* file, byte* buffer, uint size)
 	{
 		fread(buffer, 1, size, file);
@@ -153,7 +139,8 @@ namespace gebase { namespace graphics {
 
 		fclose(f);
 
-		ShaderManager::Get("AdvancedLighting")->Bind();
+		Shader* shader = ShaderManager::Get("AdvancedLighting");
+		shader->Bind();
 
 		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::STATIC);
 		vb->setData(format.vertexBufferSize, format.vertexData);
@@ -164,7 +151,7 @@ namespace gebase { namespace graphics {
 		layout.Push<math::Vector2f>("TEXCOORD");
 		layout.Push<math::Vector3f>("BINORMAL");
 		layout.Push<math::Vector3f>("TANGENT");
-		vb->setLayout(layout);
+		vb->setLayout(layout, shader);
 
 		VertexArray* va = VertexArray::Create();
 		va->PushBuffer(vb);
@@ -177,5 +164,51 @@ namespace gebase { namespace graphics {
 		m_Mesh->setDebugData((Vertex*)format.vertexData, format.vertexBufferSize / sizeof(Vertex));
 #endif
 	}
+
+	bool Model::EmployRenderAPIShader(RenderAPI api)
+	{
+		return m_Mesh->EmployRenderAPIShader(api);
+	}
+
+	bool Model::EmployRenderAPITexture2D(RenderAPI api)
+	{
+		return m_Mesh->EmployRenderAPITexture2D(api);
+	}
+
+	bool Model::EmployRenderAPITextureCube(RenderAPI api)
+	{
+		return m_Mesh->EmployRenderAPITextureCube(api);
+	}
+
+	bool Model::EmployRenderAPITextureDepth(RenderAPI api)
+	{
+		return m_Mesh->EmployRenderAPITextureDepth(api);
+	}
+
+	bool Model::EmployRenderAPIFramebuffer2D(RenderAPI api)
+	{
+		return m_Mesh->EmployRenderAPIFramebuffer2D(api);
+	}
+
+	bool Model::EmployRenderAPIFramebufferDepth(RenderAPI api)
+	{
+		return m_Mesh->EmployRenderAPIFramebufferDepth(api);
+	}
+
+	bool Model::EmployRenderAPIIndexBuffer(RenderAPI api)
+	{
+		return m_Mesh->EmployRenderAPIIndexBuffer(api);
+	}
+
+	bool Model::EmployRenderAPIVertexBuffer(RenderAPI api)
+	{
+		return m_Mesh->EmployRenderAPIVertexBuffer(api);
+	}
+
+	bool Model::EmployRenderAPIVertexArray(RenderAPI api)
+	{
+		return m_Mesh->EmployRenderAPIVertexArray(api);
+	}
+
 
 } }

@@ -16,10 +16,15 @@ namespace gebase { namespace graphics {
 			this->transform = math::Matrix4f::Scale((float)texture->getWidth() / (float)texture->getHeight(), 1.0f, 1.0f);
 		}
 
-		bool EmployRenderAPI(RenderAPI api) override
-		{
-			return texture = Texture2D::ConvertRenderAPI(api, texture);
-		}
+		inline bool EmployRenderAPIShader(RenderAPI api) override { return true; }
+		inline bool EmployRenderAPITexture2D(RenderAPI api) override { texture = Texture2D::ConvertRenderAPI(api, texture); return true; }
+		inline bool EmployRenderAPITextureCube(RenderAPI api) override { return true; }
+		inline bool EmployRenderAPITextureDepth(RenderAPI api) override { return true; }
+		inline bool EmployRenderAPIFramebuffer2D(RenderAPI api) override { return true; }
+		inline bool EmployRenderAPIFramebufferDepth(RenderAPI api) override { return true; }
+		inline bool EmployRenderAPIIndexBuffer(RenderAPI api) override { return true; }
+		inline bool EmployRenderAPIVertexBuffer(RenderAPI api) override { return true; }
+		inline bool EmployRenderAPIVertexArray(RenderAPI api) override { return true; }
 	};
 
 } }

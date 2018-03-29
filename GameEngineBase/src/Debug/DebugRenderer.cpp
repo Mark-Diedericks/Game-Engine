@@ -39,7 +39,7 @@ namespace gebase { namespace debug {
 		BufferLayout layout;
 		layout.Push<Vector3f>("position");
 		layout.Push<byte>("color", 4, true);
-		vb->setLayout(layout);
+		vb->setLayout(layout, s_Shader);
 
 		s_VertexArray = VertexArray::Create();
 		s_VertexArray->PushBuffer(vb);
@@ -54,6 +54,13 @@ namespace gebase { namespace debug {
 		vb->Unbind();
 		s_VertexArray->Unbind();
 		s_IndexCount = 0;
+	}
+
+	bool DebugRenderer::EmployRenderAPI(graphics::RenderAPI api)
+	{
+		s_Shader = Shader::ConvertRenderAPI(api, s_Shader);
+		s_VertexArray = VertexArray::ConvertRenderAPI(api, s_VertexArray);
+		return true;
 	}
 
 	void DebugRenderer::Shutdown()

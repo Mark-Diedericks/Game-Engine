@@ -20,9 +20,18 @@ namespace gebase { namespace graphics {
 
 		void Push(PostEffectsPass* pass);
 		void Pop();
-
-		bool EmployRenderAPI(RenderAPI api) override;
+		
 		void RenderPostEffects(Framebuffer* source, Framebuffer* target, VertexArray* quad, IndexBuffer* indices);
+
+		bool EmployRenderAPIShader(RenderAPI api) override;
+		bool EmployRenderAPITexture2D(RenderAPI api) override;
+		bool EmployRenderAPITextureCube(RenderAPI api) override;
+		bool EmployRenderAPITextureDepth(RenderAPI api) override;
+		bool EmployRenderAPIFramebuffer2D(RenderAPI api) override;
+		bool EmployRenderAPIFramebufferDepth(RenderAPI api) override;
+		bool EmployRenderAPIIndexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexBuffer(RenderAPI api) override;
+		bool EmployRenderAPIVertexArray(RenderAPI api) override;
  	};
 
 } }
