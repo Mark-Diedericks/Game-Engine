@@ -36,7 +36,7 @@
 #include "Graphics/Font/FontManager.h"
 
 #include "Graphics/GBuffer.h"
-#include "Graphics/IRenderable.h"
+#include "Graphics/Renderable/IRenderable.h"
 #include "Graphics/Label.h"
 #include "Graphics/Mask.h"
 
@@ -47,7 +47,7 @@
 #include "Graphics/Mesh/MeshFactory.h"
 #include "Graphics/Mesh/Model.h"
 
-#include "Graphics/Renderable2D.h"
+#include "Graphics/Renderable/Renderable2D.h"
 #include "Graphics/RenderCommand.h"
 #include "Graphics/Scene.h"
 #include "Graphics/Sprite.h"

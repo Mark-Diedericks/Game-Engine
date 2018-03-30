@@ -1,7 +1,7 @@
 #include "ge.h"
 #include "Application/Application.h"
 #include "TextureCube.h"
-#include "Graphics/Context.h"
+#include "Graphics/Context/Context.h"
 #include "System/Memory.h"
 #include "Utils/ImageUtil.h"
 #include "Utils/LogUtil.h"

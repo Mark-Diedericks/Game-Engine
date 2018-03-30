@@ -1,24 +1,27 @@
 #include "ge.h"
 #include "Context.h"
-#include "Renderer/Renderer.h"
-#include "Backend/API/APIContext.h"
-#include "IRenderableBase.h"
-#include "Renderer/IRenderer.h"
 #include "System/Memory.h"
 #include "Application/Application.h"
 
-#include "Buffer/IndexBuffer.h"
-#include "Buffer/VertexBuffer.h"
-#include "Buffer/VertexArray.h"
+#include "Backend/GL/GLContext.h"
+#include "Backend/D3D/11/DX11Context.h"
 
-#include "Framebuffer/Framebuffer2D.h"
-#include "Framebuffer/FramebufferDepth.h"
+#include "Graphics/Renderer/IRenderer.h"
+#include "Graphics/Renderer/Renderer.h"
+#include "Graphics/Renderable/IRenderableBase.h"
 
-#include "Shader/Shader.h"
+#include "Graphics/Buffer/IndexBuffer.h"
+#include "Graphics/Buffer/VertexBuffer.h"
+#include "Graphics/Buffer/VertexArray.h"
 
-#include "Texture/Texture2D.h"
-#include "Texture/TextureDepth.h"
-#include "Texture/TextureCube.h"
+#include "Graphics/Framebuffer/Framebuffer2D.h"
+#include "Graphics/Framebuffer/FramebufferDepth.h"
+
+#include "Graphics/Shader/Shader.h"
+
+#include "Graphics/Texture/Texture2D.h"
+#include "Graphics/Texture/TextureDepth.h"
+#include "Graphics/Texture/TextureCube.h"
 
 #include "Debug/DebugRenderer.h"
 
@@ -27,6 +30,9 @@ namespace gebase { namespace graphics {
 	RenderAPI Context::s_RenderAPI = RenderAPI::NONE;
 	RenderAPI Context::s_PreviousRenderAPI = RenderAPI::NONE;
 	RenderAPI Context::s_DefaultRenderAPI = RenderAPI::OPENGL;
+
+	Context* Context::s_Context = nullptr;
+	Context* Context::s_PreviousContext = nullptr;
 
 	void* Context::s_DeviceContext = nullptr;
 	WindowProperties Context::s_Properties;
@@ -38,7 +44,17 @@ namespace gebase { namespace graphics {
 	{
 		s_Properties = properties;
 		s_DeviceContext = deviceContext;
-		APIContext::Create(properties, deviceContext);
+
+		if (s_Context != nullptr)
+			s_PreviousContext = s_Context;
+
+		s_Context = nullptr;
+
+		switch (gebase::graphics::Context::getRenderAPI())
+		{
+		case RenderAPI::OPENGL: s_Context = genew GLContext(properties, deviceContext); break;
+		case RenderAPI::D3D11: s_Context = genew DX11Context(properties, deviceContext); break;
+		}
 	}
 
 	bool Context::EmployRenderAPI(RenderAPI api)
@@ -49,7 +65,7 @@ namespace gebase { namespace graphics {
 			if (!s_RendererObjects[i]->PreEmployRenderAPI())
 				return false;
 
-		APIContext::Create(s_Properties, s_DeviceContext);
+		Context::Create(s_Properties, s_DeviceContext);
 
 		if (!Renderer::EmployRenderAPI(api))
 			return false;
@@ -65,7 +81,7 @@ namespace gebase { namespace graphics {
 		const uint RenderableObjectsSize = s_RenderableObjects.size();
 		const uint MAX_SIZE = RendererObjectsSize > RenderableObjectsSize ? RendererObjectsSize : RenderableObjectsSize;
 
-		APIRenderer::DestroyPrevious();
+		Renderer::DestroyPrevious();
 
 		EmployRenderAPIShader(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
 
@@ -91,7 +107,7 @@ namespace gebase { namespace graphics {
 
 	void Context::FlushRenderAPIChange(RenderAPI prevApi)
 	{
-		APIContext::DestroyPrevious();
+		Context::DestroyPrevious();
 	}
 
 	void Context::Add(IRenderer* object)

@@ -6,7 +6,7 @@
 #include "DX11Convert.h"
 #include "DX11Shader.h"
 
-#include "Backend/API/APIConvert.h"
+#include "Graphics/Context/ConversionUtil.h"
 
 namespace gebase { namespace graphics {
 
@@ -39,7 +39,7 @@ namespace gebase { namespace graphics {
 		for (uint i = 0; i < layout.size(); i++)
 		{
 			const BufferElement& element = layout[i];
-			desc[i] = { element.name.c_str(), 0, (DXGI_FORMAT)APIConvert::BufferElementTypeToDX(element.type), 0, element.offset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+			desc[i] = { element.name.c_str(), 0, (DXGI_FORMAT)ConversionUtil::BufferElementTypeToDX(element.type), 0, element.offset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
 		}
 
 		//const DX11Shader* shader = DX11Shader::CurrentlyBound();

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Common.h"
-#include "Graphics/Context.h"
-#include "Graphics/IRenderAPIEmployable.h"
+#include "Graphics/Context/Context.h"
+#include "Graphics/BackendDependency/IRenderAPIEmployable.h"
 
 namespace gebase { namespace graphics {
 

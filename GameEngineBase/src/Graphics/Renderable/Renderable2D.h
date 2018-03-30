@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Common.h"
-#include "Texture/Texture.h"
-#include "Buffer/VertexBuffer.h"
-#include "Buffer/IndexBuffer.h"
-#include "Shader/Shader.h"
+#include "Graphics/Texture/Texture.h"
+#include "Graphics/Buffer/VertexBuffer.h"
+#include "Graphics/Buffer/IndexBuffer.h"
+#include "Graphics/Shader/Shader.h"
 #include "Math/Maths.h"
 #include "IRenderableBase.h"
 

@@ -1,6 +1,6 @@
 #include "ge.h"
 #include "TextureDepth.h"
-#include "Graphics/Context.h"
+#include "Graphics/Context/Context.h"
 #include "System/Memory.h"
 #include "Application/Application.h"
 

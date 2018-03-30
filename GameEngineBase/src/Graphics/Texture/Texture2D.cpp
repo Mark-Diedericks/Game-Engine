@@ -2,10 +2,10 @@
 #include "Texture2D.h"
 #include "Application/Application.h"
 
-#include "Graphics/Context.h"
+#include "Graphics/Context/Context.h"
 #include "System/Memory.h"
 #include "Utils/ImageUtil.h"
-#include "Utils\LogUtil.h"
+#include "Utils/LogUtil.h"
 
 #include "Backend/GL/GLTexture2D.h"
 #include "Backend/D3D/11/DX11Texture2D.h"

@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Common.h"
-#include "Backend/API/APIRenderer.h"
+#include "Graphics/Renderer/Renderer.h"
 #include "GLContext.h"
 #include "GLCommon.h"
 
 namespace gebase { namespace graphics {
 
-	class GLRenderer : public APIRenderer
+	class GLRenderer : public Renderer
 	{
 	private:
 		GLContext* m_Context;

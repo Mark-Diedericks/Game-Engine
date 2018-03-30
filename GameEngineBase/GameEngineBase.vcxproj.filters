@@ -90,12 +90,6 @@
     <ClCompile Include="src\ge.cpp">
       <Filter>src\ge</Filter>
     </ClCompile>
-    <ClCompile Include="src\Backend\API\APIContext.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Backend\API\APIRenderer.cpp">
-      <Filter>src\ge\backend\api</Filter>
-    </ClCompile>
     <ClCompile Include="src\Backend\D3D\11\DX11Context.cpp">
       <Filter>src\ge\backend\d3d\11</Filter>
     </ClCompile>
@@ -324,9 +318,6 @@
     <ClCompile Include="src\Graphics\Camera\Camera.cpp">
       <Filter>src\ge\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\Context.cpp">
-      <Filter>src\ge\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\Graphics\Renderer\DeferredRenderer.cpp">
       <Filter>src\ge\graphics</Filter>
     </ClCompile>
@@ -405,9 +396,6 @@
     <ClCompile Include="src\Graphics\PostEffect\PostEffectsPass.cpp">
       <Filter>src\ge\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\Renderable2D.cpp">
-      <Filter>src\ge\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\Graphics\Renderer\Renderer.cpp">
       <Filter>src\ge\graphics</Filter>
     </ClCompile>
@@ -450,8 +438,6 @@
     <ClCompile Include="src\Graphics\Buffer\VertexBuffer.cpp">
       <Filter>src\ge\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\IRenderAPIDependant.cpp" />
-    <ClCompile Include="src\Backend\API\APIConvert.cpp" />
     <ClCompile Include="src\Utils\LogUtil.cpp" />
     <ClCompile Include="src\Utils\LogStream.cpp" />
     <ClCompile Include="src\Platform\Win32\Win32Timer.cpp" />
@@ -461,7 +447,15 @@
     <ClCompile Include="src\Graphics\Shader\ShaderUniform.cpp">
       <Filter>src\ge\backend\api</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\IRenderAPIEmployable.cpp" />
+    <ClCompile Include="src\Graphics\Renderable\Renderable2D.cpp">
+      <Filter>src\ge\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\BackendDependency\IRenderAPIDependant.cpp" />
+    <ClCompile Include="src\Graphics\BackendDependency\IRenderAPIEmployable.cpp" />
+    <ClCompile Include="src\Graphics\Context\Context.cpp">
+      <Filter>src\ge\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Context\ConversionUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ge.h">
@@ -472,12 +466,6 @@
     </ClInclude>
     <ClInclude Include="src\Types.h">
       <Filter>src\ge</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APIContext.h">
-      <Filter>src\ge\backend\api</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Backend\API\APIRenderer.h">
-      <Filter>src\ge\backend\api</Filter>
     </ClInclude>
     <ClInclude Include="src\Backend\D3D\11\DX11Common.h">
       <Filter>src\ge\backend\d3d\11</Filter>
@@ -731,9 +719,6 @@
     <ClInclude Include="src\Graphics\Camera\Camera.h">
       <Filter>src\ge\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\Context.h">
-      <Filter>src\ge\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\Graphics\Renderer\DeferredRenderer.h">
       <Filter>src\ge\graphics</Filter>
     </ClInclude>
@@ -765,9 +750,6 @@
       <Filter>src\ge\graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\Buffer\IndexBuffer.h">
-      <Filter>src\ge\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\IRenderable.h">
       <Filter>src\ge\graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\Label.h">
@@ -818,9 +800,6 @@
     <ClInclude Include="src\Graphics\PostEffect\PostEffectsPass.h">
       <Filter>src\ge\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\Renderable2D.h">
-      <Filter>src\ge\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\Graphics\RenderCommand.h">
       <Filter>src\ge\graphics</Filter>
     </ClInclude>
@@ -869,9 +848,6 @@
     <ClInclude Include="src\GameEngineBase.h">
       <Filter>src\ge</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\IRenderAPIDependant.h" />
-    <ClInclude Include="src\Backend\API\APIConvert.h" />
-    <ClInclude Include="src\Graphics\IRenderableBase.h" />
     <ClInclude Include="src\Graphics\Renderer\IRenderer.h" />
     <ClInclude Include="src\Utils\LogStream.h" />
     <ClInclude Include="src\Utils\LogUtil.h" />
@@ -888,7 +864,19 @@
     <ClInclude Include="src\Graphics\Shader\ShaderUniform.h">
       <Filter>src\ge\backend\api</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\IRenderAPIEmployable.h" />
+    <ClInclude Include="src\Graphics\Renderable\Renderable2D.h">
+      <Filter>src\ge\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Renderable\IRenderableBase.h" />
+    <ClInclude Include="src\Graphics\Renderable\IRenderable.h">
+      <Filter>src\ge\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\BackendDependency\IRenderAPIEmployable.h" />
+    <ClInclude Include="src\Graphics\BackendDependency\IRenderAPIDependant.h" />
+    <ClInclude Include="src\Graphics\Context\ConversionUtil.h" />
+    <ClInclude Include="src\Graphics\Context\Context.h">
+      <Filter>src\ge\graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Graphics\Shader\default\BasicLight.shader">

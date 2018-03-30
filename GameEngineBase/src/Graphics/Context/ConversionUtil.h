@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Common.h"
-#include "Graphics\Buffer\BufferLayout.h"
-#include "Graphics/Context.h"
+#include "Graphics/Buffer/BufferLayout.h"
+#include "Graphics/Context/Context.h"
 
 namespace gebase { namespace graphics {
 
 	enum class BufferElementType;
 
-	class GE_API APIConvert
+	class GE_API ConversionUtil
 	{
 	public:
 		static uint GetBufferElementSize(BufferElementType type, RenderAPI api = Context::getRenderAPI());

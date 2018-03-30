@@ -1,6 +1,6 @@
 #include "ge.h"
 #include "ShaderFactory.h"
-#include "Graphics/Context.h"
+#include "Graphics/Context/Context.h"
 
 namespace gebase{ namespace graphics { namespace ShaderFactory {
 

@@ -2,7 +2,7 @@
 #include "Common.h"
 #include "VertexBuffer.h"
 
-#include "Graphics/Context.h"
+#include "Graphics/Context/Context.h"
 #include "System/Memory.h"
 #include "Application/Application.h"
 

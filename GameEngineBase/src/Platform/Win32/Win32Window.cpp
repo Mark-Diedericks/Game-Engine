@@ -11,7 +11,7 @@
 
 #include "Application/Application.h"
 #include "Application/Window.h"
-#include "Graphics/Context.h"
+#include "Graphics/Context/Context.h"
 #include "Graphics/Renderer/Renderer.h"
 
 #include "Graphics/Font/FontManager.h"

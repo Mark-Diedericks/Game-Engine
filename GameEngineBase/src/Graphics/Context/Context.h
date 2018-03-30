@@ -2,7 +2,8 @@
 
 #include "Common.h"
 #include "Application/Window.h"
-#include "Backend/API/APIContext.h"
+#include "System/Memory.h"
+
 namespace gebase { namespace graphics { 
 
 	class IRenderAPIDependant;
@@ -38,12 +39,24 @@ namespace gebase { namespace graphics {
 		static bool EmployRenderAPIFramebuffer2D(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize);
 		static bool EmployRenderAPIFramebufferDepth(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize);
 		static bool EmployRenderAPIIndexBuffer(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize);
-		static bool EmployRenderAPIVertexBuffer(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize);
 		static bool EmployRenderAPIVertexArray(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize);
+	protected:
+		static Context* s_Context;
+		static Context* s_PreviousContext;
 
-		Context();
+		virtual void DestroyInternal() = 0;
+		inline static void DestroyPrevious()
+		{
+			if (s_PreviousContext != nullptr)
+			{
+				s_PreviousContext->DestroyInternal();
+				gedel s_PreviousContext;
+			}
+
+		}
 	public:
 		static void Create(WindowProperties properties, void* deviceContext);
+		inline static void Destroy() { s_Context->DestroyInternal(); }
 
 		static RenderAPI getRenderAPI() { return s_RenderAPI; }
 		static void setRenderAPI(RenderAPI api) { s_PreviousRenderAPI = s_RenderAPI;  s_RenderAPI = api; }

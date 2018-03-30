@@ -3,7 +3,7 @@
 #include "GLCommon.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Texture/Texture2D.h"
-#include "Backend/API/APIRenderer.h"
+#include "Graphics/Renderer/Renderer.h"
 
 namespace gebase { namespace graphics {
 

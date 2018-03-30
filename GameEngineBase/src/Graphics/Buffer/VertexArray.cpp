@@ -2,12 +2,12 @@
 #include "Common.h"
 #include "VertexArray.h"
 
-#include "Graphics/Context.h"
+#include "Graphics/Context/Context.h"
 #include "System/Memory.h"
 #include "Application/Application.h"
 
-#include "Backend\GL\GLVertexArray.h"
-#include "Backend\D3D\11\DX11VertexArray.h"
+#include "Backend/GL/GLVertexArray.h"
+#include "Backend/D3D/11/DX11VertexArray.h"
 
 namespace gebase { namespace graphics {
 

@@ -3,7 +3,7 @@
 #include "ge.h"
 #include "Common.h"
 #include "CustomString.h"
-#include "Graphics/IRenderAPIDependant.h"
+#include "Graphics/BackendDependency/IRenderAPIDependant.h"
 
 namespace gebase { namespace graphics {
 

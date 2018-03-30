@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Common.h"
-#include "Graphics/Renderable2D.h"
+#include "Graphics/Renderable/Renderable2D.h"
 
 namespace gebase { namespace graphics {
 

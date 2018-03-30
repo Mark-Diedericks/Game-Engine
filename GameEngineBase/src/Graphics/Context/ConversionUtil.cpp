@@ -1,16 +1,16 @@
 #include "ge.h"
-#include "APIConvert.h"
+#include "ConversionUtil.h"
 
 #include "Backend/GL/GLTypes.h"
 #include "Backend/D3D/D3DTypes.h"
 #include "Backend/VK/VKTypes.h"
 
-#include "Graphics\Buffer\BufferLayout.h"
-#include "Graphics/Context.h"
+#include "Graphics/Buffer/BufferLayout.h"
+#include "Graphics/Context/Context.h"
 
 namespace gebase { namespace graphics {
 
-	uint APIConvert::GetBufferElementSize(BufferElementType type, graphics::RenderAPI api)
+	uint ConversionUtil::GetBufferElementSize(BufferElementType type, graphics::RenderAPI api)
 	{
 		switch (api)
 		{
@@ -21,7 +21,7 @@ namespace gebase { namespace graphics {
 		return 0;
 	}	
 	
-	uint APIConvert::GetBufferElementType(BufferElementType type, graphics::RenderAPI api)
+	uint ConversionUtil::GetBufferElementType(BufferElementType type, graphics::RenderAPI api)
 	{
 		switch (api)
 		{
@@ -32,7 +32,7 @@ namespace gebase { namespace graphics {
 		return 0;
 	}
 
-	uint APIConvert::BufferElementSizeToGL(BufferElementType type)
+	uint ConversionUtil::BufferElementSizeToGL(BufferElementType type)
 	{
 		switch (type)
 		{
@@ -47,7 +47,7 @@ namespace gebase { namespace graphics {
 		return 0;
 	}
 
-	uint APIConvert::BufferElementSizeToDX(BufferElementType type)
+	uint ConversionUtil::BufferElementSizeToDX(BufferElementType type)
 	{
 		switch (type)
 		{
@@ -62,7 +62,7 @@ namespace gebase { namespace graphics {
 		return 0;
 	}
 
-	uint APIConvert::BufferElementTypeToGL(BufferElementType type)
+	uint ConversionUtil::BufferElementTypeToGL(BufferElementType type)
 	{
 		switch (type)
 		{
@@ -77,7 +77,7 @@ namespace gebase { namespace graphics {
 		return 0;
 	}
 
-	uint APIConvert::BufferElementTypeToDX(BufferElementType type)
+	uint ConversionUtil::BufferElementTypeToDX(BufferElementType type)
 	{
 		switch (type)
 		{

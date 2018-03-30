@@ -6,7 +6,7 @@
 #include "Types.h"
 #include "Graphics/Scene2D.h"
 #include "Events/Event.h"
-#include "Graphics/Renderable2D.h"
+#include "Graphics/Renderable/Renderable2D.h"
 #include "Graphics/Mask.h"
 
 namespace gebase { namespace graphics {

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Backend/API/APIContext.h"
+#include "Graphics/Context/Context.h"
 #include "GLCommon.h"
 
 namespace gebase { namespace graphics {
 
-	class GLContext : public APIContext
+	class GLContext : public Context
 	{
 	private:
 		void setVSync(bool enabled);

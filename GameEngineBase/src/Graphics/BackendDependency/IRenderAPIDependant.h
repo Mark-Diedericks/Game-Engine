@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Common.h"
-#include "Context.h"
-#include "Utils\Timer.h"
+#include "Graphics/Context/Context.h"
+#include "Utils/Timer.h"
 #include "IRenderAPIEmployable.h"
 
 namespace gebase { namespace graphics {

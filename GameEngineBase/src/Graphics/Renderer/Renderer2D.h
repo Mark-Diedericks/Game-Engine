@@ -4,7 +4,7 @@
 #include "Common.h"
 #include "Types.h"
 
-#include "Graphics/Renderable2D.h"
+#include "Graphics/Renderable/Renderable2D.h"
 #include "Graphics/Framebuffer/Framebuffer2D.h"
 #include "Graphics/Mask.h"
 #include "Graphics/Font/FontManager.h"

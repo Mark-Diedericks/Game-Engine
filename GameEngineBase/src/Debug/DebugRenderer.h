@@ -5,7 +5,7 @@
 #include "Graphics/Shader/Shader.h"
 #include "Graphics/Mesh/Mesh.h"
 #include "Graphics/Camera/Camera.h"
-#include "Graphics/Context.h"
+#include "Graphics/Context/Context.h"
 
 #include "Math/Maths.h"
 

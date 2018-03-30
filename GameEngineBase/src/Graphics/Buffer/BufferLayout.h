@@ -3,7 +3,7 @@
 #include "Common.h"
 #include "Math/Maths.h"
 
-#include "Graphics/Context.h"
+#include "Graphics/Context/Context.h"
 
 #include "Backend/GL/GLTypes.h"
 #include "Backend/D3D/D3DTypes.h"

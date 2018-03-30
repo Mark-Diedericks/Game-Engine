@@ -1,10 +1,10 @@
 #pragma once
-#include "Backend/API/APIContext.h"
+#include "Graphics/Context/Context.h"
 #include "DX11Common.h"
 
 namespace gebase { namespace graphics {
 
-	class DX11Context : public APIContext
+	class DX11Context : public Context
 	{
 	private:
 		D3D_FEATURE_LEVEL m_D3DFeatureLevel;

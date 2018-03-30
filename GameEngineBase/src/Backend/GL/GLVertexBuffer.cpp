@@ -2,7 +2,7 @@
 #include "Common.h"
 #include "GLConvert.h"
 #include "GLVertexBuffer.h"
-#include "Backend/API/APIConvert.h"
+#include "Graphics/Context/ConversionUtil.h"
 
 #include <GL\glew.h>
 
@@ -38,7 +38,7 @@ namespace gebase { namespace graphics {
 		{
 			const BufferElement& element = layout[i];
 			GLCall(glEnableVertexAttribArray(i));
-			GLCall(glVertexAttribPointer(i, element.count.gl_count, APIConvert::BufferElementTypeToGL(element.type), element.normalized, bufferLayout.getStride(), (const void*)element.offset));
+			GLCall(glVertexAttribPointer(i, element.count.gl_count, ConversionUtil::BufferElementTypeToGL(element.type), element.normalized, bufferLayout.getStride(), (const void*)element.offset));
 		}
 	}
 

@@ -5,7 +5,7 @@
 
 #include "Math/Maths.h"
 #include "System/VirtualFileSystem.h"
-#include "Graphics/IRenderAPIDependant.h"
+#include "Graphics/BackendDependency/IRenderAPIDependant.h"
 
 #include "ShaderUniform.h"
 #include "ShaderResource.h"

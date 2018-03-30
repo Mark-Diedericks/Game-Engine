@@ -1,12 +1,12 @@
 #include "ge.h"
 #include "Framebuffer2D.h"
-#include "Graphics/Context.h"
+#include "Graphics/Context/Context.h"
 
 #include "System/Memory.h"
 #include "Application/Application.h"
 
-#include "Backend\GL\GLFramebuffer2D.h"
-#include "Backend\D3D\11\DX11Framebuffer2D.h"
+#include "Backend/GL/GLFramebuffer2D.h"
+#include "Backend/D3D/11/DX11Framebuffer2D.h"
 
 namespace gebase { namespace graphics {
 

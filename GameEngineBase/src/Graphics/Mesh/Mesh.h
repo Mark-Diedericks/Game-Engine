@@ -4,7 +4,7 @@
 #include "Graphics/Buffer/VertexArray.h"
 #include "Graphics/Buffer/IndexBuffer.h"
 #include "Graphics/Material/Material.h"
-#include "Graphics/IRenderable.h"
+#include "Graphics/Renderable/IRenderable.h"
 
 namespace gebase { namespace graphics {
 

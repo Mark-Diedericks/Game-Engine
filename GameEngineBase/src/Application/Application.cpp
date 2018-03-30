@@ -9,7 +9,7 @@
 #include "System/Memory.h"
 
 #include "Utils/LogUtil.h"
-#include "Graphics/IRenderAPIDependant.h"
+#include "Graphics/BackendDependency/IRenderAPIDependant.h"
 #include "Graphics/Framebuffer/FramebufferDepth.h"
 
 namespace gebase {

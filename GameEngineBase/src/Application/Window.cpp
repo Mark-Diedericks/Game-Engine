@@ -1,6 +1,6 @@
 #include "ge.h"
 #include "Window.h"
-#include "Graphics/Context.h"
+#include "Graphics/Context/Context.h"
 #include "Embedded/Embedded.h"
 #include "Audio/SoundManager.h"
 

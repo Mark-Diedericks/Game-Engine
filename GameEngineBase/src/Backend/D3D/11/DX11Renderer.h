@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Backend/API/APIRenderer.h"
+#include "Graphics/Renderer/Renderer.h"
 #include "DX11Context.h"
 
 namespace gebase { namespace graphics {
 	
-	class DX11Renderer : public APIRenderer
+	class DX11Renderer : public Renderer
 	{
 	private:
 		static std::vector<ID3D11BlendState*> s_BlendStates;

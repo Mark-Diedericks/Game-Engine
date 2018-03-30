@@ -1,7 +1,7 @@
 #include "ge.h"
 #include "Common.h"
 #include "Renderable2D.h"
-#include "Renderer/Renderer2D.h"
+#include "Graphics/Renderer/Renderer2D.h"
 
 namespace gebase { namespace graphics {
 

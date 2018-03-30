@@ -4,7 +4,7 @@
 #include "Common.h"
 #include "BufferLayout.h"
 #include "System/Memory.h"
-#include "Graphics/IRenderAPIDependant.h"
+#include "Graphics/BackendDependency/IRenderAPIDependant.h"
 #include "Graphics/Shader/Shader.h"
 
 namespace gebase { namespace graphics {

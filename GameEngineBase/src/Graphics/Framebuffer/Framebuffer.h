@@ -2,7 +2,7 @@
 
 #include "Common.h"
 #include "Graphics/Texture/Texture.h"
-#include "Graphics/IRenderAPIDependant.h"
+#include "Graphics/BackendDependency/IRenderAPIDependant.h"
 
 namespace gebase { namespace graphics {
 

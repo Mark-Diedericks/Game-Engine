@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Common.h"
-#include "Context.h"
+#include "Graphics/Context/Context.h"
 
 namespace gebase { namespace graphics {
 
