@@ -17,7 +17,7 @@ namespace gebase {
 
 		if (error != GL_NO_ERROR)
 		{
-			utils::LogUtil::WriteLine("ERROR", "[OpenGL Error] - " + std::to_string((short)glGetString(error)) + "(" + std::to_string(error) + "): " + (String)function + " in file " + (String)file + " at line " + std::to_string(line));
+			utils::LogUtil::WriteLine("ERROR", "[OpenGL Error] - " + std::to_string((byte)*glGetString(error)) + "(" + std::to_string(error) + "): " + (String)function + " in file " + (String)file + " at line " + std::to_string(line));
 			return false;
 		}
 

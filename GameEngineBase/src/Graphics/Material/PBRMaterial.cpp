@@ -213,14 +213,6 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-	bool PBRMaterial::EmployRenderAPIVertexBuffer(RenderAPI api)
-	{
-		if (!Material::EmployRenderAPIVertexBuffer(api))
-			return false;
-
-		return true;
-	}
-
 	bool PBRMaterial::EmployRenderAPIVertexArray(RenderAPI api)
 	{
 		if (!Material::EmployRenderAPIVertexArray(api))
@@ -340,14 +332,6 @@ namespace gebase { namespace graphics {
 	bool PBRMaterialInstance::EmployRenderAPIIndexBuffer(RenderAPI api)
 	{
 		if (!MaterialInstance::EmployRenderAPIIndexBuffer(api))
-			return false;
-
-		return true;
-	}
-
-	bool PBRMaterialInstance::EmployRenderAPIVertexBuffer(RenderAPI api)
-	{
-		if (!MaterialInstance::EmployRenderAPIVertexBuffer(api))
 			return false;
 
 		return true;

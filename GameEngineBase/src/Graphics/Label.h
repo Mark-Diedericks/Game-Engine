@@ -37,7 +37,6 @@ namespace gebase { namespace graphics {
 		inline bool EmployRenderAPIFramebuffer2D(RenderAPI api) override { return Sprite::EmployRenderAPIFramebuffer2D(api); }
 		inline bool EmployRenderAPIFramebufferDepth(RenderAPI api) override { return Sprite::EmployRenderAPIFramebufferDepth(api); }
 		inline bool EmployRenderAPIIndexBuffer(RenderAPI api) override { return Sprite::EmployRenderAPIIndexBuffer(api); }
-		inline bool EmployRenderAPIVertexBuffer(RenderAPI api) override { return Sprite::EmployRenderAPIVertexBuffer(api); }
 		inline bool EmployRenderAPIVertexArray(RenderAPI api) override { return Sprite::EmployRenderAPIVertexArray(api); }
 
 		void Submit(Renderer2D* renderer) const override;

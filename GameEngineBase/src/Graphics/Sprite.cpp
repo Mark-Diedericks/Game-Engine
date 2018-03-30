@@ -76,11 +76,6 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-	bool Sprite::EmployRenderAPIVertexBuffer(RenderAPI api)
-	{
-		return true;
-	}
-
 	bool Sprite::EmployRenderAPIVertexArray(RenderAPI api)
 	{
 		return true;

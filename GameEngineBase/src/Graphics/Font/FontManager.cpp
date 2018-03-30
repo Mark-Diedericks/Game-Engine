@@ -105,11 +105,6 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-	bool FontManager::EmployRenderAPIVertexBuffer(RenderAPI api)
-	{
-		return true;
-	}
-
 	bool FontManager::EmployRenderAPIVertexArray(RenderAPI api)
 	{
 		return true;

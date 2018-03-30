@@ -55,9 +55,6 @@ namespace gebase { namespace graphics {
 		buffer->setData(size, data);
 		buffer->setLayout(layout, shader);
 
-		//if (data)
-		//	gedel[] data;
-
 		AddRenderAPIChange(original, buffer);
 
 		return buffer;

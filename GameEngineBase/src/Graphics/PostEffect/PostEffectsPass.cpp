@@ -61,11 +61,6 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-	bool PostEffectsPass::EmployRenderAPIVertexBuffer(RenderAPI api)
-	{
-		return true;
-	}
-
 	bool PostEffectsPass::EmployRenderAPIVertexArray(RenderAPI api)
 	{
 		return true;

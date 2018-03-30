@@ -46,6 +46,11 @@ namespace gebase { namespace graphics {
 		void AllocateStorage();
 		ShaderUniformDeclaration* FindUniformDeclaration(const String& name, byte** outBuffer = nullptr);
 		ShaderResourceDeclaration* FindResourceDeclaration(const String& name);
+
+		bool m_DoneShader = false;
+		bool m_DoneTexture2D = false;
+		bool m_DoneTextureCube = false;
+		bool m_DoneTextureDepth = false;
 	public:
 		Material(Shader* shader);
 		~Material();
@@ -57,7 +62,6 @@ namespace gebase { namespace graphics {
 		bool EmployRenderAPIFramebuffer2D(RenderAPI api) override;
 		bool EmployRenderAPIFramebufferDepth(RenderAPI api) override;
 		bool EmployRenderAPIIndexBuffer(RenderAPI api) override;
-		bool EmployRenderAPIVertexBuffer(RenderAPI api) override;
 		bool EmployRenderAPIVertexArray(RenderAPI api) override;
 
 		void Bind();
@@ -123,6 +127,14 @@ namespace gebase { namespace graphics {
 		void AllocateStorage();
 		ShaderUniformDeclaration* FindUniformDeclaration(const String& name, byte** outBuffer = nullptr);
 		ShaderResourceDeclaration* FindResourceDeclaration(const String& name);
+
+		bool m_DoneShader = false;
+		bool m_DoneTexture2D = false;
+		bool m_DoneTextureCube = false;
+		bool m_DoneTextureDepth = false;
+		bool m_DoneFramebuffer2D = false;
+		bool m_DoneFramebufferDepth = false;
+		bool m_DoneIndexBuffer = false;
 	public:
 		MaterialInstance(Material* material);
 
@@ -133,7 +145,6 @@ namespace gebase { namespace graphics {
 		bool EmployRenderAPIFramebuffer2D(RenderAPI api) override;
 		bool EmployRenderAPIFramebufferDepth(RenderAPI api) override;
 		bool EmployRenderAPIIndexBuffer(RenderAPI api) override;
-		bool EmployRenderAPIVertexBuffer(RenderAPI api) override;
 		bool EmployRenderAPIVertexArray(RenderAPI api) override;
 
 		inline Material* getMaterial() const { return m_Material; }

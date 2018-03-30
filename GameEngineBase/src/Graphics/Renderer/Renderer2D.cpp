@@ -649,19 +649,6 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-	bool Renderer2D::EmployRenderAPIVertexBuffer(RenderAPI api)
-	{
-		if (m_ScreenQuad)
-			for (uint i = 0; i < m_ScreenQuad->getBuffers().size(); i++)
-				VertexBuffer::ConvertRenderAPI(api, m_ScreenQuad->getBuffer(i));
-
-		if (m_VertexArray)
-			for (uint i = 0; i < m_VertexArray->getBuffers().size(); i++)
-				VertexBuffer::ConvertRenderAPI(api, m_VertexArray->getBuffer(i));
-
-		return true;
-	}
-
 	bool Renderer2D::EmployRenderAPIVertexArray(RenderAPI api)
 	{
 		if (m_ScreenQuad)

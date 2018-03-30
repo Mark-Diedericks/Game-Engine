@@ -162,10 +162,10 @@ namespace gebase { namespace graphics {
 
 	bool Material::EmployRenderAPIShader(RenderAPI api)
 	{
-		if (current == api)
+		if (m_DoneShader)
 			return true;
 
-		current = api;
+		m_DoneShader = true;
 
 		m_Shader = Shader::ConvertRenderAPI(api, m_Shader);
 
@@ -208,7 +208,13 @@ namespace gebase { namespace graphics {
 
 	bool Material::EmployRenderAPITexture2D(RenderAPI api)
 	{
+		if (m_DoneTexture2D)
+			return true;
+
+		m_DoneTexture2D = true;
+
 		m_Shader->Bind();
+		std::list<Texture*> toDelete;
 
 		for (Texture* tex : m_TempTextures)
 		{
@@ -219,48 +225,78 @@ namespace gebase { namespace graphics {
 			{
 				Texture2D* tex2d  = Texture2D::ConvertRenderAPI(api, (Texture2D*)tex);
 				setTexture(tex2d->getResourceName(), tex2d);
+				toDelete.push_back(tex);
 			}
 		}
+
+		for(Texture* tex : toDelete)
+			m_TempTextures.remove(tex);
+
+		toDelete.clear();
 
 		return true;
 	}
 
 	bool Material::EmployRenderAPITextureCube(RenderAPI api)
 	{
+		if (m_DoneTextureCube)
+			return true;
+
+		m_DoneTextureCube = true;
+
 		m_Shader->Bind();
-		for (uint i = 0; i < m_TempTextures.size(); i++)
+		std::list<Texture*> toDelete;
+
+		for (Texture* tex : m_TempTextures)
 		{
-			if (m_TempTextures[i] == nullptr)
+			if (tex == nullptr)
 				continue;
 
-			if (m_TempTextures[i]->getTextureType() == TextureType::TEXCUBE)
+			if (tex->getTextureType() == TextureType::TEXCUBE)
 			{
-				m_TempTextures[i] = Texture::ConvertRenderAPI(api, m_TempTextures[i]);
-				setTexture(m_TempTextures[i]->getResourceName(), m_TempTextures[i]);
+				TextureCube* texcube = TextureCube::ConvertRenderAPI(api, (TextureCube*)tex);
+				setTexture(texcube->getResourceName(), texcube);
+				toDelete.push_back(tex);
 			}
 		}
+
+		for (Texture* tex : toDelete)
+			m_TempTextures.remove(tex);
+
+		toDelete.clear();
 
 		return true;
 	}
 
 	bool Material::EmployRenderAPITextureDepth(RenderAPI api)
 	{
+		if (m_DoneTextureDepth)
+			return true;
+
+		m_DoneTextureDepth = true;
+
 		m_Shader->Bind();
-		for (uint i = 0; i < m_TempTextures.size(); i++)
+		std::list<Texture*> toDelete;
+
+		for (Texture* tex : m_TempTextures)
 		{
-			if (m_TempTextures.[i] == nullptr)
+			if (tex == nullptr)
 				continue;
 
-			if (m_TempTextures[i]->getTextureType() == TextureType::TEXDEPTH)
+			if (tex->getTextureType() == TextureType::TEXDEPTH)
 			{
-				m_TempTextures[i] = Texture::ConvertRenderAPI(api, m_TempTextures[i]);
-				setTexture(m_TempTextures[i]->getResourceName(), m_TempTextures[i]);
+				TextureDepth* texdepth = TextureDepth::ConvertRenderAPI(api, (TextureDepth*)tex);
+				setTexture(texdepth->getResourceName(), texdepth);
+				toDelete.push_back(tex);
 			}
 		}
 
-		//m_TempTextures.clear();
-		//m_TempTextures.shrink_to_fit();
-		m_TempTextures.~vector();
+		for (Texture* tex : toDelete)
+			m_TempTextures.remove(tex);
+
+		toDelete.clear();
+
+		m_TempTextures.clear();
 
 		return true;
 	}
@@ -280,13 +316,12 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-	bool Material::EmployRenderAPIVertexBuffer(RenderAPI api)
-	{
-		return true;
-	}
-
 	bool Material::EmployRenderAPIVertexArray(RenderAPI api)
 	{
+		m_DoneShader = false;
+		m_DoneTexture2D = false;
+		m_DoneTextureCube = false;
+		m_DoneTextureDepth = false;
 		return true;
 	}
 
@@ -442,10 +477,10 @@ namespace gebase { namespace graphics {
 
 	bool MaterialInstance::EmployRenderAPIShader(RenderAPI api)
 	{
-		if (current == api)
+		if (m_DoneShader)
 			return true;
 
-		current = api;
+		m_DoneShader = true;
 
 		if (!m_Material->EmployRenderAPIShader(api))
 			return false;
@@ -493,10 +528,16 @@ namespace gebase { namespace graphics {
 
 	bool MaterialInstance::EmployRenderAPITexture2D(RenderAPI api)
 	{
+		if (m_DoneTexture2D)
+			return true;
+
+		m_DoneTexture2D = true;
+
 		if (!m_Material->EmployRenderAPITexture2D(api))
 			return false;
 
 		m_Material->m_Shader->Bind();
+		std::list<Texture*> toDelete;
 
 		for (Texture* tex : m_TempTextures)
 		{
@@ -507,60 +548,95 @@ namespace gebase { namespace graphics {
 			{
 				Texture2D* tex2d = Texture2D::ConvertRenderAPI(api, (Texture2D*)tex);
 				setTexture(tex2d->getResourceName(), tex2d);
+				toDelete.push_back(tex);
 			}
 		}
+
+		for (Texture* tex : toDelete)
+			m_TempTextures.remove(tex);
+
+		toDelete.clear();
 
 		return true;
 	}
 
 	bool MaterialInstance::EmployRenderAPITextureCube(RenderAPI api)
 	{
+		if (m_DoneTextureCube)
+			return true;
+
+		m_DoneTextureCube = true;
+
 		if (!m_Material->EmployRenderAPITextureCube(api))
 			return false;
 
 		m_Material->m_Shader->Bind();
-		for (uint i = 0; i < m_TempTextures.size(); i++)
+		std::list<Texture*> toDelete;
+
+		for (Texture* tex : m_TempTextures)
 		{
-			if (m_TempTextures[i] == nullptr)
+			if (tex == nullptr)
 				continue;
 
-			if (m_TempTextures[i]->getTextureType() == TextureType::TEXCUBE)
+			if (tex->getTextureType() == TextureType::TEXCUBE)
 			{
-				m_TempTextures[i] = Texture::ConvertRenderAPI(api, m_TempTextures[i]);
-				setTexture(m_TempTextures[i]->getResourceName(), m_TempTextures[i]);
+				TextureCube* texcube = TextureCube::ConvertRenderAPI(api, (TextureCube*)tex);
+				setTexture(texcube->getResourceName(), texcube);
+				toDelete.push_back(tex);
 			}
 		}
+
+		for (Texture* tex : toDelete)
+			m_TempTextures.remove(tex);
+
+		toDelete.clear();
 
 		return true;
 	}
 
 	bool MaterialInstance::EmployRenderAPITextureDepth(RenderAPI api)
 	{
+		if (m_DoneTextureDepth)
+			return true;
+
+		m_DoneTextureDepth = true;
+
 		if (!m_Material->EmployRenderAPITextureDepth(api))
 			return false;
 
 		m_Material->m_Shader->Bind();
-		for (uint i = 0; i < m_TempTextures.size(); i++)
+		std::list<Texture*> toDelete;
+
+		for (Texture* tex : m_TempTextures)
 		{
-			if (m_TempTextures[i] == nullptr)
+			if (tex == nullptr)
 				continue;
 
-			if (m_TempTextures[i]->getTextureType() == TextureType::TEXDEPTH)
+			if (tex->getTextureType() == TextureType::TEXDEPTH)
 			{
-				m_TempTextures[i] = Texture::ConvertRenderAPI(api, m_TempTextures[i]);
-				setTexture(m_TempTextures[i]->getResourceName(), m_TempTextures[i]);
+				TextureDepth* texdepth = TextureDepth::ConvertRenderAPI(api, (TextureDepth*)tex);
+				setTexture(texdepth->getResourceName(), texdepth);
+				toDelete.push_back(tex);
 			}
 		}
 
-		//m_TempTextures.clear();
-		//m_TempTextures.shrink_to_fit();
-		m_TempTextures.~vector();
+		for (Texture* tex : toDelete)
+			m_TempTextures.remove(tex);
+
+		toDelete.clear();
+
+		m_TempTextures.clear();
 
 		return true;
 	}
 
 	bool MaterialInstance::EmployRenderAPIFramebuffer2D(RenderAPI api)
 	{
+		if (m_DoneFramebuffer2D)
+			return true;
+
+		m_DoneFramebuffer2D = true;
+
 		if (!m_Material->EmployRenderAPIFramebuffer2D(api))
 			return false;
 
@@ -569,6 +645,11 @@ namespace gebase { namespace graphics {
 
 	bool MaterialInstance::EmployRenderAPIFramebufferDepth(RenderAPI api)
 	{
+		if (m_DoneFramebufferDepth)
+			return true;
+
+		m_DoneFramebufferDepth = true;
+
 		if (!m_Material->EmployRenderAPIFramebufferDepth(api))
 			return false;
 
@@ -577,15 +658,12 @@ namespace gebase { namespace graphics {
 
 	bool MaterialInstance::EmployRenderAPIIndexBuffer(RenderAPI api)
 	{
+		if (m_DoneIndexBuffer)
+			return true;
+
+		m_DoneIndexBuffer = true;
+
 		if (!m_Material->EmployRenderAPIIndexBuffer(api))
-			return false;
-
-		return true;
-	}
-
-	bool MaterialInstance::EmployRenderAPIVertexBuffer(RenderAPI api)
-	{
-		if (!m_Material->EmployRenderAPIVertexBuffer(api))
 			return false;
 
 		return true;
@@ -595,6 +673,14 @@ namespace gebase { namespace graphics {
 	{
 		if (!m_Material->EmployRenderAPIVertexArray(api))
 			return false;
+
+		m_DoneShader = false;
+		m_DoneTexture2D = false;
+		m_DoneTextureCube = false;
+		m_DoneTextureDepth = false;
+		m_DoneFramebuffer2D = false;
+		m_DoneFramebufferDepth = false;
+		m_DoneIndexBuffer = false;
 
 		return true;
 	}

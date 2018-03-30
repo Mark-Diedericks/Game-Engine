@@ -160,19 +160,22 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	}
 	m_Materials.push_back(custom);
 
-	/*PBRMaterial* ground = genew PBRMaterial(pbrShader);
+	/*
+	PBRMaterial* ground = genew PBRMaterial(pbrShader);
+	//Set texture Wrap to work on OpenGL (or there are texture glitches when texture is repeating)
+	Texture::setWrap(TextureWrap::REPEAT);
 	ground->setEnvironmentMap(environment);
 	{
 		String path = materialInputs[GROUND] + "/" + materialInputs[GROUND];
-
-		TextureParameters texParams(TextureFormat::RGBA, TextureFilter::LINEAR, TextureWrap::REPEAT);
-
 		ground->setAlbedoMap(Texture2D::CreateFromFile("/pbr/" + path + "_Albedo.jpg", texParams));
 		ground->setSpecularMap(Texture2D::CreateFromFile("/pbr/" + path + "_Specular.jpg", texParams));
 		ground->setGlossMap(Texture2D::CreateFromFile("/pbr/" + path + "_Gloss.jpg", texParams));
 		ground->setNormalMap(Texture2D::CreateFromFile("/pbr/" + path + "_Normal.jpg", texParams));
 	}
-	m_Materials.push_back(ground);*/
+	m_Materials.push_back(ground);
+	//Reset it
+	Texture::setWrap(TextureWrap::CLAMP);
+	*/
 
 	// Texture::SetLoadParameters(0);
 	m_DaggerMaterial = genew PBRMaterial(pbrShader);

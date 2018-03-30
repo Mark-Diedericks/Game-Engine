@@ -200,11 +200,6 @@ namespace gebase { namespace graphics {
 		return m_Mesh->EmployRenderAPIIndexBuffer(api);
 	}
 
-	bool Model::EmployRenderAPIVertexBuffer(RenderAPI api)
-	{
-		return m_Mesh->EmployRenderAPIVertexBuffer(api);
-	}
-
 	bool Model::EmployRenderAPIVertexArray(RenderAPI api)
 	{
 		return m_Mesh->EmployRenderAPIVertexArray(api);

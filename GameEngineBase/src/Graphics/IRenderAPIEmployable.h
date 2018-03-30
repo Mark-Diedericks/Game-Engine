@@ -5,19 +5,6 @@
 
 namespace gebase { namespace graphics {
 
-	enum class GE_API RenderAPIEmployableType
-	{
-		SHADER = 0,
-		TEXTURE2D,
-		TEXTURECUBE,
-		TEXTUREDEPTH,
-		FRAMEBUFFER2D,
-		FRAMEBUFFERDEPTH,
-		INDEXBUFFER,
-		VERTEXBUFFER,
-		VERTEXARRAY
-	};
-
 	class GE_API IRenderAPIEmployable
 	{
 	public:
@@ -31,7 +18,6 @@ namespace gebase { namespace graphics {
 		virtual bool EmployRenderAPIFramebufferDepth(RenderAPI api) = 0;
 
 		virtual bool EmployRenderAPIIndexBuffer(RenderAPI api) = 0;
-		virtual bool EmployRenderAPIVertexBuffer(RenderAPI api) = 0;
 		virtual bool EmployRenderAPIVertexArray(RenderAPI api) = 0;
 	};
 

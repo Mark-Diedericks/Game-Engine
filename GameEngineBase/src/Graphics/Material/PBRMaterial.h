@@ -21,7 +21,6 @@ namespace gebase { namespace graphics {
 		bool EmployRenderAPIFramebuffer2D(RenderAPI api) override;
 		bool EmployRenderAPIFramebufferDepth(RenderAPI api) override;
 		bool EmployRenderAPIIndexBuffer(RenderAPI api) override;
-		bool EmployRenderAPIVertexBuffer(RenderAPI api) override;
 		bool EmployRenderAPIVertexArray(RenderAPI api) override;
 
 		void setEnvironmentMap(TextureCube* texture);
@@ -61,7 +60,6 @@ namespace gebase { namespace graphics {
 		bool EmployRenderAPIFramebuffer2D(RenderAPI api) override;
 		bool EmployRenderAPIFramebufferDepth(RenderAPI api) override;
 		bool EmployRenderAPIIndexBuffer(RenderAPI api) override;
-		bool EmployRenderAPIVertexBuffer(RenderAPI api) override;
 		bool EmployRenderAPIVertexArray(RenderAPI api) override;
 
 		void setEnvironmentMap(TextureCube* texture);

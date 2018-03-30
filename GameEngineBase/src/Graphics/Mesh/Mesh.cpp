@@ -122,15 +122,6 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-	bool Mesh::EmployRenderAPIVertexBuffer(RenderAPI api)
-	{
-		if (m_VertexArray)
-			for (uint i = 0; i < m_VertexArray->getBuffers().size(); i++)
-				VertexBuffer::ConvertRenderAPI(api, m_VertexArray->getBuffer(i));
-
-		return true;
-	}
-
 	bool Mesh::EmployRenderAPIVertexArray(RenderAPI api) 
 	{
 		if (m_VertexArray)

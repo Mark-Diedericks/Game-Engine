@@ -208,11 +208,6 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-	bool Font::EmployRenderAPIVertexBuffer(RenderAPI api)
-	{
-		return true;
-	}
-
 	bool Font::EmployRenderAPIVertexArray(RenderAPI api)
 	{
 		return true;

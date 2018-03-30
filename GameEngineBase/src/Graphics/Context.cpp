@@ -65,6 +65,8 @@ namespace gebase { namespace graphics {
 		const uint RenderableObjectsSize = s_RenderableObjects.size();
 		const uint MAX_SIZE = RendererObjectsSize > RenderableObjectsSize ? RendererObjectsSize : RenderableObjectsSize;
 
+		APIRenderer::DestroyPrevious();
+
 		EmployRenderAPIShader(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
 
 		EmployRenderAPITexture2D(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
@@ -75,18 +77,7 @@ namespace gebase { namespace graphics {
 		EmployRenderAPIFramebufferDepth(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
 
 		EmployRenderAPIIndexBuffer(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
-		EmployRenderAPIVertexBuffer(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
 		EmployRenderAPIVertexArray(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
-
-		/*for (uint i = 0; i < s_RendererObjects.size(); i++)
-			if(s_RendererObjects[i])
-				if (!s_RendererObjects[i]->EmployRenderAPI(api))
-					return false;
-
-		for (uint i = 0; i < s_RenderableObjects.size(); i++)
-			if(s_RenderableObjects[i])
-				if (!s_RenderableObjects[i]->EmployRenderAPI(api))
-					return false;*/
 
 		//debug::DebugRenderer::EmployRenderAPI(api);
 
@@ -100,7 +91,6 @@ namespace gebase { namespace graphics {
 
 	void Context::FlushRenderAPIChange(RenderAPI prevApi)
 	{
-		APIRenderer::DestroyPrevious();
 		APIContext::DestroyPrevious();
 	}
 
@@ -173,6 +163,8 @@ namespace gebase { namespace graphics {
 			}
 		}
 
+		Texture2D::FlushRenderAPIChange(s_PreviousRenderAPI);
+
 		return true;
 	}
 
@@ -196,6 +188,8 @@ namespace gebase { namespace graphics {
 						return false;
 			}
 		}
+
+		TextureCube::FlushRenderAPIChange(s_PreviousRenderAPI);
 		
 		return true;
 	}
@@ -222,8 +216,6 @@ namespace gebase { namespace graphics {
 		}
 
 		TextureDepth::FlushRenderAPIChange(s_PreviousRenderAPI);
-		TextureCube::FlushRenderAPIChange(s_PreviousRenderAPI);
-		Texture2D::FlushRenderAPIChange(s_PreviousRenderAPI);
 
 		return true;
 	}
@@ -306,33 +298,10 @@ namespace gebase { namespace graphics {
 		return true;
 	}
 
-	bool Context::EmployRenderAPIVertexBuffer(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize)
-	{
-		VertexBuffer::PrepareRenderAPIChange(api);
-		VertexArray::PrepareRenderAPIChange(api);
-
-		for (uint i = 0; i < MAX_SIZE; i++)
-		{
-			if (i < RendererObjectsSize)
-			{
-				if (s_RendererObjects[i])
-					if (!s_RendererObjects[i]->EmployRenderAPIVertexBuffer(api))
-						return false;
-			}
-
-			if (i < RenderableObjectsSize)
-			{
-				if (s_RenderableObjects[i])
-					if (!s_RenderableObjects[i]->EmployRenderAPIVertexBuffer(api))
-						return false;
-			}
-		}
-
-		return true;
-	}
-
 	bool Context::EmployRenderAPIVertexArray(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize)
 	{
+		VertexBuffer::PrepareRenderAPIChange(api);
+		VertexArray::PrepareRenderAPIChange(api); 
 
 		for (uint i = 0; i < MAX_SIZE; i++)
 		{
@@ -351,9 +320,10 @@ namespace gebase { namespace graphics {
 			}
 		}
 
+		Shader::FlushRenderAPIChange(s_PreviousRenderAPI);
+
 		VertexBuffer::FlushRenderAPIChange(s_PreviousRenderAPI);
 		VertexArray::FlushRenderAPIChange(s_PreviousRenderAPI);
-		Shader::FlushRenderAPIChange(s_PreviousRenderAPI);
 
 		return true;
 	}

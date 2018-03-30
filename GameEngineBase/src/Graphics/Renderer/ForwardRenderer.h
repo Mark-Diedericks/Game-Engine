@@ -31,7 +31,6 @@ namespace gebase { namespace graphics {
 		inline bool EmployRenderAPIFramebuffer2D(RenderAPI api) override { return true; }
 		inline bool EmployRenderAPIFramebufferDepth(RenderAPI api) override { return true; }
 		inline bool EmployRenderAPIIndexBuffer(RenderAPI api) override { return true; }
-		inline bool EmployRenderAPIVertexBuffer(RenderAPI api) override { return true; }
 		inline bool EmployRenderAPIVertexArray(RenderAPI api) override { return true; }
 
 		void Init() override;

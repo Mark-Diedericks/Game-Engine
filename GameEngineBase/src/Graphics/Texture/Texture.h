@@ -40,26 +40,7 @@ namespace gebase { namespace graphics {
 		LUMINANCE_ALPHA
 	};
 
-	struct GE_API TextureParameters
-	{
-		TextureFormat format;
-		TextureFilter filter;
-		TextureWrap wrap;
-
-		TextureParameters() : format(TextureFormat::RGBA), filter(TextureFilter::LINEAR), wrap(TextureWrap::CLAMP) {}
-		TextureParameters(TextureFormat format) : format(format), filter(TextureFilter::LINEAR), wrap(TextureWrap::CLAMP) {}
-		TextureParameters(TextureFormat format, TextureFilter filter) : format(format), filter(filter), wrap(TextureWrap::CLAMP) {}
-		TextureParameters(TextureFormat format, TextureFilter filter, TextureWrap wrap) : format(format), filter(filter), wrap(wrap) {}
-	};
-
-	struct GE_API TextureLoadOptions
-	{
-		bool flipX;
-		bool flipY;
-
-		TextureLoadOptions() : flipX(false), flipY(false) {}
-		TextureLoadOptions(bool flipX, bool flipY) : flipX(flipX), flipY(flipY) {}
-	};
+	struct TextureParameters;
 
 	class GE_API Texture : public IRenderAPIDependant
 	{
@@ -100,7 +81,31 @@ namespace gebase { namespace graphics {
 		inline static void setWrap(TextureWrap wrap) { s_WrapMode = wrap; }
 		inline static void setFilter(TextureFilter filter) { s_FilterMode = filter; }
 
+		inline static TextureWrap getWrap() { return s_WrapMode; }
+		inline static TextureFilter getFilter() { return s_FilterMode; }
+
 		static byte getStrideFromFormat(TextureFormat format);
+	};
+
+	struct GE_API TextureParameters
+	{
+		TextureFormat format;
+		TextureFilter filter;
+		TextureWrap wrap;
+
+		TextureParameters() : format(TextureFormat::RGBA), filter(Texture::getFilter()), wrap(Texture::getWrap()) {}
+		TextureParameters(TextureFormat format) : format(format), filter(Texture::getFilter()), wrap(Texture::getWrap()) {}
+		TextureParameters(TextureFormat format, TextureFilter filter) : format(format), filter(filter), wrap(Texture::getWrap()) {}
+		TextureParameters(TextureFormat format, TextureFilter filter, TextureWrap wrap) : format(format), filter(filter), wrap(wrap) {}
+	};
+
+	struct GE_API TextureLoadOptions
+	{
+		bool flipX;
+		bool flipY;
+
+		TextureLoadOptions() : flipX(false), flipY(false) {}
+		TextureLoadOptions(bool flipX, bool flipY) : flipX(flipX), flipY(flipY) {}
 	};
 
 } }
