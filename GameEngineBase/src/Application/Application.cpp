@@ -52,7 +52,6 @@ namespace gebase {
 				break;
 			}
 		}
-
 		return layer;
 	}
 
@@ -124,43 +123,46 @@ namespace gebase {
 	void Application::OnTick()
 	{
 		m_DebugLayer->OnTick();
-		
-		for (uint i = 0; i < m_OverlayStack.size(); i++)
-			m_OverlayStack[i]->OnTick();
-		
-		for (uint i = 0; i < m_LayerStack.size(); i++)
-			m_LayerStack[i]->OnTick();
+
+		for (Layer* l : m_LayerStack)
+			l->OnTick();
+
+		for (Layer* o : m_OverlayStack)
+			o->OnTick();
 	}
 
 	void Application::OnUpdate(const float& delta)
 	{
 		m_DebugLayer->OnUpdate(delta);
 
-		for (uint i = 0; i < m_OverlayStack.size(); i++)
-			m_OverlayStack[i]->OnUpdateInternal(delta);
+		for (Layer* l : m_LayerStack)
+			l->OnUpdateInternal(delta);
 
-		for (uint i = 0; i < m_LayerStack.size(); i++)
-			m_LayerStack[i]->OnUpdateInternal(delta);
+		for (Layer* o : m_OverlayStack)
+			o->OnUpdateInternal(delta);
 	}
 
 	void Application::OnRender()
 	{
-		for (uint i = 0; i < m_OverlayStack.size(); i++) 
-		{
-			if (m_OverlayStack[i]->isVisible())
-				m_OverlayStack[i]->OnRender();
-		}
+		GE_PERF({
 
-		for (uint i = 0; i < m_LayerStack.size(); i++)
-		{
-			if(m_LayerStack[i]->isVisible())
-				m_LayerStack[i]->OnRender();
-		}
+			for (Layer* l : m_LayerStack)
+			{
+				if (l->isVisible())
+					GE_PERF(l->OnRender())
+			}
 
-		Layer2D* debugLayer = (Layer2D*)m_DebugLayer;
+			for (Layer* o : m_OverlayStack)
+			{
+				if (o->isVisible())
+					GE_PERF(o->OnRender())
+			}
+		})
 
-		if (debugLayer->isVisible())
-			debugLayer->OnRender();
+		GE_PERF({
+			if (m_DebugLayer->isVisible())
+				((Layer2D*)m_DebugLayer)->OnRender();
+		})
 	}
 
 	

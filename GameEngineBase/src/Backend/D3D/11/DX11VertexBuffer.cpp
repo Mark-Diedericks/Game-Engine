@@ -33,8 +33,9 @@ namespace gebase { namespace graphics {
 	void DX11VertexBuffer::setLayout(const BufferLayout& bufferLayout, const Shader* shader)
 	{
 		m_Layout = bufferLayout;
+		const uint layoutSize = m_Layout.getLayout().size();
 		const std::vector<BufferElement>& layout = bufferLayout.getLayout();
-		D3D11_INPUT_ELEMENT_DESC* desc = genew D3D11_INPUT_ELEMENT_DESC[layout.size()];
+		D3D11_INPUT_ELEMENT_DESC* desc = genew D3D11_INPUT_ELEMENT_DESC[layoutSize];
 
 		for (uint i = 0; i < layout.size(); i++)
 		{
@@ -42,7 +43,6 @@ namespace gebase { namespace graphics {
 			desc[i] = { element.name.c_str(), 0, (DXGI_FORMAT)ConversionUtil::BufferElementTypeToDX(element.type), 0, element.offset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
 		}
 
-		//const DX11Shader* shader = DX11Shader::CurrentlyBound();
 		if (shader != nullptr)
 			m_Shader = (DX11Shader*)shader;
 
@@ -55,7 +55,7 @@ namespace gebase { namespace graphics {
 			return;
 		}
 
-		DXCall(DX11Context::getDevice()->CreateInputLayout(desc, layout.size(), m_Shader->getData().vs->GetBufferPointer(), m_Shader->getData().vs->GetBufferSize(), &m_InputLayout));
+		DXCall(DX11Context::getDevice()->CreateInputLayout(desc, layoutSize, m_Shader->getData().vs->GetBufferPointer(), m_Shader->getData().vs->GetBufferSize(), &m_InputLayout));
 		gedel desc;
 	}
 

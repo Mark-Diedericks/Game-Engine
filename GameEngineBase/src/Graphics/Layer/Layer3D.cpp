@@ -35,6 +35,7 @@ namespace gebase { namespace graphics {
 
 	void Layer3D::OnUpdateInternal(const float delta)
 	{
+		m_Scene->Update(delta);
 		OnUpdate(delta);
 	}
 
@@ -45,8 +46,8 @@ namespace gebase { namespace graphics {
 
 	void Layer3D::OnRender(Renderer3D& renderer)
 	{
-		m_Scene->Render(renderer);
-		renderer.Present();
+		GE_PERF(m_Scene->Render(renderer))
+		GE_PERF(renderer.Present())
 	}
 
 } }

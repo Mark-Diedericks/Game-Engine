@@ -57,23 +57,19 @@ namespace gebase {
 	void Scene::setCamera(graphics::Camera* camera)
 	{
 		m_Camera = camera;
+		debug::DebugRenderer::setCamera(m_Camera);
 		m_Camera->Focus();
 	}
 
 	void Scene::Update(const float delta)
 	{
-
+		m_Camera->Update(delta);
 	}
 
 	void Scene::Render(graphics::Renderer3D& renderer)
 	{
-		graphics::Camera* camera = m_Camera;
-		camera->Update(Application::getApplication().getFrT());
-
-		debug::DebugRenderer::setCamera(camera);
-
 		renderer.Begin();
-		renderer.BeginScene(camera);
+		renderer.BeginScene(m_Camera);
 
 		for (uint i = 0; i < m_LightSetupStack.size(); i++)
 			renderer.SubmitLightSetup(*m_LightSetupStack[i]);
@@ -84,14 +80,15 @@ namespace gebase {
 
 			if (mesh)
 			{
-				entity::component::TransformComponent* transform = entity->getComponent<entity::component::TransformComponent>();
+				entity::component::TransformComponent* transform = entity->getComponent<entity::component::TransformComponent>(); 
+#ifdef GE_DEBUG
 				if (!transform)
 				{
 					utils::LogUtil::WriteLine("ERROR", "[Scene] Render() - Entity does not have a transform component!");
-#ifdef GE_DEBUG
 					__debugbreak();
-#endif
+
 				}
+#endif
 
 				renderer.SubmitMesh(mesh->mesh, transform->transform);
 			}

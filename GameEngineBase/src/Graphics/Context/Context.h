@@ -26,11 +26,11 @@ namespace gebase { namespace graphics {
 		static RenderAPI s_PreviousRenderAPI;
 		static RenderAPI s_DefaultRenderAPI;
 
-		static void* s_DeviceContext;
-		static WindowProperties s_Properties;
-
 		static std::vector<IRenderer*> s_RendererObjects;
 		static std::vector<IRenderableBase*> s_RenderableObjects;
+
+		static void* s_DeviceContext;
+		static WindowProperties s_Properties;
 
 		static bool EmployRenderAPIShader(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize);
 		static bool EmployRenderAPITexture2D(RenderAPI api, const uint MAX_SIZE, const uint RendererObjectsSize, const uint RenderableObjectsSize);

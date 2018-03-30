@@ -52,20 +52,20 @@ namespace gebase { namespace graphics { namespace ui {
 
 	void Panel::OnUpdate(float delta)
 	{
-		for (Widget* widget : m_Widgets)
-		{
-			if (widget->isActive())
-				widget->OnUpdate(delta);
-		}
+#ifdef GE_DEBUG
+		m_Visible = m_Widgets.size() > 0;
+#endif
+
+		for (Widget* w : m_Widgets)
+			if (w->isActive())
+				w->OnUpdate(delta);
 	}
 
 	void Panel::OnRender(Renderer2D& renderer)
 	{
-		for (Widget* widget : m_Widgets)
-		{
-			if (widget->isActive())
-				widget->OnRender(renderer);
-		}
+		for (Widget* w : m_Widgets)
+			if (w->isActive())
+				w->OnRender(renderer);
 	}
 
 	void Panel::OnEvent(Event& e)

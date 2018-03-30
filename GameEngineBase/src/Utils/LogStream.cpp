@@ -5,7 +5,7 @@
 
 namespace gebase { namespace utils {
 
-	LogStream::LogStream(const String& fileLocation, const String& identifyingTag, const bool printToConsole, const bool logPerformance) : m_FileStream(fileLocation), m_FileLocation(fileLocation), m_IdentifyingTag(identifyingTag), m_PrintConsole(printToConsole), m_LogPerformance(logPerformance)
+	LogStream::LogStream(const String& fileLocation, const String& identifyingTag, const bool printToConsole, const bool logPerformance) : m_FileStream(fileLocation, std::ios_base::out), m_FileLocation(fileLocation), m_IdentifyingTag(identifyingTag), m_PrintConsole(printToConsole), m_LogPerformance(logPerformance)
 	{
 		if(m_FileStream.bad())
 			std::cout << "[ERROR] [LogStream] Write() - Cannot open file: " << m_FileLocation.c_str() << std::endl;

@@ -26,8 +26,8 @@ namespace gebase {
 			return;
 		}
 
-		m_Properties.halfWidth = (uint)((float)m_Properties.width / 2.0f);
-		m_Properties.halfHeight = (uint)((float)m_Properties.height / 2.0f);
+		m_Properties.halfWidth = (long)((float)m_Properties.width / 2.0f);
+		m_Properties.halfHeight = (long)((float)m_Properties.height / 2.0f);
 
 		FontManager::setScale(math::Vector2f(m_Properties.width / 32.0f, m_Properties.height / 18.0f));
 		FontManager::Add(genew Font("SourceSansPro", embedded::DEFAULT_FONT, embedded::DEFAULT_FONT_SIZE, 32));

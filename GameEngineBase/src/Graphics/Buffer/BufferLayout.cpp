@@ -4,7 +4,7 @@
 
 namespace gebase { namespace graphics {
 
-	BufferLayout::BufferLayout() : m_Size(0) 
+	BufferLayout::BufferLayout() : m_Size(0)
 	{
 		m_RenderAPI = graphics::Context::getRenderAPI();
 	}

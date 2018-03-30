@@ -33,7 +33,7 @@ public:
 		PushLayer(genew Test3D());
 		//PushLayer(genew Test2D());
 
-		PushLayer(genew TestInfo());
+		//PushOverlay(genew TestInfo());
 	}
 
 };

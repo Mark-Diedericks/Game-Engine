@@ -69,7 +69,14 @@ namespace gebase { namespace graphics {
 	void GLVertexBuffer::Bind()
 	{
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
-		setLayout(m_Layout, nullptr);
+
+		const std::vector<BufferElement>& layout = m_Layout.getLayout();
+		for (uint i = 0; i < layout.size(); i++)
+		{
+			const BufferElement& element = layout[i];
+			GLCall(glEnableVertexAttribArray(i));
+			GLCall(glVertexAttribPointer(i, element.count.gl_count, ConversionUtil::BufferElementTypeToGL(element.type), element.normalized, m_Layout.getStride(), (const void*)element.offset));
+		}
 	}
 
 	void GLVertexBuffer::Unbind()

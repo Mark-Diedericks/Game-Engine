@@ -128,8 +128,7 @@ namespace gebase { namespace graphics {
 		for (uint i = 0; i < m_CommandQue.size(); i++)
 		{
 			RenderCommand& command = m_CommandQue[i];
-			MaterialInstance* material = command.mesh->getMaterialInstance();
-			int mrf = material->getRenderFlags();
+			int mrf = command.mesh->getMaterialInstance()->getRenderFlags();
 
 			Renderer::setDepthTesting((mrf & (int)Material::RenderFlags::DISABLE_DEPTH_TEST) == 0);
 			memcpy(m_VSSystemUniformBuffer + m_VSSystemUniformBufferOffsets[VSSystemUniformIndex_ModelMatrix], &command.transform, sizeof(math::Matrix4f));

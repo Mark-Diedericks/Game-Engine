@@ -18,21 +18,8 @@ namespace gebase { namespace utils {
 
 	std::vector<LogStream*> LogUtil::m_LogStreams;
 
-	void LogUtil::Create(const String& directory)
+	void LogUtil::Create(const String& dir)
 	{
-		time_t rawtime;
-		struct tm * timeinfo;
-		char buffer[80];
-
-		time(&rawtime);
-		timeinfo = localtime(&rawtime);
-
-		strftime(buffer, sizeof(buffer), "%d_%m_%Y %H_%M_%S", timeinfo);
-		std::string timestring(buffer);
-
-		const String& dir = directory + "\\" + timestring +"\\";
-		FileSystem::MakeDirectory(dir);
-
 		Add("CRITICAL", dir + "critical.txt", true, true);
 		Add("ERROR", dir + "error.txt", true, true);
 

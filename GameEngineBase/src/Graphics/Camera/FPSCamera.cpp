@@ -8,7 +8,7 @@
 namespace gebase {
 	namespace graphics {
 
-		FPSCamera::FPSCamera(const math::Matrix4f& projectionMatrix) : Camera(projectionMatrix), m_MouseSensitivity(0.0005f), m_Speed(0.4f), m_SprintSpeed(m_Speed * 4.0f), m_MouseWasGrabbed(false)
+		FPSCamera::FPSCamera(const math::Matrix4f& projectionMatrix) : Camera(projectionMatrix), m_MouseSensitivity(0.0001f), m_Speed(0.4f), m_SprintSpeed(m_Speed * 4.0f), m_MouseWasGrabbed(false)
 		{
 			m_Position = math::Vector3f(0.0f, 25.0f, -25.0f);
 			m_Rotation = math::Vector3f(90.0f, 0.0f, 0.0f);
@@ -33,8 +33,8 @@ namespace gebase {
 
 		void FPSCamera::Update(float delta)
 		{
-			float wcx = (float)Application::getApplication().getWindowCenterX();
-			float wcy = (float)Application::getApplication().getWindowCenterY();
+			long wcx = Application::getApplication().getWindowCenterX();
+			long wcy = Application::getApplication().getWindowCenterY();
 
 			if (Input::isMouseButtonPressed(GE_MOUSE_RIGHT))
 			{
@@ -47,17 +47,17 @@ namespace gebase {
 
 			if (Input::getInputManager()->isMouseGrabbed())
 			{
-				float mx = Input::getInputManager()->getMouseX() - wcx;
-				float my = Input::getInputManager()->getMouseY() - wcy;
-
 				if (m_MouseWasGrabbed)
 				{
-					m_Pitch += my * m_MouseSensitivity * delta;
-					m_Yaw += mx * m_MouseSensitivity * delta;
+					long mx = Input::getInputManager()->getMouseX() - wcx;
+					long my = Input::getInputManager()->getMouseY() - wcy;
+
+					m_Pitch += (float)my * m_MouseSensitivity * delta;
+					m_Yaw += (float)mx * m_MouseSensitivity * delta;
 				}
 
 				m_MouseWasGrabbed = true;
-				Input::getInputManager()->setMousePosition((long)wcx, (long)wcy);
+				Input::getInputManager()->setMousePosition(wcx, wcy);
 
 				math::Quaternion orientation = getOrientation();
 				m_Rotation = orientation.ToEulerAngles() * (180.0f / GE_PI);

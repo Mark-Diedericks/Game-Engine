@@ -271,6 +271,20 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 		// m_Materials[i]->SetTexture(g_ShadowMap, 6);
 		// m_Materials[i]->SetUniform("u_ShadowMap", 6);
 	}
+
+	TransformComponent* cubeTransform = m_Cube->getComponent<TransformComponent>();
+
+	Matrix4f transform = Matrix4f::Translate(Vector3f(0, 2.5f, 0)) * Matrix4f::Rotate(m_Rotation, Vector3f(1, 0, 0)) * Matrix4f::Rotate(m_Rotation, Vector3f(0, 1, 0)) * Matrix4f::Rotate(m_Rotation, Vector3f(0, 0, 1));
+	cubeTransform->transform = Matrix4f::Translation(g_CubeTransform) * transform * Matrix4f::Scale(1.4f, 1.4f, 1.4f);
+
+	TransformComponent* dagger = m_Dagger->getComponent<TransformComponent>();
+	dagger->transform = Matrix4f::Translation(g_DaggerTransform);
+
+	for (Entity* sphere : m_Spheres)
+	{
+		TransformComponent* sphereTransform = sphere->getComponent<TransformComponent>();
+		//	sphereTransform->transform = sphereTransform->transform * Matrix4f::Rotate(1.0f, Vector3f(0, 1, 0));
+	}
 }
 
 void Test3D::OnTick()
@@ -281,7 +295,7 @@ void Test3D::OnTick()
 void Test3D::OnUpdate(float delta)
 {
 
- 	TransformComponent* cubeTransform = m_Cube->getComponent<TransformComponent>();
+ 	/*TransformComponent* cubeTransform = m_Cube->getComponent<TransformComponent>();
  
 	Matrix4f transform = Matrix4f::Translate(Vector3f(0, 2.5f, 0)) * Matrix4f::Rotate(m_Rotation, Vector3f(1, 0, 0)) * Matrix4f::Rotate(m_Rotation, Vector3f(0, 1, 0)) * Matrix4f::Rotate(m_Rotation, Vector3f(0, 0, 1));
  	cubeTransform->transform = Matrix4f::Translation(g_CubeTransform) * transform * Matrix4f::Scale(1.4f, 1.4f, 1.4f);
@@ -293,7 +307,7 @@ void Test3D::OnUpdate(float delta)
  	{
 		TransformComponent* sphereTransform = sphere->getComponent<TransformComponent>();
 	//	sphereTransform->transform = sphereTransform->transform * Matrix4f::Rotate(1.0f, Vector3f(0, 1, 0));
- 	}
+ 	}*/
 
 	// Still OpenGL maths style (column-major)
 	Matrix4f vp = m_Scene->getCamera()->getProjectionMatrix() * m_Scene->getCamera()->getViewMatrix();

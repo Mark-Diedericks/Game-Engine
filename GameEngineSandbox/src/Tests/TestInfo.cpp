@@ -30,24 +30,34 @@ void TestInfo::OnInit(Renderer2D& renderer, Material& material)
 	Add(m_DebugInfo[2] = genew Label("", -15.5f, 6.5f, 0xffffffff));
 	Add(m_DebugInfo[3] = genew Label("", -15.5f, 5.5f, 0xffffffff));
 	Add(m_DebugInfo[4] = genew Label("", -15.5f, 4.5f, 0xffffffff));
-	Add(m_DebugInfo[5] = genew Label("", -15.5f, 3.5f, 0xffffffff));
-	Add(m_DebugInfo[6] = genew Label("", -15.5f, 2.5f, 0xffffffff));
 
-	Texture::setWrap(TextureWrap::CLAMP_TO_BORDER);
+	Texture::setWrap(TextureWrap::CLAMP_TO_BORDER); 
+
+	m_DebugInfo[0]->setText("Total Alloctions: " + StringFormat::ToString(MemoryManager::Get()->GetMemoryInfo().tAllocations));
+	m_DebugInfo[1]->setText("Total Dealloctions: " + StringFormat::ToString(MemoryManager::Get()->GetMemoryInfo().tDeallocations));
+	m_DebugInfo[2]->setText("Total Allocated: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tAllocated));
+	m_DebugInfo[3]->setText("Total Freed: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tFreed));
+
+	String api = graphics::Context::getRenderAPI() == graphics::RenderAPI::D3D11 ? "Direct3D 11" : "OpenGL";
+	m_DebugInfo[4]->setText("Render API: " + api);
+
+	m_Visible = true;
 }
 
 void TestInfo::OnTick()
 {
-	m_DebugInfo[2]->setText("Total Alloctions: " + StringFormat::ToString(MemoryManager::Get()->GetMemoryInfo().tAllocations));
-	m_DebugInfo[3]->setText("Total Dealloctions: " + StringFormat::ToString(MemoryManager::Get()->GetMemoryInfo().tDeallocations));
-	m_DebugInfo[4]->setText("Total Allocated: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tAllocated));
-	m_DebugInfo[5]->setText("Total Freed: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tFreed));
+	m_DebugInfo[0]->setText("Total Alloctions: " + StringFormat::ToString(MemoryManager::Get()->GetMemoryInfo().tAllocations));
+	m_DebugInfo[1]->setText("Total Dealloctions: " + StringFormat::ToString(MemoryManager::Get()->GetMemoryInfo().tDeallocations));
+	m_DebugInfo[2]->setText("Total Allocated: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tAllocated));
+	m_DebugInfo[3]->setText("Total Freed: " + MemoryManager::BytesToString(MemoryManager::Get()->GetMemoryInfo().tFreed));
+
+	String api = graphics::Context::getRenderAPI() == graphics::RenderAPI::D3D11 ? "Direct3D 11" : "OpenGL";
+	m_DebugInfo[4]->setText("Render API: " + api);
 }
 
 void TestInfo::OnUpdate(float delta)
 {
-	String api = graphics::Context::getRenderAPI() == graphics::RenderAPI::D3D11 ? "Direct3D 11" : "OpenGL";
-	m_DebugInfo[6]->setText("Render API: " + api);
+	
 }
 
 bool TestInfo::OnKeyPressedEvent(KeyPressedEvent& event)
@@ -78,6 +88,5 @@ void TestInfo::OnEvent(gebase::events::Event& event)
 
 void TestInfo::OnRender(Renderer2D& renderer)
 {
-	m_DebugInfo[0]->setText(String("Target: ") + (renderer.getRenderTarget() == RenderTarget::SCREEN ? "Screen" : "Buffer"));
-	m_DebugInfo[1]->setText(String("PostFX: ") + (renderer.getPostEffects() ? "On" : "Off"));
+
 }

@@ -24,7 +24,6 @@ namespace gebase {
 	public:
 		Window* window;
 		debug::DebugLayer* m_DebugLayer;
-
 	private:
 		Timer* m_Timer;
 		bool m_Running;
@@ -69,8 +68,8 @@ namespace gebase {
 
 		inline uint getWindowWidth() const { return window->getWidth(); }
 		inline uint getWindowHeight() const { return window->getHeight(); }
-		inline uint getWindowCenterX() const { return window->getCenterX(); }
-		inline uint getWindowCenterY() const { return window->getCenterY(); }
+		inline long getWindowCenterX() const { return window->getCenterX(); }
+		inline long getWindowCenterY() const { return window->getCenterY(); }
 
 		inline static Application& getApplication() { return *s_Instance; }
 

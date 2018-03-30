@@ -1,7 +1,9 @@
 #include "ge.h"
 #include "Common.h"
-#include "Utils/LogUtil.h"
 #include "GLContext.h"
+
+#include "Application/Application.h"
+#include "Utils/LogUtil.h"
 
 #undef NOGDI
 #include <Windows.h>
@@ -80,14 +82,13 @@ namespace gebase { namespace graphics {
 
 	void GLContext::Present()
 	{
-		GE_PERF(SwapBuffers(hDc))
+		SwapBuffers(hDc);
 	}
 
 	void GLContext::DestroyInternal()
 	{
 		if (hrc)
 		{
-			hDc = wglGetCurrentDC();
 			wglMakeCurrent(NULL, NULL);
 			ReleaseDC(hWnd, hDc);
 			wglDeleteContext(hrc);
