@@ -14,7 +14,6 @@ public:
 
 	void OnTick() override;
 	void OnUpdate(float delta) override;
-	void OnRender(gebase::graphics::Renderer2D& renderer) override;
 
 	bool OnKeyPressedEvent(gebase::events::KeyPressedEvent& event);
 	bool OnMousePressedEvent(gebase::events::MousePressedEvent& event);

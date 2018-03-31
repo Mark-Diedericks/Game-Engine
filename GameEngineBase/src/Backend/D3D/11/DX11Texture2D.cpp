@@ -169,7 +169,68 @@ namespace gebase { namespace graphics {
 
 	void DX11Texture2D::getPixelData(byte* data)
 	{
-		data = nullptr;
+		D3D11_TEXTURE2D_DESC desc = m_TextureDesc;
+
+		ID3D11Texture2D* mappedTexture;
+		D3D11_MAPPED_SUBRESOURCE mapInfo;
+		
+		HRESULT hr;
+		hr = DX11Context::getDeviceContext()->Map(m_Texture, 0, D3D11_MAP_READ, 0, &mapInfo);
+
+		if (FAILED(hr))
+		{
+			if (hr == E_INVALIDARG)
+			{
+				desc.Width = m_TextureDesc.Width;
+				desc.Height = m_TextureDesc.Height;
+				desc.MipLevels = m_TextureDesc.MipLevels;
+				desc.ArraySize = m_TextureDesc.ArraySize;
+				desc.Format = m_TextureDesc.Format;
+				desc.SampleDesc = m_TextureDesc.SampleDesc;
+				desc.Usage = D3D11_USAGE_STAGING;
+				desc.BindFlags = 0;
+				desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+				desc.MiscFlags = 0;
+
+				ID3D11Texture2D* stagingTexture;
+				hr = DX11Context::getDevice()->CreateTexture2D(&desc, nullptr, &stagingTexture);
+
+				if (FAILED(hr))
+				{
+					utils::LogUtil::WriteLine("ERROR", "Could not map DX11Texture2D: " + std::to_string(hr));
+#ifdef GE_DEBUG
+					__debugbreak();
+#endif
+				}
+
+				DX11Context::getDeviceContext()->CopyResource(stagingTexture, m_Texture);
+				hr = DX11Context::getDeviceContext()->Map(stagingTexture, 0, D3D11_MAP_READ, 0, &mapInfo);
+
+				if (FAILED(hr))
+				{
+					utils::LogUtil::WriteLine("ERROR", "Could not map DX11Texture2D: " + std::to_string(hr));
+#ifdef GE_DEBUG
+					__debugbreak();
+#endif
+				}
+
+				memcpy(data, mapInfo.pData, getSize());
+				DX11Context::getDeviceContext()->Unmap(stagingTexture, 0);
+				stagingTexture->Release();
+			}
+			else
+			{
+				utils::LogUtil::WriteLine("ERROR", "Could not map DX11Texture2D: " + std::to_string(hr));
+#ifdef GE_DEBUG
+				__debugbreak();
+#endif
+			}
+		}
+		else
+		{
+			memcpy(data, mapInfo.pData, getSize());
+			DX11Context::getDeviceContext()->Unmap(mappedTexture, 0);
+		}
 	}
 
 	uint DX11Texture2D::getSize() const

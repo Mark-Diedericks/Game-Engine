@@ -28,6 +28,7 @@ namespace gebase { namespace graphics {
 		String getD3DVersionStringInternal() const;
 	protected:
 		void DestroyInternal() override;
+		void PresentInternal() override;
 	public:
 		IDXGISwapChain* swapchain;
 		ID3D11Device* device;
@@ -37,9 +38,7 @@ namespace gebase { namespace graphics {
 		DX11Context(WindowProperties properties, void* deviceContext);
 		~DX11Context();
 
-		void Present();
-
-		inline static DX11Context* Get() { return (DX11Context*)s_Context; }
+		inline static DX11Context* Get() { return Context::GetD3D11Context(); }
 		inline static String getDXVersionString() { return Get()->getD3DVersionStringInternal(); }
 
 		inline static ID3D11DepthStencilView* getDepthStencilBuffer() { return Get()->m_DepthStencilView; }

@@ -17,6 +17,10 @@ namespace gebase { namespace graphics {
 		uint m_FSSystemUniformBufferSize;
 		std::vector<uint> m_FSSystemUniformBufferOffsets;
 
+		const size_t MATRIX4F_SIZE;
+		const size_t LIGHT_SIZE;
+		const uint DISABLE_DEPTHTEST;
+
 		void setSystemUniforms(Shader* shader);
 	public:
 		ForwardRenderer();
@@ -41,8 +45,8 @@ namespace gebase { namespace graphics {
 		void Present() override;
 
 		void Submit(const RenderCommand& command) override;
-		void SubmitMesh(Mesh* mesh, const math::Matrix4f& transform) override;
-		void SubmitLightSetup(const LightSetup& lightSetup) override;
+		void SubmitMesh(Mesh* mesh, const math::Matrix4f& transform = math::Matrix4f::Identity()) override;
+		void SubmitLightSetup(const std::vector<Light*>& lights) override;
 	};
 
 } }

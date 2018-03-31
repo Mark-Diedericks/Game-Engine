@@ -612,9 +612,7 @@ namespace gebase { namespace graphics {
 
 	void GLShader::setVSSystemUniformBuffer(byte* data, uint size, uint slot)
 	{
-		Bind();
-
-		if (!(m_VSUniformBuffers.size() > slot))
+		if (m_VSUniformBuffers.size() <= slot)
 		{
 			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] setVSSystemUniformBuffer() - Size is not greater than slot.");
 #ifdef GE_DEBUG
@@ -628,10 +626,7 @@ namespace gebase { namespace graphics {
 
 	void GLShader::setFSSystemUniformBuffer(byte* data, uint size, uint slot)
 	{
-
-		Bind();
-
-		if (!(m_FSUniformBuffers.size() > slot))
+		if (m_FSUniformBuffers.size() <= slot)
 		{
 			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] setFSSystemUniformBuffer() - Size is not greater than slot.");
 #ifdef GE_DEBUG
@@ -655,26 +650,17 @@ namespace gebase { namespace graphics {
 
 	void GLShader::setUniformStruct(GLShaderUniformDeclaration* uniform, byte* data, int32 offset)
 	{
-		const ShaderStruct& s = uniform->getShaderUniformStruct();
-		const auto& fields = s.getFields();
-
-		for (uint i = 0; i < fields.size(); i++)
+		for (ShaderUniformDeclaration* field : uniform->getShaderUniformStruct().getFields())
 		{
-			GLShaderUniformDeclaration* field = (GLShaderUniformDeclaration*)fields[i];
-			ResolveAndSetUniformField(*field, data, offset);
+			ResolveAndSetUniformField(*((GLShaderUniformDeclaration*)field), data, offset);
 			offset += field->getSize();
 		}
 	}
 
 	void GLShader::ResolveAndSetUniforms(ShaderUniformBufferDeclaration* buffer, byte* data, uint size)
 	{
-		const ShaderUniformList& uniforms = buffer->getUniformDeclarations();
-
-		for (uint i = 0; i < uniforms.size(); i++)
-		{
-			GLShaderUniformDeclaration* uniform = (GLShaderUniformDeclaration*)uniforms[i];
-			ResolveAndSetUniform(uniform, data, size);
-		}
+		for (ShaderUniformDeclaration* uniform : buffer->getUniformDeclarations())
+			ResolveAndSetUniform((GLShaderUniformDeclaration*)uniform, data, size);
 	}
 
 	void GLShader::ResolveAndSetUniform(GLShaderUniformDeclaration* uniform, byte* data, uint size)
@@ -682,31 +668,32 @@ namespace gebase { namespace graphics {
 		if (uniform->getLocation() == -1)
 			return;
 
-		uint offset = uniform->getOffset();
+		const uint offset = uniform->getOffset();
+		const uint location = uniform->getLocation();
 
 		switch (uniform->getType())
 		{
 		case GLShaderUniformDeclaration::UniformType::FLOAT32:
-			setUniform1f(uniform->getLocation(), *(float*)&data[offset]);
+			setUniform1f(location, *(float*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::INT32:
-			setUniform1i(uniform->getLocation(), *(int32*)&data[offset]);
+			setUniform1i(location, *(int32*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::VEC2:
-			setUniform2f(uniform->getLocation(), *(math::Vector2f*)&data[offset]);
+			setUniform2f(location, *(math::Vector2f*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::VEC3:
-			setUniform3f(uniform->getLocation(), *(math::Vector3f*)&data[offset]);
+			setUniform3f(location, *(math::Vector3f*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::VEC4:
-			setUniform4f(uniform->getLocation(), *(math::Vector4f*)&data[offset]);
+			setUniform4f(location, *(math::Vector4f*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::MAT3:
 			//TODO Implement    setUniformMat3(uniform->getLocation(), *(math::Matrix3f*)&data[offset]);
 			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] ResolveAndSetUniform() - Cannot set MAT3 uniform type, unimplemented.");
 			break;
 		case GLShaderUniformDeclaration::UniformType::MAT4:
-			setUniformMat4(uniform->getLocation(), *(math::Matrix4f*)&data[offset]);
+			setUniformMat4(location, *(math::Matrix4f*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::STRUCT:
 			setUniformStruct(uniform, data, offset);
@@ -722,29 +709,31 @@ namespace gebase { namespace graphics {
 
 	void GLShader::ResolveAndSetUniformField(const GLShaderUniformDeclaration& field, byte* data, int32 offset)
 	{
+		const uint location = field.getLocation();
+
 		switch (field.getType())
 		{
 		case GLShaderUniformDeclaration::UniformType::FLOAT32:
-			setUniform1f(field.getLocation(), *(float*)&data[offset]);
+			setUniform1f(location, *(float*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::INT32:
-			setUniform1i(field.getLocation(), *(int32*)&data[offset]);
+			setUniform1i(location, *(int32*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::VEC2:
-			setUniform2f(field.getLocation(), *(math::Vector2f*)&data[offset]);
+			setUniform2f(location, *(math::Vector2f*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::VEC3:
-			setUniform3f(field.getLocation(), *(math::Vector3f*)&data[offset]);
+			setUniform3f(location, *(math::Vector3f*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::VEC4:
-			setUniform4f(field.getLocation(), *(math::Vector4f*)&data[offset]);
+			setUniform4f(location, *(math::Vector4f*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::MAT3:
 			//TODO Implement    setUniformMat3(field.getLocation(), *(math::Matrix3f*)&data[offset]);
 			utils::LogUtil::WriteLine("ERROR", "[GLShader: " + getName() + "] ResolveAndSetUniformField() - Cannot set MAT3 uniform type, unimplemented.");
 			break;
 		case GLShaderUniformDeclaration::UniformType::MAT4:
-			setUniformMat4(field.getLocation(), *(math::Matrix4f*)&data[offset]);
+			setUniformMat4(location, *(math::Matrix4f*)&data[offset]);
 			break;
 		case GLShaderUniformDeclaration::UniformType::STRUCT:
 			break;

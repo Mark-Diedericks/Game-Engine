@@ -29,11 +29,11 @@ public:
 		VirtualFileSystem::Get()->Mount("pbr", "res/pbr");
 		VirtualFileSystem::Get()->Mount("shaders", "shaders");
 
-		//PushLayer(genew SponzaTest());
-		PushLayer(genew Test3D());
+		PushLayer(genew SponzaTest());
+		//PushLayer(genew Test3D());
 		//PushLayer(genew Test2D());
 
-		//PushOverlay(genew TestInfo());
+		PushOverlay(genew TestInfo());
 	}
 
 };

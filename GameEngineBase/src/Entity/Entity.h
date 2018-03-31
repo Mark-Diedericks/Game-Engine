@@ -11,6 +11,9 @@ namespace gebase { namespace entity {
 	{
 	protected:
 		std::unordered_map<component::ComponentType*, component::Component*> m_Components;
+		bool m_Sprite;
+		bool m_Mesh;
+		bool m_Transform;
 	private:
 		template <typename T>
 		const T* getComponentInternal() const
@@ -29,6 +32,10 @@ namespace gebase { namespace entity {
 		Entity(graphics::Mesh* mesh, const math::Matrix4f& transform = math::Matrix4f::Identity());
 
 		void AddComponent(component::Component* component);
+
+		inline const bool HasSprite() const { return m_Sprite; }
+		inline const bool HasMesh() const { return m_Mesh; }
+		inline const bool HasTransform() const { return m_Transform; }
 
 		template <typename T>
 		const T* getComponent() const

@@ -6,15 +6,17 @@
 #include "Math/Maths.h"
 #include "Graphics/Context/Context.h"
 #include "Graphics/Layer/Layer.h"
+#include "Graphics/Layer/Layer2D.h"
 #include "Utils/Timer.h"
 
 namespace gebase {
-	namespace debug {
-		class DebugLayer;
-	}
+	//namespace debug {
+	//	class DebugLayer;
+	//}
 
 	namespace graphics {
 		class IRenderDependant;
+		class Layer2D;
 	}
 
 	class GE_API Application
@@ -23,7 +25,7 @@ namespace gebase {
 		static Application* s_Instance;
 	public:
 		Window* window;
-		debug::DebugLayer* m_DebugLayer;
+		graphics::Layer2D* m_DebugLayer;
 	private:
 		Timer* m_Timer;
 		bool m_Running;

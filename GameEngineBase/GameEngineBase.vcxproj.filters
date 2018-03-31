@@ -456,6 +456,7 @@
       <Filter>src\ge\graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\Context\ConversionUtil.cpp" />
+    <ClCompile Include="src\Graphics\Font\Glyph.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ge.h">
@@ -877,6 +878,7 @@
     <ClInclude Include="src\Graphics\Context\Context.h">
       <Filter>src\ge\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\Graphics\Font\Glyph.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Graphics\Shader\default\BasicLight.shader">

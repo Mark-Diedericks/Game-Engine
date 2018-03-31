@@ -109,6 +109,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessToFile>false</PreprocessToFile>
       <ShowIncludes>false</ShowIncludes>
+      <AdditionalOptions>/Qvec-report:2 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -191,6 +192,7 @@
     <ClCompile Include="src\Graphics\Buffer\BufferLayout.cpp" />
     <ClCompile Include="src\Graphics\Context\ConversionUtil.cpp" />
     <ClCompile Include="src\Graphics\BackendDependency\IRenderAPIEmployable.cpp" />
+    <ClCompile Include="src\Graphics\Font\Glyph.cpp" />
     <ClCompile Include="src\Graphics\Shader\ShaderUniform.cpp" />
     <ClCompile Include="src\Backend\D3D\11\DX11Context.cpp" />
     <ClCompile Include="src\Backend\D3D\11\DX11Convert.cpp" />
@@ -320,6 +322,7 @@
     <ClInclude Include="src\Graphics\Buffer\BufferLayout.h" />
     <ClInclude Include="src\Graphics\Context\ConversionUtil.h" />
     <ClInclude Include="src\Graphics\BackendDependency\IRenderAPIEmployable.h" />
+    <ClInclude Include="src\Graphics\Font\Glyph.h" />
     <ClInclude Include="src\Graphics\Shader\ShaderDeclaration.h" />
     <ClInclude Include="src\Graphics\Shader\ShaderResource.h" />
     <ClInclude Include="src\Graphics\Shader\ShaderUniform.h" />

@@ -144,25 +144,20 @@ namespace gebase {
 
 	void Application::OnRender()
 	{
-		GE_PERF({
+		for (Layer* l : m_LayerStack)
+		{
+			if (l->isVisible())
+				l->OnRender();
+		}
 
-			for (Layer* l : m_LayerStack)
-			{
-				if (l->isVisible())
-					GE_PERF(l->OnRender())
-			}
+		for (Layer* o : m_OverlayStack)
+		{
+			if (o->isVisible())
+				o->OnRender();
+		}
 
-			for (Layer* o : m_OverlayStack)
-			{
-				if (o->isVisible())
-					GE_PERF(o->OnRender())
-			}
-		})
-
-		GE_PERF({
-			if (m_DebugLayer->isVisible())
-				((Layer2D*)m_DebugLayer)->OnRender();
-		})
+		if (m_DebugLayer->isVisible())
+			m_DebugLayer->OnRender();
 	}
 
 	

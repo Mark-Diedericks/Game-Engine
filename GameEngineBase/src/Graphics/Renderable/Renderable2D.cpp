@@ -22,7 +22,8 @@ namespace gebase { namespace graphics {
 
 	void Renderable2D::Submit(Renderer2D* renderer) const
 	{
-		renderer->Submit(this);
+		if(isVisible())
+			renderer->Submit(*this);
 	}
 
 	void Renderable2D::setColor(const math::Vector4f& color)

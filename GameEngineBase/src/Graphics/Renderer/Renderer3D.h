@@ -35,8 +35,8 @@ namespace gebase { namespace graphics {
 		virtual void Present() = 0;
 
 		virtual void Submit(const RenderCommand& command) = 0;
-		virtual void SubmitMesh(Mesh* mesh, const math::Matrix4f& transform) = 0;
-		virtual void SubmitLightSetup(const LightSetup& lightSetup) = 0;
+		virtual void SubmitMesh(Mesh* mesh, const math::Matrix4f& transform = math::Matrix4f::Identity()) = 0;
+		virtual void SubmitLightSetup(const std::vector<Light*>& lights) = 0;
 
 		virtual void setScreenBufferSize(uint width, uint height) { m_ScreenBufferWidth = width, m_ScreenBufferHeight = height; }
 	};

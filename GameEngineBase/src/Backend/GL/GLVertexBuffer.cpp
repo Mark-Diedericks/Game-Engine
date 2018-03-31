@@ -64,7 +64,14 @@ namespace gebase { namespace graphics {
 		m_Size = size;
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
 		GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GLConvert::BufferUsageToGL(m_Usage)));
-	} 
+	}
+
+	void GLVertexBuffer::setData(uint size, VertexData* data)
+	{
+		m_Size = size;
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Handle));
+		GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GLConvert::BufferUsageToGL(m_Usage)));
+	}
 
 	void GLVertexBuffer::Bind()
 	{
@@ -91,7 +98,10 @@ namespace gebase { namespace graphics {
 
 	void* GLVertexBuffer::getPointerInternal()
 	{
-		GLCall(void* result = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
+		//https://www.khronos.org/opengl/wiki/Buffer_Object_Streaming
+		//https://www.gamedev.net/forums/topic/631265-slow-sprite-batch-rendering/
+		//GLCall(void* result = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
+		GLCall(void* result = glMapBufferRange(GL_ARRAY_BUFFER, 0, getSize(), GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT | GL_MAP_INVALIDATE_RANGE_BIT));
 		return result;
 	}
 

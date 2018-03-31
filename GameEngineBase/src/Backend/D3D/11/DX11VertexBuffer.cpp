@@ -92,6 +92,16 @@ namespace gebase { namespace graphics {
 		ReleasePointer();
 	}
 
+	void DX11VertexBuffer::setData(uint size, VertexData* data)
+	{
+		if (m_Size < size)
+			Resize(size);
+
+		getPointerInternal();
+		memcpy(m_MappedSubresource.pData, data, size);
+		ReleasePointer();
+	}
+
 	void DX11VertexBuffer::Bind()
 	{
 		uint offset = 0;

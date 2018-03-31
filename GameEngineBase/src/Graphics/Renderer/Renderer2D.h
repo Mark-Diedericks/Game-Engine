@@ -6,12 +6,17 @@
 
 #include "Graphics/Renderable/Renderable2D.h"
 #include "Graphics/Framebuffer/Framebuffer2D.h"
-#include "Graphics/Mask.h"
+
 #include "Graphics/Font/FontManager.h"
+#include "Graphics/Font/Glyph.h"
+
 #include "Graphics/Camera/Camera.h"
 #include "Graphics/PostEffect/PostEffects.h"
+#include "Graphics/Mask.h"
+
 #include "Graphics/Buffer/VertexArray.h"
 #include "Graphics/Buffer/IndexBuffer.h"
+
 #include "IRenderer.h"
 
 namespace gebase { namespace graphics {
@@ -108,10 +113,11 @@ namespace gebase { namespace graphics {
 
 		void Begin();
 		void End();
-		void Submit(const Renderable2D* renderable);
+		void Submit(const Renderable2D& renderable);
 		void Present();
 		
 		void DrawString(const String& str, const math::Vector2f& pos, const Font& font = *FontManager::Get(), uint color = 0xffffffff);
+		void DrawString(std::vector<Glyph*> glyphs, const math::Vector2f& pos, const Font& font, uint color = 0xffffffff);
 
 		void DrawLine(float x0, float y0, float x1, float y1, uint color = 0xffffffff, float thickess = 0.02f);
 		void DrawLine(const math::Vector2f& start, const math::Vector2f& end, uint color = 0xffffffff, float thickness = 0.02f);

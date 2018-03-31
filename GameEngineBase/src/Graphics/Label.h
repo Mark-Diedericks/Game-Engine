@@ -2,7 +2,9 @@
 
 #include "Common.h"
 #include "Sprite.h"
+
 #include "Font/FontManager.h"
+#include "Font/Glyph.h"
 
 namespace gebase { namespace graphics {
 
@@ -18,6 +20,8 @@ namespace gebase { namespace graphics {
 		};
 	private:
 		String m_Text;
+		std::vector<Glyph*> m_Glyphs;
+
 		Font* m_Font;
 		Alignment m_Alignment;
 		math::Vector2f m_AlignmentOffset;

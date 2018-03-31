@@ -66,9 +66,12 @@ namespace gebase {
 		unsigned int updateCount = 0;
 
 		while (m_Running)
-		{
+		GE_PERF({
 			now = m_Timer->ElapsedMillis();
-			utils::LogUtil::WriteLine("PERFORMANCE", "-----------------------------------------------------------------------------------------------------------------------------------------");
+			
+//#ifdef GE_DEBUG
+			utils::LogUtil::WriteLine("PERFORMANCE", "");
+//#endif
 
 			GE_PERF(window->Clear())
 
@@ -96,7 +99,7 @@ namespace gebase {
 					frameCount = 0;
 					updateCount = 0;
 
-					GE_PERF(OnTick());
+					GE_PERF(OnTick())
 
 					utils::LogUtil::WriteLine("INFO", "Render Stats || FrameTime: " + StringFormat::Float((float)m_FrT) + "ms || UPS: " + std::to_string(m_UPS) + " || FPS: " + std::to_string(m_FPS));
 				}
@@ -107,7 +110,7 @@ namespace gebase {
 			
 			frameCount++;
 			previous = now;
-		}
+		})
 	}
 
 	String Application::getPlatform()

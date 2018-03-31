@@ -30,6 +30,7 @@ namespace gebase { namespace graphics {
 	private:
 		VertexArray* m_VertexArray;
 		IndexBuffer* m_IndexBuffer;
+		uint m_IndexBufferCount;
 		MaterialInstance* m_MaterialInstance;
 
 #ifdef GE_DEBUG

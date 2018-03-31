@@ -56,14 +56,11 @@ namespace gebase { namespace graphics {
 	{
 		m_Shader->Bind();
 
-		if (!m_isInstance)
-		{
-			if (m_VSUserUniformBuffer)
-				m_Shader->setVSUserUniformBuffer(m_VSUserUniformBuffer, m_VSUserUniformBufferSize);
+		if (m_VSUserUniformBuffer)
+			m_Shader->setVSUserUniformBuffer(m_VSUserUniformBuffer, m_VSUserUniformBufferSize);
 
-			if (m_FSUserUniformBuffer)
-				m_Shader->setFSUserUniformBuffer(m_FSUserUniformBuffer, m_FSUserUniformBufferSize);
-		}
+		if (m_FSUserUniformBuffer)
+			m_Shader->setFSUserUniformBuffer(m_FSUserUniformBuffer, m_FSUserUniformBufferSize);
 
 		for (uint i = 0; i < m_Textures.size(); i++)
 		{
@@ -371,31 +368,59 @@ namespace gebase { namespace graphics {
 
 	void MaterialInstance::Bind()
 	{
-		m_Material->Bind();
+		//m_Material->Bind();
+		m_Material->m_Shader->Bind();
+
 		if (m_VSUserUniformBuffer)
 			m_Material->m_Shader->setVSUserUniformBuffer(m_VSUserUniformBuffer, m_VSUserUniformBufferSize);
 
 		if (m_FSUserUniformBuffer)
 			m_Material->m_Shader->setFSUserUniformBuffer(m_FSUserUniformBuffer, m_FSUserUniformBufferSize);
 
-		for (uint i = 0; i < m_Textures.size(); i++)
+		m_TexturesSize = m_Textures.size();
+		m_MaterialTexturesSize = m_Material->m_Textures.size();
+		m_MAX_SIZE = m_TexturesSize >= m_MaterialTexturesSize ? m_TexturesSize  : m_MaterialTexturesSize;
+
+		for (uint i = 0; i < m_MAX_SIZE; i++)
+		{
+			if(i < m_TexturesSize)
+				if(m_Textures[i])
+					m_Textures[i]->Bind(i);
+
+			if (i < m_MaterialTexturesSize)
+				if (m_Material->m_Textures[i])
+					m_Material->m_Textures[i]->Bind(i);
+		}
+
+		/*for (uint i = 0; i < m_Textures.size(); i++)
 		{
 			Texture* texture = m_Textures[i];
 			if (texture)
 				texture->Bind(i);
-		}
+		}*/
 	}
 
 	void MaterialInstance::Unbind()
 	{
-		m_Material->Unbind();
+		//m_Material->Unbind();
 
-		for (uint i = 0; i < m_Textures.size(); i++)
+		for (uint i = 0; i < m_MAX_SIZE; i++)
+		{
+			if (i < m_TexturesSize)
+				if (m_Textures[i])
+					m_Textures[i]->Unbind(i);
+
+			if (i < m_MaterialTexturesSize)
+				if (m_Material->m_Textures[i])
+					m_Material->m_Textures[i]->Unbind(i);
+		}
+
+		/*for (uint i = 0; i < m_Textures.size(); i++)
 		{
 			Texture* texture = m_Textures[i];
 			if (texture)
 				texture->Unbind(i);
-		}
+		}*/
 	}
 
 	void MaterialInstance::setUniformData(const String& uniform, byte* data)

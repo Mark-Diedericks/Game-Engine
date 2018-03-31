@@ -22,7 +22,7 @@ namespace gebase {
 		void Add(entity::Entity* entity);
 		void OnRender();
 
-		virtual void OnUpdate();
+		virtual void OnUpdate(const float delta);
 		virtual void OnRender(graphics::Renderer2D& renderer);
 
 		inline graphics::Renderer2D* getRenderer() { return m_Renderer; }

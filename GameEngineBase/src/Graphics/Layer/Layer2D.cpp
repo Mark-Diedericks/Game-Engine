@@ -12,9 +12,8 @@ namespace gebase { namespace graphics {
 		uint width = Application::getApplication().getWindowWidth();
 		uint height = Application::getApplication().getWindowHeight();
 
-		m_Renderer = genew Renderer2D(width, height);
 		m_Scene = genew Scene2D(projectionMatrix);
-		m_Renderer->setCamera(m_Scene->getCamera());
+		m_Renderer = m_Scene->getRenderer();
 	}
 
 	Layer2D::Layer2D(Scene2D* scene) : Layer(), m_Scene(scene)
@@ -22,8 +21,7 @@ namespace gebase { namespace graphics {
 		uint width = Application::getApplication().getWindowWidth();
 		uint height = Application::getApplication().getWindowHeight();
 
-		m_Renderer = genew Renderer2D(width, height);
-		m_Renderer->setCamera(m_Scene->getCamera());
+		m_Renderer = m_Scene->getRenderer();
 	}
 
 	Layer2D::~Layer2D()
@@ -68,8 +66,8 @@ namespace gebase { namespace graphics {
 
 	void Layer2D::OnRender()
 	{
-		m_Scene->OnRender();
 		m_Renderer->Begin();
+		m_Scene->OnRender();
 
 		for (const Renderable2D* renderable : m_SubmittedRenderables)
 			renderable->Submit(m_Renderer);

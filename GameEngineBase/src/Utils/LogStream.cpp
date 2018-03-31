@@ -5,10 +5,12 @@
 
 namespace gebase { namespace utils {
 
+#define GE_PRINT(x) std::cout << x;
+
 	LogStream::LogStream(const String& fileLocation, const String& identifyingTag, const bool printToConsole, const bool logPerformance) : m_FileStream(fileLocation, std::ios_base::out), m_FileLocation(fileLocation), m_IdentifyingTag(identifyingTag), m_PrintConsole(printToConsole), m_LogPerformance(logPerformance)
 	{
-		if(m_FileStream.bad())
-			std::cout << "[ERROR] [LogStream] Write() - Cannot open file: " << m_FileLocation.c_str() << std::endl;
+		if (m_FileStream.bad())
+			GE_PRINT(("[ERROR] [LogStream] Write() - Cannot open file: " + m_FileLocation + '\n').c_str());
 	}
 
 	LogStream::~LogStream()
@@ -21,16 +23,16 @@ namespace gebase { namespace utils {
 	{
 		if (m_FileStream.is_open())
 		{
-			m_FileStream << ("[" + m_IdentifyingTag + "] " + text);
+			m_FileStream << text;
 			m_FileStream.flush();
 		}
 		else
 		{
-			std::cout << "[ERROR] [LogStream] Write() - Cannot write to file: " << m_FileLocation.c_str() << std::endl;
+			GE_PRINT(("[ERROR] [LogStream] Write() - Cannot write to file: " + m_FileLocation + '\n').c_str());
 		}
 
 		if(m_PrintConsole)
-			std::cout << "[" + m_IdentifyingTag + "] " + text;
+			GE_PRINT(("[" + m_IdentifyingTag + "] " + text + '\n').c_str());
 	}
 
 	void LogStream::Write(const char* text)
@@ -40,7 +42,7 @@ namespace gebase { namespace utils {
 			gebase::Timer* timer = new gebase::Timer();
 			timer->Reset();
 			WritePriv(text);
-			std::cout << ("[PERFORMANCE] (LogStream) WriteLine(): " + StringFormat::Float(timer->ElapsedMillis()) + "ms").c_str() << std::endl;
+			GE_PRINT(("[PERFORMANCE] (LogStream) WriteLine(): " + StringFormat::Float(timer->ElapsedMillis()) + "ms" + '\n').c_str());
 			delete timer;
 		}
 		else
@@ -53,16 +55,16 @@ namespace gebase { namespace utils {
 	{
 		if (m_FileStream.is_open())
 		{
-			m_FileStream << ("[" + m_IdentifyingTag + "] " + text + '\n');
+			m_FileStream << text << std::endl;
 			m_FileStream.flush();
 		}
 		else
 		{
-			std::cout << "[ERROR] [LogStream] Write() - Cannot write to file: " << m_FileLocation.c_str() << std::endl;
+			GE_PRINT(("[ERROR] [LogStream] Write() - Cannot write to file: " + m_FileLocation + '\n').c_str());
 		}
 
 		if (m_PrintConsole)
-			std::cout << "[" + m_IdentifyingTag + "] " + text << std::endl;
+			GE_PRINT(("[" + m_IdentifyingTag + "] " + text + '\n').c_str());
 	}
 
 	void LogStream::WriteLine(const char* text)
@@ -72,7 +74,7 @@ namespace gebase { namespace utils {
 			gebase::Timer* timer = new gebase::Timer();
 			timer->Reset();
 			WriteLinePriv(text); 
-			std::cout << ("[PERFORMANCE] (LogStream) WriteLine(): " + StringFormat::Float(timer->ElapsedMillis()) + "ms").c_str() << std::endl;
+			GE_PRINT(("[PERFORMANCE] (LogStream) WriteLine(): " + StringFormat::Float(timer->ElapsedMillis()) + "ms" + '\n').c_str());
 			delete timer;
 		}
 		else

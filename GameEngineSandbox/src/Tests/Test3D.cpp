@@ -314,11 +314,6 @@ void Test3D::OnUpdate(float delta)
 	m_SkyboxMaterial->setUniform("invViewProjMatrix", math::Matrix4f::Invert(vp));
 }
 
-void Test3D::OnRender(Renderer3D& renderer)
-{
-	Layer3D::OnRender(renderer);
-}
-
 void Test3D::OnEvent(Event& event)
 {
 	if (event.getEventType() == Event::EventType::KEY_PRESSED)

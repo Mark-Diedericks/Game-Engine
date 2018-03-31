@@ -17,12 +17,14 @@ namespace gebase { namespace graphics {
 
 	struct Vertex;
 	struct QuadVertex;
+	struct VertexData;
 
 	class GE_API VertexBuffer : public IRenderAPIDependant
 	{
 	protected:
 		BufferUsage m_Usage;
 		VertexBuffer(uint loadType) : IRenderAPIDependant(RenderObjectType::Buffer, loadType) { }
+
 		virtual void* getPointerInternal() = 0;
 	public:
 		static VertexBuffer* Create(BufferUsage = BufferUsage::STATIC);
@@ -35,6 +37,7 @@ namespace gebase { namespace graphics {
 		virtual void setData(uint size, byte* data) = 0;
 		virtual void setData(uint size, Vertex* data) = 0;
 		virtual void setData(uint size, QuadVertex* data) = 0;
+		virtual void setData(uint size, VertexData* data) = 0;
 
 		virtual void ReleasePointer() = 0;
 

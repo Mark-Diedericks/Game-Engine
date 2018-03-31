@@ -8,7 +8,7 @@
 #include "Camera/MayaCamera.h"
 #include "Debug/DebugRenderer.h"
 #include "System/Memory.h"
-#include "Utils\LogUtil.h"
+#include "Utils/LogUtil.h"
 
 namespace gebase {
 
@@ -57,7 +57,6 @@ namespace gebase {
 	void Scene::setCamera(graphics::Camera* camera)
 	{
 		m_Camera = camera;
-		debug::DebugRenderer::setCamera(m_Camera);
 		m_Camera->Focus();
 	}
 
@@ -68,29 +67,32 @@ namespace gebase {
 
 	void Scene::Render(graphics::Renderer3D& renderer)
 	{
+		debug::DebugRenderer::setCamera(m_Camera);
+
 		renderer.Begin();
 		renderer.BeginScene(m_Camera);
 
-		for (uint i = 0; i < m_LightSetupStack.size(); i++)
-			renderer.SubmitLightSetup(*m_LightSetupStack[i]);
+		for (graphics::LightSetup* ls : m_LightSetupStack)
+			renderer.SubmitLightSetup(ls->getLights());
 
 		for (entity::Entity* entity : m_Entities)
 		{
-			entity::component::MeshComponent* mesh = entity->getComponent<entity::component::MeshComponent>();
-
-			if (mesh)
+			if (entity->HasMesh())
 			{
-				entity::component::TransformComponent* transform = entity->getComponent<entity::component::TransformComponent>(); 
-#ifdef GE_DEBUG
-				if (!transform)
+				entity::component::MeshComponent* mesh = entity->getComponent<entity::component::MeshComponent>();
+				if (entity->HasTransform())
 				{
-					utils::LogUtil::WriteLine("ERROR", "[Scene] Render() - Entity does not have a transform component!");
-					__debugbreak();
-
+					entity::component::TransformComponent* transform = entity->getComponent<entity::component::TransformComponent>();
+					renderer.SubmitMesh(mesh->mesh, transform->transform);
 				}
+				else
+				{
+					renderer.SubmitMesh(mesh->mesh); 
+#ifdef GE_DEBUG
+					utils::LogUtil::WriteLine("WARNING", "[Scene] Render() - Entity does not have a transform component!");
+					__debugbreak();
 #endif
-
-				renderer.SubmitMesh(mesh->mesh, transform->transform);
+				}
 			}
 		}
 

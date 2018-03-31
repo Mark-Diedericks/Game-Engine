@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "DX11TextureCube.h"
 #include "DX11Context.h"
+#include "DX11Convert.h"
 #include "System/Memory.h"
 
 namespace gebase { namespace graphics {
@@ -279,6 +280,7 @@ namespace gebase { namespace graphics {
 		m_SamplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
 		DXCall(DX11Context::getDevice()->CreateSamplerState(&m_SamplerDesc, &m_SamplerState));
+		m_Desc = td;
 
 		return 0;
 	}
@@ -297,7 +299,83 @@ namespace gebase { namespace graphics {
 
 	void DX11TextureCube::getPixelData(byte*** faces)
 	{
-		faces = nullptr;
+		faces = nullptr;		
+		D3D11_TEXTURE2D_DESC desc = m_Desc;
+
+		ID3D11Texture2D* mappedTexture;
+		D3D11_MAPPED_SUBRESOURCE mapInfo;
+		D3D11_SUBRESOURCE_DATA* pData = genew D3D11_SUBRESOURCE_DATA[6 * m_Mips];
+
+		HRESULT hr;
+		hr = DX11Context::getDeviceContext()->Map(m_Texture, 0, D3D11_MAP_READ, 0, &mapInfo);
+
+		if (FAILED(hr))
+		{
+			if (hr == E_INVALIDARG)
+			{
+				desc.Width = m_Desc.Width;
+				desc.Height = m_Desc.Height;
+				desc.MipLevels = m_Desc.MipLevels;
+				desc.ArraySize = m_Desc.ArraySize;
+				desc.Format = m_Desc.Format;
+				desc.SampleDesc = m_Desc.SampleDesc;
+				desc.Usage = D3D11_USAGE_STAGING;
+				desc.BindFlags = 0;
+				desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+				desc.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
+
+				ID3D11Texture2D* stagingTexture;
+				hr = DX11Context::getDevice()->CreateTexture2D(&desc, nullptr, &stagingTexture);
+
+				if (FAILED(hr))
+				{
+					utils::LogUtil::WriteLine("ERROR", "Could not map DX11Texture2D: " + std::to_string(hr));
+#ifdef GE_DEBUG
+					__debugbreak();
+#endif
+				}
+
+				DX11Context::getDeviceContext()->CopyResource(stagingTexture, m_Texture);
+				hr = DX11Context::getDeviceContext()->Map(stagingTexture, 0, D3D11_MAP_READ, 0, &mapInfo);
+
+				if (FAILED(hr))
+				{
+					utils::LogUtil::WriteLine("ERROR", "Could not map DX11Texture2D: " + std::to_string(hr));
+#ifdef GE_DEBUG
+					__debugbreak();
+#endif
+				}
+
+				memcpy(pData, mapInfo.pData, getSize());
+				DX11Context::getDeviceContext()->Unmap(stagingTexture, 0);
+				stagingTexture->Release();
+			}
+			else
+			{
+				utils::LogUtil::WriteLine("ERROR", "Could not map DX11Texture2D: " + std::to_string(hr));
+#ifdef GE_DEBUG
+				__debugbreak();
+#endif
+			}
+		}
+		else
+		{
+			memcpy(pData, mapInfo.pData, getSize());
+			DX11Context::getDeviceContext()->Unmap(mappedTexture, 0);
+		}
+
+		uint index = 0;
+		uint faceOrder[6] = { 3, 1, 0, 4, 2, 5 };
+
+		for (int32 f = 0; f < 6; f++)
+		{
+			uint fi = faceOrder[f];
+			for (int32 m = 0; m < (int32)m_Mips; m++)
+			{
+				faces[m][fi] = (byte*)pData[index].pSysMem;
+				index++;
+			}
+		}
 	}
 
 	uint DX11TextureCube::getSize() const

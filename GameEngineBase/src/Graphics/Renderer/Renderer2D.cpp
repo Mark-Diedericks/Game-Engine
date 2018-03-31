@@ -25,7 +25,7 @@ namespace gebase { namespace graphics {
 #define RENDERER_SPRITE_SIZE	RENDERER_VERTEX_SIZE * 4
 #define RENDERER_BUFFER_SIZE	RENDERER_SPRITE_SIZE * RENDERER_MAX_SPRITES
 #define RENDERER_INDICES_SIZE	RENDERER_MAX_SPRITES * 6
-#define RENDERER_MAX_TEXTURES	32 - 1
+#define RENDERER_MAX_TEXTURES	32
 
 	bool Renderer2D::s_PostEffectsEnabled = true;
 	bool Renderer2D::s_MaskEnabled = true;
@@ -99,6 +99,8 @@ namespace gebase { namespace graphics {
 			}
 		}
 
+		m_Textures.reserve(RENDERER_MAX_TEXTURES);
+
 		setCamera(genew Camera(math::Matrix4f::Orthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f)));
 		m_Shader->Bind();
 
@@ -159,6 +161,9 @@ namespace gebase { namespace graphics {
 
 	float Renderer2D::SubmitTexture(Texture* texture)
 	{
+		if (!texture)
+			return 0.0f;
+
 		float result = 0.0f;
 		bool found = false;
 
@@ -174,7 +179,7 @@ namespace gebase { namespace graphics {
 
 		if (!found)
 		{
-			if (m_Textures.size() > RENDERER_MAX_TEXTURES)
+			if (m_Textures.size() >= RENDERER_MAX_TEXTURES)
 			{
 				End();
 				Present();
@@ -222,22 +227,24 @@ namespace gebase { namespace graphics {
 		m_VertexArray->Unbind();
 	}
 
-	void Renderer2D::Submit(const Renderable2D* renderable)
+	void Renderer2D::Submit(const Renderable2D& renderable)
 	{
-		if (!renderable->isVisible())
-			return;
+#ifdef GE_DEBUG
+		if (!renderable.isVisible())
+		{
+			utils::LogUtil::WriteLine("ERROR", "Renderable is not visible but was submitted.");
+			__debugbreak();
+		}
+#endif
 
-		const math::Rectangle& bounds = renderable->getBounds();
+		const math::Rectangle& bounds = renderable.getBounds();
 		const math::Vector3f min = bounds.getMinimumBound();
 		const math::Vector3f max = bounds.getMaximumBound();
 
-		const uint color = renderable->getColor();
-		const std::vector<math::Vector2f>& uv = renderable->getUVs();
-		const Texture* texture = renderable->getTexture();
+		const uint color = renderable.getColor();
+		const std::vector<math::Vector2f>& uv = renderable.getUVs();
 
-		float textureSlot = 0.0f;
-		if (texture)
-			textureSlot = SubmitTexture(renderable->getTexture());
+		float textureSlot = SubmitTexture(renderable.getTexture());
 
 		math::Matrix4f maskTransform = math::Matrix4f::Identity();
 		float mid = m_Mask ? SubmitTexture(m_Mask->texture) : 0.0f;
@@ -299,15 +306,30 @@ namespace gebase { namespace graphics {
 
 		m_Shader->Bind();
 
-		for (uint i = 0; i < m_SystemUniformBuffers.size(); i++)
+		const uint SystemUniformBuffersSize = m_SystemUniformBuffers.size();
+		const uint TexturesSize = m_Textures.size();
+		const uint MAX_SIZE = SystemUniformBuffersSize >= TexturesSize ? SystemUniformBuffersSize : TexturesSize;
+
+		for (uint i = 0; i < MAX_SIZE; i++)
+		{
+			if (i < SystemUniformBuffersSize)
+				m_Shader->setVSSystemUniformBuffer(m_SystemUniformBuffers[i].buffer, m_SystemUniformBuffers[i].size, i);
+
+			if (i < TexturesSize)
+				m_Textures[i]->Bind(i);
+		}
+
+		/*for (uint i = 0; i < m_SystemUniformBuffers.size(); i++)
 			m_Shader->setVSSystemUniformBuffer(m_SystemUniformBuffers[i].buffer, m_SystemUniformBuffers[i].size, i);
 
 		for (uint i = 0; i < m_Textures.size(); i++)
-			m_Textures[i]->Bind(i);
+			m_Textures[i]->Bind(i);*/
 
 		m_VertexArray->Bind();
 		m_IndexBuffer->Bind();
+
 		m_VertexArray->Draw(m_IndexCount);
+
 		m_IndexBuffer->Unbind();
 		m_VertexArray->Unbind();
 
@@ -398,6 +420,62 @@ namespace gebase { namespace graphics {
 
 				x += glyph->advance_x / scale.x;
 			}
+		}
+	}
+
+	void Renderer2D::DrawString(std::vector<Glyph*> glyphs, const math::Vector2f& pos, const Font& font, uint color)
+	{
+		using namespace ftgl;
+
+		Texture2D* texture = font.getTexture();
+
+		if (!texture)
+		{
+			utils::LogUtil::WriteLine("ERROR", "[Renderer2D] DrawString() - Font texture is null.");
+#ifdef GE_DEBUG
+			__debugbreak();
+#endif
+		}
+
+		float ts = SubmitTexture(texture);
+
+		for (Glyph* g : glyphs)
+		{
+			float x0 = pos.x + g->getX0();
+			float y0 = pos.y + g->getY0();
+			float x1 = pos.x + g->getX1();
+			float y1 = pos.y + g->getY1();
+
+			float u0 = g->getU0();
+			float v0 = g->getV0();
+			float u1 = g->getU1();
+			float v1 = g->getV1();
+
+			m_Buffer->vertex = *m_TransformationBack * math::Vector3f(x0, y0, 0.0f);
+			m_Buffer->tex_uv = math::Vector2f(u0, v0);
+			m_Buffer->tid = ts;
+			m_Buffer->color = color;
+			m_Buffer++;
+
+			m_Buffer->vertex = *m_TransformationBack * math::Vector3f(x0, y1, 0.0f);
+			m_Buffer->tex_uv = math::Vector2f(u0, v1);
+			m_Buffer->tid = ts;
+			m_Buffer->color = color;
+			m_Buffer++;
+
+			m_Buffer->vertex = *m_TransformationBack * math::Vector3f(x1, y1, 0.0f);
+			m_Buffer->tex_uv = math::Vector2f(u1, v1);
+			m_Buffer->tid = ts;
+			m_Buffer->color = color;
+			m_Buffer++;
+
+			m_Buffer->vertex = *m_TransformationBack * math::Vector3f(x1, y0, 0.0f);
+			m_Buffer->tex_uv = math::Vector2f(u1, v0);
+			m_Buffer->tid = ts;
+			m_Buffer->color = color;
+			m_Buffer++;
+
+			m_IndexCount += 6;
 		}
 	}
 

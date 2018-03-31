@@ -46,8 +46,8 @@ namespace gebase { namespace graphics {
 
 	void Layer3D::OnRender(Renderer3D& renderer)
 	{
-		GE_PERF(m_Scene->Render(renderer))
-		GE_PERF(renderer.Present())
+		m_Scene->Render(renderer);
+		renderer.Present();
 	}
 
 } }

@@ -1,7 +1,10 @@
 #include "ge.h"
 #include "Label.h"
+
 #include "Renderer/Renderer2D.h"
-#include "Utils\LogUtil.h"
+#include "Font/Glyph.h"
+
+#include "Utils/LogUtil.h"
 
 namespace gebase { namespace graphics {
 
@@ -50,7 +53,10 @@ namespace gebase { namespace graphics {
 
 	void Label::Submit(Renderer2D* renderer) const
 	{
-		renderer->DrawString(m_Text, m_Bounds.getMinimumBound() + m_AlignmentOffset, *m_Font, m_Color);
+		if(m_Glyphs.size() > 0)
+			renderer->DrawString(m_Glyphs, m_Bounds.getMinimumBound() + m_AlignmentOffset, *m_Font, m_Color);
+		else
+			renderer->DrawString(m_Text, m_Bounds.getMinimumBound() + m_AlignmentOffset, *m_Font, m_Color);
 	}
 
 	void Label::UpdateBounds()
@@ -94,6 +100,16 @@ namespace gebase { namespace graphics {
 	void Label::setText(const String& text)
 	{
 		m_Text = text;
+
+		for (Glyph* g : m_Glyphs)
+			gedel g;
+
+		m_Glyphs.clear();
+
+		float x = 0;
+		for (uint i = 0; i < text.length(); i++)
+			m_Glyphs.push_back(genew Glyph(text[i], *m_Font, &x, i > 0 ? text[i - 1] : NULL));
+
 		UpdateBounds();
 	}
 

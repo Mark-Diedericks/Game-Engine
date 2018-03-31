@@ -49,11 +49,6 @@ namespace gebase { namespace graphics {
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 	}
 
-	void GLRenderer::PresentInternal()
-	{
-		m_Context->Present();
-	}
-
 	void GLRenderer::setDepthTestingInternal(bool enabled)
 	{
 		if (enabled)

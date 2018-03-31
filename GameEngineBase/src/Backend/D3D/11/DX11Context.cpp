@@ -164,7 +164,7 @@ namespace gebase { namespace graphics {
 		deviceContext->OMSetRenderTargets(1, &target, view);
 	}
 
-	void DX11Context::Present()
+	void DX11Context::PresentInternal()
 	{
 		swapchain->Present(m_Properties.vsync, 0);
 	}

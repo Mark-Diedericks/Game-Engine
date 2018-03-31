@@ -130,8 +130,3 @@ void SponzaTest::OnEvent(gebase::events::Event& event)
 	}
 	Layer::OnEvent(event);
 }
-
-void SponzaTest::OnRender(Renderer3D& renderer)
-{
-	Layer3D::OnRender(renderer);
-}

@@ -85,8 +85,3 @@ void TestInfo::OnEvent(gebase::events::Event& event)
 	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&TestInfo::OnKeyPressedEvent));
 	dispatcher.Dispatch<MousePressedEvent>(METHOD(&TestInfo::OnMousePressedEvent));
 }
-
-void TestInfo::OnRender(Renderer2D& renderer)
-{
-
-}

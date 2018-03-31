@@ -30,6 +30,7 @@ namespace gebase
 	Scene2D::~Scene2D()
 	{
 		gedel m_Camera;
+		gedel m_Renderer;
 	}
 
 	void Scene2D::Add(entity::Entity* entity)
@@ -37,9 +38,9 @@ namespace gebase
 		m_Entities.push_back(entity);
 	}
 
-	void Scene2D::OnUpdate()
+	void Scene2D::OnUpdate(const float delta)
 	{
-
+		m_Camera->Update(delta);
 	}
 
 	void Scene2D::OnRender(graphics::Renderer2D& renderer)
@@ -49,19 +50,13 @@ namespace gebase
 
 	void Scene2D::OnRender()
 	{
-		graphics::Camera* camera = m_Camera;
-		camera->Update(Application::getApplication().getFrT());
-
-		debug::DebugRenderer::setCamera(camera);
-
-		m_Renderer->Begin();
+		debug::DebugRenderer::setCamera(m_Camera);
 
 		for (entity::Entity* entity : m_Entities)
 		{
-			entity::component::SpriteComponent* sprite = entity->getComponent<entity::component::SpriteComponent>();
-
-			if (sprite)
+			if (entity->HasSprite())
 			{
+				entity::component::SpriteComponent* sprite = entity->getComponent<entity::component::SpriteComponent>();
 				entity::component::TransformComponent* transform = entity->getComponent<entity::component::TransformComponent>();
 				if (!transform)
 				{
@@ -71,14 +66,11 @@ namespace gebase
 #endif
 				}
 
-				sprite->sprite->Submit(m_Renderer);;
+				sprite->sprite->Submit(m_Renderer);
 			}
 		}
 
 		OnRender(*m_Renderer);
-
-		m_Renderer->End();
-		m_Renderer->Present();
 		return;
 	}
 

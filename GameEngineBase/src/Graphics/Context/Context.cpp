@@ -56,6 +56,27 @@ namespace gebase { namespace graphics {
 		case RenderAPI::D3D11: s_Context = genew DX11Context(properties, deviceContext); break;
 		}
 	}
+	DX11Context* Context::GetD3D11Context()
+	{
+		if (s_RenderAPI == RenderAPI::D3D11)
+			return (DX11Context*)s_Context;
+
+		if (s_PreviousRenderAPI == RenderAPI::D3D11)
+			return (DX11Context*)s_PreviousContext;
+
+		return nullptr;
+	}
+	
+	GLContext* Context::GetOpenGLContext()
+	{
+		if (s_RenderAPI == RenderAPI::OPENGL)
+			return (GLContext*)s_Context;
+
+		if (s_PreviousRenderAPI == RenderAPI::OPENGL)
+			return (GLContext*)s_PreviousContext;
+
+		return nullptr;
+	}
 
 	bool Context::EmployRenderAPI(RenderAPI api)
 	{
@@ -81,8 +102,6 @@ namespace gebase { namespace graphics {
 		const uint RenderableObjectsSize = s_RenderableObjects.size();
 		const uint MAX_SIZE = RendererObjectsSize > RenderableObjectsSize ? RendererObjectsSize : RenderableObjectsSize;
 
-		Renderer::DestroyPrevious();
-
 		EmployRenderAPIShader(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
 
 		EmployRenderAPITexture2D(api, MAX_SIZE, RendererObjectsSize, RenderableObjectsSize);
@@ -107,6 +126,7 @@ namespace gebase { namespace graphics {
 
 	void Context::FlushRenderAPIChange(RenderAPI prevApi)
 	{
+		Renderer::DestroyPrevious();
 		Context::DestroyPrevious();
 	}
 

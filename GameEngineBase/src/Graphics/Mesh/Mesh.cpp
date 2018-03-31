@@ -6,7 +6,7 @@
 
 namespace gebase { namespace graphics {
 
-	Mesh::Mesh(VertexArray* vertexArray, IndexBuffer* indexBuffer, MaterialInstance* materialInstance) : IRenderable(), m_VertexArray(vertexArray), m_IndexBuffer(indexBuffer), m_MaterialInstance(materialInstance)
+	Mesh::Mesh(VertexArray* vertexArray, IndexBuffer* indexBuffer, MaterialInstance* materialInstance) : IRenderable(), m_VertexArray(vertexArray), m_IndexBuffer(indexBuffer), m_IndexBufferCount(indexBuffer->getCount()), m_MaterialInstance(materialInstance)
 	{
 #ifdef GE_DEBUG
 		m_DebugVertexData = nullptr;
@@ -15,7 +15,7 @@ namespace gebase { namespace graphics {
 #endif
 	}
 
-	Mesh::Mesh(const Mesh* mesh) : IRenderable(), m_VertexArray(mesh->m_VertexArray), m_IndexBuffer(mesh->m_IndexBuffer), m_MaterialInstance(mesh->m_MaterialInstance)
+	Mesh::Mesh(const Mesh* mesh) : IRenderable(), m_VertexArray(mesh->m_VertexArray), m_IndexBuffer(mesh->m_IndexBuffer), m_IndexBufferCount(mesh->m_IndexBuffer->getCount()), m_MaterialInstance(mesh->m_MaterialInstance)
 	{
 #ifdef GE_DEBUG
 		m_DebugVertexData = mesh->m_DebugVertexData;
@@ -42,7 +42,7 @@ namespace gebase { namespace graphics {
 		m_VertexArray->Bind();
 		m_IndexBuffer->Bind();
 
-		m_VertexArray->Draw(m_IndexBuffer->getCount());
+		m_VertexArray->Draw(m_IndexBufferCount);
 
 		m_IndexBuffer->Unbind();
 		m_VertexArray->Unbind();
@@ -118,6 +118,8 @@ namespace gebase { namespace graphics {
 	{
 		if (m_IndexBuffer)
 			m_IndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_IndexBuffer);
+
+		m_IndexBufferCount = m_IndexBuffer->getCount();
 
 		return true;
 	}

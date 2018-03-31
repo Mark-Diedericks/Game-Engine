@@ -22,13 +22,13 @@ namespace gebase { namespace graphics {
 		FSSystemUniformIndex_Size
 	};
 
-	ForwardRenderer::ForwardRenderer() : Renderer3D()
+	ForwardRenderer::ForwardRenderer() : Renderer3D(), DISABLE_DEPTHTEST((int)Material::RenderFlags::DISABLE_DEPTH_TEST), MATRIX4F_SIZE(sizeof(math::Matrix4f)), LIGHT_SIZE(sizeof(Light))
 	{
 		setScreenBufferSize(Application::getApplication().getWindowWidth(), Application::getApplication().getWindowHeight());
 		Init();
 	}
 
-	ForwardRenderer::ForwardRenderer(uint width, uint height) : Renderer3D()
+	ForwardRenderer::ForwardRenderer(uint width, uint height) : Renderer3D(), DISABLE_DEPTHTEST((int)Material::RenderFlags::DISABLE_DEPTH_TEST), MATRIX4F_SIZE(sizeof(math::Matrix4f)), LIGHT_SIZE(sizeof(Light))
 	{
 		setScreenBufferSize(width, height);
 		Init();
@@ -107,10 +107,8 @@ namespace gebase { namespace graphics {
 		Submit(command);
 	}
 
-	void ForwardRenderer::SubmitLightSetup(const LightSetup& lightSetup)
+	void ForwardRenderer::SubmitLightSetup(const std::vector<Light*>& lights)
 	{
-		const std::vector<Light*>& lights = lightSetup.getLights();
-
 		if (lights.size() > 1)
 		{
 			utils::LogUtil::WriteLine("ERROR", "[ForwardRenderer] SubmitLightSetup() - Only one light is supported currently.");
@@ -119,19 +117,16 @@ namespace gebase { namespace graphics {
 #endif
 		}
 
-		for (uint i = 0; i < lights.size(); i++)
-			memcpy(m_FSSystemUniformBuffer + m_FSSystemUniformBufferOffsets[FSSystemUniformIndex_Lights], lights[i], sizeof(Light));
+		for (const Light* light : lights)
+			memcpy(m_FSSystemUniformBuffer + m_FSSystemUniformBufferOffsets[FSSystemUniformIndex_Lights], light, LIGHT_SIZE);
 	}
 
 	void ForwardRenderer::Present()
 	{
-		for (uint i = 0; i < m_CommandQue.size(); i++)
+		for (const RenderCommand& command : m_CommandQue)
 		{
-			RenderCommand& command = m_CommandQue[i];
-			int mrf = command.mesh->getMaterialInstance()->getRenderFlags();
-
-			Renderer::setDepthTesting((mrf & (int)Material::RenderFlags::DISABLE_DEPTH_TEST) == 0);
-			memcpy(m_VSSystemUniformBuffer + m_VSSystemUniformBufferOffsets[VSSystemUniformIndex_ModelMatrix], &command.transform, sizeof(math::Matrix4f));
+			Renderer::setDepthTesting((command.mesh->getMaterialInstance()->getRenderFlags() & DISABLE_DEPTHTEST) == 0);
+			memcpy(m_VSSystemUniformBuffer + m_VSSystemUniformBufferOffsets[VSSystemUniformIndex_ModelMatrix], &command.transform, MATRIX4F_SIZE);
 
 			setSystemUniforms(command.shader);
 			command.mesh->Render(*this);
@@ -143,6 +138,7 @@ namespace gebase { namespace graphics {
 		if (!shader)
 			return;
 
+		shader->Bind();
 		shader->setVSSystemUniformBuffer(m_VSSystemUniformBuffer, m_VSSystemUniformBufferSize, 0);
 		shader->setFSSystemUniformBuffer(m_FSSystemUniformBuffer, m_FSSystemUniformBufferSize, 0);
 	}

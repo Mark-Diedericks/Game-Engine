@@ -17,7 +17,6 @@ public:
 
 	void OnTick() override;
 	void OnUpdate(float delta) override;
-	void OnRender(gebase::graphics::Renderer3D& renderer);
 
 	void OnEvent(gebase::events::Event& event) override;
 };

@@ -35,6 +35,7 @@ namespace gebase { namespace graphics {
 		void setData(uint size, byte* data) override;
 		void setData(uint size, Vertex* data) override;
 		void setData(uint size, QuadVertex* data) override;
+		void setData(uint size, VertexData* data) override;
 
 		void getBufferData(void* data) override;
 		Shader* getShader() const override { return m_Shader; }

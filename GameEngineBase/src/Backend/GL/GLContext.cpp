@@ -80,7 +80,7 @@ namespace gebase { namespace graphics {
 		}
 	}
 
-	void GLContext::Present()
+	void GLContext::PresentInternal()
 	{
 		SwapBuffers(hDc);
 	}

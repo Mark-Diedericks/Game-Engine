@@ -19,6 +19,9 @@ namespace gebase { namespace graphics {
 		D3D12
 	};
 
+	class DX11Context;
+	class GLContext;
+
 	class GE_API Context
 	{
 	private:
@@ -45,6 +48,11 @@ namespace gebase { namespace graphics {
 		static Context* s_PreviousContext;
 
 		virtual void DestroyInternal() = 0;
+		virtual void PresentInternal() = 0;
+
+		static DX11Context* GetD3D11Context();
+		static GLContext* GetOpenGLContext();
+
 		inline static void DestroyPrevious()
 		{
 			if (s_PreviousContext != nullptr)
@@ -56,7 +64,9 @@ namespace gebase { namespace graphics {
 		}
 	public:
 		static void Create(WindowProperties properties, void* deviceContext);
+
 		inline static void Destroy() { s_Context->DestroyInternal(); }
+		inline static void Present() { s_Context->PresentInternal(); }
 
 		static RenderAPI getRenderAPI() { return s_RenderAPI; }
 		static void setRenderAPI(RenderAPI api) { s_PreviousRenderAPI = s_RenderAPI;  s_RenderAPI = api; }

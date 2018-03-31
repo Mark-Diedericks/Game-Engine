@@ -22,7 +22,6 @@ namespace gebase { namespace graphics {
 
 		void ClearInternal(uint buffer) override;
 		void ClearColorDepthInternal() override;
-		void PresentInternal() override;
 
 		void setDepthTestingInternal(bool enabled) override;
 		void setBlendInternal(bool enabled) override;

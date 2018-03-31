@@ -135,6 +135,10 @@ namespace gebase { namespace graphics {
 		bool m_DoneFramebuffer2D = false;
 		bool m_DoneFramebufferDepth = false;
 		bool m_DoneIndexBuffer = false;
+
+		uint m_TexturesSize;
+		uint m_MaterialTexturesSize;
+		uint m_MAX_SIZE;
 	public:
 		MaterialInstance(Material* material);
 

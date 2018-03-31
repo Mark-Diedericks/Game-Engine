@@ -148,11 +148,6 @@ namespace gebase { namespace graphics {
 		DX11Context::getDeviceContext()->ClearDepthStencilView(DX11Context::getDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	}
 
-	void DX11Renderer::PresentInternal()
-	{
-		m_Context->Present();
-	}
-
 	void DX11Renderer::setDepthTestingInternal(bool enabled)
 	{
 		DX11Context::getDeviceContext()->OMSetDepthStencilState(enabled ? s_DepthStencilStates[0] : s_DepthStencilStates[1], NULL);

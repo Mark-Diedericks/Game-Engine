@@ -41,7 +41,7 @@ namespace gebase { namespace graphics {
 
 		void Submit(const RenderCommand& command) override;
 		void SubmitMesh(Mesh* mesh, const math::Matrix4f& transform) override;
-		void SubmitLightSetup(const LightSetup& lightSetup) override;
+		void SubmitLightSetup(const std::vector<Light*>& lights) override;
 
 		inline const GBuffer& getGBuffer() const { return *m_GBuffer; }
 	};
