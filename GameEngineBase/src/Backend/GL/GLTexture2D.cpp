@@ -57,15 +57,17 @@ namespace gebase { namespace graphics {
 
 	void GLTexture2D::setData(const byte* pixels, const bool del)
 	{
+		m_LoadType = 0;
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_Handle));
 		GLCall(glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_Width, m_Height, GLConvert::TextureFormatToGL(m_Parameters.format), GL_UNSIGNED_BYTE, pixels));
-		
+
 		if (pixels != nullptr && del)
 			gedel[] pixels;
 	}
 
 	void GLTexture2D::setData(uint color)
 	{
+		m_LoadType = 0;
 #if 0
 		uint stride = m_Parameters.format == TextureFormat::RGB ? 3 : 4;
 		uint size = m_Width * m_Height * stride;

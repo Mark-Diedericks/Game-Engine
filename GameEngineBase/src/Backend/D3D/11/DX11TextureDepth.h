@@ -8,8 +8,10 @@ namespace gebase { namespace graphics {
 	{
 	private:
 		String m_Name;
+
 		uint m_Width;
 		uint m_Height;
+		uint m_Size;
 
 		uint m_BitsPerPixel;
 		uint m_Mips;

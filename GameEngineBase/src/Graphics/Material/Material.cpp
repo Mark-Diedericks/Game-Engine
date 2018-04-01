@@ -85,6 +85,12 @@ namespace gebase { namespace graphics {
 		byte* buffer;
 		ShaderUniformDeclaration* declaration = FindUniformDeclaration(uniform, &buffer);
 
+		if (declaration == nullptr) 
+		{
+			utils::LogUtil::WriteLine("WARNING", "[Material] setUniformData() - Could not find uniform; " + uniform);
+			return;
+		}
+
 		if (!buffer)
 		{
 			utils::LogUtil::WriteLine("ERROR", "[Material] setUniformData() - Buffer is null.");
@@ -175,22 +181,22 @@ namespace gebase { namespace graphics {
 		if (m_VSUserUniforms != nullptr) vs_uniforms = *m_VSUserUniforms;
 		if (m_FSUserUniforms != nullptr) fs_uniforms = *m_FSUserUniforms;
 
-		if (m_VSUserUniforms != nullptr) vs_buffer = m_VSUserUniformBuffer;
-		if (m_FSUserUniforms != nullptr) fs_buffer = m_FSUserUniformBuffer;
+		if (m_VSUserUniformBuffer) vs_buffer = m_VSUserUniformBuffer;
+		if (m_FSUserUniformBuffer) fs_buffer = m_FSUserUniformBuffer;
 
 		AllocateStorage();
 		m_Resources = &m_Shader->getResources();
 
-		if (m_VSUserUniforms != nullptr)
+		if (m_VSUserUniforms != nullptr && m_VSUserUniformBuffer)
 			for (ShaderUniformDeclaration* uniform : vs_uniforms)
 				setUniformData(uniform->getName(), vs_buffer + uniform->getOffset());
 
-		if (m_FSUserUniforms != nullptr)
+		if (m_FSUserUniforms != nullptr && m_FSUserUniformBuffer)
 			for (ShaderUniformDeclaration* uniform : fs_uniforms)
 				setUniformData(uniform->getName(), fs_buffer + uniform->getOffset());
 
-		if (m_VSUserUniforms != nullptr) gedel[] vs_buffer;
-		if (m_FSUserUniforms != nullptr) gedel[] fs_buffer;
+		//if (m_VSUserUniformBuffer) gedel[] vs_buffer;
+		//if (m_FSUserUniformBuffer) gedel[] fs_buffer;
 		
 		m_TempTextures = std::list<Texture*>();
 
@@ -428,6 +434,12 @@ namespace gebase { namespace graphics {
 		byte* buffer;
 		ShaderUniformDeclaration* declaration = FindUniformDeclaration(uniform, &buffer);
 
+		if (declaration == nullptr)
+		{
+			utils::LogUtil::WriteLine("WARNING", "[Material] setUniformData() - Could not find uniform; " + uniform);
+			return;
+		}
+
 		if (!buffer)
 		{
 			utils::LogUtil::WriteLine("ERROR", "[MaterialInstance] setUniformData() - Buffer is null.");
@@ -516,11 +528,12 @@ namespace gebase { namespace graphics {
 		byte* vs_buffer;
 		byte* fs_buffer;
 
+
 		if (m_VSUserUniforms != nullptr) vs_uniforms = *m_VSUserUniforms;
 		if (m_FSUserUniforms != nullptr) fs_uniforms = *m_FSUserUniforms;
 
-		if (m_VSUserUniforms != nullptr) vs_buffer = m_VSUserUniformBuffer;
-		if (m_FSUserUniforms != nullptr) fs_buffer = m_FSUserUniformBuffer;
+		if (m_VSUserUniformBuffer) vs_buffer = m_VSUserUniformBuffer;
+		if (m_FSUserUniformBuffer) fs_buffer = m_FSUserUniformBuffer;
 
 		AllocateStorage();
 
@@ -529,16 +542,16 @@ namespace gebase { namespace graphics {
 
 		m_Resources = &m_Material->getShader()->getResources();
 
-		if (m_VSUserUniforms != nullptr)
+		if (m_VSUserUniforms != nullptr && m_VSUserUniformBuffer)
 			for (ShaderUniformDeclaration* uniform : vs_uniforms)
 				setUniformData(uniform->getName(), vs_buffer + uniform->getOffset());
 
-		if (m_FSUserUniforms != nullptr)
+		if (m_FSUserUniforms != nullptr && m_FSUserUniformBuffer)
 			for (ShaderUniformDeclaration* uniform : fs_uniforms)
 				setUniformData(uniform->getName(), fs_buffer + uniform->getOffset());
 
-		if (m_VSUserUniforms != nullptr) gedel[] vs_buffer;
-		if (m_FSUserUniforms != nullptr) gedel[] fs_buffer;
+		//if (m_VSUserUniformBuffer) gedel[] vs_buffer;
+		//if (m_FSUserUniformBuffer) gedel[] fs_buffer;
 
 		m_TempTextures = std::list<Texture*>();
 

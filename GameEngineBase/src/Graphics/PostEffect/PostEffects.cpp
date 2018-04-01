@@ -94,11 +94,19 @@ namespace gebase { namespace graphics {
 
 	bool PostEffects::EmployRenderAPIIndexBuffer(RenderAPI api)
 	{
+		for (uint i = 0; i < m_Passes.size(); i++)
+			if (!m_Passes[i]->EmployRenderAPIIndexBuffer(api))
+				return false;
+
 		return true;
 	}
 
 	bool PostEffects::EmployRenderAPIVertexArray(RenderAPI api)
 	{
+		for (uint i = 0; i < m_Passes.size(); i++)
+			if (!m_Passes[i]->EmployRenderAPIVertexArray(api))
+				return false;
+
 		return true;
 	}
 

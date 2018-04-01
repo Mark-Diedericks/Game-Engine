@@ -180,6 +180,7 @@ namespace gebase { namespace graphics {
 	bool Font::EmployRenderAPITexture2D(RenderAPI api)
 	{
 		m_Texture = Texture2D::ConvertRenderAPI(api, m_Texture);
+		//m_Texture->setData(m_FTAtlas->data, false);
 		return true;
 	}
 

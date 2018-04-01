@@ -116,6 +116,10 @@ namespace gebase { namespace graphics {
 
 	bool Mesh::EmployRenderAPIIndexBuffer(RenderAPI api)
 	{
+		if (m_MaterialInstance)
+			if (!m_MaterialInstance->EmployRenderAPIIndexBuffer(api))
+				return false;
+
 		if (m_IndexBuffer)
 			m_IndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_IndexBuffer);
 
@@ -126,6 +130,10 @@ namespace gebase { namespace graphics {
 
 	bool Mesh::EmployRenderAPIVertexArray(RenderAPI api) 
 	{
+		if (m_MaterialInstance)
+			if (!m_MaterialInstance->EmployRenderAPIVertexArray(api))
+				return false;
+
 		if (m_VertexArray)
 			m_VertexArray = VertexArray::ConvertRenderAPI(api, m_VertexArray);
 

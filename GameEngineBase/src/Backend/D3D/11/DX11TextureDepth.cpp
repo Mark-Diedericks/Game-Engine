@@ -5,7 +5,7 @@
 
 namespace gebase { namespace graphics {
 
-	DX11TextureDepth::DX11TextureDepth(uint width, uint height) : TextureDepth(0), m_Width(width), m_Height(height), m_Parameters(), m_BitsPerPixel(16), m_Mips(0)
+	DX11TextureDepth::DX11TextureDepth(uint width, uint height) : TextureDepth(0), m_Width(width), m_Height(height), m_Parameters(), m_BitsPerPixel(16), m_Mips(0), m_Size(0)
 	{ 
 		Init(); 
 	}
@@ -43,7 +43,7 @@ namespace gebase { namespace graphics {
 
 	uint DX11TextureDepth::getSize() const
 	{
-		return 0;
+		return m_Size;
 	}
 
 } }

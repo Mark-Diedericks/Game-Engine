@@ -12,9 +12,13 @@ private:
 	std::vector<gebase::entity::Entity*> m_Spheres;
 	gebase::entity::Entity* m_Plane;
 	gebase::entity::Entity* m_Dagger;
+
 	gebase::graphics::PBRMaterial* m_DaggerMaterial;
 	gebase::graphics::MaterialInstance* m_SkyboxMaterial;
+	gebase::graphics::Shader* m_PBRShader;
+	gebase::graphics::TextureCube* m_EnvironmentMap;
 	gebase::graphics::Light* m_Light;
+
 	float m_Rotation;
 	bool m_SetUniforms[2];
 	std::vector<gebase::graphics::PBRMaterial*> m_Materials;

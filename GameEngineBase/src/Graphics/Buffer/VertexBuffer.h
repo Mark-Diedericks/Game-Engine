@@ -34,14 +34,11 @@ namespace gebase { namespace graphics {
 		virtual void Resize(uint size) = 0;
 		virtual void setLayout(const BufferLayout& layout, const Shader* shader) = 0;
 
-		virtual void setData(uint size, byte* data) = 0;
-		virtual void setData(uint size, Vertex* data) = 0;
-		virtual void setData(uint size, QuadVertex* data) = 0;
-		virtual void setData(uint size, VertexData* data) = 0;
+		virtual void setData(uint size, byte* data, bool del = true) = 0;
 
 		virtual void ReleasePointer() = 0;
 
-		virtual void getBufferData(void* data) = 0;
+		virtual void getBufferData(byte* data) = 0;
 		virtual Shader* getShader() const = 0;
 		virtual uint getSize() = 0;
 		virtual BufferLayout getBufferLayout() = 0;

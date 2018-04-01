@@ -50,9 +50,6 @@ namespace gebase { namespace graphics {
 		virtual void DestroyInternal() = 0;
 		virtual void PresentInternal() = 0;
 
-		static DX11Context* GetD3D11Context();
-		static GLContext* GetOpenGLContext();
-
 		inline static void DestroyPrevious()
 		{
 			if (s_PreviousContext != nullptr)

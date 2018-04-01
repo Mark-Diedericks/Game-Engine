@@ -11,8 +11,10 @@ namespace gebase { namespace graphics {
 		String m_Name;
 		String m_Filepath;
 		uint m_Handle;
+
 		uint m_Width;
 		uint m_Height;
+		uint m_Size;
 
 		uint m_BitsPerPixel;
 		uint m_Mips;

@@ -28,12 +28,9 @@ namespace gebase { namespace graphics {
 		void Resize(uint size) override;
 		void setLayout(const BufferLayout& layout, const Shader* shader) override;
 
-		void setData(uint size, byte* data) override;
-		void setData(uint size, Vertex* data) override;
-		void setData(uint size, QuadVertex* data) override;
-		void setData(uint size, VertexData* data) override;
+		void setData(uint size, byte* data, bool del = true) override;
 
-		void getBufferData(void* data) override;
+		void getBufferData(byte* data) override;
 		inline Shader* getShader() const override { return m_Shader; }
 		inline uint getSize() override { return m_Size; }
 		inline BufferLayout getBufferLayout() override { return m_Layout; }

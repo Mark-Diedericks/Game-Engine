@@ -10,6 +10,7 @@ namespace gebase { namespace graphics {
 	private:
 		String m_Name;
 		String m_File;
+
 		uint* m_Width;
 		uint* m_Height;
 

@@ -14,6 +14,8 @@ namespace gebase { namespace graphics {
 		x = nullptr;	\
 	}
 
+	DX11Context* DX11Context::s_Instance = nullptr;
+
 #ifdef GE_DEBUG
 	DX11Context::DX11Context(WindowProperties properties, void* deviceContext) : m_DebugLayerEnabled(true)
 #else
@@ -23,6 +25,8 @@ namespace gebase { namespace graphics {
 		m_RenderTargetView = nullptr;
 		m_DepthStencilView = nullptr;
 		m_DepthStencilBuffer = nullptr;
+
+		s_Instance = this;
 
 		m_Properties = properties;
 		InitD3D((HWND)deviceContext);

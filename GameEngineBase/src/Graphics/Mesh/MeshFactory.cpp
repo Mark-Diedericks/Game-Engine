@@ -24,7 +24,7 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		material->Bind();
 
 		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::STATIC);
-		vb->setData(sizeof(QuadVertex) * 4, vertices);
+		vb->setData(sizeof(QuadVertex) * 4, reinterpret_cast<byte*>(vertices), false);
 
 		BufferLayout layout;
 		layout.Push<Vector3f>("POSITION");
@@ -73,7 +73,7 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		material->Bind();
 
 		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::STATIC);
-		vb->setData(sizeof(Vertex) * 8, vertices);
+		vb->setData(sizeof(Vertex) * 8, reinterpret_cast<byte*>(vertices), false);
 
 		BufferLayout layout;
 		layout.Push<Vector3f>("position");
@@ -135,7 +135,8 @@ namespace gebase { namespace graphics { namespace MeshFactory {
 		material->Bind();
 
 		VertexBuffer* vb = VertexBuffer::Create(BufferUsage::STATIC);
-		vb->setData(sizeof(Vertex) * 8, vertices);
+		//8 or 4
+		vb->setData(sizeof(Vertex) * 4, reinterpret_cast<byte*>(vertices), false);
 
 		BufferLayout layout;
 		layout.Push<math::Vector3f>("POSITION");

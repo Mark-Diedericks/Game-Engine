@@ -717,6 +717,14 @@ namespace gebase { namespace graphics {
 
 	bool Renderer2D::EmployRenderAPIIndexBuffer(RenderAPI api)
 	{
+		if (m_PostEffects)
+			if (!m_PostEffects->EmployRenderAPIIndexBuffer(api))
+				return false;
+
+		if (m_FramebufferMaterial)
+			if (!m_FramebufferMaterial->EmployRenderAPIIndexBuffer(api))
+				return false;
+
 		if (m_IndexBuffer)
 			m_IndexBuffer = IndexBuffer::ConvertRenderAPI(api, m_IndexBuffer);
 
@@ -728,6 +736,14 @@ namespace gebase { namespace graphics {
 
 	bool Renderer2D::EmployRenderAPIVertexArray(RenderAPI api)
 	{
+		if (m_PostEffects)
+			if (!m_PostEffects->EmployRenderAPIVertexArray(api))
+				return false;
+
+		if (m_FramebufferMaterial)
+			if (!m_FramebufferMaterial->EmployRenderAPIVertexArray(api))
+				return false;
+
 		if (m_ScreenQuad)
 			m_ScreenQuad = VertexArray::ConvertRenderAPI(api, m_ScreenQuad);
 

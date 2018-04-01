@@ -13,6 +13,8 @@
 
 namespace gebase { namespace graphics {
 
+	GLContext* GLContext::s_Instance = nullptr;
+
 	static HDC hDc;
 	static HGLRC hrc;
 	static HWND hWnd;
@@ -22,6 +24,7 @@ namespace gebase { namespace graphics {
 		hWnd = (HWND)deviceContext;
 		hDc = GetDC(hWnd);
 		hrc = wglCreateContext(hDc);
+		GLContext::s_Instance = this;
 
 		if (hrc)
 		{

@@ -40,6 +40,10 @@ namespace gebase { namespace graphics {
 			End();
 
 		Present();
+
+		m_CommandQue.clear();
+		m_SystemUniforms.clear();
+
 		return true;
 	}
 

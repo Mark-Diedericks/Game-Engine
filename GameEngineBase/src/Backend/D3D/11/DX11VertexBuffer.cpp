@@ -59,7 +59,7 @@ namespace gebase { namespace graphics {
 		gedel desc;
 	}
 
-	void DX11VertexBuffer::setData(uint size, byte* data)
+	void DX11VertexBuffer::setData(uint size, byte* data, bool del)
 	{
 		if (m_Size < size)
 			Resize(size);
@@ -68,38 +68,8 @@ namespace gebase { namespace graphics {
 		memcpy(m_MappedSubresource.pData, data, size);
 		ReleasePointer();
 
-		if (data != nullptr)
+		if (data != nullptr && del)
 			gedel[] data;
-	}
-
-	void DX11VertexBuffer::setData(uint size, Vertex* data)
-	{
-		if (m_Size < size)
-			Resize(size);
-
-		getPointerInternal();
-		memcpy(m_MappedSubresource.pData, data, size);
-		ReleasePointer();
-	}
-
-	void DX11VertexBuffer::setData(uint size, QuadVertex* data)
-	{
-		if (m_Size < size)
-			Resize(size);
-
-		getPointerInternal();
-		memcpy(m_MappedSubresource.pData, data, size);
-		ReleasePointer();
-	}
-
-	void DX11VertexBuffer::setData(uint size, VertexData* data)
-	{
-		if (m_Size < size)
-			Resize(size);
-
-		getPointerInternal();
-		memcpy(m_MappedSubresource.pData, data, size);
-		ReleasePointer();
 	}
 
 	void DX11VertexBuffer::Bind()
@@ -126,9 +96,65 @@ namespace gebase { namespace graphics {
 		DX11Context::getDeviceContext()->Unmap(m_Handle, NULL);
 	}
 
-	void DX11VertexBuffer::getBufferData(void* data)
+	void DX11VertexBuffer::getBufferData(byte* data)
 	{
-		data = nullptr;
+		D3D11_MAPPED_SUBRESOURCE mapInfo;
+
+		HRESULT hr;
+		hr = DX11Context::getDeviceContext()->Map(m_Handle, 0, D3D11_MAP_READ, 0, &mapInfo);
+
+		if (FAILED(hr))
+		{
+			if (hr == E_INVALIDARG)
+			{
+				D3D11_BUFFER_DESC desc;
+				ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
+
+				desc.Usage = D3D11_USAGE_STAGING;
+				desc.ByteWidth = m_BufferDesc.ByteWidth;
+				desc.BindFlags = 0;
+				desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+				desc.MiscFlags = 0;
+
+				ID3D11Buffer* stagingBuffer;
+				hr = DX11Context::getDevice()->CreateBuffer(&desc, nullptr, &stagingBuffer);
+
+				if (FAILED(hr))
+				{
+					utils::LogUtil::WriteLine("ERROR", "Could not map DX11VertexBuffer: " + std::to_string(hr));
+#ifdef GE_DEBUG
+					__debugbreak();
+#endif
+				}
+
+				DX11Context::getDeviceContext()->CopyResource(stagingBuffer, m_Handle);
+				hr = DX11Context::getDeviceContext()->Map(stagingBuffer, 0, D3D11_MAP_READ, 0, &mapInfo);
+
+				if (FAILED(hr))
+				{
+					utils::LogUtil::WriteLine("ERROR", "Could not map DX11VertexBuffer: " + std::to_string(hr));
+#ifdef GE_DEBUG
+					__debugbreak();
+#endif
+				}
+
+				memcpy(data, reinterpret_cast<byte*>(mapInfo.pData), m_Size);
+				DX11Context::getDeviceContext()->Unmap(stagingBuffer, 0);
+				stagingBuffer->Release();
+			}
+			else
+			{
+				utils::LogUtil::WriteLine("ERROR", "Could not map DX11VertexBuffer: " + std::to_string(hr));
+#ifdef GE_DEBUG
+				__debugbreak();
+#endif
+			}
+		}
+		else
+		{
+			memcpy(data, reinterpret_cast<byte*>(mapInfo.pData), m_Size);
+			DX11Context::getDeviceContext()->Unmap(m_Handle, 0);
+		}
 	}
 
 } }

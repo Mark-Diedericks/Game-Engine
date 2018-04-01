@@ -12,7 +12,7 @@
 
 namespace gebase { namespace graphics {
 
-	DX11Texture2D::DX11Texture2D(uint width, uint height, TextureParameters parameters) : Texture2D(0), m_Filepath("NULL"), m_Width(width), m_Height(height), m_Parameters(parameters), m_BitsPerPixel(32)
+	DX11Texture2D::DX11Texture2D(uint width, uint height, TextureParameters parameters) : Texture2D(0), m_Filepath("NULL"), m_Width(width), m_Height(height), m_Parameters(parameters), m_BitsPerPixel(getStrideFromFormat(m_Parameters.format) * 8)
 	{
 		Load(NULL, NULL);
 	}
@@ -30,12 +30,13 @@ namespace gebase { namespace graphics {
 	void DX11Texture2D::Load(const byte* data, uint bits)
 	{
 		bool generateMips = data != nullptr;
-		uint stride = 4;
+		uint stride = getStrideFromFormat(m_Parameters.format);
 
 		D3D11_SUBRESOURCE_DATA sd;
 		sd.pSysMem = data;
 		sd.SysMemPitch = stride * m_Width;
 		sd.SysMemSlicePitch = stride * m_Width * m_Height;
+		m_Size = stride * m_Width * m_Height;
 
 		D3D11_SUBRESOURCE_DATA* sdPtr = nullptr;
 		uint mipLvls = 1;
@@ -142,8 +143,10 @@ namespace gebase { namespace graphics {
 
 	void DX11Texture2D::setData(const byte* pixels, const bool del)
 	{
+		m_LoadType = 0;
 		D3D11_MAPPED_SUBRESOURCE msr;
 		memset(&msr, 0, sizeof(D3D11_MAPPED_SUBRESOURCE));
+		m_Size = m_Width * m_Height * getStrideFromFormat(m_Parameters.format);
 
 		DXCall(DX11Context::getDeviceContext()->Map(m_Texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr));
 
@@ -151,9 +154,11 @@ namespace gebase { namespace graphics {
 		{
 			((byte*)msr.pData)[i + 0] = 0xff;
 			((byte*)msr.pData)[i + 1] = 0xff;
-			((byte*)msr.pData)[i + 2] = 0xff;
+			((byte*)msr.pData)[i + 2] = ((byte*)pixels)[i / 2 + 0];
 			((byte*)msr.pData)[i + 3] = ((byte*)pixels)[i / 2 + 1];
 		}
+		
+		//memcpy(msr.pData, pixels, m_Width * m_Height * getStrideFromFormat(m_Parameters.format));
 
 		DX11Context::getDeviceContext()->Unmap(m_Texture, NULL);
 
@@ -164,28 +169,31 @@ namespace gebase { namespace graphics {
 
 	void DX11Texture2D::setData(uint color)
 	{
+		m_LoadType = 0;
 		//TODO
 	}
 
 	void DX11Texture2D::getPixelData(byte* data)
 	{
-		D3D11_TEXTURE2D_DESC desc = m_TextureDesc;
-
-		ID3D11Texture2D* mappedTexture;
 		D3D11_MAPPED_SUBRESOURCE mapInfo;
 		
 		HRESULT hr;
-		hr = DX11Context::getDeviceContext()->Map(m_Texture, 0, D3D11_MAP_READ, 0, &mapInfo);
+		uint csr = D3D11CalcSubresource(0, 0, 0);
+		hr = DX11Context::getDeviceContext()->Map(m_Texture, csr, D3D11_MAP_READ, 0, &mapInfo);
 
 		if (FAILED(hr))
 		{
 			if (hr == E_INVALIDARG)
 			{
+				D3D11_TEXTURE2D_DESC desc;
+				ZeroMemory(&desc, sizeof(D3D11_TEXTURE2D_DESC));
+
 				desc.Width = m_TextureDesc.Width;
 				desc.Height = m_TextureDesc.Height;
 				desc.MipLevels = m_TextureDesc.MipLevels;
 				desc.ArraySize = m_TextureDesc.ArraySize;
 				desc.Format = m_TextureDesc.Format;
+				desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
 				desc.SampleDesc = m_TextureDesc.SampleDesc;
 				desc.Usage = D3D11_USAGE_STAGING;
 				desc.BindFlags = 0;
@@ -204,7 +212,7 @@ namespace gebase { namespace graphics {
 				}
 
 				DX11Context::getDeviceContext()->CopyResource(stagingTexture, m_Texture);
-				hr = DX11Context::getDeviceContext()->Map(stagingTexture, 0, D3D11_MAP_READ, 0, &mapInfo);
+				hr = DX11Context::getDeviceContext()->Map(stagingTexture, csr, D3D11_MAP_READ, 0, &mapInfo);
 
 				if (FAILED(hr))
 				{
@@ -214,7 +222,24 @@ namespace gebase { namespace graphics {
 #endif
 				}
 
-				memcpy(data, mapInfo.pData, getSize());
+
+				if (m_LoadType == 0)
+				{
+					byte* pData = reinterpret_cast<byte*>(mapInfo.pData);
+					uint outPitch = m_Width * getStrideFromFormat(m_Parameters.format);
+					memset(data, 1, m_Width * m_Height * getStrideFromFormat(m_Parameters.format));
+
+					for (uint i = 0; i < m_Width * m_Height * getStrideFromFormat(m_Parameters.format); i += 4)
+					{
+						data[i / 2 + 0] = pData[i + 2];
+						data[i / 2 + 1] = pData[i + 3];
+					}
+				}
+				else
+				{
+					memcpy(data, mapInfo.pData, m_Width * m_Height * getStrideFromFormat(m_Parameters.format));
+				}
+
 				DX11Context::getDeviceContext()->Unmap(stagingTexture, 0);
 				stagingTexture->Release();
 			}
@@ -228,14 +253,24 @@ namespace gebase { namespace graphics {
 		}
 		else
 		{
-			memcpy(data, mapInfo.pData, getSize());
-			DX11Context::getDeviceContext()->Unmap(mappedTexture, 0);
+			byte* pData = reinterpret_cast<byte*>(mapInfo.pData);
+			uint outPitch = m_Width * getStrideFromFormat(m_Parameters.format);
+
+			for (uint i = 0; i < m_Height; ++i)
+			{
+				memcpy(data, pData, mapInfo.RowPitch);
+				pData += mapInfo.RowPitch;
+				data += outPitch;
+			}
+
+			//memcpy(data, mapInfo.pData, m_Width * m_Height * getStrideFromFormat(m_Parameters.format));
+			DX11Context::getDeviceContext()->Unmap(m_Texture, 0);
 		}
 	}
 
 	uint DX11Texture2D::getSize() const
 	{
-		return 0;
+		return m_Size;
 	}
 
 } }

@@ -9,6 +9,7 @@ namespace gebase { namespace graphics {
 	{
 	private:
 		void setVSync(bool enabled);
+		static GLContext* s_Instance;
 	protected:
 		void DestroyInternal() override;
 		void PresentInternal() override;
@@ -16,7 +17,7 @@ namespace gebase { namespace graphics {
 		GLContext(WindowProperties properties, void* deviceContext);
 		~GLContext();
 
-		inline static GLContext* Get() { return Context::GetOpenGLContext(); }
+		inline static GLContext* Get() { return s_Instance; }
 	};
 
 } }

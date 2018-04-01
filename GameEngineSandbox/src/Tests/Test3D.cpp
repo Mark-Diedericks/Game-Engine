@@ -77,7 +77,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 		"/pbr/cubemap/CubeMap10.tga"
 	};
 
-	TextureCube* environment = TextureCube::CreateFromVerticalCross(environmentFiles, 11);
+	m_EnvironmentMap = TextureCube::CreateFromVerticalCross(environmentFiles, 11);
 
 	ShaderDeclaration sd;
 	sd.name = "Skybox";
@@ -90,7 +90,7 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	skyboxMaterial->setRenderFlag(Material::RenderFlags::DISABLE_DEPTH_TEST);
 	skybox->Bind();
 	m_SkyboxMaterial = genew MaterialInstance(skyboxMaterial);
-	m_SkyboxMaterial->setTexture("u_EnvironmentMap", environment);
+	m_SkyboxMaterial->setTexture("u_EnvironmentMap", m_EnvironmentMap);
 	Entity* skyboxEntity = genew Entity(MeshFactory::CreateQuad(-1, -1, 2, 2, m_SkyboxMaterial));
 	m_Scene->Add(skyboxEntity);
 
@@ -99,13 +99,13 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	sdpbr.opengl = String("/shaders/AdvancedLighting") + ".shader";
 	sdpbr.d3d11 = String("/shaders/AdvancedLighting") + ".hlsl";
 
-	Shader* pbrShader = Shader::CreateFromFile(sdpbr);
+	m_PBRShader = Shader::CreateFromFile(sdpbr);
 
-	ShaderManager::Add(pbrShader);
-	PBRMaterial* material = genew PBRMaterial(pbrShader);
+	ShaderManager::Add(m_PBRShader);
+	PBRMaterial* material = genew PBRMaterial(m_PBRShader);
 
-	PBRMaterial* castIron = genew PBRMaterial(pbrShader);
-	castIron->setEnvironmentMap(environment);
+	PBRMaterial* castIron = genew PBRMaterial(m_PBRShader);
+	castIron->setEnvironmentMap(m_EnvironmentMap);
 	{
 		String path = materialInputs[CAST_IRON] + "/" + materialInputs[CAST_IRON];
 		castIron->setAlbedoMap(Texture2D::CreateFromFile("/pbr/" + path + "_Albedo.tga"));
@@ -149,8 +149,8 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	}
 	m_Materials.push_back(absRed);*/
 
-	PBRMaterial* custom = genew PBRMaterial(pbrShader);
-	custom->setEnvironmentMap(environment);
+	PBRMaterial* custom = genew PBRMaterial(m_PBRShader);
+	custom->setEnvironmentMap(m_EnvironmentMap);
 	{
 		String path = materialInputs[CUSTOM] + "/" + materialInputs[CUSTOM];
 		custom->setAlbedoMap(Texture2D::CreateFromFile("/pbr/" + path + "_Albedo.tga"));
@@ -178,8 +178,8 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	*/
 
 	// Texture::SetLoadParameters(0);
-	m_DaggerMaterial = genew PBRMaterial(pbrShader);
-	m_DaggerMaterial->setEnvironmentMap(environment);
+	m_DaggerMaterial = genew PBRMaterial(m_PBRShader);
+	m_DaggerMaterial->setEnvironmentMap(m_EnvironmentMap);
 	{
 		TextureLoadOptions options(false, true);
 		m_DaggerMaterial->setAlbedoMap(Texture2D::CreateFromFile("res/Dagger/Textures/Dagger_Albedo.tga", options));
@@ -192,8 +192,8 @@ void Test3D::OnInit(Renderer3D& renderer, Scene& scene)
 	m_Dagger = genew Entity(daggerModel->getMesh(), Matrix4f::Translation(g_DaggerTransform));
 	m_Scene->Add(m_Dagger);
 
-	PBRMaterial* cubeMaterial = genew PBRMaterial(pbrShader);
-	cubeMaterial->setEnvironmentMap(environment);
+	PBRMaterial* cubeMaterial = genew PBRMaterial(m_PBRShader);
+	cubeMaterial->setEnvironmentMap(m_EnvironmentMap);
 	Model* cubeModel = genew Model("/models/RoundedCube.spm", genew MaterialInstance(cubeMaterial));
 	m_Cube = genew Entity(cubeModel->getMesh(), Matrix4f::Rotate(90.0f, Vector3f(0, 0, 1)) * Matrix4f::Translation(g_CubeTransform));
 	m_Scene->Add(m_Cube);
@@ -319,6 +319,7 @@ void Test3D::OnEvent(Event& event)
 	if (event.getEventType() == Event::EventType::KEY_PRESSED)
 	{
 		KeyPressedEvent* kpe = (KeyPressedEvent*)&event;
+
 		if (kpe->getRepeat() == 0)
 		{
 			switch (kpe->getKeyCode())

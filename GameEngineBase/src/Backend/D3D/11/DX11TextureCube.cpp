@@ -27,7 +27,7 @@ namespace gebase { namespace graphics {
 			LoadFromVerticalCross(miptextures, width, height, bits, mips);
 	}
 
-	DX11TextureCube::DX11TextureCube(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_File(name), m_Width(faceWidths), m_Height(faceHeights), m_BitsPerPixel(bits), m_Format(format)
+	DX11TextureCube::DX11TextureCube(const String& name, const byte*** faces, int32 mips, uint* faceWidths, uint* faceHeights, uint bits, InputFormat format) : TextureCube(2), m_Name(name), m_File(name), m_BitsPerPixel(bits), m_Format(format)
 	{
 		if (format == InputFormat::VERTICAL_CROSS)
 			LoadFromVerticalCross(faces, faceWidths, faceHeights, bits, mips);
@@ -204,6 +204,7 @@ namespace gebase { namespace graphics {
 		m_SamplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
 		DXCall(DX11Context::getDevice()->CreateSamplerState(&m_SamplerDesc, &m_SamplerState));
+		m_Desc = td;
 
 		return 0;
 	}
@@ -212,6 +213,23 @@ namespace gebase { namespace graphics {
 	{
 		m_FaceWidths = faceWidths;
 		m_FaceHeights = faceHeights;
+
+		if (m_Width != nullptr)
+			gedel m_Width;
+
+		m_Width = genew uint[mips];
+
+		if (m_Height != nullptr)
+			gedel m_Height;
+
+		m_Height = genew uint[mips];
+
+		for (uint i = 0; i < mips; i++)
+		{
+			m_Width[i] = m_FaceWidths[i] * 3;
+			m_Height[i] = m_FaceHeights[i] * 4;
+		}
+
 		m_BitsPerPixel = bits;
 		m_Mips = mips;
 
@@ -299,12 +317,7 @@ namespace gebase { namespace graphics {
 
 	void DX11TextureCube::getPixelData(byte*** faces)
 	{
-		faces = nullptr;		
-		D3D11_TEXTURE2D_DESC desc = m_Desc;
-
-		ID3D11Texture2D* mappedTexture;
 		D3D11_MAPPED_SUBRESOURCE mapInfo;
-		D3D11_SUBRESOURCE_DATA* pData = genew D3D11_SUBRESOURCE_DATA[6 * m_Mips];
 
 		HRESULT hr;
 		hr = DX11Context::getDeviceContext()->Map(m_Texture, 0, D3D11_MAP_READ, 0, &mapInfo);
@@ -313,12 +326,17 @@ namespace gebase { namespace graphics {
 		{
 			if (hr == E_INVALIDARG)
 			{
-				desc.Width = m_Desc.Width;
-				desc.Height = m_Desc.Height;
-				desc.MipLevels = m_Desc.MipLevels;
-				desc.ArraySize = m_Desc.ArraySize;
-				desc.Format = m_Desc.Format;
-				desc.SampleDesc = m_Desc.SampleDesc;
+				D3D11_TEXTURE2D_DESC desc;
+				ZeroMemory(&desc, sizeof(D3D11_TEXTURE2D_DESC));
+
+				desc.Width = m_FaceWidths[0];
+				desc.Height = m_FaceHeights[0];
+				desc.MipLevels = m_Mips;
+				desc.ArraySize = 6;
+				desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+				desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+				desc.SampleDesc.Count = 1;
+				desc.SampleDesc.Quality = 0;
 				desc.Usage = D3D11_USAGE_STAGING;
 				desc.BindFlags = 0;
 				desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
@@ -326,33 +344,43 @@ namespace gebase { namespace graphics {
 
 				ID3D11Texture2D* stagingTexture;
 				hr = DX11Context::getDevice()->CreateTexture2D(&desc, nullptr, &stagingTexture);
-
-				if (FAILED(hr))
-				{
-					utils::LogUtil::WriteLine("ERROR", "Could not map DX11Texture2D: " + std::to_string(hr));
-#ifdef GE_DEBUG
-					__debugbreak();
-#endif
-				}
-
 				DX11Context::getDeviceContext()->CopyResource(stagingTexture, m_Texture);
-				hr = DX11Context::getDeviceContext()->Map(stagingTexture, 0, D3D11_MAP_READ, 0, &mapInfo);
 
 				if (FAILED(hr))
 				{
-					utils::LogUtil::WriteLine("ERROR", "Could not map DX11Texture2D: " + std::to_string(hr));
+					utils::LogUtil::WriteLine("ERROR", "Could not map DX11TextureCube: " + std::to_string(hr));
 #ifdef GE_DEBUG
 					__debugbreak();
 #endif
 				}
 
-				memcpy(pData, mapInfo.pData, getSize());
-				DX11Context::getDeviceContext()->Unmap(stagingTexture, 0);
+				uint faceOrder[6] = { 3, 1, 0, 4, 2, 5 };
+				for (int32 f = 0; f < 6; f++)
+				{
+					uint fi = faceOrder[f];
+					for (int32 m = 0; m < (int32)m_Mips; m++)
+					{
+						uint csr = D3D11CalcSubresource(m, f, m_Mips);
+						hr = DX11Context::getDeviceContext()->Map(stagingTexture, csr, D3D11_MAP_READ, 0, &mapInfo);
+
+						if (FAILED(hr))
+						{
+							utils::LogUtil::WriteLine("ERROR", "Could not map DX11TextureCube: " + std::to_string(hr));
+#ifdef GE_DEBUG
+							__debugbreak();
+#endif
+						}
+
+						memcpy(faces[m][fi], reinterpret_cast<byte*>(mapInfo.pData), m_FaceWidths[m] * m_FaceHeights[m] * 4);
+						DX11Context::getDeviceContext()->Unmap(stagingTexture, csr);
+					}
+				}
+
 				stagingTexture->Release();
 			}
 			else
 			{
-				utils::LogUtil::WriteLine("ERROR", "Could not map DX11Texture2D: " + std::to_string(hr));
+				utils::LogUtil::WriteLine("ERROR", "Could not map DX11TextureCube: " + std::to_string(hr));
 #ifdef GE_DEBUG
 				__debugbreak();
 #endif
@@ -360,20 +388,27 @@ namespace gebase { namespace graphics {
 		}
 		else
 		{
-			memcpy(pData, mapInfo.pData, getSize());
-			DX11Context::getDeviceContext()->Unmap(mappedTexture, 0);
-		}
+			DX11Context::getDeviceContext()->Unmap(m_Texture, 0);
+			uint faceOrder[6] = { 3, 1, 0, 4, 2, 5 };
 
-		uint index = 0;
-		uint faceOrder[6] = { 3, 1, 0, 4, 2, 5 };
-
-		for (int32 f = 0; f < 6; f++)
-		{
-			uint fi = faceOrder[f];
-			for (int32 m = 0; m < (int32)m_Mips; m++)
+			for (int32 f = 0; f < 6; f++)
 			{
-				faces[m][fi] = (byte*)pData[index].pSysMem;
-				index++;
+				uint fi = faceOrder[f];
+				for (int32 m = 0; m < (int32)m_Mips; m++)
+				{
+					uint csr = D3D11CalcSubresource(m, f, m_Mips);
+					hr = DX11Context::getDeviceContext()->Map(m_Texture, csr, D3D11_MAP_READ, 0, &mapInfo);
+
+					if (FAILED(hr))
+					{
+						utils::LogUtil::WriteLine("ERROR", "Could not map DX11TextureCube: " + std::to_string(hr));
+#ifdef GE_DEBUG
+						__debugbreak();
+#endif
+					}
+					memcpy(faces[m][fi], reinterpret_cast<byte*>(mapInfo.pData), m_FaceWidths[m] * m_FaceHeights[m] * 4);
+					DX11Context::getDeviceContext()->Unmap(m_Texture, csr);
+				}
 			}
 		}
 	}

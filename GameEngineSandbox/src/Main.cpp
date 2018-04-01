@@ -12,7 +12,7 @@ using namespace gebase::math;
 class Game : public Application
 {
 public:
-	Game() : Application("Sandbox", { 1280, 720, 0, 0, false, false }, gebase::graphics::RenderAPI::OPENGL, "./logs/")
+	Game() : Application("Sandbox", { 1280, 720, 0, 0, false, false }, gebase::graphics::RenderAPI::D3D11, "./logs/")
 	{
 
 	}
@@ -29,8 +29,8 @@ public:
 		VirtualFileSystem::Get()->Mount("pbr", "res/pbr");
 		VirtualFileSystem::Get()->Mount("shaders", "shaders");
 
-		PushLayer(genew SponzaTest());
-		//PushLayer(genew Test3D());
+		//PushLayer(genew SponzaTest());
+		PushLayer(genew Test3D());
 		//PushLayer(genew Test2D());
 
 		PushOverlay(genew TestInfo());

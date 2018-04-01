@@ -7,6 +7,8 @@ namespace gebase { namespace graphics {
 	class DX11Context : public Context
 	{
 	private:
+		static DX11Context* s_Instance;
+
 		D3D_FEATURE_LEVEL m_D3DFeatureLevel;
 		uint m_MSAAQuality;
 		bool m_MSAAEnabled;
@@ -38,7 +40,7 @@ namespace gebase { namespace graphics {
 		DX11Context(WindowProperties properties, void* deviceContext);
 		~DX11Context();
 
-		inline static DX11Context* Get() { return Context::GetD3D11Context(); }
+		inline static DX11Context* Get() { return s_Instance; }
 		inline static String getDXVersionString() { return Get()->getD3DVersionStringInternal(); }
 
 		inline static ID3D11DepthStencilView* getDepthStencilBuffer() { return Get()->m_DepthStencilView; }

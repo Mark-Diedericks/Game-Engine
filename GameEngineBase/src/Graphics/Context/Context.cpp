@@ -56,27 +56,6 @@ namespace gebase { namespace graphics {
 		case RenderAPI::D3D11: s_Context = genew DX11Context(properties, deviceContext); break;
 		}
 	}
-	DX11Context* Context::GetD3D11Context()
-	{
-		if (s_RenderAPI == RenderAPI::D3D11)
-			return (DX11Context*)s_Context;
-
-		if (s_PreviousRenderAPI == RenderAPI::D3D11)
-			return (DX11Context*)s_PreviousContext;
-
-		return nullptr;
-	}
-	
-	GLContext* Context::GetOpenGLContext()
-	{
-		if (s_RenderAPI == RenderAPI::OPENGL)
-			return (GLContext*)s_Context;
-
-		if (s_PreviousRenderAPI == RenderAPI::OPENGL)
-			return (GLContext*)s_PreviousContext;
-
-		return nullptr;
-	}
 
 	bool Context::EmployRenderAPI(RenderAPI api)
 	{
@@ -356,10 +335,10 @@ namespace gebase { namespace graphics {
 			}
 		}
 
-		Shader::FlushRenderAPIChange(s_PreviousRenderAPI);
-
 		VertexBuffer::FlushRenderAPIChange(s_PreviousRenderAPI);
 		VertexArray::FlushRenderAPIChange(s_PreviousRenderAPI);
+
+		Shader::FlushRenderAPIChange(s_PreviousRenderAPI);
 
 		return true;
 	}
